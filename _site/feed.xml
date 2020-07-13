@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-13T15:31:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Singular Vector Decomposition (SVD)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/" rel="alternate" type="text/html" title="Singular Vector Decomposition (SVD)" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/">&lt;p&gt;하이하이&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="SVD" /><summary type="html">하이하이</summary></entry><entry><title type="html">Mathjax, pseudocode 사용법</title><link href="http://localhost:4000/others/2020/07/13/Mathjax/" rel="alternate" type="text/html" title="Mathjax, pseudocode 사용법" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/13/Mathjax</id><content type="html" xml:base="http://localhost:4000/others/2020/07/13/Mathjax/">&lt;h3 id=&quot;조건&quot;&gt;조건&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-13T17:22:33+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Singular Vector Decomposition (SVD)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/" rel="alternate" type="text/html" title="Singular Vector Decomposition (SVD)" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/">&lt;p&gt;하이하이&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="SVD" /><summary type="html">하이하이</summary></entry><entry><title type="html">Mathjax, pseudocode 사용법</title><link href="http://localhost:4000/others/2020/07/13/Mathjax/" rel="alternate" type="text/html" title="Mathjax, pseudocode 사용법" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/13/Mathjax</id><content type="html" xml:base="http://localhost:4000/others/2020/07/13/Mathjax/">&lt;h3 id=&quot;조건&quot;&gt;조건&lt;/h3&gt;
 &lt;p&gt;github page, Jekyll theme&lt;/p&gt;
 
 &lt;h3 id=&quot;사용방법&quot;&gt;사용방법&lt;/h3&gt;
@@ -132,17 +132,17 @@ $$
     \caption{Gaussian Elimination for Matrix Inversion}
     \begin{algorithmic}
 
-    \INPUT $m \isin \N$, $Matrix$  $M_{ij}$
-    \PROCEDURE{Forward-Substitution}{$m$}
-        \FOR{$i = 1$ \TO $m - 1$}
+    \INPUT $n \isin \N$, $Matrix$  $M_{ij}$
+    \PROCEDURE{Forward-Substitution}{$n$}
+        \FOR{$i = 1$ \TO $n - 1$}
             \STATE Scale row to get pivot $1$
-            \FOR{$j = i + 1$ \TO $m$}
+            \FOR{$j = i + 1$ \TO $n$}
                 \STATE subtract multiple of row $\vec{i}$ from row $\vec{j}$ to zero out pivot column
             \ENDFOR
         \ENDFOR
     \ENDPROCEDURE
-    \PROCEDURE{Backward-Substitution}{$m$}
-        \FOR{$i = m$ \TO $2$}  
+    \PROCEDURE{Backward-Substitution}{$n$}
+        \FOR{$i = n$ \TO $2$}  
             \FOR{$j = i - 1$ \TO $1$}
                 \STATE zero out rest of column
             \ENDFOR
