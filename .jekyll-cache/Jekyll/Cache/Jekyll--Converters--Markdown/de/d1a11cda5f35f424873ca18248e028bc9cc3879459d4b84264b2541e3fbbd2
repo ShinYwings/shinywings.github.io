@@ -1,0 +1,47 @@
+I"/<ol>
+  <li>기존에 역행렬을 구할때 가우시안 소거법을 사용했다.</li>
+</ol>
+
+<pre id="Gaussian_Elimination" style="display:hidden;">
+ 
+    \begin{algorithm}
+    \caption{Gaussian Elimination for Matrix Inversion}
+    \begin{algorithmic}
+    \PROCEDURE{Forward-Substitution}{$i, m$}
+        \FOR{$i = 1$ \TO $m$}  
+            \STATE Scale row to get pivot $1$
+            \WHILE{$j &gt; i$}
+                \STATE subtract multiple of row $i$ from row $j$ to zero out pivot column
+                \STATE $n * \vec{i} $
+            \ENDWHILE
+            \STATE $q = $
+        \ENDFOR
+    \ENDPROCEDURE
+    \PROCEDURE{Backward-Substitution}{$i, m$}
+        \FOR{$i = m$ \TO $1$}  
+            \STATE Scale row to get pivot $1$
+            \WHILE{$j &lt; i$}
+                \STATE zero out rest of column
+                \STATE $n * \vec{i} $
+            \ENDWHILE
+            \STATE $q = $
+        \ENDFOR
+    \ENDPROCEDURE
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<blockquote>
+  <p>Gaussian Elimination’s Total Running Time</p>
+  <h4 id="on3">\(O(n^3)\)</h4>
+</blockquote>
+
+<h4 id="a--lu">\(A = LU\)</h4>
+<p>선형계를 풀거나 역행렬을 구할 때 사용</p>
+
+<!-- 알고리즘 렌더링-->
+<script>
+    pseudocode.renderElement(document.getElementById("Gaussian_Elimination"));
+</script>
+
+:ET

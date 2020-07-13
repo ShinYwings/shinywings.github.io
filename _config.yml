@@ -13,6 +13,8 @@ author:
   url:               https://shinywings.github.io
   email:             ski8992@gmail.com
 
+markdown: kramdown
+
 # Gems
 plugins:
   - jekyll-paginate

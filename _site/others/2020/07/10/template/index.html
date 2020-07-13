@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
+   
   <title>
     
       Post Template &middot; Shin
@@ -29,7 +29,6 @@
 
   
 </head>
-
 
   <body class="theme-base-08">
 
@@ -115,10 +114,28 @@
       </div>
 
       <div class="container content">
-        <div class="post">
+        <!-- Katex, pseudocode.js-->
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"
+        integrity="sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=" crossorigin="anonymous">
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js">
+  </script>
+
+  
+</head>
+<!---->
+
+<div class="post">
   <h1 class="post-title">Post Template</h1>
   <span class="post-date">10 Jul 2020</span>
-  <h2 id="link-generator">Link Generator</h2>
+  <article>
+      <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script> 
+      <h2 id="link-generator">Link Generator</h2>
 <p><a href="https://jekyllrb.com">Jekyll</a></p>
 
 <h2 id="quote">Quote</h2>
@@ -254,6 +271,7 @@
 
 <p>Want to see something else added? <a href="https://github.com/poole/poole/issues/new">Open an issue.</a></p>
 
+  </article>
 </div>
 
 
@@ -265,6 +283,15 @@
         <h3>
           <a href="/numerical%20analysis/2020/07/13/SVD/">
             Singular Vector Decomposition (SVD)
+            <small>13 Jul 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/others/2020/07/13/Mathjax/">
+            Mathjax, pseudocode 사용법
             <small>13 Jul 2020</small>
           </a>
         </h3>
