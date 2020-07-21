@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-13T17:22:33+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Singular Vector Decomposition (SVD)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/" rel="alternate" type="text/html" title="Singular Vector Decomposition (SVD)" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/">&lt;p&gt;하이하이&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="SVD" /><summary type="html">하이하이</summary></entry><entry><title type="html">Mathjax, pseudocode 사용법</title><link href="http://localhost:4000/others/2020/07/13/Mathjax/" rel="alternate" type="text/html" title="Mathjax, pseudocode 사용법" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/13/Mathjax</id><content type="html" xml:base="http://localhost:4000/others/2020/07/13/Mathjax/">&lt;h3 id=&quot;조건&quot;&gt;조건&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-21T18:08:31+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Singular Vector Decomposition (SVD)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/" rel="alternate" type="text/html" title="Singular Vector Decomposition (SVD)" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/">&lt;p&gt;하이하이&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="SVD" /><summary type="html">하이하이</summary></entry><entry><title type="html">Mathjax, pseudocode 사용법</title><link href="http://localhost:4000/others/2020/07/13/Mathjax/" rel="alternate" type="text/html" title="Mathjax, pseudocode 사용법" /><published>2020-07-13T00:00:00+09:00</published><updated>2020-07-13T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/13/Mathjax</id><content type="html" xml:base="http://localhost:4000/others/2020/07/13/Mathjax/">&lt;h3 id=&quot;조건&quot;&gt;조건&lt;/h3&gt;
 &lt;p&gt;github page, Jekyll theme&lt;/p&gt;
 
 &lt;h3 id=&quot;사용방법&quot;&gt;사용방법&lt;/h3&gt;
@@ -122,32 +122,50 @@ $$
   &lt;li&gt;&lt;a href=&quot;https://johngrib.github.io/wiki/mathjax-latex/&quot;&gt;간단한 사용 예시&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://detexify.kirelabs.org/classify.html&quot;&gt;모르는 기호를 LaTex 문법으로 맞춰 제안&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://latexbase.com/&quot;&gt;온라인 LaTeX 수식 확인 가능 사이트 -상당히 유용!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="Mathjax" /><summary type="html">조건 github page, Jekyll theme</summary></entry><entry><title type="html">LU Decomposition (LU factorization)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/" rel="alternate" type="text/html" title="LU Decomposition (LU factorization)" /><published>2020-07-12T00:00:00+09:00</published><updated>2020-07-12T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/">&lt;ol&gt;
-  &lt;li&gt;가우시안 소거법을 통한 역행렬 계산&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="Mathjax" /><summary type="html">조건 github page, Jekyll theme</summary></entry><entry><title type="html">LU Decomposition (LU factorization)</title><link href="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/" rel="alternate" type="text/html" title="LU Decomposition (LU factorization)" /><published>2020-07-12T00:00:00+09:00</published><updated>2020-07-12T00:00:00+09:00</updated><id>http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition</id><content type="html" xml:base="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/">&lt;ul&gt;
+  &lt;li&gt;LU 분해는 데이터의 크기가 커질수록 불리한 가우시안 소거법의 연산을 해결하기 위해
+사용된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;1-gaussian-elimination&quot;&gt;1. Gaussian Elimination&lt;/h2&gt;
 
 &lt;pre id=&quot;Gaussian_Elimination&quot; style=&quot;display:hidden;&quot;&gt;
- 
     \begin{algorithm}
-    \caption{Gaussian Elimination for Matrix Inversion}
+    \caption{Gaussian Elimination}
     \begin{algorithmic}
 
-    \INPUT $n \isin \N$, $Matrix$  $M_{ij}$
-    \PROCEDURE{Forward-Substitution}{$n$}
-        \FOR{$i = 1$ \TO $n - 1$}
-            \STATE Scale row to get pivot $1$
-            \FOR{$j = i + 1$ \TO $n$}
-                \STATE subtract multiple of row $\vec{i}$ from row $\vec{j}$ to zero out pivot column
+    \FUNCTION {Forward-Substitution}{$A, \vec{b}$}
+    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
+    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
+    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
+        \FOR{$p = 1$ \TO $n$}
+            \STATE *Optionally insert pivoting code here*  
+            \STATE $s \leftarrow \frac 1 {u_{pp}}$
+            \STATE $y_p \leftarrow s \cdot y_p$
+            \FOR{$c = p$ \TO $n$}
+                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
+            \ENDFOR
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow {-u_{rp}}$
+                \STATE $y_r \leftarrow y_r + s \cdot y_p$
+                \FOR{$c=p$ \TO $n$}
+                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
+                \ENDFOR
             \ENDFOR
         \ENDFOR
-    \ENDPROCEDURE
-    \PROCEDURE{Backward-Substitution}{$n$}
-        \FOR{$i = n$ \TO $2$}  
-            \FOR{$j = i - 1$ \TO $1$}
-                \STATE zero out rest of column
+    \RETURN $U, \vec{y}$
+    \ENDFUNCTION  
+    
+    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
+    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
+    \STATE $\vec{x} \leftarrow \vec{y}$
+        \FOR{$p = n$ \TO $1$}
+            \FOR{$r = 1$ \TO $p - 1$}
+                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
             \ENDFOR
         \ENDFOR
-    \ENDPROCEDURE
+    \RETURN $\vec{x}$
+    \ENDFUNCTION
     \end{algorithmic}
     \end{algorithm}
 &lt;/pre&gt;
@@ -157,13 +175,117 @@ $$
   &lt;h4 id=&quot;on3&quot;&gt;\(O(n^3)\)&lt;/h4&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;a--lu&quot;&gt;\(A = LU\)&lt;/h4&gt;
-&lt;p&gt;선형계를 풀거나 역행렬을 구할 때 사용&lt;/p&gt;
+&lt;h4 id=&quot;optionally-insert-pivoting-code-here&quot;&gt;&lt;strong&gt;&lt;em&gt;*Optionally insert pivoting code here*&lt;/em&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;가우시안 제거 방법은 pivot의 역수로 scaling 하기때문에 
+수치적으로 안정적인 방법으로 &lt;em&gt;큰 pivot&lt;/em&gt; 을 가져가도록 해야한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;pivoting-전략&quot;&gt;&lt;strong&gt;Pivoting 전략&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;대각행렬 안 절대값이 낮은 피벗 원소를 해당 피벗의 열 벡터중 가장 큰 절대값을 가진 원소로 바꾼다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;em&gt;Partial pivoting&lt;/em&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Only 행교환&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Full pivoting&lt;/em&gt;
+      &lt;ul&gt;
+        &lt;li&gt;행교환 + 열교환&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;Full pivoting은 partial pivoting에 비해 더 많은 computational cost가 필요하지만 수치적으로는 더 안정적임&lt;/em&gt;&lt;br /&gt;
+(행렬 전체를 한번 훑어 봄, 우선순위 큐 사용. In practice, rarely necessory)&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;python-code&quot;&gt;&lt;strong&gt;Python Code&lt;/strong&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward_substitution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;matrix&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;vector&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# AM = np.c_[A, b]   Augmented Matrix
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# will be upper triagle matrix
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;#partial pivoting    
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],:]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],:]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# y[p], y[pivot] = y[pivot], y[p] # 이거 안먹힘
+&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;# 피벗 항 scaling
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# 행 연산
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;back_substitution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;matrix&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;vector&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;2-lu-decomposition&quot;&gt;2. LU Decomposition&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;아이디어들
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;
+          &lt;h4 id=&quot;전진-소거는-on3-이-걸리고-후진-소거는-on2이-걸린다&quot;&gt;전진 소거는 \(O(n^3)\) 이 걸리고, 후진 소거는 \(O(n^2)\)이 걸린다.&lt;/h4&gt;
+          &lt;p&gt;삼각행렬의 \(O(n^2)\) 시간 복잡도를 활용하고 싶다.&lt;/p&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;h4 id=&quot;leading-variable-이-1이-아니여도-괜찮다&quot;&gt;leading variable 이 1이 아니여도 괜찮다.&lt;/h4&gt;
+          &lt;p&gt;변형을 안해줘도 선도 변수를 자유 변수처럼 표현할 수 있지 않을까?&lt;/p&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;h5 id=&quot;a--lu&quot;&gt;\(A = LU\)&lt;/h5&gt;
+          &lt;p&gt;Matrix A를 Lower trianglular &amp;amp; Upper trianglular 로 분해할 수 있음.&lt;br /&gt;
+이는, 선형계를 풀거나 역행렬을 구할 때 사용&lt;/p&gt;
+        &lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;C:\githubPage\shinywings.github.io\_posts\image\proof_invertible_matrix.jpg&quot; width=&quot;200px&quot; height=&quot;200px&quot; title=&quot;invertible_matrix_proof&quot; alt=&quot;proof_1&quot; /&gt;&amp;lt;/img&amp;gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_assets/invertible_matrix_proof.jpg&quot; alt=&quot;가역행렬 증명&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;-삼각행렬의-장점&quot;&gt;-삼각행렬의 장점&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
+back-substitution의 \(O(n^2)\) 복잡도를 \(O(n)\) 으로 줄일 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;!-- 알고리즘 렌더링--&gt;
 &lt;script&gt;
     pseudocode.renderElement(document.getElementById(&quot;Gaussian_Elimination&quot;));
-&lt;/script&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="LU decomposition" /><summary type="html">가우시안 소거법을 통한 역행렬 계산</summary></entry><entry><title type="html">Post Template</title><link href="http://localhost:4000/others/2020/07/10/template/" rel="alternate" type="text/html" title="Post Template" /><published>2020-07-10T00:00:00+09:00</published><updated>2020-07-10T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/10/template</id><content type="html" xml:base="http://localhost:4000/others/2020/07/10/template/">&lt;h2 id=&quot;link-generator&quot;&gt;Link Generator&lt;/h2&gt;
+&lt;/script&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Numerical Analysis" /><category term="LU decomposition" /><summary type="html">LU 분해는 데이터의 크기가 커질수록 불리한 가우시안 소거법의 연산을 해결하기 위해 사용된다.</summary></entry><entry><title type="html">Post Template</title><link href="http://localhost:4000/others/2020/07/10/template/" rel="alternate" type="text/html" title="Post Template" /><published>2020-07-10T00:00:00+09:00</published><updated>2020-07-10T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/07/10/template</id><content type="html" xml:base="http://localhost:4000/others/2020/07/10/template/">&lt;h2 id=&quot;link-generator&quot;&gt;Link Generator&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;quote&quot;&gt;Quote&lt;/h2&gt;
