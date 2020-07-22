@@ -1,0 +1,5 @@
+I"J<ul>
+  <li>LU 분해는 첫번째로 <strong>계산의 편리함</strong>, 두번째로 <strong>분석적 용이성</strong>을 위함이 있다. (모든 행렬 분해에 해당)</li>
+  <li><del><strong>가우시안 소거법</strong>의 시간 복잡도 문제를 해결했기 때문에 같이 설명이 된다.</del></li>
+</ul>
+:ET

@@ -1,0 +1,204 @@
+I"�=<ul>
+  <li>LU 분해는 첫번째로 <strong>계산의 편리함</strong>, 두번째로 <strong>분석적 용이성</strong>을 위함이 있다. (모든 행렬 분해에 해당)</li>
+  <li><del><strong>가우시안 소거법</strong>의 시간 복잡도 문제를 해결했기 때문에 같이 설명이 된다.</del><br />
+<strong>LU분해는 가우스 소거법과 비교하여 <u>비용의 이점을 갖지 않는다.</u></strong><br />
+(정말 헷갈림)
+하지만 <strong>다른 장점</strong>을 갖고 있어 더 선호된다.
+    <blockquote>
+      <ol>
+        <li>가우스 소거법은 Augmented Matrx \([A\|b]\)를 사용하므로, b의 값을 알아야 한다.<br />
+반면 LU분해는 행렬 A만 사용하므로 그 분해값을 안다면, 오른쪽 항이 아무리 많이 필요하다고 해도 한번에 하나씩 사용해서 해결할 수 있다. (해 구하기 전 단계)</li>
+        <li>\(Ax=b\)의 해를 구하기 위하여 계산하는 LU분해는 만일 필요하다면, 거의 추가 작업 없이 \(A^{-1}\)의 계산에 사용할 수 있다. (삼각행렬의 계산은 \(O(n^2)\) 이므로)</li>
+        <li>LDU 분해를 통해, 한개의 행렬에 L,D,U 모두 저장할 수 있다. 따라서 시스템이 해결하는 데 필요한 메모리의 양을 감소시킨다.</li>
+        <li>만일 행렬 A가 대부분 영으로 구성되어 있는 크기가 큰 행렬이라면, 또는 영 아닌 성분들이 주 대각선 주위의 “띠(band)”에 집중되어 있따면, LU분해의 비용을 절감하는데 사용할 수 있는 기술이 있다.<br />
+(와닿지 않는다. 차차 알아가자)</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<p>(안톤의 선형대수학 p589 참조)</p>
+
+<h2 id="1-gaussian-elimination">1. Gaussian Elimination</h2>
+
+<pre id="Gaussian_Elimination" style="display:hidden;">
+    \begin{algorithm}
+    \caption{Gaussian Elimination}
+    \begin{algorithmic}
+
+    \FUNCTION {Forward-Substitution}{$A, \vec{b}$}
+    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
+    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
+    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
+        \FOR{$p = 1$ \TO $n$}
+            \STATE *Optionally insert pivoting code here*  
+            \STATE $s \leftarrow \frac 1 {u_{pp}}$
+            \STATE $y_p \leftarrow s \cdot y_p$
+            \FOR{$c = p$ \TO $n$}
+                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
+            \ENDFOR
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow {-u_{rp}}$
+                \STATE $y_r \leftarrow y_r + s \cdot y_p$
+                \FOR{$c=p$ \TO $n$}
+                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $U, \vec{y}$
+    \ENDFUNCTION  
+    
+    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
+    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
+    \STATE $\vec{x} \leftarrow \vec{y}$
+        \FOR{$p = n$ \TO $1$}
+            \FOR{$r = 1$ \TO $p - 1$}
+                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
+            \ENDFOR
+        \ENDFOR
+    \RETURN $\vec{x}$
+    \ENDFUNCTION
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<blockquote>
+  <p>Gaussian Elimination’s Total Running Time</p>
+  <h4 id="on3">\(O(n^3)\)</h4>
+</blockquote>
+
+<h4 id="optionally-insert-pivoting-code-here"><strong><em>*Optionally insert pivoting code here*</em></strong></h4>
+<blockquote>
+  <p>가우시안 제거 방법은 pivot의 역수로 scaling 하기때문에 
+수치적으로 안정적인 방법으로 <em>큰 pivot</em> 을 가져가도록 해야한다.</p>
+</blockquote>
+
+<h4 id="pivoting-전략"><strong>Pivoting 전략</strong></h4>
+<p>대각행렬 안 절대값이 낮은 피벗 원소를 해당 피벗의 열 벡터중 가장 큰 절대값을 가진 원소로 바꾼다.</p>
+
+<blockquote>
+  <ol>
+    <li><em>Partial pivoting</em>
+      <ul>
+        <li>Only 행교환</li>
+      </ul>
+    </li>
+    <li><em>Full pivoting</em>
+      <ul>
+        <li>행교환 + 열교환</li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p><em>Full pivoting은 partial pivoting에 비해 더 많은 computational cost가 필요하지만 수치적으로는 더 안정적임</em><br />
+(행렬 전체를 한번 훑어 봄, 우선순위 큐 사용. In practice, rarely necessory)</p>
+
+<hr />
+<h2 id="python-code"><strong>Python Code</strong></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">forward_substitution</span><span class="p">(</span><span class="n">A</span> <span class="o">=</span> <span class="s">"matrix"</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="s">"vector"</span><span class="p">):</span>
+
+    <span class="c1"># AM = np.c_[A, b]   Augmented Matrix
+</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>   <span class="c1"># will be upper triagle matrix
+</span>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        
+        <span class="c1">#partial pivoting    
+</span>        <span class="n">pivot</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">]):</span>
+                <span class="n">pivot</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">U</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">],:]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">],:]</span>
+        <span class="n">y</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">]]</span>
+        <span class="c1"># y[p], y[pivot] = y[pivot], y[p] # 이거 안먹힘
+</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+
+        <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>         <span class="c1"># 피벗 항 scaling
+</span>            <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>       <span class="c1"># 행 연산
+</span>            <span class="n">s</span> <span class="o">=</span> <span class="o">-</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">back_substitution</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="s">"matrix"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"vector"</span><span class="p">):</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div></div>
+<hr />
+<h2 id="2-lu-decomposition">2. LU Decomposition</h2>
+<p><img src="/public/asset/lu_definition.jpg" alt="LU_DEF" /></p>
+<ul>
+  <li>아이디어들
+    <blockquote>
+      <ol>
+        <li>
+          <h4 id="삼각행렬이-아닌-square-matrix의-전진-대입법은-on3-이-걸리고-후진-대입법은-on2이-걸린다">삼각행렬이 아닌 Square Matrix의 전진 대입법은 \(O(n^3)\) 이 걸리고, 후진 대입법은 \(O(n^2)\)이 걸린다.</h4>
+          <p>삼각행렬의 \(O(n^2)\) 시간 복잡도를 활용하고 싶다.</p>
+        </li>
+        <li>
+          <h4 id="leading-variable-이-1이-아니여도-괜찮다">leading variable 이 1이 아니여도 괜찮다.</h4>
+          <p>변형을 안해줘도 선도 변수를 자유 변수처럼 표현할 수 있지 않을까?</p>
+        </li>
+        <li>
+          <h5 id="a--lu">\(A = LU\)</h5>
+          <p>A를 LU를 분해하는 과정은 \(\approx \frac 2 3 n^3\)이 걸린다.<br />
+(가우스 소거법의 전진 대입과 같은 flop (floating point operation) 이 소요) 
+Matrix A를 Lower trianglular &amp; Upper trianglular 로 분해할 수 있음. <br />
+삼각행렬의 대각곱이 Det임을 이용하여 L, U의 대각곱으로 A의 행렬식을 구할때도 용이하다.</p>
+        </li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<!-- - ### 삼각행렬의 장점
+> 선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
+back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. -->
+
+<ul>
+  <li>
+    <h3 id="짚고-넘어가야-할-문제">짚고 넘어가야 할 문제</h3>
+    <ol>
+      <li>모든 행렬 A는 LU 분해가 가능한가요?</li>
+      <li>행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?</li>
+      <li>(1)의 답이 <strong>NO</strong> 라면 어떤 행렬이 LU분해가 가능한가요?</li>
+      <li>행렬 A가 (3)의 조건을 만족하면 어떻게 LU분해를 할 수 있나요?</li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.<br />
+왜냐하면 상삼각행렬 \(U\)가 유도됨<br />
+\(E_k, ..., E_2 , E_1\) (기본행렬) 들로<br />
+\(E_k...E_2E_1A = U\)로 표현할 수 있음.</p>
+</blockquote>
+
+<blockquote>
+  <p>기본행렬 E는 반드시 Invertible Matrix 이므로,<br />
+\(A = E_1^{-1}E_2^{-1}...E_k^{-1}U\)을 만족하고,<br />
+\(L = E_1^{-1}E_2^{-1}...E_k^{-1}\) 이다.</p>
+</blockquote>
+
+<!-- 알고리즘 렌더링-->
+<script>
+    pseudocode.renderElement(document.getElementById("Gaussian_Elimination"));
+</script>
+
+:ET

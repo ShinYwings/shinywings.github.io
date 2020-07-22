@@ -4,7 +4,7 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-07-21T18:08:31+09:00</updated>
+ <updated>2020-07-22T19:45:40+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
@@ -160,9 +160,26 @@ $$
    <updated>2020-07-12T00:00:00+09:00</updated>
    <id>http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition</id>
    <content type="html">&lt;ul&gt;
-  &lt;li&gt;LU 분해는 데이터의 크기가 커질수록 불리한 가우시안 소거법의 연산을 해결하기 위해
-사용된다.&lt;/li&gt;
+  &lt;li&gt;행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
+&lt;img src=&quot;/public/asset/matrix_time_tradeoff.jpg&quot; alt=&quot;CM_tradoff&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;LU 분해는 첫번째로 &lt;strong&gt;계산의 편리함&lt;/strong&gt;, 두번째로 &lt;strong&gt;분석적 용이성&lt;/strong&gt;을 위함이 있다. (모든 행렬 분해에 해당)&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;&lt;strong&gt;가우시안 소거법&lt;/strong&gt;의 시간 복잡도 문제를 해결했다.&lt;/del&gt;&lt;br /&gt;
+&lt;strong&gt;LU분해는 가우스 소거법과 비교하여 &lt;u&gt;flop(floating point operation) 비용의 이점을 갖지 않는다.&lt;/u&gt;&lt;/strong&gt;    (그럼 왜 계산 비용이 줄은거지??? 아무리 찾아봐도 명쾌한 해답이 나와있지 않다…)&lt;br /&gt;
+하지만 &lt;strong&gt;다른 장점&lt;/strong&gt;을 갖고 있어 더 선호된다.
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;가우스 소거법은 Augmented Matrx \([A\|b]\)를 사용하므로, b의 값을 알아야 한다.&lt;br /&gt;
+반면 LU분해는 행렬 A만 사용하므로 그 분해값을 안다면, 오른쪽 항이 아무리 많이 필요하다고 해도 한번에 하나씩 사용해서 해결할 수 있다. (해 구하기 전 단계)&lt;/li&gt;
+        &lt;li&gt;\(Ax=b\)의 해를 구하기 위하여 계산하는 LU분해는 만일 필요하다면, 거의 추가 작업 없이 \(A^{-1}\)의 계산에 사용할 수 있다. (삼각행렬의 계산은 \(O(n^2)\) 이므로)&lt;/li&gt;
+        &lt;li&gt;LDU 분해를 통해, 한개의 행렬에 L,D,U 모두 저장할 수 있다. 따라서 시스템이 해결하는 데 필요한 메모리의 양을 감소시킨다.&lt;/li&gt;
+        &lt;li&gt;만일 행렬 A가 대부분 영으로 구성되어 있는 크기가 큰 행렬이라면, 또는 영 아닌 성분들이 주 대각선 주위의 “띠(band)”에 집중되어 있따면, LU분해의 비용을 절감하는데 사용할 수 있는 기술이 있다.&lt;br /&gt;
+(와닿지 않는다. 차차 알아가자)&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;(안톤의 선형대수학 p589 참조)&lt;/p&gt;
 
 &lt;h2 id=&quot;1-gaussian-elimination&quot;&gt;1. Gaussian Elimination&lt;/h2&gt;
 
@@ -287,43 +304,210 @@ $$
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;hr /&gt;
 &lt;h2 id=&quot;2-lu-decomposition&quot;&gt;2. LU Decomposition&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/public/asset/lu_definition.jpg&quot; alt=&quot;LU_DEF&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;아이디어들
-    &lt;blockquote&gt;
-      &lt;ol&gt;
-        &lt;li&gt;
-          &lt;h4 id=&quot;전진-소거는-on3-이-걸리고-후진-소거는-on2이-걸린다&quot;&gt;전진 소거는 \(O(n^3)\) 이 걸리고, 후진 소거는 \(O(n^2)\)이 걸린다.&lt;/h4&gt;
+  &lt;li&gt;
+    &lt;h3 id=&quot;아이디어들&quot;&gt;아이디어들&lt;/h3&gt;
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;h4 id=&quot;삼각행렬이-아닌-square-matrix의-전진-대입법은-on3-이-걸리고-후진-대입법은-on2이-걸린다&quot;&gt;삼각행렬이 아닌 Square Matrix의 전진 대입법은 \(O(n^3)\) 이 걸리고, 후진 대입법은 \(O(n^2)\)이 걸린다.&lt;/h4&gt;
+        &lt;blockquote&gt;
           &lt;p&gt;삼각행렬의 \(O(n^2)\) 시간 복잡도를 활용하고 싶다.&lt;/p&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-          &lt;h4 id=&quot;leading-variable-이-1이-아니여도-괜찮다&quot;&gt;leading variable 이 1이 아니여도 괜찮다.&lt;/h4&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;h4 id=&quot;leading-variable-이-1이-아니여도-괜찮다&quot;&gt;leading variable 이 1이 아니여도 괜찮다.&lt;/h4&gt;
+        &lt;blockquote&gt;
           &lt;p&gt;변형을 안해줘도 선도 변수를 자유 변수처럼 표현할 수 있지 않을까?&lt;/p&gt;
-        &lt;/li&gt;
-        &lt;li&gt;
-          &lt;h5 id=&quot;a--lu&quot;&gt;\(A = LU\)&lt;/h5&gt;
-          &lt;p&gt;Matrix A를 Lower trianglular &amp;amp; Upper trianglular 로 분해할 수 있음.&lt;br /&gt;
-이는, 선형계를 풀거나 역행렬을 구할 때 사용&lt;/p&gt;
-        &lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/blockquote&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;h5 id=&quot;a--lu&quot;&gt;\(A = LU\)&lt;/h5&gt;
+        &lt;blockquote&gt;
+          &lt;ul&gt;
+            &lt;li&gt;A를 Lower trianglular &amp;amp; Upper trianglular 로 분해할 수 있음.&lt;/li&gt;
+            &lt;li&gt;삼각행렬의 대각곱이 Det임을 이용하여 L, U의 대각곱으로 A의 행렬식을 구할때도 용이하다.&lt;/li&gt;
+            &lt;li&gt;A를 LU를 분해하는 과정은 \(\approx \frac 2 3 n^3\)이 걸린다.&lt;br /&gt;
+(가우스 소거법의 전진 대입과 같은 flop (floating point operation) 이 소요)&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;C:\githubPage\shinywings.github.io\_posts\image\proof_invertible_matrix.jpg&quot; width=&quot;200px&quot; height=&quot;200px&quot; title=&quot;invertible_matrix_proof&quot; alt=&quot;proof_1&quot; /&gt;&amp;lt;/img&amp;gt;&lt;br /&gt;&lt;/p&gt;
+&lt;!-- - ### 삼각행렬의 장점
+&gt; 선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
+back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. --&gt;
 
-&lt;p&gt;&lt;img src=&quot;/_assets/invertible_matrix_proof.jpg&quot; alt=&quot;가역행렬 증명&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h3 id=&quot;짚고-넘어가야-할-문제&quot;&gt;짚고 넘어가야 할 문제&lt;/h3&gt;
+    &lt;ol&gt;
+      &lt;li&gt;모든 행렬 A는 LU 분해가 가능한가요?&lt;/li&gt;
+      &lt;li&gt;행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?&lt;/li&gt;
+      &lt;li&gt;(1)의 답이 &lt;strong&gt;NO&lt;/strong&gt; 라면 어떤 행렬이 LU분해가 가능한가요?&lt;/li&gt;
+      &lt;li&gt;행렬 A가 (3)의 조건을 만족하면 어떻게 LU분해를 할 수 있나요?&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h4 id=&quot;-삼각행렬의-장점&quot;&gt;-삼각행렬의 장점&lt;/h4&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
-back-substitution의 \(O(n^2)\) 복잡도를 \(O(n)\) 으로 줄일 수 있다.&lt;/p&gt;
+  &lt;p&gt;(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.&lt;br /&gt;
+왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.&lt;br /&gt;
+그러면&lt;br /&gt;
+&lt;img src=&quot;/public/asset/a.jpg&quot; width=&quot;600px&quot; height=&quot;400px&quot; title=&quot;invertible_matrix_proof&quot; alt=&quot;proof_1&quot; /&gt;
+이고,
+EA는 A에 같은 기본 행연산을 한것과 같기 때문에,&lt;br /&gt;
+\(E_k, ..., E_2 , E_1\) (하삼각 기본행렬) 들로&lt;br /&gt;
+\(E_k...E_2E_1A = U\)로 표현할 수 있고,&lt;br /&gt;
+기본행렬 E는 반드시 Invertible Matrix 이다.  &lt;br /&gt;
+그러면, \(A = E_1^{-1}E_2^{-1}...E_k^{-1}U\)을 만족하고,&lt;br /&gt;
+가역인 L에 대해서,  \(L * L = L\) 과 \(L^{-1} = L\) 이므로,&lt;br /&gt;
+\(L = E_1^{-1}E_2^{-1}...E_k^{-1}\) 이다.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기본행렬 표현 (where \(l &amp;gt; k\))&lt;/li&gt;
+&lt;/ul&gt;
+
+\[E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}\]
+
+\[E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}\]
+
+&lt;blockquote&gt;
+  &lt;p&gt;기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수~! ^^&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre id=&quot;LU_Factorization&quot; style=&quot;display:hidden;&quot;&gt;
+    \begin{algorithm}
+    \caption{LU Factorization}
+    \begin{algorithmic}
+
+    \FUNCTION {LU-FACTORIZATION-COMPACT}{$A$}
+    \STATE Factors $A \isin \reals^{n \times n}$ to $A = LU$ in compact format.
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
+                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
+                \FOR{$c=p+1$ \TO $n$}
+                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $A\qquad\triangleright$LU분해된 A임
+    \ENDFUNCTION  
+    \end{algorithmic}
+    \end{algorithm}
+&lt;/pre&gt;
+&lt;ul&gt;
+  &lt;li&gt;Result&lt;br /&gt;
+\(A = \left( \begin{array}{cccc} U &amp;amp; \cdots &amp;amp; \cdots &amp;amp; \cdots &amp;amp; U \\ L &amp;amp; U &amp;amp; U &amp;amp; U &amp;amp; \vdots\\ \vdots &amp;amp; L &amp;amp; \ddots &amp;amp; U &amp;amp; \vdots\\ \vdots &amp;amp; L &amp;amp; L &amp;amp; U &amp;amp; \vdots \\ L &amp;amp; \cdots &amp;amp; \cdots &amp;amp; L &amp;amp; U \end{array} \right)\)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;LU Factorization-compact’s Total Running Time&lt;/p&gt;
+  &lt;h4 id=&quot;on3-approx-frac-2-3-n3&quot;&gt;\(O(n^3) \approx \frac 2 3 n^3\)&lt;/h4&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;잃어버린 L 의 대각행렬 성분은 모두 1이다.&lt;/li&gt;
+  &lt;li&gt;인수 분해하는데 걸린 전체 시간은 \(O(n^3)\) 이지만,&lt;br /&gt;
+ \(A\vec{x}=\vec{b}\)를 푸는데 전진 대입, 후진 대입을 사용하면 오직 \(O(n^2)\) 밖에 안걸린다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;python-code-1&quot;&gt;&lt;strong&gt;Python Code&lt;/strong&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LU_Factorization_compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#하삼각행렬 E^-1 에 저장
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;l-u는-유일하지-않다-그래서-유일한-l-u를-추출해주고-싶다&quot;&gt;&lt;strong&gt;L, U는 유일하지 않다. 그래서 유일한 L, U를 추출해주고 싶다.&lt;/strong&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;U의 대각행렬 성분을 따로 빼주면 유일하게 인수분해가 될 수 있다.&lt;br /&gt;
+ \(\triangleright\) LDU 분해 사용&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre id=&quot;LDU&quot; style=&quot;display:hidden;&quot;&gt;
+    \begin{algorithm}
+    \caption{LDU Factorization}
+    \begin{algorithmic}
+
+    \FUNCTION {LDU-FACTORIZATION-COMPACT}{$A$}
+    \STATE $\triangleright$Factors $A \isin \reals^{n \times n}$ to $A = LDU$ in compact format.
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
+                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
+                \FOR{$c=p+1$ \TO $n$}
+                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+        \STATE $\quad$
+        \STATE *추가부분*
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$} 
+                \STATE ${a_{pr}} \leftarrow \frac {a_{pr}} {a_{pp}}$$\qquad\triangleright$ Diagonal 성분을 따로 빼줌  
+            \ENDFOR
+        \ENDFOR
+        \STATE $\quad$
+    \RETURN $A\qquad\triangleright$LDU분해된 A임
+    \ENDFUNCTION  
+    \end{algorithmic}
+    \end{algorithm}
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Result&lt;br /&gt;
+\(A = \left( \begin{array}{ccc} D &amp;amp; U &amp;amp; \cdots &amp;amp; \cdots &amp;amp; U \\ L &amp;amp; D &amp;amp; U &amp;amp; U &amp;amp; \vdots\\ \vdots &amp;amp; L &amp;amp; \ddots &amp;amp; U &amp;amp; \vdots\\ \vdots &amp;amp; L &amp;amp; L &amp;amp; D &amp;amp; U \\ L &amp;amp; \cdots &amp;amp; \cdots &amp;amp; L &amp;amp; D \end{array} \right)\)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;python-code-2&quot;&gt;&lt;strong&gt;Python Code&lt;/strong&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LDU_Factorization_compact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#하삼각행렬 E^-1 에 저장
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;#LDU로 바꿔 유일하게 인수분해 될 수 있게 바꿔줌
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
 
 &lt;!-- 알고리즘 렌더링--&gt;
 &lt;script&gt;
     pseudocode.renderElement(document.getElementById(&quot;Gaussian_Elimination&quot;));
+    pseudocode.renderElement(document.getElementById(&quot;LU_Factorization&quot;));
+    pseudocode.renderElement(document.getElementById(&quot;LDU&quot;));
 &lt;/script&gt;
 
+&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
 </content>
  </entry>
  
