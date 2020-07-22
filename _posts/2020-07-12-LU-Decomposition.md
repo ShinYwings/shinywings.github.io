@@ -289,6 +289,8 @@ def LDU_Factorization_compact(A):
 ```
 ----------------------  
 
+> ### LDU 분해로 구한 Diagonal Matrix 의 곱 == Det(A) 이다.
+
 <!-- 알고리즘 렌더링-->
 <script>
     pseudocode.renderElement(document.getElementById("Gaussian_Elimination"));
