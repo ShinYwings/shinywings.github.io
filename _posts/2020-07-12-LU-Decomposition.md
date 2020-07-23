@@ -168,13 +168,13 @@ back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. 
 > $$L = E_1^{-1}E_2^{-1}...E_k^{-1}$$ 이다.  
 
   
-- 기본행렬 표현 (where $$ l > k $$)  
+- (참고) 기본행렬 표현 (where $$ l > k $$)  
 
 $$E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}$$  
 
 $$E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}$$  
 
-> 기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수~! ^^
+> 기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수
 
 
 <pre id="LU_Factorization" style="display:hidden;">
@@ -289,7 +289,12 @@ def LDU_Factorization_compact(A):
 ```
 ----------------------  
 
-> ### LDU 분해로 구한 Diagonal Matrix 의 곱 == Det(A) 이다.
+> ### LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱은 Det(A) 이다.  
+
+### LU 분해를 Pivoting 하는 방법 : PLU
+> LU 앞에 Permutation Matrix 곱해준다. (순서 바꾼 Identity Matrix)  
+> $$ P == P^{-1} $$ 를 이용
+
 
 <!-- 알고리즘 렌더링-->
 <script>

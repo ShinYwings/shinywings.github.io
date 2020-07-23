@@ -4,7 +4,7 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-07-22T19:45:40+09:00</updated>
+ <updated>2020-07-23T17:12:59+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
@@ -346,14 +346,11 @@ back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. 
     &lt;ol&gt;
       &lt;li&gt;모든 행렬 A는 LU 분해가 가능한가요?&lt;/li&gt;
       &lt;li&gt;행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?&lt;/li&gt;
-      &lt;li&gt;(1)의 답이 &lt;strong&gt;NO&lt;/strong&gt; 라면 어떤 행렬이 LU분해가 가능한가요?&lt;/li&gt;
-      &lt;li&gt;행렬 A가 (3)의 조건을 만족하면 어떻게 LU분해를 할 수 있나요?&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.&lt;br /&gt;
+      &lt;li&gt;(1)의 답이 &lt;strong&gt;NO&lt;/strong&gt; 라면 어떤 행렬이 LU분해가 가능한가요?
+        &lt;blockquote&gt;
+          &lt;p&gt;(1) 아니오
+(2) 아니오
+(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.&lt;br /&gt;
 왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.&lt;br /&gt;
 그러면&lt;br /&gt;
 &lt;img src=&quot;/public/asset/a.jpg&quot; width=&quot;600px&quot; height=&quot;400px&quot; title=&quot;invertible_matrix_proof&quot; alt=&quot;proof_1&quot; /&gt;
@@ -365,10 +362,11 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,&lt;br /&gt;
 그러면, \(A = E_1^{-1}E_2^{-1}...E_k^{-1}U\)을 만족하고,&lt;br /&gt;
 가역인 L에 대해서,  \(L * L = L\) 과 \(L^{-1} = L\) 이므로,&lt;br /&gt;
 \(L = E_1^{-1}E_2^{-1}...E_k^{-1}\) 이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;기본행렬 표현 (where \(l &amp;gt; k\))&lt;/li&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(참고) 기본행렬 표현 (where \(l &amp;gt; k\))&lt;/li&gt;
 &lt;/ul&gt;
 
 \[E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}\]
@@ -376,7 +374,7 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,&lt;br /&gt;
 \[E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}\]
 
 &lt;blockquote&gt;
-  &lt;p&gt;기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수~! ^^&lt;/p&gt;
+  &lt;p&gt;기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;pre id=&quot;LU_Factorization&quot; style=&quot;display:hidden;&quot;&gt;
@@ -497,6 +495,16 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,&lt;br /&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;ldu-분해로-구한-diagonal-matrix-의-모든-성분의-곱은-deta-이다&quot;&gt;LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱은 Det(A) 이다.&lt;/h3&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;lu-분해를-pivoting-하는-방법--plu&quot;&gt;LU 분해를 Pivoting 하는 방법 : PLU&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;LU 앞에 Permutation Matrix 곱해준다. (순서 바꾼 Identity Matrix)&lt;br /&gt;
+\(P == P^{-1}\) 를 이용&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;!-- 알고리즘 렌더링--&gt;
 &lt;script&gt;
