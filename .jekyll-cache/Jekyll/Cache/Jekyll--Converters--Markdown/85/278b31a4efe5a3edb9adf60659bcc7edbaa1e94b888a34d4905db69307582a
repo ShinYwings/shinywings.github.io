@@ -1,4 +1,4 @@
-I"Qk<ul>
+I"Ul<ul>
   <li>행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
 <img src="/public/asset/matrix_time_tradeoff.jpg" alt="CM_tradoff" /></li>
   <li>LU 분해는 첫번째로 <strong>계산의 편리함</strong>, 두번째로 <strong>분석적 용이성</strong>을 위함이 있다. (모든 행렬 분해에 해당)</li>
@@ -187,8 +187,8 @@ back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. 
       <li>행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?</li>
       <li>(1)의 답이 <strong>NO</strong> 라면 어떤 행렬이 LU분해가 가능한가요?
         <blockquote>
-          <p>(1) 아니오
-(2) 아니오
+          <p>(1) 아니오<br />
+(2) 아니오<br />
 (3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.<br />
 왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.<br />
 그러면<br />
@@ -205,7 +205,7 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,<br />
       </li>
     </ol>
   </li>
-  <li>기본행렬 표현 (where \(l &gt; k\))</li>
+  <li>(참고) 기본행렬 표현 (where \(l &gt; k\))</li>
 </ul>
 
 \[E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}\]
@@ -213,7 +213,7 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,<br />
 \[E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}\]
 
 <blockquote>
-  <p>기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수~! ^^</p>
+  <p>기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수</p>
 </blockquote>
 
 <pre id="LU_Factorization" style="display:hidden;">
@@ -336,7 +336,13 @@ EA는 A에 같은 기본 행연산을 한것과 같기 때문에,<br />
 <hr />
 
 <blockquote>
-  <h3 id="ldu-분해로-구한-diagonal-matrix-의-모든-성분의-곱--deta-이다">LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱 == Det(A) 이다.</h3>
+  <h3 id="ldu-분해로-구한-diagonal-matrix-의-모든-성분의-곱은-deta-이다">LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱은 Det(A) 이다.</h3>
+</blockquote>
+
+<h3 id="lu-분해를-pivoting-하는-방법--plu">LU 분해를 Pivoting 하는 방법 : PLU</h3>
+<blockquote>
+  <p>LU 앞에 Permutation Matrix 곱해준다. (순서 바꾼 Identity Matrix)<br />
+\(P == P^{-1}\) 를 이용</p>
 </blockquote>
 
 <!-- 알고리즘 렌더링-->

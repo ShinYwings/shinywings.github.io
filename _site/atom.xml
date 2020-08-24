@@ -4,7 +4,7 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-07-23T17:12:59+09:00</updated>
+ <updated>2020-08-24T15:16:19+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
@@ -13,7 +13,572 @@
 
  
  <entry>
-   <title>Singular Vector Decomposition (SVD)</title>
+   <title>Sparse Coding</title>
+   <link href="http://localhost:4000/computer%20vison/2020/08/24/Sparse-Coding/"/>
+   <updated>2020-08-24T00:00:00+09:00</updated>
+   <id>http://localhost:4000/computer%20vison/2020/08/24/Sparse-Coding</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;unsupervised learning 방법&lt;/li&gt;
+  &lt;li&gt;overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨&lt;/li&gt;
+  &lt;li&gt;primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임  &lt;br /&gt;
+  “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996  &lt;br /&gt;
+  “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/asset/sparse_coding.jpg&quot; alt=&quot;Sparse coding&quot; /&gt;
+Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖고 있으며, 데이터 X를 \(\alpha\)로 나타낸다.
+여기서 \(\alpha\) 안의 빨간색에 해당하는 부분은 0이 아니기 때문에 결과적으로는 해당 위치에 기저벡터를 \(\alpha\)의 각 원소만큼 곱해서 더하는 방식으로 표현이 된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;여기서 풀어야 할 문제: D와 \(\alpha\)를 어떻게 구할까?&lt;/p&gt;
+
+\[\arg \min_{D,A} ||X-AD||^2_F+\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\]
+
+    &lt;p&gt;\(\arg \min_{D,A} ||X-AD||^2_F\) : reconstruction error  &lt;br /&gt;
+      - AD를 이용해 X를 얼마나 잘 표현할 수 있는지를 나타냄   &lt;br /&gt;
+  \(\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\) : penalty  &lt;br /&gt;
+      - 기저 벡터 \(\alpha\)에서 0이 아닌 element의 개수를 제한하는 방향으로 penalty 역할을 한다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/asset/sparse_coding_2.jpg&quot; alt=&quot;Sparse coding2&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;결과적으로, 위 식을 최소화하는 것이 목표이다. 기본적으로 Matching pursuit(MP)와 Basic pursuit(BP) 방식으로 풀어낸다.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;data compression이나 잡음 제거 및 컬러 interpolation 등에서 효과가 좋다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;예시
+    &lt;ul&gt;
+      &lt;li&gt;Denoising  &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/denoising.jpg&quot; alt=&quot;Sparse coding_denoising&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;inpainting  &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/inpainting.jpg&quot; alt=&quot;Sparse coding_inpainting&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Sparse Coding 강의 노트
+  https://www.cs.ubc.ca/~schmidtm/MLRG/sparseCoding.pdf
+  https://www.youtube.com/watch?v=7a0_iEruGoM&amp;amp;feature=emb_logo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;reference&quot;&gt;Reference&lt;/h5&gt;
+&lt;p&gt;http://blog.naver.com/laonple/220914873095&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Alex Net</title>
+   <link href="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/"/>
+   <updated>2020-08-23T00:00:00+09:00</updated>
+   <id>http://localhost:4000/deep%20learning/2020/08/23/AlexNet</id>
+   <content type="html">&lt;h3 id=&quot;수정중&quot;&gt;수정중&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;p&gt;1000 different classes 의 1.2m 의 images 를 분류&lt;/p&gt;
+
+&lt;p&gt;2010 LSVRC : top 1 - top 5 error rates  37.5% - 17.0%
+2012 LSVRC : top 1 - top 5 error rates  ? - 15.3%&lt;/p&gt;
+
+&lt;h1 id=&quot;네트워크-구조&quot;&gt;네트워크 구조&lt;/h1&gt;
+&lt;p&gt;60M parameteres &amp;amp; 650,000 neurons 가 존재
+5 CONV layers ( 몇개는 max-pooling layers를 따름, 한개라도 없애면 나쁜 성능을 보임)
+3 FC layers
+1000 ways softmax in the end&lt;/p&gt;
+
+&lt;p&gt;non-saturated neuron ??? tanh?&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;INTRODUCTION&lt;/h1&gt;
+&lt;p&gt;Conditions to improve the performance&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;larger datasets&lt;/li&gt;
+  &lt;li&gt;learn more powerful models&lt;/li&gt;
+  &lt;li&gt;use better techniques for preventing overfitting&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;object-recognition-에서-strong--correct-assumption이-되기-위한-조건--images-갯수-&quot;&gt;object recognition 에서 strong &amp;amp; correct assumption이 되기 위한 조건 ( images 갯수 )&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;namely&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;stationarity of statistics&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;locality of pixel dependencies  &lt;br /&gt;
+분류된 이미지들이 이것들을 만족하면 strong &amp;amp; correct assumption 이라고 할 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;stationarity-of-statistics&quot;&gt;stationarity of statistics?&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  &lt;br /&gt;
+임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stocatstic process) 를 의미한다.&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[한줄 정리]&lt;/code&gt;&lt;br /&gt;
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;시간과 상관없이 확률 변수간 확률 분포가 일정하다.&lt;/code&gt;  &lt;br /&gt;
+ &lt;strong&gt;분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;특징&quot;&gt;특징&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;overlapping maxpooling&lt;/li&gt;
+    &lt;li&gt;ReLU 처음으로 도입&lt;/li&gt;
+    &lt;li&gt;GPU를 처음 씀 (with 분산처리)&lt;/li&gt;
+    &lt;li&gt;Local Response Normalization (LRN) 을 처음 소개함 ( &amp;lt;-&amp;gt; batch normalization ) &lt;a href=&quot;https://taeguu.tistory.com/29&quot;&gt;괜찮은 참고자료&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였음)
+      &lt;ul&gt;
+        &lt;li&gt;Dropout -&amp;gt; FC layers 에서 처리, regularization method임&lt;/li&gt;
+        &lt;li&gt;Data Augmentation
+          &lt;ul&gt;
+            &lt;li&gt;하나의 데이터로부터 여러 개를 뽑아냄   &lt;br /&gt;
+(Random Crops, Mirror Crops \(\cdots\))&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)&lt;/li&gt;
+    &lt;li&gt;256 X 256 fixed resolution 으로 down sampling 함&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;NO&lt;/strong&gt; pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)&lt;/li&gt;
+    &lt;li&gt;(centered) trained RAW RGB values of the pixels&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;alexnet-contribution&quot;&gt;AlexNet Contribution&lt;/h1&gt;
+&lt;p&gt;한개의 큰 CNN에서
+2D CONV를 GPU로 구현 (잘 optimized 됨)  &lt;br /&gt;
+&lt;a href=&quot;https://github.com/akrizhevsky/cuda-convnet2&quot;&gt;cuda-convnet2 github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
+&lt;p&gt;Section 3. 새로운 feature들을 소개 which improve its performance &amp;amp; reduce its training time&lt;/p&gt;
+
+&lt;p&gt;Section 4. overfitting 방지를 위한 효과적인 테크닉들&lt;/p&gt;
+
+&lt;p&gt;Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 냄 (test set labels are unavailable) 1.2M training images, 50,000 validation     images, and 150,000 testing images&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;Section 3&lt;/h1&gt;
+
+&lt;h3 id=&quot;relu-nonlinearity&quot;&gt;ReLU Nonlinearity&lt;/h3&gt;
+
+&lt;h4 id=&quot;--training-time-관점-with-gradient-descent&quot;&gt;- training time 관점 with gradient descent&lt;/h4&gt;
+&lt;p&gt;\(tanh(x)\)의 saturating nonlinearities 는 non-saturating nonlinearity  &lt;br /&gt;
+(\(f(x) = max(0,x)\)) 보다 매우 느리다.  &lt;br /&gt;
+ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.  &lt;br /&gt;
+(이유 : input normalization이 필요없기 때문에 ?)&lt;/p&gt;
+
+&lt;h3 id=&quot;training-on-multiple-gpus&quot;&gt;Training on Multiple GPUs&lt;/h3&gt;
+&lt;p&gt;singe GTX 580 GPU: 3GB Memory =&amp;gt; limits the max size of the networks that can be trained on it
+그래서, &lt;strong&gt;2개 GPU 사용!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  &lt;strong&gt;without going through host machine memory&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;parallelization-scheme&quot;&gt;parallelization scheme&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;puts half of the kernels (or neurons) on each GPU
+&lt;em&gt;additional trick : the GPUs commnunicate only in certain layers&lt;/em&gt;
+&lt;em&gt;2 GPU net takes slightly less time to train than the one-GPU net&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;the-gpus-commnunicate-only-in-certain-layers&quot;&gt;the GPUs commnunicate only in certain layers?&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;e.g.   &lt;br /&gt;
+the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &amp;gt; 3 which reside on the same GPU.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;2-gpu-net-takes-slightly-less-time-to-train-than-the-one-gpu-net&quot;&gt;2 GPU net takes slightly less time to train than the one-GPU net?&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;the final convolutional layer에서 one-GPU 의 커널 수 == two-GPU 의 커널 수&lt;/p&gt;
+
+  &lt;p&gt;그 이유는 net’s parameters 의 대부분이 첫번째 FC layer (마지막 CONV layer로 부터 input을 받는, 마지막 CONV layer의 사이즈를 반으로 줄이지 않는다.) 에 있기 때문이다. ( 무슨 말인지 잘 모르겠다.)&lt;/p&gt;
+
+  &lt;p&gt;그래서, 이 비교는 bias 된다. in favor of the one-GPU net, since it is bigger than “half the size” of the two-GPU net.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.&lt;/em&gt;&lt;/strong&gt;  &lt;br /&gt;
+&lt;strong&gt;&lt;em&gt;(Gradient Vanishing 걱정 안해도 된다!)&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;&lt;em&gt;(입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition이 발생 (generalization 관점에서 훨씬 좋다.))&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;local-response-normalization-lrn&quot;&gt;Local Response Normalization (LRN)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;만약 some training examples이 ReLU에서 positive input을 생산한다면, learning will happen&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
+입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization을 해주는게 좋다.  &lt;br /&gt;
+그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;\(a^{i}_{x,y}\) : the activity of a neuron computed by applying &lt;strong&gt;&lt;em&gt;kernel \(i\)&lt;/em&gt;&lt;/strong&gt; at &lt;strong&gt;&lt;em&gt;position \(x,y\)&lt;/em&gt;&lt;/strong&gt;  &lt;br /&gt;
+Then, applying the ReLU nonlinearity,  &lt;br /&gt;
+the &lt;strong&gt;&lt;em&gt;response-normalizaed activity \(b^{i}_{x,y}\)&lt;/em&gt;&lt;/strong&gt; is given by the expression  &lt;br /&gt;
+\(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{i}_{x,y})^2 \biggr)^{\beta}\)  &lt;br /&gt;
+where the sum runs over &lt;strong&gt;&lt;em&gt;\(n\) “adjacent” kernel maps&lt;/em&gt;&lt;/strong&gt; at the same spatial position, and \(N\) &lt;strong&gt;&lt;em&gt;is the total # of kernels in the layer&lt;/em&gt;&lt;/strong&gt;  &lt;br /&gt;
+\(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.  &lt;br /&gt;
+ (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The ordering of the kernel(filter) maps : arbitrary and determined before training begins&lt;/li&gt;
+  &lt;li&gt;modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함&lt;/li&gt;
+  &lt;li&gt;여기서 나온 scheme은 local contrast normalization scheme &lt;a href=&quot;http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf&quot;&gt;[11]&lt;/a&gt;과 유사&lt;/li&gt;
+  &lt;li&gt;요즘은 이거 안쓰고 batch normalization 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;overlapping-maxpooling&quot;&gt;overlapping maxpooling&lt;/h3&gt;
+&lt;p&gt;overlapping pooling 은 덜 overfitting 한다.   &lt;br /&gt;
+AlexNet에서 3X3 크기의 커널, stride =2로 설정하여 풀링이 겹치게 하였다.
+이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;overall-architecture&quot;&gt;Overall Architecture&lt;/h3&gt;
+&lt;p&gt;Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.  &lt;br /&gt;
+트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨&lt;/li&gt;
+  &lt;li&gt;3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨&lt;/li&gt;
+  &lt;li&gt;Response-normalization layers는 1번째 layer와 2번째 layer를 따름&lt;/li&gt;
+  &lt;li&gt;Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름&lt;/li&gt;
+  &lt;li&gt;ReLU non-linearity 는 모든 CONV &amp;amp; FC layers의 output에 적용됨&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;총 60M parameters가 있음
+    &lt;h1 id=&quot;reducing-overfitting&quot;&gt;Reducing Overfitting&lt;/h1&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-data-augmentation&quot;&gt;1. Data Augmentation&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)   &lt;br /&gt;
+transformation images = image translations * horizontal reflections  &lt;br /&gt;
+(10 = 5 * 2)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;1-1-first-form&quot;&gt;1-1. First Form&lt;/h4&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;image translations =
+        &lt;ul&gt;
+          &lt;li&gt;center patch&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt;1&lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;top left corner patch&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;1&lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;top right corner patch&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt;1&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;bottom left corner patch&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;1&lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;bottom right corner patch&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt;1&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;h4 id=&quot;수평-reflections-좌우반전&quot;&gt;수평 reflections (좌우반전)=&lt;/h4&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt;|&lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;8&lt;/td&gt;
+              &lt;td&gt;|&lt;/td&gt;
+              &lt;td&gt;8&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt; &lt;/td&gt;
+              &lt;td&gt;|&lt;/td&gt;
+              &lt;td&gt; &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;p&gt;transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다&lt;/p&gt;
+        &lt;/li&gt;
+        &lt;li&gt;transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.&lt;/li&gt;
+        &lt;li&gt;이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)&lt;/li&gt;
+        &lt;li&gt;1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)&lt;/li&gt;
+        &lt;li&gt;10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;h3 id=&quot;궁금한-점&quot;&gt;궁금한 점&lt;/h3&gt;
+        &lt;p&gt;왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 잘되지 않을까?
+  training에 근접해서 오히려 overfitting 유발할까 ?&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;1-2-second-form&quot;&gt;1-2. Second Form&lt;/h4&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;altering the intensities of the RGB channels in training images.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;in details,  &lt;br /&gt;
+the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.&lt;/p&gt;
+
+&lt;p&gt;each training image,  &lt;br /&gt;
+we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.&lt;/p&gt;
+
+    &lt;p&gt;\([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)  &lt;br /&gt;
+  where  &lt;br /&gt;
+  \(p_i = eigenvector\)  &lt;br /&gt;
+  \(\lambda_i = eigenvalue\)  &lt;br /&gt;
+  \(\alpha_i\) = a random variable
+  of the 3 X 3 covariance matrix of RGB pixel values&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;\(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.  &lt;br /&gt;
+image가 다시 사용될때, 그 point에서 re-drawn 된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This scheme approximately captures &lt;strong&gt;an important property&lt;/strong&gt; of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.&lt;/li&gt;
+  &lt;li&gt;This scheme reduces the top-1 error rate by over 1%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-dropout&quot;&gt;2. Dropout&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Combining the predictions&lt;/strong&gt; of many different models is a very successful way to &lt;u&gt;reduce test errors.&lt;/u&gt;
+    &lt;ul&gt;
+      &lt;li&gt;근데, too expensive for big NN &amp;gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.&lt;/li&gt;
+  &lt;li&gt;“dropped out” 된 neurons 은 feed forward에 don’t contribute &amp;amp; back propagation 에 don’t participate&lt;/li&gt;
+  &lt;li&gt;So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;궁금한 점&lt;/strong&gt;  &lt;br /&gt;
+  뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.
+    &lt;ul&gt;
+      &lt;li&gt;아리까리 한거: many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;test time, we use all the neurons but (their outputs X 0.5)   &lt;br /&gt;
+0.5: which is the geometric mean of the 지수적으로 많은 dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;5-details-of-learning&quot;&gt;5. Details of learning&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SGD 사용&lt;/li&gt;
+  &lt;li&gt;batch size : 128 examples&lt;/li&gt;
+  &lt;li&gt;momentum : 0.9&lt;/li&gt;
+  &lt;li&gt;weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The update rul for weight \(w\) was&lt;/p&gt;
+
+        &lt;p&gt;\(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)   &lt;br /&gt;
+  \(w_{i+1} := w_i + v_{i+1}\)&lt;/p&gt;
+
+        &lt;p&gt;where   &lt;br /&gt;
+  \(i\) : the iteration index  &lt;br /&gt;
+  \(v\) : the momentum variable  &lt;br /&gt;
+  \(\epsilon\) : the learning rate   &lt;br /&gt;
+  \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;weights 초기화 : N(0, 0.01) (in each layer)&lt;/li&gt;
+  &lt;li&gt;neuron biases 초기화
+    &lt;ul&gt;
+      &lt;li&gt;2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1&lt;/li&gt;
+      &lt;li&gt;나머지 layers : constant 0&lt;/li&gt;
+      &lt;li&gt;초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;learning rate 초기화 : 0.01
+    &lt;ul&gt;
+      &lt;li&gt;모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)&lt;/li&gt;
+      &lt;li&gt;heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;termination 전에&lt;/strong&gt; 3배 감소한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;training set : 1.2M images&lt;/li&gt;
+  &lt;li&gt;trained cycles : 90&lt;/li&gt;
+  &lt;li&gt;training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;6-result&quot;&gt;6. Result&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ILSVRC-2010 summary&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Model&lt;/td&gt;
+          &lt;td&gt;Top-1&lt;/td&gt;
+          &lt;td&gt;Top-5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Sparse coding&lt;/td&gt;
+          &lt;td&gt;47.1%&lt;/td&gt;
+          &lt;td&gt;28.2%&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;SIFT + FVs&lt;/td&gt;
+          &lt;td&gt;45.7%&lt;/td&gt;
+          &lt;td&gt;25.7%&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;CNN&lt;/td&gt;
+          &lt;td&gt;37.5%&lt;/td&gt;
+          &lt;td&gt;17.0%&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;-SIFT: distribution of features  &lt;br /&gt;
+  -Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Choosing the pattern of connectivity is a problem for cross-validation&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;훈련해야할 파라미터 수  &lt;br /&gt;
+ (weight + bias) * # of feature maps ( bias 는 보통 1)&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Singular Value Decomposition (SVD)</title>
    <link href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/"/>
    <updated>2020-07-13T00:00:00+09:00</updated>
    <id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id>
@@ -348,8 +913,8 @@ back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. 
       &lt;li&gt;행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?&lt;/li&gt;
       &lt;li&gt;(1)의 답이 &lt;strong&gt;NO&lt;/strong&gt; 라면 어떤 행렬이 LU분해가 가능한가요?
         &lt;blockquote&gt;
-          &lt;p&gt;(1) 아니오
-(2) 아니오
+          &lt;p&gt;(1) 아니오&lt;br /&gt;
+(2) 아니오&lt;br /&gt;
 (3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.&lt;br /&gt;
 왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.&lt;br /&gt;
 그러면&lt;br /&gt;
