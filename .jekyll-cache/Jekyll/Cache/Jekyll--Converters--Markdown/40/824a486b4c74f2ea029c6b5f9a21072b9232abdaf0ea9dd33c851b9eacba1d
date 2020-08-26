@@ -1,0 +1,68 @@
+I"k<p>AlexNet 논문 중에서,</p>
+<blockquote>
+  <p>Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
+about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).</p>
+</blockquote>
+
+<p>이 있다.</p>
+
+<p>the nature of images에 대해 breadth, depth를 조절하여 Dataset의 크기를 컨트롤 할 수 있고, 강력하고 정확한 assumptions을 생성할 수 있다.</p>
+
+<p>이 때, the nature of images의 조건 3가지,</p>
+<ol>
+  <li>namely</li>
+  <li>stationarity of statistics</li>
+  <li>locality of pixel dependencies  <br />
+라고 한다.  <br />
+세 가지의 의미는,</li>
+</ol>
+
+<ul>
+  <li>namely
+    <ul>
+      <li>an object modeller and a system that performs the matching of stored representations to those derived from the sensed image.   <br />
+(i.e. 어떤 이미지에 대해 모델이 정확히 인식해야 한다.)</li>
+    </ul>
+  </li>
+  <li>stationarity of statistics
+    <ul>
+      <li>개인적으로 뜻을 이해하기 정말 어려웠다.
+        <ul>
+          <li>
+            <p>Wikipida 인용</p>
+
+            <blockquote>
+              <p>확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 
+  확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  <br />
+   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.</p>
+            </blockquote>
+
+            <p><code class="language-plaintext highlighter-rouge">1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.</code><br />
+  <code class="language-plaintext highlighter-rouge">2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.</code></p>
+          </li>
+          <li>
+            <p>위키피디아는 시간의 불변성을 이야기를 한다. 그래서 시간에 따른 a sequence of images, 즉 video를 생각하게 되었다. 하지만, stackexchange에서 다른 사람들은 다른 관점으로 생각한다.</p>
+          </li>
+          <li>
+            <p>StackExchange 인용</p>
+            <blockquote>
+              <p>stationarity of statistics might mean that the values of the pixels do not change over time, so this could be related to diffusion techniques in image processing. stationarity of statistics might also mean that the values of the pixels do not change much in a spatial neighborhood, even though, stationarity, e.g. in reinforcement learning, usually means that something does not change over time (so, if that’s the case, the terminology stationarity is at least misleading and confusing, in this context), so this might be related to the locality of pixel dependencies property. Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.</p>
+            </blockquote>
+
+            <p>I really think in this case stationarity isnt regarding time, but spatial location (given no time exists– im assuming you meant over the dataset) I think theyre saying alot of local statistics are common across multiple areas of the image (therefore a single convolved filter can be a useful featurization of multiple fields rather than just one) – mshlis Jul 31 ‘19 at 1:19
+  @mshlis You might be right. This was my interpretation, given the usual meaning of stationarity (e.g. in reinforcement learning). However, if your interpretation is correct, then their terminology is highly confusing or misleading. – nbro♦ Jul 31 ‘19 at 1:36 
+  I completely agree, generally stationarity when referring to images draws on the distributions of the pixels themselves, but here it seems to be used based on the dependencies, treating the moving indices of the convolution to parametrize some from of process. – mshlis Jul 31 ‘19 at 2:06
+  Thanks for the answer! Could you edit the part about stationarity of statistics? I don’t think there’s any temporal aspect to image processing at least in the context of the question. I can then accept the answer once that part of edited. Thanks again! – Shirish Kulhari Jul 31 ‘19 at 9:19 
+  @ShirishKulhari You can view an image or a sequence of images as a flow over time, so this interpretation is not completely wrong. Have a look at certain image processing techniques that are based on diffusion. – nbro♦ Jul 31 ‘19 at 10:12 
+  @nbro: Oh, my bad. I can understand that a video could definitely be interpreted as a sequence of images as a flow over time, but I’m not clear on how a single, static image be interpreted as such. Could you elaborate about that in the answer, if possible? – Shirish Kulhari Jul 31 ‘19 at 10:19
+  @ShirishKulhari Essentially, a noisy image f^ of an original image f might be viewed as an image of a sequence of images, f,f1,f2,…,f^,f^1,…, that starts at the original image and goes through f^, so this sequence of images is part of a “flow”. This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image. If you’re interested in this, have a look at the details of this technique. – nbro♦ Jul 31 ‘19 at 10:21 
+  @nbro: So denoising involves figuring out the transformation f→f^ and inverting it? – Shirish Kulhari Jul 31 ‘19 at 10:23
+  @ShirishKulhari Yes, that’s basically the idea. – nbro♦ Jul 31 ‘19 at 10:24</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>locality of pixel dependencies</li>
+</ul>
+:ET

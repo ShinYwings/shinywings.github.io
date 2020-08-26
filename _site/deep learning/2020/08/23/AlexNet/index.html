@@ -9,7 +9,7 @@
    
   <title>
     
-      Alex Net &middot; Shin
+      AlexNet &middot; Shin
     
   </title>
 
@@ -144,7 +144,7 @@
 <!---->
 
 <div class="post">
-  <h1 class="post-title">Alex Net</h1>
+  <h1 class="post-title">AlexNet</h1>
   <span class="post-date">23 Aug 2020</span>
   <article>
       <script type="text/javascript" async
@@ -152,60 +152,138 @@
       </script> 
       <ul>
   <li>
-    <h2 id="alexnet-structure">AlexNet Structure</h2>
+    <h2 id="overview">Overview</h2>
+
     <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>CONV1</td>
+        </tr>
+        <tr>
+          <td>MAX POOL1</td>
+        </tr>
+        <tr>
+          <td>NORM1</td>
+        </tr>
+        <tr>
+          <td>COVN2</td>
+        </tr>
+        <tr>
+          <td>MAX POOL2</td>
+        </tr>
+        <tr>
+          <td>NORM2</td>
+        </tr>
+        <tr>
+          <td>COVN3</td>
+        </tr>
+        <tr>
+          <td>COVN4</td>
+        </tr>
+        <tr>
+          <td>COVN5</td>
+        </tr>
+        <tr>
+          <td>MAX POOL3</td>
+        </tr>
+        <tr>
+          <td>FC6</td>
+        </tr>
+        <tr>
+          <td>FC7</td>
+        </tr>
+        <tr>
+          <td>FC8</td>
+        </tr>
+      </tbody>
+    </table>
+
     <ul>
-      <li>60M parameteres &amp; 650,000 neurons 가 존재</li>
-      <li>5 CONV layers ( 몇개는 max-pooling layers를 따름, 한개라도 없애면 나쁜 성능을 보임)</li>
+      <li>60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)</li>
+      <li>5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)</li>
       <li>3 FC layers</li>
       <li>1000 ways softmax in the end</li>
-      <li>non-saturating neurons를 사용했다. (ReLUs 말하는 것 같음)</li>
+      <li>non-saturating neurons를 사용했다. (ReLUs)</li>
     </ul>
   </li>
   <li>
     <h2 id="introduction">INTRODUCTION</h2>
 
+    <p>이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?</p>
+
     <ul>
-      <li>Conditions to improve the performance
+      <li>학습 모델의 성능을 높히기 위한 조건   <br />
+  (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)
         <ol>
-          <li>larger datasets</li>
-          <li>learn more powerful models</li>
-          <li>use better techniques for preventing overfitting</li>
+          <li>larger datasets =&gt; Data augmentation</li>
+          <li>learn more powerful models =&gt; MLP to CNN</li>
+          <li>use better techniques for preventing overfitting =&gt; Data augmentation, dropout         <br />
+  <a href="https://machinelearningmastery.com/improve-deep-learning-performance/">Refer From Here</a></li>
         </ol>
       </li>
-      <li>
-        <h3 id="object-recognition-에서-strong--correct-assumption이-되기-위한-조건--images-갯수-">object recognition 에서 strong &amp; correct assumption이 되기 위한 조건 ( images 갯수 )</h3>
+      <li>물체 인식에서 strong &amp; correct assumption이 되기 위한 조건  <br />
+  (dataset 크기에 관한)
         <ol>
-          <li>namely</li>
-          <li><strong>stationarity of statistics</strong></li>
-          <li>locality of pixel dependencies  <br />
-  분류된 이미지들이 이것들을 만족하면 strong &amp; correct assumption 이라고 할 수 있다.</li>
+          <li>namely (모델이 정확히 판별해야한다)</li>
+          <li><a href="/others/2020/08/26/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
+          <li><a href="/others/2020/08/26/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
         </ol>
+
+        <p>이 세 가지를 <a href="/others/2020/08/26/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
 
         <ul>
           <li>
             <h4 id="stationarity-of-statistics">stationarity of statistics?</h4>
             <blockquote>
               <p>확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  <br />
-임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stocatstic process) 를 의미한다.</p>
+임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.</p>
             </blockquote>
 
             <p><code class="language-plaintext highlighter-rouge">[정리]</code><br />
   <code class="language-plaintext highlighter-rouge">1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.</code><br />
-  <code class="language-plaintext highlighter-rouge">2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.</code></p>
+  <code class="language-plaintext highlighter-rouge">2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.</code><br />
+  <code class="language-plaintext highlighter-rouge">3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.</code></p>
+
+            <p><a href="https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen">[refer from here]</a></p>
+          </li>
+          <li>
+            <h4 id="locality-of-pixel-dependencies">locality of pixel dependencies?</h4>
+            <blockquote>
+              <p><strong>neighboring pixels tend to be correlated</strong>, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).</p>
+            </blockquote>
+          </li>
+        </ul>
+      </li>
+      <li>CNN의 장점
+        <ul>
+          <li>기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다
+            <ul>
+              <li>connections이 적고</li>
+              <li>parameter가 적고</li>
+              <li>easier to train 하다.</li>
+            </ul>
           </li>
         </ul>
       </li>
     </ul>
+
+    <p>왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,  <br />
+  첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.   <br />
+  둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)   <br />
+  <a href="https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1">Refer from Here</a></p>
+
+    <p>그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)</p>
   </li>
   <li>
     <h2 id="특징">특징</h2>
     <ol>
-      <li>overlapping maxpooling</li>
-      <li>ReLU 처음으로 도입</li>
-      <li>GPU를 처음 씀 (with 분산처리)</li>
+      <li>Overlapping Maxpooling</li>
+      <li>ReLUs 처음으로 도입</li>
+      <li>GPU를 처음 시도 (with 분산처리)</li>
       <li>Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) <a href="https://taeguu.tistory.com/29">괜찮은 참고자료</a></li>
-      <li>overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였음)
+      <li>overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)
         <ul>
           <li>Dropout -&gt; FC layers 에서 처리, regularization method임</li>
           <li>Data Augmentation</li>
@@ -216,9 +294,7 @@
       <li>Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)</li>
       <li>256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224</li>
       <li><strong>NO</strong> pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)</li>
-      <li>
-        <p>(centered) trained RAW RGB values of the pixels</p>
-      </li>
+      <li>8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels</li>
       <li>AlexNet Contribution  <br />
   한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)  <br />
   <a href="https://github.com/akrizhevsky/cuda-convnet2">cuda-convnet2 github link</a></li>
@@ -226,11 +302,11 @@
   </li>
   <li>
     <h2 id="outline">Outline</h2>
-    <p>Section 3. 새로운 feature들을 소개 which improve its performance &amp; reduce its training time</p>
+    <p>Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개</p>
 
-    <p>Section 4. overfitting 방지를 위한 효과적인 테크닉들</p>
+    <p>Section 4. Overfitting 방지를 위한 효과적인 테크닉들</p>
 
-    <p>Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 냄  <br />
+    <p>Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가  <br />
               (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images</p>
   </li>
   <li>
@@ -241,10 +317,21 @@
         <h3 id="relu-nonlinearity">ReLU Nonlinearity</h3>
 
         <ul>
+          <li>활성화 함수를 선형 함수로 쓰면 안되는 이유
+            <blockquote>
+              <p>선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.  <br />
+  Refer from 밑바닥부터 시작하는 딥러닝</p>
+            </blockquote>
+          </li>
           <li>
-            <h4 id="training-time-관점-with-gradient-descent">training time 관점 with gradient descent</h4>
+            <p>x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) <strong>미분하기도 편리해 계산복잡성이 낮다.</strong>. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   <br />
+  <img src="/public/asset/reluVStanh.jpg" alt="ReLUs vs tanh" />
+  <a href="https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/">Refer From Here</a></p>
+          </li>
+          <li>
+            <h4 id="훈련-시간-관점-with-gradient-descent">훈련 시간 관점 with gradient descent</h4>
             <p>\(tanh(x)\)의 saturating nonlinearities 는 non-saturating nonlinearity  <br />
-  (\(f(x) = max(0,x)\)) 보다 매우 느리다.  <br />
+  (\(f(x) = max(0,x)\)) 보다 매우 느리다.     <br />
   ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.  <br />
   (이유 : input normalization이 필요없기 때문에 ?)</p>
           </li>
@@ -252,12 +339,15 @@
             <h4 id="training-on-multiple-gpus">Training on Multiple GPUs</h4>
             <p>singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it
   그래서, <strong>2개 GPU 사용!</strong></p>
+
+            <p>내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.</p>
           </li>
           <li>
-            <p>2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  <strong>without going through host machine memory</strong></p>
+            <p>2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  <strong>without going through host machine memory</strong>
+  (나중에 꼭 해보고 싶다…)</p>
           </li>
           <li>
-            <h4 id="parallelization-scheme">parallelization scheme</h4>
+            <h4 id="parallelization-scheme-나는-1개-gpu로-구축해서-사용-못함">parallelization scheme (나는 1개 GPU로 구축해서 사용 못함)</h4>
             <ul>
               <li>puts half of the kernels (or neurons) on each GPU</li>
               <li>additional trick : <strong>the GPUs commnunicate only in certain layers</strong></li>
@@ -290,7 +380,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
 
         <p><strong>ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.</strong>  <br />
   (Gradient Vanishing 걱정 안해도 된다!)<br />
-  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition이 발생 (generalization 관점에서 훨씬 좋다.))</p>
+  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))</p>
       </li>
       <li>
         <h3 id="local-response-normalization-lrn">Local Response Normalization (LRN)</h3>
@@ -299,7 +389,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
           <li>
             <p>activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
   입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization을 해주는게 좋다.  <br />
-  그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다.</p>
+  그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)</p>
           </li>
           <li>
             <p>applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)</p>
@@ -733,6 +823,15 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
     
       <li>
         <h3>
+          <a href="/others/2020/08/26/stationarity-of-statistics/">
+            Stationarity of Statistics in terms of CV
+            <small>26 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/computer%20vison/2020/08/24/Sparse-Coding/">
             Sparse Coding
             <small>24 Aug 2020</small>
@@ -744,15 +843,6 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
         <h3>
           <a href="/numerical%20analysis/2020/07/13/SVD/">
             Singular Value Decomposition (SVD)
-            <small>13 Jul 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/others/2020/07/13/Mathjax/">
-            Mathjax, pseudocode 사용법
             <small>13 Jul 2020</small>
           </a>
         </h3>

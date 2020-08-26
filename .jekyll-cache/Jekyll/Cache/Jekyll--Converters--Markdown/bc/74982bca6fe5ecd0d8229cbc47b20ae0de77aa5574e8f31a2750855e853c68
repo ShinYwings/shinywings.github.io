@@ -1,0 +1,59 @@
+I".<ul>
+  <li>
+    <h2 id="alexnet-structure">AlexNet Structure</h2>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>CONV1</td>
+        </tr>
+        <tr>
+          <td>MAX POOL1</td>
+        </tr>
+        <tr>
+          <td>NORM1</td>
+        </tr>
+        <tr>
+          <td>COVN2</td>
+        </tr>
+        <tr>
+          <td>MAX POOL2</td>
+        </tr>
+        <tr>
+          <td>NORM2</td>
+        </tr>
+        <tr>
+          <td>COVN3</td>
+        </tr>
+        <tr>
+          <td>COVN4</td>
+        </tr>
+        <tr>
+          <td>COVN5</td>
+        </tr>
+        <tr>
+          <td>MAX POOL3</td>
+        </tr>
+        <tr>
+          <td>FC6</td>
+        </tr>
+        <tr>
+          <td>FC7</td>
+        </tr>
+        <tr>
+          <td>FC8</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+    <ul>
+      <li>60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)</li>
+      <li>5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)</li>
+      <li>3 FC layers</li>
+      <li>1000 ways softmax in the end</li>
+      <li>non-saturating non linearity neurons를 사용했다. (ReLUs)</li>
+    </ul>
+  </li>
+</ul>
+:ET

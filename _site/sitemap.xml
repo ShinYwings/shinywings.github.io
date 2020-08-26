@@ -25,6 +25,10 @@
 <lastmod>2020-08-24T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/others/2020/08/26/stationarity-of-statistics/</loc>
+<lastmod>2020-08-26T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/categories/Computer%20Vision/</loc>
 </url>
 <url>
@@ -43,10 +47,10 @@
 <loc>http://localhost:4000/categories/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/categories/</loc>
+<loc>http://localhost:4000/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/</loc>
+<loc>http://localhost:4000/categories/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/page2/</loc>

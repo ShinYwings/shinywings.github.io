@@ -4,17 +4,134 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
-<<<<<<< HEAD
- <updated>2020-08-26T10:18:03+09:00</updated>
-=======
- <updated>2020-08-25T18:22:14+09:00</updated>
->>>>>>> 7a567575c0fd39cfe8751d439b8c84403f2d0a56
+ <updated>2020-08-26T20:58:55+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
    <email>ski8992@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Stationarity of Statistics in terms of CV</title>
+   <link href="http://localhost:4000/others/2020/08/26/stationarity-of-statistics/"/>
+   <updated>2020-08-26T00:00:00+09:00</updated>
+   <id>http://localhost:4000/others/2020/08/26/stationarity-of-statistics</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 논문 중에서,&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
+about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 있다.&lt;/p&gt;
+
+&lt;p&gt;the nature of images에 대해, breadth, depth를 조절하여, Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이 때, the nature of images의 조건 3가지,&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;namely&lt;/li&gt;
+  &lt;li&gt;stationarity of statistics&lt;/li&gt;
+  &lt;li&gt;locality of pixel dependencies  &lt;br /&gt;
+라고 한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;세 가지 각각의 의미는,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;namely
+    &lt;ul&gt;
+      &lt;li&gt;an object modeller and a system that performs the matching of stored representations to those derived from the sensed image.   &lt;br /&gt;
+(i.e. 어떤 이미지에 대해 모델이 정확히 인식해야 한다.)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;stationarity of statistics
+    &lt;ul&gt;
+      &lt;li&gt;개인적으로 뜻을 이해하기 정말 어려웠다.
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Wikipida 인용&lt;/p&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 
+  확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  &lt;br /&gt;
+   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.&lt;/code&gt;&lt;br /&gt;
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.&lt;/code&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;위키피디아는 시간의 불변성을 이야기를 한다.  &lt;br /&gt;
+ 그래서, 시간에 따른 a sequence of images, 즉 video를 생각하게 되었다.  &lt;br /&gt;
+ 하지만, stackexchange에서는 시간이 아닌 &lt;strong&gt;픽셀&lt;/strong&gt;로 생각해야한다고 주장한다.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;StackExchange 인용 (약간 controversial 하네)
+            &lt;blockquote&gt;
+              &lt;p&gt;답변: stationarity of statistics might mean that the values of the pixels do not change over time, so this could be related to diffusion techniques in image processing. stationarity of statistics might also mean that the values of the pixels do not change much in a spatial neighborhood, even though, stationarity, e.g. in reinforcement learning, usually means that something does not change over time (so, if that’s the case, the terminology stationarity is at least misleading and confusing, in this context), so this might be related to the locality of pixel dependencies property. Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;I really think in this case stationarity isn’t regarding time, but &lt;strong&gt;spatial location (given no time exists– im assuming you meant over the dataset)&lt;/strong&gt; I think they’re saying a lot of local statistics are common across multiple areas of the image (therefore a single convolved filter can be a useful featurization of multiple fields rather than just one) – mshlis Jul 31 ‘19 at 1:19&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@mshlis You might be right. This was my interpretation, given the usual meaning of stationarity (e.g. in reinforcement learning). However, if your interpretation is correct, then their terminology is highly confusing or misleading. – nbro♦ Jul 31 ‘19 at 1:36&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;I completely agree, &lt;strong&gt;generally stationarity when referring to images draws on the distributions of the pixels themselves&lt;/strong&gt;, but here it seems to be used based on the dependencies, treating the moving indices of the convolution to parametrize some from of process. – mshlis Jul 31 ‘19 at 2:06&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;Thanks for the answer! Could you edit the part about stationarity of statistics? I don’t think there’s any temporal aspect to image processing at least in the context of the question. I can then accept the answer once that part of edited. Thanks again! – Shirish Kulhari Jul 31 ‘19 at 9:19&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@ShirishKulhari You can view an image or a sequence of images as a flow over time, so this interpretation is not completely wrong. Have a look at certain image processing techniques that are based on diffusion. – nbro♦ Jul 31 ‘19 at 10:12&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@nbro: Oh, my bad. I can understand that a video could definitely be interpreted as a sequence of images as a flow over time, but I’m not clear on how a single, static image be interpreted as such. Could you elaborate about that in the answer, if possible? – Shirish Kulhari Jul 31 ‘19 at 10:19&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@ShirishKulhari &lt;strong&gt;Essentially, a noisy image \(\hat{f}\) of an original image \(f\) might be viewed as an image of a sequence of images, \(f,f1,f2,\cdots,\hat{f},\hat{f^1} \cdots,\)that starts at the original image and goes through \(\hat{f}\), so this sequence of images is part of a “flow”.&lt;/strong&gt; &lt;strong&gt;This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image.&lt;/strong&gt; If you’re interested in this, have a look at the details of this technique. – nbro♦ Jul 31 ‘19 at 10:21&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@nbro: So denoising involves figuring out the transformation \(f→\hat{f}\) and inverting it? – Shirish Kulhari Jul 31 ‘19 at 10:23&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;blockquote&gt;
+              &lt;p&gt;@ShirishKulhari Yes, that’s basically the idea. – nbro♦ Jul 31 ‘19 at 10:24&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 한 이미지에 대한 noise가 일정하다(pixel의 분산정도가 낮다?)는 것이라고 강화 학습에서 주로 쓰는 용어라고 한다. (stationarity of pixel distribution)&lt;/code&gt;&lt;/p&gt;
+
+            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. diffused image 같은 것들, anisotropic diffusion filter가 있다고 함. (Gaussian Filter가 영상의 엣지를 부드럽게 하는 것이라면 이거는 엣지를 더 세운다.)&lt;/code&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;i.e. 좀 더 선명해야 한다. 색이 퍼져 있음 안된다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;locality of pixel dependencies
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;strong&gt;neighboring pixels tend to be correlated&lt;/strong&gt;, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually chosen to be fixed and rectangular (or squared).&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;옆에 있는 픽셀끼리의 서로 간의 연관성이 있어야 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;궁금한 점&lt;/strong&gt;:  &lt;br /&gt;
+  픽셀끼리의 서로 간의 연관성이 있어야 한다. 라는 말이 와닿지가 않는다. 이웃한 픽셀끼리 비슷한 값을 가진다라는게 correlated한 것이라고 하면, 뿌옇게 된 이미지는 locality of pixel dependencies가 좋다는 말이다. 하지만, stackexchange의 인용에 따르면 뿌옇게 된 것은 stationarity of statistics에 나쁜 것이다. 그럼 2번과 3번은 서로 trade-off 관계에 있는 것일까?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[Reference]   &lt;br /&gt;
+&lt;a href=&quot;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&quot;&gt;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&lt;/a&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Sparse Coding</title>
@@ -72,66 +189,144 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
  </entry>
  
  <entry>
-   <title>Alex Net</title>
+   <title>AlexNet</title>
    <link href="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/"/>
    <updated>2020-08-23T00:00:00+09:00</updated>
    <id>http://localhost:4000/deep%20learning/2020/08/23/AlexNet</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
-    &lt;h2 id=&quot;alexnet-structure&quot;&gt;AlexNet Structure&lt;/h2&gt;
+    &lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+
     &lt;p&gt;&lt;img src=&quot;/public/asset/alexnet_structure.jpg&quot; alt=&quot;AlexNet Structure&quot; /&gt;&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;CONV1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;MAX POOL1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;NORM1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;COVN2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;MAX POOL2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;NORM2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;COVN3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;COVN4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;COVN5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;MAX POOL3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;FC6&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;FC7&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;FC8&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
     &lt;ul&gt;
-      &lt;li&gt;60M parameteres &amp;amp; 650,000 neurons 가 존재&lt;/li&gt;
-      &lt;li&gt;5 CONV layers ( 몇개는 max-pooling layers를 따름, 한개라도 없애면 나쁜 성능을 보임)&lt;/li&gt;
+      &lt;li&gt;60M parameteres &amp;amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)&lt;/li&gt;
+      &lt;li&gt;5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)&lt;/li&gt;
       &lt;li&gt;3 FC layers&lt;/li&gt;
       &lt;li&gt;1000 ways softmax in the end&lt;/li&gt;
-      &lt;li&gt;non-saturating neurons를 사용했다. (ReLUs 말하는 것 같음)&lt;/li&gt;
+      &lt;li&gt;non-saturating neurons를 사용했다. (ReLUs)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;h2 id=&quot;introduction&quot;&gt;INTRODUCTION&lt;/h2&gt;
 
+    &lt;p&gt;이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?&lt;/p&gt;
+
     &lt;ul&gt;
-      &lt;li&gt;Conditions to improve the performance
+      &lt;li&gt;학습 모델의 성능을 높히기 위한 조건   &lt;br /&gt;
+  (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)
         &lt;ol&gt;
-          &lt;li&gt;larger datasets&lt;/li&gt;
-          &lt;li&gt;learn more powerful models&lt;/li&gt;
-          &lt;li&gt;use better techniques for preventing overfitting&lt;/li&gt;
+          &lt;li&gt;larger datasets =&amp;gt; Data augmentation&lt;/li&gt;
+          &lt;li&gt;learn more powerful models =&amp;gt; MLP to CNN&lt;/li&gt;
+          &lt;li&gt;use better techniques for preventing overfitting =&amp;gt; Data augmentation, dropout         &lt;br /&gt;
+  &lt;a href=&quot;https://machinelearningmastery.com/improve-deep-learning-performance/&quot;&gt;Refer From Here&lt;/a&gt;&lt;/li&gt;
         &lt;/ol&gt;
       &lt;/li&gt;
-      &lt;li&gt;
-        &lt;h3 id=&quot;object-recognition-에서-strong--correct-assumption이-되기-위한-조건--images-갯수-&quot;&gt;object recognition 에서 strong &amp;amp; correct assumption이 되기 위한 조건 ( images 갯수 )&lt;/h3&gt;
+      &lt;li&gt;물체 인식에서 strong &amp;amp; correct assumption이 되기 위한 조건  &lt;br /&gt;
+  (dataset 크기에 관한)
         &lt;ol&gt;
-          &lt;li&gt;namely&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;stationarity of statistics&lt;/strong&gt;&lt;/li&gt;
-          &lt;li&gt;locality of pixel dependencies  &lt;br /&gt;
-  분류된 이미지들이 이것들을 만족하면 strong &amp;amp; correct assumption 이라고 할 수 있다.&lt;/li&gt;
+          &lt;li&gt;namely (모델이 정확히 판별해야한다)&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;stationarity of statistics&lt;/strong&gt;&lt;/a&gt; (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;locality of pixel dependencies&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
         &lt;/ol&gt;
+
+        &lt;p&gt;이 세 가지를 &lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;the nature of images&lt;/a&gt; 라고 부르고, 이를 만족하면 strong &amp;amp; correct assumption을 할 수 있다고 말할 수 있다.&lt;/p&gt;
 
         &lt;ul&gt;
           &lt;li&gt;
             &lt;h4 id=&quot;stationarity-of-statistics&quot;&gt;stationarity of statistics?&lt;/h4&gt;
             &lt;blockquote&gt;
               &lt;p&gt;확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  &lt;br /&gt;
-임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stocatstic process) 를 의미한다.&lt;/p&gt;
+임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.&lt;/p&gt;
             &lt;/blockquote&gt;
 
             &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[정리]&lt;/code&gt;&lt;br /&gt;
   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.&lt;/code&gt;&lt;br /&gt;
-  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.&lt;/code&gt;&lt;/p&gt;
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.&lt;/code&gt;&lt;br /&gt;
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.&lt;/code&gt;&lt;/p&gt;
+
+            &lt;p&gt;&lt;a href=&quot;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&quot;&gt;[refer from here]&lt;/a&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;h4 id=&quot;locality-of-pixel-dependencies&quot;&gt;locality of pixel dependencies?&lt;/h4&gt;
+            &lt;blockquote&gt;
+              &lt;p&gt;&lt;strong&gt;neighboring pixels tend to be correlated&lt;/strong&gt;, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).&lt;/p&gt;
+            &lt;/blockquote&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;CNN의 장점
+        &lt;ul&gt;
+          &lt;li&gt;기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다
+            &lt;ul&gt;
+              &lt;li&gt;connections이 적고&lt;/li&gt;
+              &lt;li&gt;parameter가 적고&lt;/li&gt;
+              &lt;li&gt;easier to train 하다.&lt;/li&gt;
+            &lt;/ul&gt;
           &lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
+
+    &lt;p&gt;왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,  &lt;br /&gt;
+  첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.   &lt;br /&gt;
+  둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)   &lt;br /&gt;
+  &lt;a href=&quot;https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1&quot;&gt;Refer from Here&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;h2 id=&quot;특징&quot;&gt;특징&lt;/h2&gt;
     &lt;ol&gt;
-      &lt;li&gt;overlapping maxpooling&lt;/li&gt;
-      &lt;li&gt;ReLU 처음으로 도입&lt;/li&gt;
-      &lt;li&gt;GPU를 처음 씀 (with 분산처리)&lt;/li&gt;
+      &lt;li&gt;Overlapping Maxpooling&lt;/li&gt;
+      &lt;li&gt;ReLUs 처음으로 도입&lt;/li&gt;
+      &lt;li&gt;GPU를 처음 시도 (with 분산처리)&lt;/li&gt;
       &lt;li&gt;Local Response Normalization (LRN) 을 처음 소개함 ( &amp;lt;-&amp;gt; batch normalization ) &lt;a href=&quot;https://taeguu.tistory.com/29&quot;&gt;괜찮은 참고자료&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였음)
+      &lt;li&gt;overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)
         &lt;ul&gt;
           &lt;li&gt;Dropout -&amp;gt; FC layers 에서 처리, regularization method임&lt;/li&gt;
           &lt;li&gt;Data Augmentation&lt;/li&gt;
@@ -142,9 +337,7 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
       &lt;li&gt;Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)&lt;/li&gt;
       &lt;li&gt;256 X 256 fixed resolution 에서 down sampling 함 =&amp;gt; 224 X 224&lt;/li&gt;
       &lt;li&gt;&lt;strong&gt;NO&lt;/strong&gt; pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)&lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;(centered) trained RAW RGB values of the pixels&lt;/p&gt;
-      &lt;/li&gt;
+      &lt;li&gt;8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels&lt;/li&gt;
       &lt;li&gt;AlexNet Contribution  &lt;br /&gt;
   한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)  &lt;br /&gt;
   &lt;a href=&quot;https://github.com/akrizhevsky/cuda-convnet2&quot;&gt;cuda-convnet2 github link&lt;/a&gt;&lt;/li&gt;
@@ -152,11 +345,11 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
   &lt;/li&gt;
   &lt;li&gt;
     &lt;h2 id=&quot;outline&quot;&gt;Outline&lt;/h2&gt;
-    &lt;p&gt;Section 3. 새로운 feature들을 소개 which improve its performance &amp;amp; reduce its training time&lt;/p&gt;
+    &lt;p&gt;Section 3.Improve its performance &amp;amp; Reduce its training time 할 수 있는 새로운 특징들을 소개&lt;/p&gt;
 
-    &lt;p&gt;Section 4. overfitting 방지를 위한 효과적인 테크닉들&lt;/p&gt;
+    &lt;p&gt;Section 4. Overfitting 방지를 위한 효과적인 테크닉들&lt;/p&gt;
 
-    &lt;p&gt;Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 냄  &lt;br /&gt;
+    &lt;p&gt;Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가  &lt;br /&gt;
               (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -167,10 +360,21 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
         &lt;h3 id=&quot;relu-nonlinearity&quot;&gt;ReLU Nonlinearity&lt;/h3&gt;
 
         &lt;ul&gt;
+          &lt;li&gt;활성화 함수를 선형 함수로 쓰면 안되는 이유
+            &lt;blockquote&gt;
+              &lt;p&gt;선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.  &lt;br /&gt;
+  Refer from 밑바닥부터 시작하는 딥러닝&lt;/p&gt;
+            &lt;/blockquote&gt;
+          &lt;/li&gt;
           &lt;li&gt;
-            &lt;h4 id=&quot;training-time-관점-with-gradient-descent&quot;&gt;training time 관점 with gradient descent&lt;/h4&gt;
+            &lt;p&gt;x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) &lt;strong&gt;미분하기도 편리해 계산복잡성이 낮다.&lt;/strong&gt;. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/reluVStanh.jpg&quot; alt=&quot;ReLUs vs tanh&quot; /&gt;
+  &lt;a href=&quot;https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/&quot;&gt;Refer From Here&lt;/a&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;h4 id=&quot;훈련-시간-관점-with-gradient-descent&quot;&gt;훈련 시간 관점 with gradient descent&lt;/h4&gt;
             &lt;p&gt;\(tanh(x)\)의 saturating nonlinearities 는 non-saturating nonlinearity  &lt;br /&gt;
-  (\(f(x) = max(0,x)\)) 보다 매우 느리다.  &lt;br /&gt;
+  (\(f(x) = max(0,x)\)) 보다 매우 느리다.     &lt;br /&gt;
   ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.  &lt;br /&gt;
   (이유 : input normalization이 필요없기 때문에 ?)&lt;/p&gt;
           &lt;/li&gt;
@@ -178,12 +382,15 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
             &lt;h4 id=&quot;training-on-multiple-gpus&quot;&gt;Training on Multiple GPUs&lt;/h4&gt;
             &lt;p&gt;singe GTX 580 GPU: 3GB Memory =&amp;gt; limits the max size of the networks that can be trained on it
   그래서, &lt;strong&gt;2개 GPU 사용!&lt;/strong&gt;&lt;/p&gt;
+
+            &lt;p&gt;내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
-            &lt;p&gt;2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  &lt;strong&gt;without going through host machine memory&lt;/strong&gt;&lt;/p&gt;
+            &lt;p&gt;2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  &lt;strong&gt;without going through host machine memory&lt;/strong&gt;
+  (나중에 꼭 해보고 싶다…)&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
-            &lt;h4 id=&quot;parallelization-scheme&quot;&gt;parallelization scheme&lt;/h4&gt;
+            &lt;h4 id=&quot;parallelization-scheme-나는-1개-gpu로-구축해서-사용-못함&quot;&gt;parallelization scheme (나는 1개 GPU로 구축해서 사용 못함)&lt;/h4&gt;
             &lt;ul&gt;
               &lt;li&gt;puts half of the kernels (or neurons) on each GPU&lt;/li&gt;
               &lt;li&gt;additional trick : &lt;strong&gt;the GPUs commnunicate only in certain layers&lt;/strong&gt;&lt;/li&gt;
@@ -216,7 +423,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
 
         &lt;p&gt;&lt;strong&gt;ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.&lt;/strong&gt;  &lt;br /&gt;
   (Gradient Vanishing 걱정 안해도 된다!)&lt;br /&gt;
-  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition이 발생 (generalization 관점에서 훨씬 좋다.))&lt;/p&gt;
+  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;h3 id=&quot;local-response-normalization-lrn&quot;&gt;Local Response Normalization (LRN)&lt;/h3&gt;
@@ -225,7 +432,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
           &lt;li&gt;
             &lt;p&gt;activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
   입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization을 해주는게 좋다.  &lt;br /&gt;
-  그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다.&lt;/p&gt;
+  그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
             &lt;p&gt;applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)&lt;/p&gt;
