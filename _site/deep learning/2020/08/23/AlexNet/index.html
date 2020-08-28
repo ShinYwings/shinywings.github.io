@@ -220,18 +220,18 @@
           <li>larger datasets =&gt; Data augmentation</li>
           <li>learn more powerful models =&gt; MLP to CNN</li>
           <li>use better techniques for preventing overfitting =&gt; Data augmentation, dropout         <br />
-  <a href="https://machinelearningmastery.com/improve-deep-learning-performance/">Refer From Here</a></li>
+  <a href="https://machinelearningmastery.com/improve-deep-learning-performance/">excerpt From Here</a></li>
         </ol>
       </li>
       <li>물체 인식에서 strong &amp; correct assumption이 되기 위한 조건  <br />
   (dataset 크기에 관한)
         <ol>
           <li>namely (모델이 정확히 판별해야한다)</li>
-          <li><a href="/others/2020/08/26/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
-          <li><a href="/others/2020/08/26/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
+          <li><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
+          <li><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
         </ol>
 
-        <p>이 세 가지를 <a href="/others/2020/08/26/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
+        <p>이 세 가지를 <a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
 
         <ul>
           <li>
@@ -272,7 +272,11 @@
     <p>왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,  <br />
   첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.   <br />
   둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)   <br />
-  <a href="https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1">Refer from Here</a></p>
+  <a href="https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1">excerpt from Here</a></p>
+    <blockquote>
+      <p>MLP = 선형 perceptron + multi-layers + non-linear activation   <br />
+excerpt from <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">https://en.wikipedia.org/wiki/Multilayer_perceptron</a></p>
+    </blockquote>
 
     <p>그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)</p>
   </li>
@@ -324,16 +328,77 @@
             </blockquote>
           </li>
           <li>
-            <p>x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) <strong>미분하기도 편리해 계산복잡성이 낮다.</strong>. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   <br />
-  <img src="/public/asset/reluVStanh.jpg" alt="ReLUs vs tanh" />
-  <a href="https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/">Refer From Here</a></p>
-          </li>
-          <li>
             <h4 id="훈련-시간-관점-with-gradient-descent">훈련 시간 관점 with gradient descent</h4>
-            <p>\(tanh(x)\)의 saturating nonlinearities 는 non-saturating nonlinearity  <br />
+            <ul>
+              <li>
+                <p>\(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인  <br />
   (\(f(x) = max(0,x)\)) 보다 매우 느리다.     <br />
-  ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.  <br />
-  (이유 : input normalization이 필요없기 때문에 ?)</p>
+  ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.</p>
+              </li>
+              <li>
+                <p>왜 학습 속도가 빠를까?</p>
+
+                <p>x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) <strong>미분하기도 편리해 계산복잡성이 낮다.</strong> 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   <br />
+  <img src="/public/asset/reluVStanh.jpg" alt="ReLUs vs tanh" />
+  <a href="https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/">Excerpt From Here</a></p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><strong>ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.</strong>  <br />
+  (Gradient Vanishing 걱정 안해도 된다!)<br />
+  (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))</p>
+
+        <ul>
+          <li>[참고]
+            <blockquote>
+
+              <p><strong>왜 batch normalization일까?</strong>  <br />
+We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and <strong>get 10 times or more improvement in the training speed.</strong></p>
+              <ul>
+                <li>BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)</li>
+                <li>입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.</li>
+                <li>학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.</li>
+                <li>Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.  <br />
+CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.</li>
+              </ul>
+
+              <p>[tanh(x) 특징]</p>
+              <ul>
+                <li>Squashes numbers to range[-1, 1]  <br />
++ zero-centered: 정규화됨  <br />
+- kills gradients when saturated</li>
+              </ul>
+
+              <p>[Sigmoid 특징]</p>
+              <ul>
+                <li>
+                  <p>Squashes numbers to range [0, 1]  <br />
+- kills gradients when saturated  <br />
+- Sigmoid outputs are not zero-centered  <br />
+- \(exp()\) is a bit compute expensive</p>
+                </li>
+                <li>
+                  <p>batch normalization + tanh 에 대해 생각해봤다.
+    BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,       <br />
+    (첫번째 원인으로, Bad Initialization.   <br />
+    두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))</p>
+
+                  <p>실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.</p>
+                </li>
+              </ul>
+
+              <p>[궁금한 점]  <br />
+그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.   <br />
+  왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.   <br />
+  그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.   <br />
+  하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.  <br />
+  혹시 몰라서 BN 논문 링크<a href="https://arxiv.org/pdf/1502.03167.pdf">https://arxiv.org/pdf/1502.03167.pdf</a></p>
+            </blockquote>
+
+            <p>[해결]          <br />
+  <img src="/public/asset/BN_question.png" alt="bn question" /></p>
           </li>
           <li>
             <h4 id="training-on-multiple-gpus">Training on Multiple GPUs</h4>
@@ -341,13 +406,14 @@
   그래서, <strong>2개 GPU 사용!</strong></p>
 
             <p>내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.</p>
+
+            <ul>
+              <li>2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  <strong>without going through host machine memory</strong>  <br />
+  (나중에 꼭 해보고 싶다…)</li>
+            </ul>
           </li>
           <li>
-            <p>2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  <strong>without going through host machine memory</strong>
-  (나중에 꼭 해보고 싶다…)</p>
-          </li>
-          <li>
-            <h4 id="parallelization-scheme-나는-1개-gpu로-구축해서-사용-못함">parallelization scheme (나는 1개 GPU로 구축해서 사용 못함)</h4>
+            <h4 id="parallelization-scheme-나는-1개-gpu로-구축해서-적용-못함">parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)</h4>
             <ul>
               <li>puts half of the kernels (or neurons) on each GPU</li>
               <li>additional trick : <strong>the GPUs commnunicate only in certain layers</strong></li>
@@ -365,11 +431,12 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
                   <li>
                     <h4 id="2-gpu-net-takes-slightly-less-time-to-train-than-the-one-gpu-net">2 GPU net takes slightly less time to train than the one-GPU net?</h4>
                     <blockquote>
-                      <p>the final convolutional layer에서 one-GPU 의 커널 수 == two-GPU 의 커널 수</p>
+                      <p>the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)</p>
 
-                      <p>그 이유는 net’s parameters 의 대부분이 첫번째 FC layer (마지막 CONV layer로 부터 input을 받는, 마지막 CONV layer의 사이즈를 반으로 줄이지 않는다.) 에 있기 때문이다. ( 무슨 말인지 잘 모르겠다.)</p>
+                      <p>그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.    <br />
+그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.</p>
 
-                      <p>그래서, 이 비교는 bias 된다. in favor of the one-GPU net, since it is bigger than “half the size” of the two-GPU net.</p>
+                      <p>그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.</p>
                     </blockquote>
                   </li>
                 </ul>
@@ -377,18 +444,14 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
             </ul>
           </li>
         </ul>
-
-        <p><strong>ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.</strong>  <br />
-  (Gradient Vanishing 걱정 안해도 된다!)<br />
-  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))</p>
       </li>
       <li>
         <h3 id="local-response-normalization-lrn">Local Response Normalization (LRN)</h3>
         <ul>
-          <li>만약 some training examples이 ReLU에서 positive input을 생산한다면, learning will happen</li>
+          <li>ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.</li>
           <li>
             <p>activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
-  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization을 해주는게 좋다.  <br />
+  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.   <br />
   그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)</p>
           </li>
           <li>
@@ -411,13 +474,13 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
       </li>
       <li>
         <h3 id="overlapping-maxpooling">overlapping maxpooling</h3>
-        <p>overlapping pooling 은 덜 overfitting 한다.   <br />
-  AlexNet에서 3X3 크기의 커널, stride =2로 설정하여 풀링이 겹치게 하였다.
+        <p>overlapping pooling은 덜 overfitting 한다.   <br />
+  AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.
   이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.</p>
       </li>
       <li>
         <h3 id="overall-architecture">Overall Architecture</h3>
-        <p>Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.  <br />
+        <p>Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.      <br />
   트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!</p>
 
         <ul>
@@ -628,7 +691,7 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
             <p>in details,  <br />
   the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.</p>
 
-            <p>each training image,  <br />
+            <p>each training image,    <br />
   we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)</p>
 
             <ul>
@@ -823,27 +886,27 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
     
       <li>
         <h3>
-          <a href="/others/2020/08/26/stationarity-of-statistics/">
+          <a href="/computer%20vision/2020/08/27/Local-Minima/">
+            Local Minima
+            <small>27 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2020/08/27/Correlation-vs-Convolution/">
+            Correlation VS Convolution
+            <small>27 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">
             Stationarity of Statistics in terms of CV
             <small>26 Aug 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/computer%20vison/2020/08/24/Sparse-Coding/">
-            Sparse Coding
-            <small>24 Aug 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/numerical%20analysis/2020/07/13/SVD/">
-            Singular Value Decomposition (SVD)
-            <small>13 Jul 2020</small>
           </a>
         </h3>
       </li>

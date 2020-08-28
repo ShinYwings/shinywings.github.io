@@ -2,7 +2,7 @@
 layout: post
 title: Sparse Coding
 comments: true
-categories : [Computer Vison]
+categories : [Computer Vision]
 tags: [AlexNet]
 ---
 

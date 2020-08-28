@@ -1,8 +1,0 @@
-I";<p>AlexNet 논문 중에서,</p>
-<blockquote>
-  <p>Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
-about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).</p>
-</blockquote>
-
-<p>이 있다.</p>
-:ET

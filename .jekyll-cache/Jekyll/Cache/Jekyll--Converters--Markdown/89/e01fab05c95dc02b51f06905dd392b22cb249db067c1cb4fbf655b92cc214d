@@ -1,0 +1,76 @@
+I"_<ul>
+  <li>Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
+    <h2 id="용어-정리">용어 정리</h2>
+  </li>
+  <li>
+    <p>Local Min, Max vs Global Min, Max  <br />
+  <img src="/public/asset/local_global.jpg" alt="local global" /></p>
+
+    <ul>
+      <li>2차 미분값이 positive 값을 가지면 local minimum (여러 개 minima)</li>
+      <li>2차 미분값이 negative 값을 가지면 local maximum (여러 개 maxima)</li>
+      <li>Hessian 행렬이 positivie definite (convex) 인 경우, global minimum</li>
+      <li>Hessian 행렬이 negative definite (concave) 인 경우, global maximum</li>
+      <li>local minima를 주로 찾는다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Stationary Point(Critical Point) (정상점) <br />
+  <img src="/public/asset/stationary_points.jpg" alt="Stationary Point" /></p>
+
+    <ul>
+      <li>Stationary Point = Local Minima &amp; Maxima + Global Minimum &amp; Maximum + Saddle Point</li>
+    </ul>
+  </li>
+  <li>
+    <p>Saddle Point (안정점)</p>
+
+    <ul>
+      <li>
+        <p>convex도 concave도 아닌 stationary point <br />
+  <img src="/public/asset/saddle_point.jpg" alt="Saddle Point" /></p>
+      </li>
+      <li>\(f' = 0 (critical point), f''=0\)인 경우, saddle point일 수도 아닐 수도 있다.</li>
+      <li>변곡점을 찾자(?)</li>
+      <li>multiple dimension인 경우, 2차원에서는 local minima 였던 것들이 saddle point 일 수도 있다.</li>
+      <li>딥 러닝 경우, 예전에는 성능 저하의 원인이 local minima라는게 일반적인 생각이였다. 그러나 <a href="https://arxiv.org/pdf/1406.2572.pdf">Y. Dauphin, R. Pascanu, C. Gulcehre, K. Cho, S. Ganguli, Y. Bengio. Identifying and attacking the saddle point problem in high-dimensional non-convex optimization.</a>에서, 차원이 엄청 많기 때문에, local minima가 생기는 경우는 극히 드물다고 한다.
+        <blockquote>
+          <p>왜냐하면, 여러 개의 차원이 모두 ~~~~를 만족해야한다. 그러나 수백개의 차원에서, 실제로 모든 변수가 이 조건을 만족해 local minimum을 이루는 경우가 과연 얼마나 있을까?</p>
+        </blockquote>
+      </li>
+      <li>그래서 학습 속도를 최적화할 때, 거의 대부분은 saddle point이며 우리는 saddle point를 극복할 수 있는 새로운 탐색 방법을 구색해야 한다.</li>
+      <li>
+        <p>또한, local minima가 발생한다 하더라도 이는 global minimum이거나 global minimum과 거의 유사한 수준의 에러 값을 가진다.</p>
+      </li>
+      <li>말 안장(saddle)을 생각하면 편하다.</li>
+    </ul>
+
+    <p><img src="/public/asset/saddle_matlab.jpg" alt="Saddle Point" /></p>
+  </li>
+</ul>
+
+<h2 id="그럼-최종-목적지는-어느-점으로-잡는게-좋을까">그럼 최종 목적지는 어느 점으로 잡는게 좋을까?</h2>
+
+<ul>
+  <li>
+    <p>Flat Minima VS Sharp Minima</p>
+
+    <blockquote>
+      <p>Hochreiter &amp; Schmidhuber (1997) defines a flat minimum
+as “a large connected region in weight space where the
+error remains approximately constant”.</p>
+    </blockquote>
+
+    <p>sharp minima can overfits more, so we don’t want to land sharp minima.</p>
+
+    <p>flat minima is robust</p>
+
+    <p><img src="/public/asset/sharp_minima.jpg" alt="sharp minima" /></p>
+
+    <ul>
+      <li>Sharpness Definition
+  <img src="/public/asset/sharpness.jpg" alt="sharpness" /></li>
+    </ul>
+  </li>
+</ul>
+:ET

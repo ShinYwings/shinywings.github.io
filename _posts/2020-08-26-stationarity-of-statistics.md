@@ -2,7 +2,7 @@
 layout: post
 title: Stationarity of Statistics in terms of CV
 comments: true
-categories : [Others]
+categories : [Computer Vision]
 tags: [AlexNet]
 ---
 
@@ -12,7 +12,7 @@ about the nature of images (namely, stationarity of statistics and locality of p
    
 이 있다.    
 
-the nature of images에 대해, breadth, depth를 조절하여, Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.    
+the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.    
     
 이 때, the nature of images의 조건 3가지,    
 1. namely

@@ -1,0 +1,52 @@
+I"<h3 id="용어-정리">용어 정리</h3>
+
+<ul>
+  <li>
+    <p>Local Min, Max vs Global Min, Max  <br />
+  <img src="/public/asset/local_global.jpg" alt="local global" /></p>
+
+    <ul>
+      <li>2차 미분값이 positive 값을 가지면 local minimum (여러 개면 minima)</li>
+      <li>2차 미분값이 negative 값을 가지면 local maximum (여러 개면 maxima)</li>
+      <li>Hessian 행렬이 positivie definite (convex) 인 경우, global minimum</li>
+      <li>Hessian 행렬이 negative definite (concave) 인 경우, global maximum</li>
+    </ul>
+  </li>
+  <li>
+    <p>Stationary Point (정상점) <br />
+  <img src="/public/asset/stationary_points.jpg" alt="Stationary Point" /></p>
+
+    <ul>
+      <li>Stationary Point = Local Minima &amp; Maxima + Global Minimum &amp; Maximum + Saddle Point</li>
+    </ul>
+  </li>
+  <li>
+    <p>Saddle Point (안정점)</p>
+
+    <ul>
+      <li>convex도 concave도 아닌 stationary point</li>
+      <li>
+        <p>변곡점!?
+  <img src="/public/asset/saddle_point.jpg" alt="Saddle Point" /></p>
+      </li>
+      <li>multiple dimension인 경우, 2차원에서는 local minima 였던 것들이 saddle point 일 수도 있다.</li>
+      <li>말 안장을 생각하면 편하다.</li>
+    </ul>
+
+    <p><img src="/public/asset/saddle_matlab.jpg" alt="Saddle Point" /></p>
+  </li>
+</ul>
+
+<p>Hochreiter &amp; Schmidhuber (1997) defines a flat minimum
+as “a large connected region in weight space where the
+error remains approximately constant”.</p>
+
+<p>sharp minima can overfits more, so we don’t want to land sharp minima.</p>
+
+<p>flat minima is robust</p>
+
+<p><img src="/public/asset/sharp_minima.jpg" alt="sharp minima" /></p>
+
+<h3 id="sharpness-definition">Sharpness Definition</h3>
+<p><img src="/public/asset/sharpness.jpg" alt="sharpness" /></p>
+:ET

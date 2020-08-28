@@ -1,0 +1,10 @@
+I"[<p>Hochreiter &amp; Schmidhuber (1997) defines a flat minimum
+as “a large connected region in weight space where the
+error remains approximately constant”.</p>
+
+<p>sharp minima can overfits more, so we don’t want to land sharp minima.</p>
+
+<p>flat minima is robust</p>
+
+<p><img src="/public/asset/sharp_minima.jpg" alt="sharp minima" /></p>
+:ET

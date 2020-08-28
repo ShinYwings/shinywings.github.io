@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-26T20:58:55+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Stationarity of Statistics in terms of CV</title><link href="http://localhost:4000/others/2020/08/26/stationarity-of-statistics/" rel="alternate" type="text/html" title="Stationarity of Statistics in terms of CV" /><published>2020-08-26T00:00:00+09:00</published><updated>2020-08-26T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/08/26/stationarity-of-statistics</id><content type="html" xml:base="http://localhost:4000/others/2020/08/26/stationarity-of-statistics/">&lt;p&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 논문 중에서,&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-27T21:05:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Correlation VS Convolution</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution/" rel="alternate" type="text/html" title="Correlation VS Convolution" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution/">&lt;p&gt;&lt;a href=&quot;https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/&quot;&gt;https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/&lt;/a&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="CNN" /><summary type="html">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/</summary></entry><entry><title type="html">Local Minima</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/" rel="alternate" type="text/html" title="Local Minima" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Local-Minima</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/">&lt;ul&gt;
+  &lt;li&gt;Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
+    &lt;h2 id=&quot;용어-정리&quot;&gt;용어 정리&lt;/h2&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Local Min, Max vs Global Min, Max  &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/local_global.jpg&quot; alt=&quot;local global&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;2차 미분값이 positive 값을 가지면 local minimum (여러 개 minima)&lt;/li&gt;
+      &lt;li&gt;2차 미분값이 negative 값을 가지면 local maximum (여러 개 maxima)&lt;/li&gt;
+      &lt;li&gt;Hessian 행렬이 positivie definite (convex) 인 경우, global minimum&lt;/li&gt;
+      &lt;li&gt;Hessian 행렬이 negative definite (concave) 인 경우, global maximum&lt;/li&gt;
+      &lt;li&gt;local minima를 주로 찾는다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Stationary Point(Critical Point) (정상점) &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/stationary_points.jpg&quot; alt=&quot;Stationary Point&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Stationary Point = Local Minima &amp;amp; Maxima + Global Minimum &amp;amp; Maximum + Saddle Point&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Saddle Point (안정점)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;convex도 concave도 아닌 stationary point &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/saddle_point.jpg&quot; alt=&quot;Saddle Point&quot; /&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;\(f' = 0 (critical point), f''=0\)인 경우, saddle point일 수도 아닐 수도 있다.&lt;/li&gt;
+      &lt;li&gt;변곡점을 찾자(?)&lt;/li&gt;
+      &lt;li&gt;multiple dimension인 경우, 2차원에서는 local minima 였던 것들이 saddle point 일 수도 있다.&lt;/li&gt;
+      &lt;li&gt;딥 러닝 경우, 예전에는 성능 저하의 원인이 local minima라는게 일반적인 생각이였다. 그러나 &lt;a href=&quot;https://arxiv.org/pdf/1406.2572.pdf&quot;&gt;Y. Dauphin, R. Pascanu, C. Gulcehre, K. Cho, S. Ganguli, Y. Bengio. “Identifying and attacking the saddle point problem in high-dimensional non-convex optimization”&lt;/a&gt;에서, 차원이 엄청 많기 때문에, local minima가 생기는 경우는 극히 드물다고 한다.
+        &lt;blockquote&gt;
+          &lt;p&gt;왜냐하면, 여러 개의 차원에서, 어떤 critical point가 local minima가 되기 위해서는 모든 축의 방향으로 함수 그래프가 아래로 볼록(\(f''&amp;gt;0\))이 되어야만 한다. 그러나 수백개의 차원에서, 실제로 모든 변수가 이 조건을 만족해 local minimum을 이루는 경우가 과연 얼마나 있을까?&lt;/p&gt;
+        &lt;/blockquote&gt;
+        &lt;ul&gt;
+          &lt;li&gt;n차원의 다변수 함수 \(f(x_1, x_2, \cdots, x_n)\)이 있을 때, local minima를 만족하기 위해서는 다음의 조건을 필요하다.  &lt;br /&gt;
+    \(\frac {\partial f} {\partial x_i}=0, i=1,2,\cdots,n\)  &lt;br /&gt;
+    \(\frac {\partial ^2 f} {\partial ^2 x_i} &amp;gt;0, i=1,2,\cdots,n\)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Hessian Matrix는 Symmetric하다.&lt;/strong&gt;(&lt;a href=&quot;https://www.quora.com/Why-is-the-Hessian-matrix-symmetric&quot;&gt;헤시안 행렬이 대칭인 이유&lt;/a&gt;) 그래서 diagonal로 표현이 가능하다.
+그럼 Hessian 행렬은 positive definite 라면,  &lt;br /&gt;
+\(\frac {\partial ^2 f} {\partial ^2 x_i} &amp;gt;0, i=1,2,\cdots,n\)  &lt;br /&gt;
+이고, \(f_i'' &amp;gt;0\) 일 확률은 0.5이다.  &lt;br /&gt;
+그럼 \(f_i'', \cdots, f_n''\) 이 모두 positive일 확률은 \(\frac 1{2^n}\) 이고,   &lt;br /&gt;
+\(\frac 1 {2^n}\)는 global minimum일 확률이다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;그래서 학습 속도를 최적화할 때, 거의 대부분은 saddle point이며 우리는 saddle point를 극복할 수 있는 새로운 탐색 방법을 구색해야 한다.&lt;/li&gt;
+      &lt;li&gt;또한, &lt;strong&gt;local minima가 발생한다 하더라도 이는 global minimum이거나 global minimum과 거의 유사한 수준의 에러 값을 가진다.&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;그래서 대부분 local minima를 찾는 것 같다.&lt;/li&gt;
+      &lt;li&gt;말 안장(saddle)을 생각하면 편하다.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/public/asset/saddle_matlab.jpg&quot; alt=&quot;Saddle Point&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;그럼-최종-목적지는-어느-점으로-잡는게-좋을까&quot;&gt;그럼 최종 목적지는 어느 점으로 잡는게 좋을까?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SGD + Momentum을 사용하여 학습 성능을 최적화할 때, local minima 지점을 거의 도달했는데도 왔다 갔다 하는 모습을 볼 수 있다. (cs231n 7장 강의 참조)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;이것은 버그가 아니라 SGD+Momentum이 very sharp minima들을 스킵하는 현상이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flat Minima VS Sharp Minima&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Hochreiter &amp;amp; Schmidhuber (1997) defines a flat minimum
+as “a large connected region in weight space where the
+error remains approximately constant”.&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;sharp minima can overfits more, so we don’t want to land sharp minima.&lt;/p&gt;
+
+    &lt;p&gt;flat minima is robust&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/public/asset/sharp_minima.jpg&quot; alt=&quot;sharp minima&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Sharpness Definition
+  &lt;img src=&quot;/public/asset/sharpness.jpg&quot; alt=&quot;sharpness&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1703.04933.pdf&quot;&gt;L Dinh, R Pascanu, S Bengio, Y Bengio. “Sharp Minima Can Generalize For Deep Nets”&lt;/a&gt;을 참조해서 다시 작성해야함 (대충 훑어보고 자세히 읽지는 않음)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://darkpgmr.tistory.com/148?category=761008&quot;&gt;https://darkpgmr.tistory.com/148?category=761008&lt;/a&gt;
+&lt;a href=&quot;https://hwiyong.tistory.com/9&quot;&gt;https://hwiyong.tistory.com/9&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;나는-용어-참조만-하고-싶었기-때문에-깊이-파보진-않았다-자세히-알고-싶으면-두-블로그에-정리-엄청-잘-되어있다&quot;&gt;나는 용어 참조만 하고 싶었기 때문에, 깊이 파보진 않았다. 자세히 알고 싶으면 두 블로그에 정리 엄청 잘 되어있다.&lt;/h3&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="Optimization" /><summary type="html">Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다. 용어 정리</summary></entry><entry><title type="html">Stationarity of Statistics in terms of CV</title><link href="http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics/" rel="alternate" type="text/html" title="Stationarity of Statistics in terms of CV" /><published>2020-08-26T00:00:00+09:00</published><updated>2020-08-26T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics/">&lt;p&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 논문 중에서,&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
 about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).&lt;/p&gt;
@@ -6,7 +102,7 @@ about the nature of images (namely, stationarity of statistics and locality of p
 
 &lt;p&gt;이 있다.&lt;/p&gt;
 
-&lt;p&gt;the nature of images에 대해, breadth, depth를 조절하여, Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.&lt;/p&gt;
+&lt;p&gt;the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;이 때, the nature of images의 조건 3가지,&lt;/p&gt;
 &lt;ol&gt;
@@ -110,7 +206,7 @@ about the nature of images (namely, stationarity of statistics and locality of p
 &lt;/ul&gt;
 
 &lt;p&gt;[Reference]   &lt;br /&gt;
-&lt;a href=&quot;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&quot;&gt;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&lt;/a&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="AlexNet" /><summary type="html">AlexNet 논문 중에서, Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions about the nature of images (namely, stationarity of statistics and locality of pixel dependencies). 이 있다.</summary></entry><entry><title type="html">Sparse Coding</title><link href="http://localhost:4000/computer%20vison/2020/08/24/Sparse-Coding/" rel="alternate" type="text/html" title="Sparse Coding" /><published>2020-08-24T00:00:00+09:00</published><updated>2020-08-24T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vison/2020/08/24/Sparse-Coding</id><content type="html" xml:base="http://localhost:4000/computer%20vison/2020/08/24/Sparse-Coding/">&lt;ul&gt;
+&lt;a href=&quot;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&quot;&gt;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&lt;/a&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="AlexNet" /><summary type="html">AlexNet 논문 중에서, Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions about the nature of images (namely, stationarity of statistics and locality of pixel dependencies). 이 있다.</summary></entry><entry><title type="html">Sparse Coding</title><link href="http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding/" rel="alternate" type="text/html" title="Sparse Coding" /><published>2020-08-24T00:00:00+09:00</published><updated>2020-08-24T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding/">&lt;ul&gt;
   &lt;li&gt;unsupervised learning 방법&lt;/li&gt;
   &lt;li&gt;overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨&lt;/li&gt;
   &lt;li&gt;primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임  &lt;br /&gt;
@@ -156,7 +252,7 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
 &lt;/ul&gt;
 
 &lt;h5 id=&quot;reference&quot;&gt;Reference&lt;/h5&gt;
-&lt;p&gt;http://blog.naver.com/laonple/220914873095&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vison" /><category term="AlexNet" /><summary type="html">unsupervised learning 방법 overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨 primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임 “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996 “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997</summary></entry><entry><title type="html">AlexNet</title><link href="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/" rel="alternate" type="text/html" title="AlexNet" /><published>2020-08-23T00:00:00+09:00</published><updated>2020-08-23T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/23/AlexNet</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/">&lt;ul&gt;
+&lt;p&gt;http://blog.naver.com/laonple/220914873095&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="AlexNet" /><summary type="html">unsupervised learning 방법 overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨 primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임 “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996 “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997</summary></entry><entry><title type="html">AlexNet</title><link href="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/" rel="alternate" type="text/html" title="AlexNet" /><published>2020-08-23T00:00:00+09:00</published><updated>2020-08-23T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/23/AlexNet</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/">&lt;ul&gt;
   &lt;li&gt;
     &lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
 
@@ -226,18 +322,18 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
           &lt;li&gt;larger datasets =&amp;gt; Data augmentation&lt;/li&gt;
           &lt;li&gt;learn more powerful models =&amp;gt; MLP to CNN&lt;/li&gt;
           &lt;li&gt;use better techniques for preventing overfitting =&amp;gt; Data augmentation, dropout         &lt;br /&gt;
-  &lt;a href=&quot;https://machinelearningmastery.com/improve-deep-learning-performance/&quot;&gt;Refer From Here&lt;/a&gt;&lt;/li&gt;
+  &lt;a href=&quot;https://machinelearningmastery.com/improve-deep-learning-performance/&quot;&gt;excerpt From Here&lt;/a&gt;&lt;/li&gt;
         &lt;/ol&gt;
       &lt;/li&gt;
       &lt;li&gt;물체 인식에서 strong &amp;amp; correct assumption이 되기 위한 조건  &lt;br /&gt;
   (dataset 크기에 관한)
         &lt;ol&gt;
           &lt;li&gt;namely (모델이 정확히 판별해야한다)&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;stationarity of statistics&lt;/strong&gt;&lt;/a&gt; (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;locality of pixel dependencies&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/computer%20vision/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;stationarity of statistics&lt;/strong&gt;&lt;/a&gt; (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;/computer%20vision/2020/08/26/stationarity-of-statistics/&quot;&gt;&lt;strong&gt;locality of pixel dependencies&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
         &lt;/ol&gt;
 
-        &lt;p&gt;이 세 가지를 &lt;a href=&quot;/others/2020/08/26/stationarity-of-statistics/&quot;&gt;the nature of images&lt;/a&gt; 라고 부르고, 이를 만족하면 strong &amp;amp; correct assumption을 할 수 있다고 말할 수 있다.&lt;/p&gt;
+        &lt;p&gt;이 세 가지를 &lt;a href=&quot;/computer%20vision/2020/08/26/stationarity-of-statistics/&quot;&gt;the nature of images&lt;/a&gt; 라고 부르고, 이를 만족하면 strong &amp;amp; correct assumption을 할 수 있다고 말할 수 있다.&lt;/p&gt;
 
         &lt;ul&gt;
           &lt;li&gt;
@@ -278,7 +374,11 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
     &lt;p&gt;왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,  &lt;br /&gt;
   첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.   &lt;br /&gt;
   둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)   &lt;br /&gt;
-  &lt;a href=&quot;https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1&quot;&gt;Refer from Here&lt;/a&gt;&lt;/p&gt;
+  &lt;a href=&quot;https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1&quot;&gt;excerpt from Here&lt;/a&gt;&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;MLP = 선형 perceptron + multi-layers + non-linear activation   &lt;br /&gt;
+excerpt from &lt;a href=&quot;https://en.wikipedia.org/wiki/Multilayer_perceptron&quot;&gt;https://en.wikipedia.org/wiki/Multilayer_perceptron&lt;/a&gt;&lt;/p&gt;
+    &lt;/blockquote&gt;
 
     &lt;p&gt;그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)&lt;/p&gt;
   &lt;/li&gt;
@@ -330,16 +430,77 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
             &lt;/blockquote&gt;
           &lt;/li&gt;
           &lt;li&gt;
-            &lt;p&gt;x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) &lt;strong&gt;미분하기도 편리해 계산복잡성이 낮다.&lt;/strong&gt;. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   &lt;br /&gt;
-  &lt;img src=&quot;/public/asset/reluVStanh.jpg&quot; alt=&quot;ReLUs vs tanh&quot; /&gt;
-  &lt;a href=&quot;https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/&quot;&gt;Refer From Here&lt;/a&gt;&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
             &lt;h4 id=&quot;훈련-시간-관점-with-gradient-descent&quot;&gt;훈련 시간 관점 with gradient descent&lt;/h4&gt;
-            &lt;p&gt;\(tanh(x)\)의 saturating nonlinearities 는 non-saturating nonlinearity  &lt;br /&gt;
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;\(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인  &lt;br /&gt;
   (\(f(x) = max(0,x)\)) 보다 매우 느리다.     &lt;br /&gt;
-  ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.  &lt;br /&gt;
-  (이유 : input normalization이 필요없기 때문에 ?)&lt;/p&gt;
+  ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;왜 학습 속도가 빠를까?&lt;/p&gt;
+
+                &lt;p&gt;x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) &lt;strong&gt;미분하기도 편리해 계산복잡성이 낮다.&lt;/strong&gt; 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/reluVStanh.jpg&quot; alt=&quot;ReLUs vs tanh&quot; /&gt;
+  &lt;a href=&quot;https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/&quot;&gt;Excerpt From Here&lt;/a&gt;&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;&lt;strong&gt;ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.&lt;/strong&gt;  &lt;br /&gt;
+  (Gradient Vanishing 걱정 안해도 된다!)&lt;br /&gt;
+  (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;[참고]
+            &lt;blockquote&gt;
+
+              &lt;p&gt;&lt;strong&gt;왜 batch normalization일까?&lt;/strong&gt;  &lt;br /&gt;
+We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and &lt;strong&gt;get 10 times or more improvement in the training speed.&lt;/strong&gt;&lt;/p&gt;
+              &lt;ul&gt;
+                &lt;li&gt;BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)&lt;/li&gt;
+                &lt;li&gt;입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.&lt;/li&gt;
+                &lt;li&gt;학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.&lt;/li&gt;
+                &lt;li&gt;Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.  &lt;br /&gt;
+CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.&lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;p&gt;[tanh(x) 특징]&lt;/p&gt;
+              &lt;ul&gt;
+                &lt;li&gt;Squashes numbers to range[-1, 1]  &lt;br /&gt;
++ zero-centered: 정규화됨  &lt;br /&gt;
+- kills gradients when saturated&lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;p&gt;[Sigmoid 특징]&lt;/p&gt;
+              &lt;ul&gt;
+                &lt;li&gt;
+                  &lt;p&gt;Squashes numbers to range [0, 1]  &lt;br /&gt;
+- kills gradients when saturated  &lt;br /&gt;
+- Sigmoid outputs are not zero-centered  &lt;br /&gt;
+- \(exp()\) is a bit compute expensive&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;p&gt;batch normalization + tanh 에 대해 생각해봤다.
+    BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,       &lt;br /&gt;
+    (첫번째 원인으로, Bad Initialization.   &lt;br /&gt;
+    두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))&lt;/p&gt;
+
+                  &lt;p&gt;실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.&lt;/p&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;p&gt;[궁금한 점]  &lt;br /&gt;
+그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.   &lt;br /&gt;
+  왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.   &lt;br /&gt;
+  그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.   &lt;br /&gt;
+  하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.  &lt;br /&gt;
+  혹시 몰라서 BN 논문 링크&lt;a href=&quot;https://arxiv.org/pdf/1502.03167.pdf&quot;&gt;https://arxiv.org/pdf/1502.03167.pdf&lt;/a&gt;&lt;/p&gt;
+            &lt;/blockquote&gt;
+
+            &lt;p&gt;[해결]          &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/BN_question.png&quot; alt=&quot;bn question&quot; /&gt;&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
             &lt;h4 id=&quot;training-on-multiple-gpus&quot;&gt;Training on Multiple GPUs&lt;/h4&gt;
@@ -347,13 +508,14 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
   그래서, &lt;strong&gt;2개 GPU 사용!&lt;/strong&gt;&lt;/p&gt;
 
             &lt;p&gt;내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  &lt;strong&gt;without going through host machine memory&lt;/strong&gt;  &lt;br /&gt;
+  (나중에 꼭 해보고 싶다…)&lt;/li&gt;
+            &lt;/ul&gt;
           &lt;/li&gt;
           &lt;li&gt;
-            &lt;p&gt;2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  &lt;strong&gt;without going through host machine memory&lt;/strong&gt;
-  (나중에 꼭 해보고 싶다…)&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;h4 id=&quot;parallelization-scheme-나는-1개-gpu로-구축해서-사용-못함&quot;&gt;parallelization scheme (나는 1개 GPU로 구축해서 사용 못함)&lt;/h4&gt;
+            &lt;h4 id=&quot;parallelization-scheme-나는-1개-gpu로-구축해서-적용-못함&quot;&gt;parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)&lt;/h4&gt;
             &lt;ul&gt;
               &lt;li&gt;puts half of the kernels (or neurons) on each GPU&lt;/li&gt;
               &lt;li&gt;additional trick : &lt;strong&gt;the GPUs commnunicate only in certain layers&lt;/strong&gt;&lt;/li&gt;
@@ -371,11 +533,12 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
                   &lt;li&gt;
                     &lt;h4 id=&quot;2-gpu-net-takes-slightly-less-time-to-train-than-the-one-gpu-net&quot;&gt;2 GPU net takes slightly less time to train than the one-GPU net?&lt;/h4&gt;
                     &lt;blockquote&gt;
-                      &lt;p&gt;the final convolutional layer에서 one-GPU 의 커널 수 == two-GPU 의 커널 수&lt;/p&gt;
+                      &lt;p&gt;the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)&lt;/p&gt;
 
-                      &lt;p&gt;그 이유는 net’s parameters 의 대부분이 첫번째 FC layer (마지막 CONV layer로 부터 input을 받는, 마지막 CONV layer의 사이즈를 반으로 줄이지 않는다.) 에 있기 때문이다. ( 무슨 말인지 잘 모르겠다.)&lt;/p&gt;
+                      &lt;p&gt;그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.    &lt;br /&gt;
+그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.&lt;/p&gt;
 
-                      &lt;p&gt;그래서, 이 비교는 bias 된다. in favor of the one-GPU net, since it is bigger than “half the size” of the two-GPU net.&lt;/p&gt;
+                      &lt;p&gt;그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.&lt;/p&gt;
                     &lt;/blockquote&gt;
                   &lt;/li&gt;
                 &lt;/ul&gt;
@@ -383,18 +546,14 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
             &lt;/ul&gt;
           &lt;/li&gt;
         &lt;/ul&gt;
-
-        &lt;p&gt;&lt;strong&gt;ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.&lt;/strong&gt;  &lt;br /&gt;
-  (Gradient Vanishing 걱정 안해도 된다!)&lt;br /&gt;
-  (입력의 normalization이 필요 없어짐, 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;h3 id=&quot;local-response-normalization-lrn&quot;&gt;Local Response Normalization (LRN)&lt;/h3&gt;
         &lt;ul&gt;
-          &lt;li&gt;만약 some training examples이 ReLU에서 positive input을 생산한다면, learning will happen&lt;/li&gt;
+          &lt;li&gt;ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.&lt;/li&gt;
           &lt;li&gt;
             &lt;p&gt;activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
-  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization을 해주는게 좋다.  &lt;br /&gt;
+  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.   &lt;br /&gt;
   그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)&lt;/p&gt;
           &lt;/li&gt;
           &lt;li&gt;
@@ -417,13 +576,13 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
       &lt;/li&gt;
       &lt;li&gt;
         &lt;h3 id=&quot;overlapping-maxpooling&quot;&gt;overlapping maxpooling&lt;/h3&gt;
-        &lt;p&gt;overlapping pooling 은 덜 overfitting 한다.   &lt;br /&gt;
-  AlexNet에서 3X3 크기의 커널, stride =2로 설정하여 풀링이 겹치게 하였다.
+        &lt;p&gt;overlapping pooling은 덜 overfitting 한다.   &lt;br /&gt;
+  AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.
   이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;h3 id=&quot;overall-architecture&quot;&gt;Overall Architecture&lt;/h3&gt;
-        &lt;p&gt;Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.  &lt;br /&gt;
+        &lt;p&gt;Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.      &lt;br /&gt;
   트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!&lt;/p&gt;
 
         &lt;ul&gt;
@@ -634,7 +793,7 @@ training에 근접해서 오히려 overfitting 유발할까 ?&lt;/li&gt;
             &lt;p&gt;in details,  &lt;br /&gt;
   the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.&lt;/p&gt;
 
-            &lt;p&gt;each training image,  &lt;br /&gt;
+            &lt;p&gt;each training image,    &lt;br /&gt;
   we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)&lt;/p&gt;
 
             &lt;ul&gt;
