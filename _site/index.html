@@ -676,7 +676,7 @@ CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.
               <p>[tanh(x) 특징]</p>
               <ul>
                 <li>Squashes numbers to range[-1, 1]  <br />
-+ zero-centered: 정규화됨  <br />
++ zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.) <br />
 - kills gradients when saturated</li>
               </ul>
 

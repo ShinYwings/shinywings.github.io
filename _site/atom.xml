@@ -4,7 +4,7 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-08-27T21:05:26+09:00</updated>
+ <updated>2020-08-28T15:02:26+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
@@ -524,7 +524,7 @@ CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.
               &lt;p&gt;[tanh(x) 특징]&lt;/p&gt;
               &lt;ul&gt;
                 &lt;li&gt;Squashes numbers to range[-1, 1]  &lt;br /&gt;
-+ zero-centered: 정규화됨  &lt;br /&gt;
++ zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.) &lt;br /&gt;
 - kills gradients when saturated&lt;/li&gt;
               &lt;/ul&gt;
 
