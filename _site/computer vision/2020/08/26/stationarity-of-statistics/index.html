@@ -90,6 +90,22 @@
       
     
       
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
     
       
         
@@ -256,13 +272,119 @@ about the nature of images (namely, stationarity of statistics and locality of p
     <ul>
       <li>옆에 있는 픽셀끼리의 서로 간의 연관성이 있어야 한다.</li>
     </ul>
+
+    <p><img src="/public/asset/locality_of_pixel_dependency.png" alt="locality" /></p>
+
+    <blockquote>
+      <p>아래 사진을 보면 코라는 특징은 파란색 사각형 안에 있는 픽셀값에서만 표현되고 해당 픽셀들끼리만 관계를 가진다고 볼 수 있다. 빨간색 사각형안의 픽셀들은 파란색 사각형안의 픽셀들과는 종속성이 없다.</p>
+    </blockquote>
+
+    <p>Sparse interations 특성을 갖는 필터로 Convolution 연산을 하는 것과 잘 어울린다.</p>
+    <blockquote>
+      <p>Sparse interations: 하나의 출력 유닛이 입력의 전체 유닛과 연관(연결)되어 있지 않고 입력의 일부(locality) 유닛들과만  연결되어 있다라는 의미</p>
+    </blockquote>
+
+    <p>stationarity of statistics의 또한 Sparse interations 특성을 어느 정도 가지고 있다.</p>
   </li>
-  <li><strong>궁금한 점</strong>:  <br />
-  픽셀끼리의 서로 간의 연관성이 있어야 한다. 라는 말이 와닿지가 않는다. 이웃한 픽셀끼리 비슷한 값을 가진다라는게 correlated한 것이라고 하면, 뿌옇게 된 이미지는 locality of pixel dependencies가 좋다는 말이다. 하지만, stackexchange의 인용에 따르면 뿌옇게 된 것은 stationarity of statistics에 나쁜 것이다. 그럼 2번과 3번은 서로 trade-off 관계에 있는 것일까?</li>
+  <li>
+    <p><strong>궁금한 점</strong>:  <br />
+  픽셀끼리의 서로 간의 연관성이 있어야 한다. 라는 말이 와닿지가 않는다. 이웃한 픽셀끼리 비슷한 값을 가진다라는게 correlated한 것이라고 하면, 뿌옇게 된 이미지는 locality of pixel dependencies가 좋다는 말이다. 하지만, stackexchange의 인용에 따르면 뿌옇게 된 것은 stationarity of statistics에 나쁜 것이다. 그럼 2번과 3번은 서로 trade-off 관계에 있는 것일까?</p>
+
+    <p>[해결]</p>
+    <blockquote>
+      <p>trade-off 가 아닌 이유는 locality는 feature를 정의하는데 필요한 것이고 stationarity는 그 feature를 가지고 추측을 하는데 필요한 것이다. 그러므로, 서로 상부상조하는 관계이다. ^^  <br />
+Blurring 같은 경우에도 stationarity가 맞긴 하지만 여기서 이야기하는 CNN에 대한 stationarity가 아닌 이미지 프로세싱에 대한 stationarity에 대해 말하는 것 같다!</p>
+    </blockquote>
+
+    <p><img src="/public/asset/stationarity_of_statistics.png" alt="stationarity of statistics vs locality of pixel dependency" />   <br />
+  [추가 자료]<a href="https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979">https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979</a></p>
+
+    <blockquote>
+      <p>Stationarity of statistics는 시간이 변해도 패턴이 반복된다는 
+뜻이다. <br />
+동일한 패턴이 반복되면 분석도 훨씬 쉬워진다.   <br />
+~생략~  <br />
+즉, 이미지의 특정 위치에서 학습한 파라미터를 이용해서 다른 위치에 있는 동일한 특징을 추출할 수 있다는 뜻이다.</p>
+    </blockquote>
+
+    <blockquote>
+      <p><u>특정 위치에서 학습~~ 다른 위치에 있는 동일한 특징을 추출</u>  <br />
+  이 말이 CNN이 mask를 통해 이미지에서 feature를 filtering 하는 것과 동일하다. 그래서 AlexNet에서 the nature of images에 대해 설명할 때 이 단어를 넣은 것이다. (확신)   <br />
+  그러면 locality of pixel dependency에 대해서도 설명이 가능하다.  <br />
+  같은 feature를 가진 pixel들은 서로 연관성이 있어야 한다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>그럼 연산과정에서 이미지의 모든 위치에서 (어느 특징을 담은)filter를 공유할 수 있어야 겠네?</p>
+
+    <p>CNN이 1 filter를 이미지 전체 (또는 feature map 전체)에 대해 공유를 한다. 그래서 stationarity는 feature를 공유할 수 있는 CNN과 잘 맞다고 볼 수 있다. <strong>stationarity of statistics의 특징은 brute force하게 하던 방법(e.g. MLP)보다 비교적 연산량은 더 적고, 메모리 사용량도 적고, 통계적 효율성도 더 높다.</strong></p>
+
+    <blockquote>
+      <p>이 Convolution연산은 이미지의 특정 부분과 필터를 내적하는것으로 볼 수도 일다. 두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습이 되는것이다.</p>
+    </blockquote>
+
+    <p><u>두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습</u> 왜 우리가 image segmentation 할때 굳이 Convolution을 사용하는지에 대해 나온다.</p>
+
+    <blockquote>
+      <p>많은 머신러닝 프레임워크에서는 필터를 반전하는 것을 제외하고는 Convolution과 완전 동일한 연산인 Cross-correlation을 구현한다. CNN에서 Convolution연산은 특징만 학습하면 되기 때문에 필터를 반전시키지 않아도 동일한 효과를 낼 수 있다.</p>
+    </blockquote>
+
+    <p>마찬가지로, <a href="/computer%20vision/2020/08/27/Correlation-vs-Convolution/">CONV vs CORR</a> 에서 본 것처럼 프레임 워크가 Convolution을 쓰는지 Cross-Correlation 쓰는지 동일한 효과를 내기 때문에 프레임워크 마다 서로 다르다고 한다.   <br />
+  (추워서 입술이 돌아가도 입술은 입술이다.)</p>
+  </li>
+  <li>
+    <h3 id="이-블로그의-정리">이 블로그의 정리</h3>
+    <ul>
+      <li>CNN은 세가지 성질을 가지고 있다.
+        <ol>
+          <li>parameter sharing</li>
+          <li>translation equivariance (입력과 출력의 변화가 같다.)</li>
+          <li>Sparse interactions</li>
+        </ol>
+      </li>
+      <li>그러므로, stationarity of statistics는 이미지 추출함에 있어 이 세가지 성질과 호흡이 잘 맞기 때문에 CNN에 적합한 특징이다.   <br />
+  (locality of pixel dependency는 3번째 조건 충족)</li>
+    </ul>
+
+    <blockquote>
+      <p>[참고]  <br />
+max-pooling은 대표적인 small translation invariance 함수이다. [1,0,0] 과 [0,0,1] 두 입력을 넣어도 동일한 1이 추출하기 때문에 모양이 약간씩 다르거나 위치가 달라진다. 이것 덕분에 segmentation하고 싶은 feature의 모양이 조금씩 다르거나 위치가 다른 경우에도 동일한 feature로 인식하게 되는 것이다. (80퍼 인정)</p>
+    </blockquote>
+  </li>
+  <li>
+    <h3 id="하지만-추워서-입술이-돌아간다고-입술이-떠다니면-안된다">하지만 추워서 입술이 돌아간다고 입술이 떠다니면 안된다.</h3>
+  </li>
 </ul>
 
+<p>tralanslation invariance 효과 덕분에 좀 더 일반적인 특징을 잡을 수 있게 되었다. 그러면 translation invariance를 피하고 싶은 경우도 있을까?</p>
+
+<p><strong>각 특징들의 위치 정보가 중요한 경우, translation invariance를 막는 CNN 구조들도 있다.</strong></p>
+
+<p><img src="/public/asset/translation_invariant.png" alt="translation_invariance" /></p>
+
+<p>위의 예가 translation invariance의 단점이다.</p>
+
+<p>그래서 이 문제를 해결하기 위한 방법으로,</p>
+
+<ol>
+  <li>
+    <p>Locally connected layers(unshared convolution)는 일반적인 Convolution 연산과 동일하지만 파라미터 공유를 하지 않는다. 즉 각 위치마다 다른 필터를 사용하기 때문에 동일한 특징이라도 위치에 따라 다른 필터를 학습을 하게 된다.  <br />
+결국 필터가 위치 정보를 포함한다고 볼 수 있으며, 결과적으로 translation invariance를 버리게 된다.  <br />
+(max-pooling을 사용한다면 small translation invariance 특성은 가질 수 있다.)</p>
+  </li>
+  <li>
+    <p>또 다른 유명한 모델로 캡슐 네트워크가 있다. 캡슐 네트워크는 아예 새로운 방식으로 translation invariance문제를 해결한다.</p>
+  </li>
+</ol>
+
+<p>하지만 깊은 Convolutional layer 일수록 더 큰 형태의 특징들을 뽑아내기 때문에 저렇게 정확하게 눈,코,입 단위로만 따로 특징을 배워서 어떤 판단을 하지 않는다.  <br />
+<strong>어느정도 전체 형태를 보기 때문에 각각의 작은 특징들의 위치를 아예 무시하지 않는다는 뜻이다</strong></p>
+
+<p>즉, <strong>CNN의 구조를 어떻게 만드냐에 따라 scale &amp; translation 에 대한 문제는 충분히 커버 가능하다.</strong></p>
+
 <p>[Reference]   <br />
-<a href="https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen">https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen</a></p>
+<a href="https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen">https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen</a>
+<a href="https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979">https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979</a></p>
 
   </article>
 </div>
@@ -274,27 +396,27 @@ about the nature of images (namely, stationarity of statistics and locality of p
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/27/Local-Minima/">
-            Local Minima
-            <small>27 Aug 2020</small>
+          <a href="/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">
+            Principal Component Analysis (PCA)
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/27/Correlation-vs-Convolution/">
-            Correlation VS Convolution
-            <small>27 Aug 2020</small>
+          <a href="/statistics/2020/09/01/Limit-of-Maxpooling/">
+            Maxpooling의 한계
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/24/Sparse-Coding/">
-            Sparse Coding
-            <small>24 Aug 2020</small>
+          <a href="/statistics/2020/09/01/Covariance-Matrix/">
+            Covariance Matrix
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>

@@ -1,0 +1,19 @@
+I"r<p>제일 좋은 참조. 내꺼 안봐도 됨<br />
+<a href="https://excelsior-cjh.tistory.com/167">https://excelsior-cjh.tistory.com/167</a><br />
+<a href="https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/">https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/</a></p>
+
+<ul>
+  <li>왜 분산이 제일 큰 것을 고를까?
+    <ul>
+      <li>분산이 제일 큰 것은 원래 데이터의 설명력을 가장 잘 보존하는 데이터(매개변수) 이기 때문이다. e.g. 3차원의 데이터를 1차원으로 줄일 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/public/asset/PCA-1.jpg" alt="PCA1" />
+<img src="/public/asset/PCA-2.jpg" alt="PCA2" />
+<img src="/public/asset/PCA-3.jpg" alt="PCA3" />
+<img src="/public/asset/PCA-4.jpg" alt="PCA4" />
+<img src="/public/asset/PCA-5.jpg" alt="PCA5" />
+<img src="/public/asset/PCA-6.jpg" alt="PCA6" /></p>
+:ET

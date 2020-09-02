@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+   
+  <title>
+    
+      Shin &middot; jotting down
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/page3/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+  <body class="theme-base-08">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/categories/">Categories</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Shin</a>
+            <small>jotting down</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script> 
+        <!-- Katex, pseudocode.js-->
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"
+        integrity="sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=" crossorigin="anonymous">
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js">
+  </script>
+
+</head>
+<!---->
+
+<div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding/">
+        Sparse Coding
+      </a>
+    </h1>
+
+    <span class="post-date">24 Aug 2020</span>
+
+    <ul>
+  <li>unsupervised learning 방법</li>
+  <li>overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨</li>
+  <li>primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임  <br />
+  “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996  <br />
+  “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997</li>
+</ul>
+
+<p><img src="/public/asset/sparse_coding.jpg" alt="Sparse coding" />
+Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖고 있으며, 데이터 X를 \(\alpha\)로 나타낸다.
+여기서 \(\alpha\) 안의 빨간색에 해당하는 부분은 0이 아니기 때문에 결과적으로는 해당 위치에 기저벡터를 \(\alpha\)의 각 원소만큼 곱해서 더하는 방식으로 표현이 된다.</p>
+
+<ul>
+  <li>
+    <p>여기서 풀어야 할 문제: D와 \(\alpha\)를 어떻게 구할까?</p>
+
+\[\arg \min_{D,A} ||X-AD||^2_F+\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\]
+
+    <p>\(\arg \min_{D,A} ||X-AD||^2_F\) : reconstruction error  <br />
+      - AD를 이용해 X를 얼마나 잘 표현할 수 있는지를 나타냄   <br />
+  \(\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\) : penalty  <br />
+      - 기저 벡터 \(\alpha\)에서 0이 아닌 element의 개수를 제한하는 방향으로 penalty 역할을 한다.</p>
+  </li>
+</ul>
+
+<p><img src="/public/asset/sparse_coding_2.jpg" alt="Sparse coding2" /></p>
+
+<ul>
+  <li>결과적으로, 위 식을 최소화하는 것이 목표이다. 기본적으로 Matching pursuit(MP)와 Basic pursuit(BP) 방식으로 풀어낸다.</li>
+  <li>
+    <p>data compression이나 잡음 제거 및 컬러 interpolation 등에서 효과가 좋다.</p>
+  </li>
+  <li>예시
+    <ul>
+      <li>Denoising  <br />
+  <img src="/public/asset/denoising.jpg" alt="Sparse coding_denoising" /></li>
+      <li>inpainting  <br />
+  <img src="/public/asset/inpainting.jpg" alt="Sparse coding_inpainting" /></li>
+    </ul>
+  </li>
+  <li>Sparse Coding 강의 노트
+  https://www.cs.ubc.ca/~schmidtm/MLRG/sparseCoding.pdf
+  https://www.youtube.com/watch?v=7a0_iEruGoM&amp;feature=emb_logo</li>
+</ul>
+
+<h5 id="reference">Reference</h5>
+<p>http://blog.naver.com/laonple/220914873095</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/deep%20learning/2020/08/23/AlexNet/">
+        AlexNet
+      </a>
+    </h1>
+
+    <span class="post-date">23 Aug 2020</span>
+
+    <ul>
+  <li>
+    <h2 id="overview">Overview</h2>
+
+    <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>CONV1</td>
+        </tr>
+        <tr>
+          <td>MAX POOL1</td>
+        </tr>
+        <tr>
+          <td>NORM1</td>
+        </tr>
+        <tr>
+          <td>COVN2</td>
+        </tr>
+        <tr>
+          <td>MAX POOL2</td>
+        </tr>
+        <tr>
+          <td>NORM2</td>
+        </tr>
+        <tr>
+          <td>COVN3</td>
+        </tr>
+        <tr>
+          <td>COVN4</td>
+        </tr>
+        <tr>
+          <td>COVN5</td>
+        </tr>
+        <tr>
+          <td>MAX POOL3</td>
+        </tr>
+        <tr>
+          <td>FC6</td>
+        </tr>
+        <tr>
+          <td>FC7</td>
+        </tr>
+        <tr>
+          <td>FC8</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ul>
+      <li>60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)</li>
+      <li>5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)</li>
+      <li>3 FC layers</li>
+      <li>1000 ways softmax in the end</li>
+      <li>non-saturating neurons를 사용했다. (ReLUs)</li>
+    </ul>
+  </li>
+  <li>
+    <h2 id="introduction">INTRODUCTION</h2>
+
+    <p>이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?</p>
+
+    <ul>
+      <li>학습 모델의 성능을 높히기 위한 조건   <br />
+  (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)
+        <ol>
+          <li>larger datasets =&gt; Data augmentation</li>
+          <li>learn more powerful models =&gt; MLP to CNN</li>
+          <li>use better techniques for preventing overfitting =&gt; Data augmentation, dropout         <br />
+  <a href="https://machinelearningmastery.com/improve-deep-learning-performance/">excerpt From Here</a></li>
+        </ol>
+      </li>
+      <li>물체 인식에서 strong &amp; correct assumption이 되기 위한 조건  <br />
+  (dataset 크기에 관한)
+        <ol>
+          <li>namely (모델이 정확히 판별해야한다)</li>
+          <li><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
+          <li><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
+        </ol>
+
+        <p>이 세 가지를 <a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
+
+        <ul>
+          <li>
+            <h4 id="stationarity-of-statistics">stationarity of statistics?</h4>
+            <blockquote>
+              <p>확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  <br />
+임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.</p>
+            </blockquote>
+
+            <p><code class="language-plaintext highlighter-rouge">[정리]</code><br />
+  <code class="language-plaintext highlighter-rouge">1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.</code><br />
+  <code class="language-plaintext highlighter-rouge">2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.</code><br />
+  <code class="language-plaintext highlighter-rouge">3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.</code></p>
+
+            <p><a href="https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen">[refer from here]</a></p>
+          </li>
+          <li>
+            <h4 id="locality-of-pixel-dependencies">locality of pixel dependencies?</h4>
+            <blockquote>
+              <p><strong>neighboring pixels tend to be correlated</strong>, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).</p>
+            </blockquote>
+          </li>
+        </ul>
+      </li>
+      <li>CNN의 장점
+        <ul>
+          <li>기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다
+            <ul>
+              <li>connections이 적고</li>
+              <li>parameter가 적고</li>
+              <li>easier to train 하다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,  <br />
+  첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.   <br />
+  둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)   <br />
+  <a href="https://medium.com/data-science-bootcamp/multilayer-perceptron-mlp-vs-convolutional-neural-network-in-deep-learning-c890f487a8f1">excerpt from Here</a></p>
+    <blockquote>
+      <p>MLP = 선형 perceptron + multi-layers + non-linear activation   <br />
+excerpt from <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">https://en.wikipedia.org/wiki/Multilayer_perceptron</a></p>
+    </blockquote>
+
+    <p>그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)</p>
+  </li>
+  <li>
+    <h2 id="특징">특징</h2>
+    <ol>
+      <li>Overlapping Maxpooling</li>
+      <li>ReLUs 처음으로 도입</li>
+      <li>GPU를 처음 시도 (with 분산처리)</li>
+      <li>Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) <a href="https://taeguu.tistory.com/29">괜찮은 참고자료</a></li>
+      <li>overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)
+        <ul>
+          <li>Dropout -&gt; FC layers 에서 처리, regularization method임</li>
+          <li>Data Augmentation</li>
+          <li>하나의 데이터로부터 여러 개를 뽑아냄   <br />
+  (Random Crops, Mirror Crops \(\cdots\))</li>
+        </ul>
+      </li>
+      <li>Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)</li>
+      <li>256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224</li>
+      <li><strong>NO</strong> pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)</li>
+      <li>8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels</li>
+      <li>AlexNet Contribution  <br />
+  한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)  <br />
+  <a href="https://github.com/akrizhevsky/cuda-convnet2">cuda-convnet2 github link</a></li>
+    </ol>
+  </li>
+  <li>
+    <h2 id="outline">Outline</h2>
+    <p>Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개</p>
+
+    <p>Section 4. Overfitting 방지를 위한 효과적인 테크닉들</p>
+
+    <p>Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가  <br />
+              (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images</p>
+  </li>
+  <li>
+    <h2 id="section-3-architecture">Section 3. Architecture</h2>
+
+    <ul>
+      <li>
+        <h3 id="relu-nonlinearity">ReLU Nonlinearity</h3>
+
+        <ul>
+          <li>활성화 함수를 선형 함수로 쓰면 안되는 이유
+            <blockquote>
+              <p>선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.  <br />
+  Refer from 밑바닥부터 시작하는 딥러닝</p>
+            </blockquote>
+          </li>
+          <li>
+            <h4 id="훈련-시간-관점-with-gradient-descent">훈련 시간 관점 with gradient descent</h4>
+            <ul>
+              <li>
+                <p>\(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인  <br />
+  (\(f(x) = max(0,x)\)) 보다 매우 느리다.     <br />
+  ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.</p>
+              </li>
+              <li>
+                <p>왜 학습 속도가 빠를까?</p>
+
+                <p>x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) <strong>미분하기도 편리해 계산복잡성이 낮다.</strong> 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   <br />
+  <img src="/public/asset/reluVStanh.jpg" alt="ReLUs vs tanh" />
+  <a href="https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/">Excerpt From Here</a></p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><strong>ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.</strong>  <br />
+  (Gradient Vanishing 걱정 안해도 된다!)<br />
+  (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))</p>
+
+        <ul>
+          <li>[참고]
+            <blockquote>
+
+              <p><strong>왜 batch normalization일까?</strong>  <br />
+We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and <strong>get 10 times or more improvement in the training speed.</strong></p>
+              <ul>
+                <li>BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)</li>
+                <li>입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.</li>
+                <li>학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.</li>
+                <li>Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.  <br />
+CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.</li>
+              </ul>
+
+              <p>[tanh(x) 특징]</p>
+              <ul>
+                <li>Squashes numbers to range[-1, 1]  <br />
++ zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.) <br />
+- kills gradients when saturated</li>
+              </ul>
+
+              <p>[Sigmoid 특징]</p>
+              <ul>
+                <li>
+                  <p>Squashes numbers to range [0, 1]  <br />
+- kills gradients when saturated  <br />
+- Sigmoid outputs are not zero-centered  <br />
+- \(exp()\) is a bit compute expensive</p>
+                </li>
+                <li>
+                  <p>batch normalization + tanh 에 대해 생각해봤다.
+    BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,       <br />
+    (첫번째 원인으로, Bad Initialization.   <br />
+    두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))</p>
+
+                  <p>실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.</p>
+                </li>
+              </ul>
+
+              <p>[궁금한 점]  <br />
+그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.   <br />
+  왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.   <br />
+  그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.   <br />
+  하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.  <br />
+  혹시 몰라서 BN 논문 링크<a href="https://arxiv.org/pdf/1502.03167.pdf">https://arxiv.org/pdf/1502.03167.pdf</a></p>
+            </blockquote>
+
+            <p>[해결]          <br />
+  <img src="/public/asset/BN_question.png" alt="bn question" /></p>
+          </li>
+          <li>
+            <h4 id="training-on-multiple-gpus">Training on Multiple GPUs</h4>
+            <p>singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it
+  그래서, <strong>2개 GPU 사용!</strong></p>
+
+            <p>내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.</p>
+
+            <ul>
+              <li>2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  <strong>without going through host machine memory</strong>  <br />
+  (나중에 꼭 해보고 싶다…)</li>
+            </ul>
+          </li>
+          <li>
+            <h4 id="parallelization-scheme-나는-1개-gpu로-구축해서-적용-못함">parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)</h4>
+            <ul>
+              <li>puts half of the kernels (or neurons) on each GPU</li>
+              <li>additional trick : <strong>the GPUs commnunicate only in certain layers</strong></li>
+              <li>
+                <p><strong>2 GPU net takes slightly less time to train than the one-GPU net</strong></p>
+
+                <ul>
+                  <li>
+                    <h5 id="the-gpus-commnunicate-only-in-certain-layers">the GPUs commnunicate only in certain layers?</h5>
+                    <blockquote>
+                      <p>e.g.   <br />
+the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &gt; 3 which reside on the same GPU.</p>
+                    </blockquote>
+                  </li>
+                  <li>
+                    <h4 id="2-gpu-net-takes-slightly-less-time-to-train-than-the-one-gpu-net">2 GPU net takes slightly less time to train than the one-GPU net?</h4>
+                    <blockquote>
+                      <p>the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)</p>
+
+                      <p>그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.    <br />
+그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.</p>
+
+                      <p>그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.</p>
+                    </blockquote>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h3 id="local-response-normalization-lrn">Local Response Normalization (LRN)</h3>
+        <ul>
+          <li>ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.</li>
+          <li>
+            <p>activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)
+  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.   <br />
+  그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)</p>
+          </li>
+          <li>
+            <p>applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)</p>
+          </li>
+          <li>
+            <p>\(a^{i}_{x,y}\) : the activity of a neuron computed by applying <strong><em>kernel \(i\)</em></strong> at <strong><em>position \(x,y\)</em></strong>  <br />
+  Then, applying the ReLU nonlinearity,  <br />
+  the <strong><em>response-normalizaed activity \(b^{i}_{x,y}\)</em></strong> is given by the expression  <br />
+  \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)  <br />
+  where the sum runs over <strong><em>\(n\) “adjacent” kernel maps</em></strong> at the same spatial position, and \(N\) <strong><em>is the total # of kernels in the layer</em></strong>  <br />
+  \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.  <br />
+  (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))   <br />
+  <img src="/public/asset/LRN.png" alt="LRN" /></p>
+          </li>
+          <li>The ordering of the kernel(filter) maps : arbitrary and determined before training begins</li>
+          <li>modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함</li>
+          <li>여기서 나온 scheme은 local contrast normalization scheme <a href="http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf">[11]</a>과 유사</li>
+          <li>요즘은 이거 안쓰고 batch normalization 사용
+            <ul>
+              <li><a href="/deep%20learning/2020/08/31/Local-Response-Normalization/">왜 LRN 안쓰고 BN 사용할까?</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h3 id="overlapping-maxpooling">overlapping maxpooling</h3>
+        <p>overlapping pooling은 덜 overfitting 한다.   <br />
+  AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.
+  이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.</p>
+      </li>
+      <li>
+        <h3 id="overall-architecture">Overall Architecture</h3>
+        <p>Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.      <br />
+  트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!</p>
+
+        <ul>
+          <li>2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨</li>
+          <li>3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨</li>
+          <li>Response-normalization layers는 1번째 layer와 2번째 layer를 따름</li>
+          <li>Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름</li>
+          <li>ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨</li>
+        </ul>
+
+        <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+        <ul>
+          <li>
+            <p>1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널
+  FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨</p>
+          </li>
+          <li>
+            <p>총 60M parameters가 있음</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <h2 id="section-4-reducing-overfitting">Section 4. Reducing Overfitting</h2>
+
+    <p>이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.</p>
+
+    <ul>
+      <li>
+        <h3 id="1-data-augmentation">1. Data Augmentation</h3>
+        <blockquote>
+          <p>overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)   <br />
+transformation images = image translations * horizontal reflections  <br />
+(10 = 5 * 2)</p>
+        </blockquote>
+
+        <ul>
+          <li>
+            <h4 id="1-1-first-form">1-1. First Form</h4>
+
+            <ul>
+              <li>image translations =
+                <ul>
+                  <li>center patch</li>
+                </ul>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td>1</td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <ul>
+                  <li>top left corner patch</li>
+                </ul>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <ul>
+                  <li>top right corner patch</li>
+                </ul>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <ul>
+                  <li>bottom left corner patch</li>
+                </ul>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <ul>
+                  <li>bottom right corner patch</li>
+                </ul>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td>1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>
+                <h4 id="수평-reflections-좌우반전">수평 reflections (좌우반전)=</h4>
+
+                <table>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td>|</td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>|</td>
+                      <td>8</td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                      <td>|</td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다</li>
+              <li>transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.</li>
+              <li>이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)</li>
+              <li>1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)</li>
+              <li>10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.</li>
+            </ul>
+
+            <blockquote>
+              <ul>
+                <li>궁금한 점  <br />
+왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 &gt; &gt; &gt; 잘되지 않을까?
+training에 근접해서 오히려 overfitting 유발할까 ?</li>
+              </ul>
+            </blockquote>
+          </li>
+          <li>
+            <h4 id="1-2-second-form">1-2. Second Form</h4>
+            <blockquote>
+              <p>altering the intensities of the RGB channels in training images.</p>
+            </blockquote>
+
+            <p>in details,  <br />
+  the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.</p>
+
+            <p>each training image,    <br />
+  we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)</p>
+
+            <ul>
+              <li>
+                <p>따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.</p>
+
+                <p>\([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)  <br />
+  where  <br />
+  \(p_i = eigenvector\)  <br />
+  \(\lambda_i = eigenvalue\)  <br />
+  \(\alpha_i\) = a random variable
+  of the 3 X 3 covariance matrix of RGB pixel values</p>
+              </li>
+            </ul>
+
+            <p>\(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.  <br />
+  image가 다시 사용될때, 그 point에서 re-drawn 된다.</p>
+
+            <ul>
+              <li>This scheme approximately captures <strong>an important property</strong> of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.</li>
+              <li>This scheme reduces the top-1 error rate by over 1%</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h3 id="2-dropout">2. Dropout</h3>
+
+        <ul>
+          <li><strong>Combining the predictions</strong> of many different models is a very successful way to <u>reduce test errors.</u>
+            <blockquote>
+              <ul>
+                <li>근데, too expensive for big NN &gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)</li>
+              </ul>
+            </blockquote>
+          </li>
+          <li>Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.</li>
+          <li>“dropped out” 된 neurons 은 feed forward에 don’t contribute &amp; back propagation 에 don’t participate</li>
+          <li>So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)
+            <ul>
+              <li>궁금한 점  <br />
+  뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)</li>
+            </ul>
+          </li>
+          <li>그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.
+            <blockquote>
+              <ul>
+                <li>아리까리 한거: 왜 남아있는 것들이 robust 한지?
+many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?</li>
+              </ul>
+            </blockquote>
+          </li>
+          <li>test time, we use all the neurons but (their outputs X 0.5)   <br />
+  0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate
+            <ul>
+              <li>큰수의 법칙 때문인듯?</li>
+              <li>test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)</li>
+            </ul>
+          </li>
+          <li>2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.</li>
+        </ul>
+      </li>
+      <li>
+        <h2 id="section-5-details-of-learning">Section 5. Details of learning</h2>
+
+        <ul>
+          <li>SGD + momentum 사용</li>
+          <li>batch size : 128 examples</li>
+          <li>momentum : 0.9</li>
+          <li>weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)
+            <ul>
+              <li>
+                <p>The update rule for weight \(w\) was</p>
+
+                <p>\(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)   <br />
+  \(w_{i+1} := w_i + v_{i+1}\)</p>
+
+                <p>where   <br />
+  \(i\) : the iteration index  <br />
+  \(v\) : the momentum variable  <br />
+  \(\epsilon\) : the learning rate   <br />
+  \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)</p>
+              </li>
+            </ul>
+          </li>
+          <li>weights 초기화 : N(0, 0.01) (in each layer)</li>
+          <li>neuron biases 초기화
+            <ul>
+              <li>2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1</li>
+              <li>나머지 layers : constant 0</li>
+              <li>초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.</li>
+              <li>각 layer의 DoF는 1이라서 (일변수이기 때문에??)  <br />
+  무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?
+  왜 bias 0 이 성립이 되는지 확인</li>
+            </ul>
+          </li>
+          <li>learning rate 초기화 : 0.01
+            <ul>
+              <li>모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)</li>
+              <li>heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)</li>
+              <li><strong>termination 전에</strong> 3배 감소한다.</li>
+            </ul>
+          </li>
+          <li>training set : 1.2M images</li>
+          <li>trained cycles : 90</li>
+          <li>training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs</li>
+        </ul>
+      </li>
+      <li>
+        <h2 id="6-result">6. Result</h2>
+
+        <ul>
+          <li>
+            <p>ILSVRC-2010 summary</p>
+
+            <table>
+              <tbody>
+                <tr>
+                  <td>Model</td>
+                  <td>Top-1</td>
+                  <td>Top-5</td>
+                </tr>
+                <tr>
+                  <td>Sparse coding</td>
+                  <td>47.1%</td>
+                  <td>28.2%</td>
+                </tr>
+                <tr>
+                  <td>SIFT + FVs</td>
+                  <td>45.7%</td>
+                  <td>25.7%</td>
+                </tr>
+                <tr>
+                  <td>CNN</td>
+                  <td>37.5%</td>
+                  <td>17.0%</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ul>
+              <li>논문에서 안쓰였는데 ImageNet 2009 fall version에서 사용한 리포트에서 비교할때 쓰인 것
+                <ul>
+                  <li>SIFT: distribution of features</li>
+                  <li>Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>Qualitative Evaluations</p>
+          </li>
+        </ul>
+
+        <p><u>the network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs</u>
+  무슨말인지 모르겠음 나중에 확인</p>
+
+        <ul>
+          <li>GPU1
+            <ul>
+              <li>specialized in largely color-agnostic (색깔 인지불능)</li>
+            </ul>
+          </li>
+          <li>GPU2
+            <ul>
+              <li>specialized in largely color-specific</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>2개의 specialization은 돌아갈 때 마다 any particular random weight initialization 에 독립적이다.</p>
+
+        <p>두 이미지가 마지막 4096 hidden layer를 지나 생성된 feature activations vectors 가 얼마 차이 안날때 (Euclidean seperation between two 4096-dimensional, real-valued vectors), 두 이미지는 유사하다고 볼 수 있다.  <br />
+  하지만, <strong>auto-encoder를 훈련시키면 to compresss these vectors to short binary codes 더 효율적으로 만들 수 있다.</strong></p>
+
+        <p>this should produce a much better image retrieval method than applying auto-encoders to the raw pixels, which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar.</p>
+
+        <p>at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column.
+  =&gt; 만약에 여러 포즈를 취하는 개 사진이 여러 개가 있다면 결과를 내기 위해서는 더 많은 test images가 보충되어야 함.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>[참고]   <br />
+     Choosing the pattern of connectivity is a problem for cross-validation  <br />
+        - 훈련해야할 파라미터 수  <br />
+           (weight + bias) * # of feature maps ( bias 는 보통 1)</p>
+</blockquote>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/numerical%20analysis/2020/07/13/SVD/">
+        Singular Value Decomposition (SVD)
+      </a>
+    </h1>
+
+    <span class="post-date">13 Jul 2020</span>
+
+    <ul>
+  <li>
+    <p>기하학적 의미: 직교하는 벡터 집합에 대해서, 선형 변환 후에 그 크기는 변하지만 여전히 직교할 수 있게 되는 그 직교 집합은 무엇인가? 그리고 선형 변환 후의 결과는 무엇인가?</p>
+  </li>
+  <li>
+\[A=U\Sigma V^T\]
+  </li>
+  <li>Singular Value \(\sigma\) 어떻게 구할래?
+    <ul>
+      <li>power iteration 방법</li>
+      <li>\(A^TA\) 의 eigenvalues 의 square root</li>
+    </ul>
+  </li>
+  <li>\(A^+\) 는 A의 PseudoInverse 인데 모든 값이 양수여야 해서 + 로 적음</li>
+  <li>\(A^+ \vec {x}\)의 근사치를 구할 수 있다면 (상대적으로 작은 \(\sigma\) 들은 0으로 truncated) 몇몇의 가장 작은 \(\sigma\)를 구할 수 있음.</li>
+  <li>그러면 완전히 \(A^+\)를 찾기보단 \(A^+ \vec {x}\) 로 부터 그 \(\sigma\)들을 truncated 하는게 더 나음.</li>
+  <li>A가 넓은 범위의 singular values를 가지는 경우에 정확할 수 있음. 그래서 Full \(A^+\)를 구하거나 저장하는거 보다 더 괜찮다.</li>
+  <li>\(\tilde A \equiv U\tilde {\Sigma}V^T\) \(\tilde A\)는 작은 \(\sigma\)들을 truncated한 근사치</li>
+</ul>
+
+<p>왜 Scikit-Learn은 PCA계산에서 SVD를 사용하는 것일까?</p>
+
+<p>그 이유는 정확히는 모르겠지만 stackoverflow에서 확인할 수 있듯이, eigenvalue-decomposition에서는 공분산 행렬을 메모리상에 가지고 있어야하는 반면 SVD는 공분산 행렬을 따로 메모리에 저장할 필요가 없으므로 효율적이기 때문이다.</p>
+
+<p>출처: https://excelsior-cjh.tistory.com/167 [EXCELSIOR]</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/others/2020/07/13/Mathjax/">
+        Mathjax, pseudocode 사용법
+      </a>
+    </h1>
+
+    <span class="post-date">13 Jul 2020</span>
+
+    <h3 id="조건">조건</h3>
+<p>github page, Jekyll theme</p>
+
+<h3 id="사용방법">사용방법</h3>
+<p>수식 적용방법은
+inline, outline의 경우,</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$[수식]$$
+</code></pre></div></div>
+<p>을 이용한다. (psuedocode.js 때문에 그런지 $ 하나로 안됨)</p>
+
+<h3 id="--fomula-case">- Fomula Case</h3>
+<p>\(\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\)</p>
+
+\[\begin{align*}
+  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}\]
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+
+$$
+\begin{align*}
+  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
+</code></pre></div></div>
+
+<h3 id="--algorithm-case">- Algorithm Case</h3>
+
+<pre id="quicksort" style="display:hidden;">
+    % This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
+    \begin{algorithm}
+    \caption{Quicksort}
+    \begin{algorithmic}
+    \PROCEDURE{Quicksort}{$A, p, r$}
+        \IF{$p &lt; r$} 
+            \STATE $q = $ \CALL{Partition}{$A, p, r$}
+            \STATE \CALL{Quicksort}{$A, p, q - 1$}
+            \STATE \CALL{Quicksort}{$A, q + 1, r$}
+        \ENDIF
+    \ENDPROCEDURE
+    \PROCEDURE{Partition}{$A, p, r$}
+        \STATE $x = A[r]$
+        \STATE $i = p - 1$
+        \FOR{$j = p$ \TO $r - 1$}
+            \IF{$A[j] &lt; x$}
+                \STATE $i = i + 1$
+                \STATE exchange
+                $A[i]$ with $A[j]$
+            \ENDIF
+            \STATE exchange $A[i]$ with $A[r]$
+        \ENDFOR
+    \ENDPROCEDURE
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;pre id="quicksort" style="display:hidden;"&gt;
+    % This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
+    \begin{algorithm}
+    \caption{Quicksort}
+    \begin{algorithmic}
+    \PROCEDURE{Quicksort}{$A, p, r$}
+        \IF{$p &lt; r$} 
+            \STATE $q = $ \CALL{Partition}{$A, p, r$}
+            \STATE \CALL{Quicksort}{$A, p, q - 1$}
+            \STATE \CALL{Quicksort}{$A, q + 1, r$}
+        \ENDIF
+    \ENDPROCEDURE
+    \PROCEDURE{Partition}{$A, p, r$}
+        \STATE $x = A[r]$
+        \STATE $i = p - 1$
+        \FOR{$j = p$ \TO $r - 1$}
+            \IF{$A[j] &lt; x$}
+                \STATE $i = i + 1$
+                \STATE exchange
+                $A[i]$ with $A[j]$
+            \ENDIF
+            \STATE exchange $A[i]$ with $A[r]$
+        \ENDFOR
+    \ENDPROCEDURE
+    \end{algorithmic}
+    \end{algorithm}
+&lt;/pre&gt;
+
+&lt;!-- 알고리즘 렌더링--&gt;
+&lt;script&gt;
+    pseudocode.renderElement(document.getElementById("quicksort"));
+&lt;/script&gt;
+</code></pre></div></div>
+
+<!-- 알고리즘 렌더링-->
+<script>
+    pseudocode.renderElement(document.getElementById("quicksort"));
+</script>
+
+<p>문법의 내용은 다음의 사이트들을 참고한다.</p>
+
+<ul>
+  <li><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">LaTex docs</a></li>
+  <li><a href="https://johngrib.github.io/wiki/mathjax-latex/">간단한 사용 예시</a></li>
+  <li><a href="http://detexify.kirelabs.org/classify.html">모르는 기호를 LaTex 문법으로 맞춰 제안</a></li>
+  <li><a href="https://latexbase.com/">온라인 LaTeX 수식 확인 가능 사이트 -상당히 유용!</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/">
+        LU Decomposition (LU factorization)
+      </a>
+    </h1>
+
+    <span class="post-date">12 Jul 2020</span>
+
+    <ul>
+  <li>행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
+<img src="/public/asset/matrix_time_tradeoff.jpg" alt="CM_tradoff" /></li>
+  <li>LU 분해는 첫번째로 <strong>계산의 편리함</strong>, 두번째로 <strong>분석적 용이성</strong>을 위함이 있다. (모든 행렬 분해에 해당)</li>
+  <li><del><strong>가우시안 소거법</strong>의 시간 복잡도 문제를 해결했다.</del><br />
+<strong>LU분해는 가우스 소거법과 비교하여 <u>flop(floating point operation) 비용의 이점을 갖지 않는다.</u></strong>    (그럼 왜 계산 비용이 줄은거지??? 아무리 찾아봐도 명쾌한 해답이 나와있지 않다…)<br />
+하지만 <strong>다른 장점</strong>을 갖고 있어 더 선호된다.
+    <blockquote>
+      <ol>
+        <li>가우스 소거법은 Augmented Matrx \([A\|b]\)를 사용하므로, b의 값을 알아야 한다.<br />
+반면 LU분해는 행렬 A만 사용하므로 그 분해값을 안다면, 오른쪽 항이 아무리 많이 필요하다고 해도 한번에 하나씩 사용해서 해결할 수 있다. (해 구하기 전 단계)</li>
+        <li>\(Ax=b\)의 해를 구하기 위하여 계산하는 LU분해는 만일 필요하다면, 거의 추가 작업 없이 \(A^{-1}\)의 계산에 사용할 수 있다. (삼각행렬의 계산은 \(O(n^2)\) 이므로)</li>
+        <li>LDU 분해를 통해, 한개의 행렬에 L,D,U 모두 저장할 수 있다. 따라서 시스템이 해결하는 데 필요한 메모리의 양을 감소시킨다.</li>
+        <li>만일 행렬 A가 대부분 영으로 구성되어 있는 크기가 큰 행렬이라면, 또는 영 아닌 성분들이 주 대각선 주위의 “띠(band)”에 집중되어 있따면, LU분해의 비용을 절감하는데 사용할 수 있는 기술이 있다.<br />
+(와닿지 않는다. 차차 알아가자)</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
+<p>(안톤의 선형대수학 p589 참조)</p>
+
+<h2 id="1-gaussian-elimination">1. Gaussian Elimination</h2>
+
+<pre id="Gaussian_Elimination" style="display:hidden;">
+    \begin{algorithm}
+    \caption{Gaussian Elimination}
+    \begin{algorithmic}
+
+    \FUNCTION {Forward-Substitution}{$A, \vec{b}$}
+    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
+    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
+    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
+        \FOR{$p = 1$ \TO $n$}
+            \STATE *Optionally insert pivoting code here*  
+            \STATE $s \leftarrow \frac 1 {u_{pp}}$
+            \STATE $y_p \leftarrow s \cdot y_p$
+            \FOR{$c = p$ \TO $n$}
+                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
+            \ENDFOR
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow {-u_{rp}}$
+                \STATE $y_r \leftarrow y_r + s \cdot y_p$
+                \FOR{$c=p$ \TO $n$}
+                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $U, \vec{y}$
+    \ENDFUNCTION  
+    
+    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
+    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
+    \STATE $\vec{x} \leftarrow \vec{y}$
+        \FOR{$p = n$ \TO $1$}
+            \FOR{$r = 1$ \TO $p - 1$}
+                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
+            \ENDFOR
+        \ENDFOR
+    \RETURN $\vec{x}$
+    \ENDFUNCTION
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<blockquote>
+  <p>Gaussian Elimination’s Total Running Time</p>
+  <h4 id="on3">\(O(n^3)\)</h4>
+</blockquote>
+
+<h4 id="optionally-insert-pivoting-code-here"><strong><em>*Optionally insert pivoting code here*</em></strong></h4>
+<blockquote>
+  <p>가우시안 제거 방법은 pivot의 역수로 scaling 하기때문에 
+수치적으로 안정적인 방법으로 <em>큰 pivot</em> 을 가져가도록 해야한다.</p>
+</blockquote>
+
+<h4 id="pivoting-전략"><strong>Pivoting 전략</strong></h4>
+<p>대각행렬 안 절대값이 낮은 피벗 원소를 해당 피벗의 열 벡터중 가장 큰 절대값을 가진 원소로 바꾼다.</p>
+
+<blockquote>
+  <ol>
+    <li><em>Partial pivoting</em>
+      <ul>
+        <li>Only 행교환</li>
+      </ul>
+    </li>
+    <li><em>Full pivoting</em>
+      <ul>
+        <li>행교환 + 열교환</li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p><em>Full pivoting은 partial pivoting에 비해 더 많은 computational cost가 필요하지만 수치적으로는 더 안정적임</em><br />
+(행렬 전체를 한번 훑어 봄, 우선순위 큐 사용. In practice, rarely necessory)</p>
+
+<hr />
+<h2 id="python-code"><strong>Python Code</strong></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">forward_substitution</span><span class="p">(</span><span class="n">A</span> <span class="o">=</span> <span class="s">"matrix"</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="s">"vector"</span><span class="p">):</span>
+
+    <span class="c1"># AM = np.c_[A, b]   Augmented Matrix
+</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>   <span class="c1"># will be upper triagle matrix
+</span>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        
+        <span class="c1">#partial pivoting    
+</span>        <span class="n">pivot</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">]):</span>
+                <span class="n">pivot</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">U</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">],:]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">],:]</span>
+        <span class="n">y</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">]]</span>
+        <span class="c1"># y[p], y[pivot] = y[pivot], y[p] # 이거 안먹힘
+</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+
+        <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>         <span class="c1"># 피벗 항 scaling
+</span>            <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>       <span class="c1"># 행 연산
+</span>            <span class="n">s</span> <span class="o">=</span> <span class="o">-</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">back_substitution</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="s">"matrix"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"vector"</span><span class="p">):</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div></div>
+<hr />
+<h2 id="2-lu-decomposition">2. LU Decomposition</h2>
+<p><img src="/public/asset/lu_definition.jpg" alt="LU_DEF" /></p>
+<ul>
+  <li>
+    <h3 id="아이디어들">아이디어들</h3>
+    <ol>
+      <li>
+        <h4 id="삼각행렬이-아닌-square-matrix의-전진-대입법은-on3-이-걸리고-후진-대입법은-on2이-걸린다">삼각행렬이 아닌 Square Matrix의 전진 대입법은 \(O(n^3)\) 이 걸리고, 후진 대입법은 \(O(n^2)\)이 걸린다.</h4>
+        <blockquote>
+          <p>삼각행렬의 \(O(n^2)\) 시간 복잡도를 활용하고 싶다.</p>
+        </blockquote>
+      </li>
+      <li>
+        <h4 id="leading-variable-이-1이-아니여도-괜찮다">leading variable 이 1이 아니여도 괜찮다.</h4>
+        <blockquote>
+          <p>변형을 안해줘도 선도 변수를 자유 변수처럼 표현할 수 있지 않을까?</p>
+        </blockquote>
+      </li>
+      <li>
+        <h5 id="a--lu">\(A = LU\)</h5>
+        <blockquote>
+          <ul>
+            <li>A를 Lower trianglular &amp; Upper trianglular 로 분해할 수 있음.</li>
+            <li>삼각행렬의 대각곱이 Det임을 이용하여 L, U의 대각곱으로 A의 행렬식을 구할때도 용이하다.</li>
+            <li>A를 LU를 분해하는 과정은 \(\approx \frac 2 3 n^3\)이 걸린다.<br />
+(가우스 소거법의 전진 대입과 같은 flop (floating point operation) 이 소요)</li>
+          </ul>
+        </blockquote>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<!-- - ### 삼각행렬의 장점
+> 선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
+back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. -->
+
+<ul>
+  <li>
+    <h3 id="짚고-넘어가야-할-문제">짚고 넘어가야 할 문제</h3>
+    <ol>
+      <li>모든 행렬 A는 LU 분해가 가능한가요?</li>
+      <li>행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?</li>
+      <li>(1)의 답이 <strong>NO</strong> 라면 어떤 행렬이 LU분해가 가능한가요?
+        <blockquote>
+          <p>(1) 아니오<br />
+(2) 아니오<br />
+(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.<br />
+왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.<br />
+그러면<br />
+<img src="/public/asset/a.jpg" width="600px" height="400px" title="invertible_matrix_proof" alt="proof_1" />
+이고,
+EA는 A에 같은 기본 행연산을 한것과 같기 때문에,<br />
+\(E_k, ..., E_2 , E_1\) (하삼각 기본행렬) 들로<br />
+\(E_k...E_2E_1A = U\)로 표현할 수 있고,<br />
+기본행렬 E는 반드시 Invertible Matrix 이다.  <br />
+그러면, \(A = E_1^{-1}E_2^{-1}...E_k^{-1}U\)을 만족하고,<br />
+가역인 L에 대해서,  \(L * L = L\) 과 \(L^{-1} = L\) 이므로,<br />
+\(L = E_1^{-1}E_2^{-1}...E_k^{-1}\) 이다.</p>
+        </blockquote>
+      </li>
+    </ol>
+  </li>
+  <li>(참고) 기본행렬 표현 (where \(l &gt; k\))</li>
+</ul>
+
+\[E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}\]
+
+\[E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}\]
+
+<blockquote>
+  <p>기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수</p>
+</blockquote>
+
+<pre id="LU_Factorization" style="display:hidden;">
+    \begin{algorithm}
+    \caption{LU Factorization}
+    \begin{algorithmic}
+
+    \FUNCTION {LU-FACTORIZATION-COMPACT}{$A$}
+    \STATE Factors $A \isin \reals^{n \times n}$ to $A = LU$ in compact format.
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
+                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
+                \FOR{$c=p+1$ \TO $n$}
+                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $A\qquad\triangleright$LU분해된 A임
+    \ENDFUNCTION  
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+<ul>
+  <li>Result<br />
+\(A = \left( \begin{array}{cccc} U &amp; \cdots &amp; \cdots &amp; \cdots &amp; U \\ L &amp; U &amp; U &amp; U &amp; \vdots\\ \vdots &amp; L &amp; \ddots &amp; U &amp; \vdots\\ \vdots &amp; L &amp; L &amp; U &amp; \vdots \\ L &amp; \cdots &amp; \cdots &amp; L &amp; U \end{array} \right)\)</li>
+</ul>
+
+<blockquote>
+  <p>LU Factorization-compact’s Total Running Time</p>
+  <h4 id="on3-approx-frac-2-3-n3">\(O(n^3) \approx \frac 2 3 n^3\)</h4>
+</blockquote>
+
+<ol>
+  <li>잃어버린 L 의 대각행렬 성분은 모두 1이다.</li>
+  <li>인수 분해하는데 걸린 전체 시간은 \(O(n^3)\) 이지만,<br />
+ \(A\vec{x}=\vec{b}\)를 푸는데 전진 대입, 후진 대입을 사용하면 오직 \(O(n^2)\) 밖에 안걸린다.</li>
+</ol>
+
+<hr />
+<h2 id="python-code-1"><strong>Python Code</strong></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LU_Factorization_compact</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">])</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span> <span class="c1">#하삼각행렬 E^-1 에 저장
+</span>            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">M</span>
+</code></pre></div></div>
+<hr />
+
+<h4 id="l-u는-유일하지-않다-그래서-유일한-l-u를-추출해주고-싶다"><strong>L, U는 유일하지 않다. 그래서 유일한 L, U를 추출해주고 싶다.</strong></h4>
+<blockquote>
+  <p>U의 대각행렬 성분을 따로 빼주면 유일하게 인수분해가 될 수 있다.<br />
+ \(\triangleright\) LDU 분해 사용</p>
+</blockquote>
+
+<pre id="LDU" style="display:hidden;">
+    \begin{algorithm}
+    \caption{LDU Factorization}
+    \begin{algorithmic}
+
+    \FUNCTION {LDU-FACTORIZATION-COMPACT}{$A$}
+    \STATE $\triangleright$Factors $A \isin \reals^{n \times n}$ to $A = LDU$ in compact format.
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
+                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
+                \FOR{$c=p+1$ \TO $n$}
+                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+        \STATE $\quad$
+        \STATE *추가부분*
+        \FOR{$p = 1$ \TO $n$}
+            \FOR{$r = p + 1$ \TO $n$} 
+                \STATE ${a_{pr}} \leftarrow \frac {a_{pr}} {a_{pp}}$$\qquad\triangleright$ Diagonal 성분을 따로 빼줌  
+            \ENDFOR
+        \ENDFOR
+        \STATE $\quad$
+    \RETURN $A\qquad\triangleright$LDU분해된 A임
+    \ENDFUNCTION  
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<ul>
+  <li>Result<br />
+\(A = \left( \begin{array}{ccc} D &amp; U &amp; \cdots &amp; \cdots &amp; U \\ L &amp; D &amp; U &amp; U &amp; \vdots\\ \vdots &amp; L &amp; \ddots &amp; U &amp; \vdots\\ \vdots &amp; L &amp; L &amp; D &amp; U \\ L &amp; \cdots &amp; \cdots &amp; L &amp; D \end{array} \right)\)</li>
+</ul>
+
+<hr />
+<h2 id="python-code-2"><strong>Python Code</strong></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LDU_Factorization_compact</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">])</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span> <span class="c1">#하삼각행렬 E^-1 에 저장
+</span>            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
+
+    <span class="c1">#LDU로 바꿔 유일하게 인수분해 될 수 있게 바꿔줌
+</span>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">M</span>
+</code></pre></div></div>
+<hr />
+
+<blockquote>
+  <h3 id="ldu-분해로-구한-diagonal-matrix-의-모든-성분의-곱은-deta-이다">LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱은 Det(A) 이다.</h3>
+</blockquote>
+
+<h3 id="lu-분해를-pivoting-하는-방법--plu">LU 분해를 Pivoting 하는 방법 : PLU</h3>
+<blockquote>
+  <p>LU 앞에 Permutation Matrix 곱해준다. (순서 바꾼 Identity Matrix)<br />
+\(P == P^{-1}\) 를 이용</p>
+</blockquote>
+
+<!-- 알고리즘 렌더링-->
+<script>
+    pseudocode.renderElement(document.getElementById("Gaussian_Elimination"));
+    pseudocode.renderElement(document.getElementById("LU_Factorization"));
+    pseudocode.renderElement(document.getElementById("LDU"));
+</script>
+
+<blockquote>
+
+</blockquote>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="http://localhost:4000/page4">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="http://localhost:4000/page2">Newer</a>
+    
+  
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

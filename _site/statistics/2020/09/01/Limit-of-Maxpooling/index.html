@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+   
+  <title>
+    
+      Maxpooling의 한계 &middot; Shin
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+  <body class="theme-base-08">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/categories/">Categories</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Shin</a>
+            <small>jotting down</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script> 
+        <!-- Katex, pseudocode.js-->
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"
+        integrity="sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=" crossorigin="anonymous">
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js">
+  </script>
+
+  
+</head>
+<!---->
+
+<div class="post">
+  <h1 class="post-title">Maxpooling의 한계</h1>
+  <span class="post-date">01 Sep 2020</span>
+  <article>
+      <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script> 
+      <p><a href="https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/</a></p>
+<ul>
+  <li>
+    <p>이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</p>
+
+    <ul>
+      <li>
+        <p><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">translation invariance</a> 조건으로 feature을 discard (maxpooling) 하느냐 아니면 translation equivariance할 수 있는 다른 새로운 방법을 찾아 disentangling 하냐에 대해서 논란이 있다.   <br />
+  확실히 disentangling하는 것이 더 나은 방법이라고 생각한다. 객체 지향처럼 encapsulation이라는 개념이 소개 되었는데, 세상의 모든 성질을 객체에다가 넣어서 평가하려면… 불가능함에 가까워 보인다. 이런 부분을 고려해서 CapsNet 구조를 만들었을 것이다. CapsNet을 아직 안봐서 이 부분은 나중에 내 생각의 수정이 필요하다.</p>
+      </li>
+      <li>maxpooling의 잘못된 점
+        <ol>
+          <li>내재되어있는 선형적인 구조를 사용하지 않는다. (Fails to use underlying linear structure).
+            <ul>
+              <li>SIFT를 통해서도 알겠지만 여러 방면으로 3D 물체를 돌려보는 것은 비선형적이다. 이를 globally linear 한 곳으로 변환시킨다면 대량의 extrapolation이 가능합니다. 즉, 물체의 다양한 모습을 추정 가능하다는 말과 같습니다. 하지만 pooling에는 이러한 과정이 없습니다.</li>
+            </ul>
+          </li>
+          <li>Dynamic routing과는 어울리지 않음
+            <ul>
+              <li>pooling에서는 캡스넷(캡슐 네트워크)의 가장 큰 특징 중 하나인 dynamic routing을 사용할 수 없다.</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li>현재 CNN의 주요한 문제점
+        <blockquote>
+          <p>Internal data representation of a convolutional neural network doesn’t take into account important spatial hierarchies between simple and complex objects”</p>
+        </blockquote>
+        <ul>
+          <li>CNN 내부 데이터의 간단한 오브젝트와 복잡한 오브젝트 사이의 spatial hierarchies를 고려하지 않는다.</li>
+        </ul>
+      </li>
+      <li>CapsNet은 feature간의 공간적인 관계까지 고려하게 됩니다.
+        <ul>
+          <li>그럼 feature 간의 weight 또한 필요하다고 볼 수 있네</li>
+        </ul>
+      </li>
+      <li>Maxpooling은 학습 가능한 파라미터가 존재하지 않으며 단순히 가장 큰 특징적인 값만 뽑아내서 FOV를 넓히는 것 밖에 못한다는 것입니다.
+        <ul>
+          <li>하지만 캡슐은 벡터로 이루어져 있기 때문에 dynamic rouing을 통해 오브젝트 파트들의 상대적 위치를 조합할 수 있음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   <br />
+유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   <br />
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;</p>
+
+  </article>
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">
+            Principal Component Analysis (PCA)
+            <small>01 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/statistics/2020/09/01/Covariance-Matrix/">
+            Covariance Matrix
+            <small>01 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/deep%20learning/2020/08/31/Whitening/">
+            Whitening
+            <small>31 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

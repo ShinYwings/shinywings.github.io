@@ -90,6 +90,22 @@
       
     
       
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
     
       
         
@@ -461,15 +477,20 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
             <p>\(a^{i}_{x,y}\) : the activity of a neuron computed by applying <strong><em>kernel \(i\)</em></strong> at <strong><em>position \(x,y\)</em></strong>  <br />
   Then, applying the ReLU nonlinearity,  <br />
   the <strong><em>response-normalizaed activity \(b^{i}_{x,y}\)</em></strong> is given by the expression  <br />
-  \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{i}_{x,y})^2 \biggr)^{\beta}\)  <br />
+  \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)  <br />
   where the sum runs over <strong><em>\(n\) “adjacent” kernel maps</em></strong> at the same spatial position, and \(N\) <strong><em>is the total # of kernels in the layer</em></strong>  <br />
   \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.  <br />
-  (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))</p>
+  (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))   <br />
+  <img src="/public/asset/LRN.png" alt="LRN" /></p>
           </li>
           <li>The ordering of the kernel(filter) maps : arbitrary and determined before training begins</li>
           <li>modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함</li>
           <li>여기서 나온 scheme은 local contrast normalization scheme <a href="http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf">[11]</a>과 유사</li>
-          <li>요즘은 이거 안쓰고 batch normalization 사용</li>
+          <li>요즘은 이거 안쓰고 batch normalization 사용
+            <ul>
+              <li><a href="/deep%20learning/2020/08/31/Local-Response-Normalization/">왜 LRN 안쓰고 BN 사용할까?</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li>
@@ -739,13 +760,17 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
           <li>그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.
             <blockquote>
               <ul>
-                <li>아리까리 한거: many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?</li>
+                <li>아리까리 한거: 왜 남아있는 것들이 robust 한지?
+many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?</li>
               </ul>
             </blockquote>
           </li>
-          <li>
-            <p>test time, we use all the neurons but (their outputs X 0.5)   <br />
-  0.5: which is the geometric mean of the 지수적으로 많은 dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximation</p>
+          <li>test time, we use all the neurons but (their outputs X 0.5)   <br />
+  0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate
+            <ul>
+              <li>큰수의 법칙 때문인듯?</li>
+              <li>test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)</li>
+            </ul>
           </li>
           <li>2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.</li>
         </ul>
@@ -754,13 +779,13 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
         <h2 id="section-5-details-of-learning">Section 5. Details of learning</h2>
 
         <ul>
-          <li>SGD 사용</li>
+          <li>SGD + momentum 사용</li>
           <li>batch size : 128 examples</li>
           <li>momentum : 0.9</li>
           <li>weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)
             <ul>
               <li>
-                <p>The update rul for weight \(w\) was</p>
+                <p>The update rule for weight \(w\) was</p>
 
                 <p>\(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)   <br />
   \(w_{i+1} := w_i + v_{i+1}\)</p>
@@ -779,6 +804,9 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
               <li>2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1</li>
               <li>나머지 layers : constant 0</li>
               <li>초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.</li>
+              <li>각 layer의 DoF는 1이라서 (일변수이기 때문에??)  <br />
+  무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?
+  왜 bias 0 이 성립이 되는지 확인</li>
             </ul>
           </li>
           <li>learning rate 초기화 : 0.01
@@ -886,27 +914,27 @@ training에 근접해서 오히려 overfitting 유발할까 ?</li>
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/27/Local-Minima/">
-            Local Minima
-            <small>27 Aug 2020</small>
+          <a href="/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">
+            Principal Component Analysis (PCA)
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/27/Correlation-vs-Convolution/">
-            Correlation VS Convolution
-            <small>27 Aug 2020</small>
+          <a href="/statistics/2020/09/01/Limit-of-Maxpooling/">
+            Maxpooling의 한계
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">
-            Stationarity of Statistics in terms of CV
-            <small>26 Aug 2020</small>
+          <a href="/statistics/2020/09/01/Covariance-Matrix/">
+            Covariance Matrix
+            <small>01 Sep 2020</small>
           </a>
         </h3>
       </li>

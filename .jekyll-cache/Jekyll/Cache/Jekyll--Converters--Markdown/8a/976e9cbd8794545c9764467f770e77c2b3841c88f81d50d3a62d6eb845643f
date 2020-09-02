@@ -1,8 +1,0 @@
-I"<ul>
-  <li>unsupervised learning 방법</li>
-  <li>overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨</li>
-  <li>primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임  <br />
-  “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996  <br />
-  “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997</li>
-</ul>
-:ET
