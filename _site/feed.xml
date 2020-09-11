@@ -1,68 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-06T14:25:34+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Covariance Matrix</title><link href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/" rel="alternate" type="text/html" title="Covariance Matrix" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Covariance-Matrix</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">&lt;h2 id=&quot;위키피디아-정의&quot;&gt;위키피디아 정의&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;random vector: random variable with multiple dimensions   &lt;br /&gt;
-(vector는 scalar양을 가짐; 관측된 경험 value (indefinite) 또는 유,무한의 potential value)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Diangonal은 variance \(\sigma^2\)이다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;두 확률 변수 사이 서로 간의 영향을 얼마나 끼치는지 (correlation) 나타내는 것을 행렬로 표현한 것이다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;공분산 행렬  &lt;br /&gt;
-\(\begin{matrix} 
-Cov(X,X) &amp;amp; Cov(X,Y) &amp;amp; Cov(X,Z)\\
-Cov(Y,X) &amp;amp; Cov(Y,Y) &amp;amp; Cov(Y,Z)\\
-Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
-\end{matrix}\)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;확률 변수 X,Y,Z의 상관계수와 공분산이다.   &lt;br /&gt;
-공분산(e.g. Cov(X,Y))을 해당하는 확률 변수 두개 (e.g. X,Y)의 표준편차로 나누어 표준화한 값은 X와 Y의 상관계수 (coefficient correlation) 이다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cov(X,Y) == Cov(Y,X) 이므로 공분산 행렬은 대칭행렬이다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;correlation \(\rho\)에 대해&lt;/p&gt;
-
-&lt;p&gt;\(\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
-= E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}\)  &lt;br /&gt;
-     where,   &lt;br /&gt;
-            \(N\) = 데이터 갯수  &lt;br /&gt;
-            \(\mu_1\) = X의 평균  &lt;br /&gt;
-            \(\mu_2\) = Y의 평균  &lt;br /&gt;
-            \(\sigma_1\) = X의 표준편차  &lt;br /&gt;
-            \(\sigma_2\) = Y의 표준편차&lt;/p&gt;
-
-&lt;p&gt;\(\begin{aligned} Cov(X,Y) = E[(X-\mu_1)(Y-\mu_2)]
-\\= E[XY-\mu_2X-\mu_1Y+\mu_1\mu_2]
-\\= E[XY]-\mu_2E[X]-\mu_1E[Y]+\mu_1\mu_2
-\\= E[XY]-\mu_2\mu_1-\mu_1\mu_2+\mu_1\mu_2
-\\= E[XY]-\mu_1\mu_2\end{aligned}\)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Expectation Value 구할때 Degree of Freedom 1(계산하는 데 쓰인 독립 변수, 자기 자신) 생각해서 꼭 N-1 해줘야 함&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-09T21:22:14+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Lagrange Multipliers</title><link href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/" rel="alternate" type="text/html" title="Lagrange Multipliers" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">&lt;blockquote&gt;
+  &lt;p&gt;sometimes called &lt;strong&gt;undetermined multipliers&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.&lt;/p&gt;
+
+&lt;p&gt;\(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면,  &lt;br /&gt;
+\(g(x_1, x_2)=0\)  &lt;br /&gt;
+—————————-&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recognition" /><category term="Regularization" /><summary type="html">sometimes called undetermined multipliers 1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다. \(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면, \(g(x_1, x_2)=0\) —————————-</summary></entry><entry><title type="html">Tensorflow Note</title><link href="http://localhost:4000/others/2020/09/08/tensorflow_note/" rel="alternate" type="text/html" title="Tensorflow Note" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/09/08/tensorflow_note</id><content type="html" xml:base="http://localhost:4000/others/2020/09/08/tensorflow_note/">&lt;h2 id=&quot;20200908&quot;&gt;&lt;strong&gt;2020/09/08&lt;/strong&gt;&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;상관관계는 인과관계가 절대 아니다&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;(e.g. 폭력물 시청과 아이의 폭력성)&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;Large scale datasets을 tf api에 적재하기 대작전
+    &lt;ol&gt;
+      &lt;li&gt;tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소&lt;/li&gt;
+      &lt;li&gt;256x256 image를 적재하기 대작전
+        &lt;ul&gt;
+          &lt;li&gt;그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐)
+            &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_physical_devices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GPU'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+          &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+              &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+                  &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_virtual_device_configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VirtualDeviceConfiguration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory_limit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;   
+              &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;RuntimeError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+                  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/gpu:1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;train_ds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_tensor_slices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train_images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;test_ds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_tensor_slices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test_images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐)&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기
+            &lt;ul&gt;
+              &lt;li&gt;진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ&lt;/li&gt;
+              &lt;li&gt;지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;평균과 비율을 기초해서 구한 상관관계는 변수간의 관계를 과장시킨다.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Covariance" /><summary type="html">위키피디아 정의 주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬</summary></entry><entry><title type="html">Principal Component Analysis (PCA)</title><link href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/" rel="alternate" type="text/html" title="Principal Component Analysis (PCA)" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis</id><content type="html" xml:base="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">&lt;p&gt;제일 좋은 참조. 내꺼 안봐도 됨&lt;br /&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="tensorflow" /><summary type="html">2020/09/08 Large scale datasets을 tf api에 적재하기 대작전 tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소 256x256 image를 적재하기 대작전 그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐) gpus = tf.config.experimental.list_physical_devices('GPU') if gpus: try: tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]) except RuntimeError as e: print(e) with tf.device('/gpu:1') train_ds = tf.data.Dataset.from_tensor_slices((train_images, train_labels)) test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels)) dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐) 256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기 진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ 지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈</summary></entry><entry><title type="html">Principal Component Analysis (PCA)</title><link href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/" rel="alternate" type="text/html" title="Principal Component Analysis (PCA)" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis</id><content type="html" xml:base="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">&lt;p&gt;제일 좋은 참조. 내꺼 안봐도 됨&lt;br /&gt;
 &lt;a href=&quot;https://excelsior-cjh.tistory.com/167&quot;&gt;https://excelsior-cjh.tistory.com/167&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/&quot;&gt;https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/&lt;/a&gt;&lt;/p&gt;
 
@@ -127,7 +103,71 @@ Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
 
 &lt;p&gt;맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   &lt;br /&gt;
 유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   &lt;br /&gt;
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Batch Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/" rel="alternate" type="text/html" title="Batch Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">&lt;p&gt;Trainable layer normally used for addressing the issues of &lt;strong&gt;Internal Covariate Shift(ICF)&lt;/strong&gt;&lt;/p&gt;
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Covariance Matrix</title><link href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/" rel="alternate" type="text/html" title="Covariance Matrix" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Covariance-Matrix</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">&lt;h2 id=&quot;위키피디아-정의&quot;&gt;위키피디아 정의&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;random vector: random variable with multiple dimensions   &lt;br /&gt;
+(vector는 scalar양을 가짐; 관측된 경험 value (indefinite) 또는 유,무한의 potential value)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Diangonal은 variance \(\sigma^2\)이다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;두 확률 변수 사이 서로 간의 영향을 얼마나 끼치는지 (correlation) 나타내는 것을 행렬로 표현한 것이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;공분산 행렬  &lt;br /&gt;
+\(\begin{matrix} 
+Cov(X,X) &amp;amp; Cov(X,Y) &amp;amp; Cov(X,Z)\\
+Cov(Y,X) &amp;amp; Cov(Y,Y) &amp;amp; Cov(Y,Z)\\
+Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
+\end{matrix}\)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;확률 변수 X,Y,Z의 상관계수와 공분산이다.   &lt;br /&gt;
+공분산(e.g. Cov(X,Y))을 해당하는 확률 변수 두개 (e.g. X,Y)의 표준편차로 나누어 표준화한 값은 X와 Y의 상관계수 (coefficient correlation) 이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cov(X,Y) == Cov(Y,X) 이므로 공분산 행렬은 대칭행렬이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;correlation \(\rho\)에 대해&lt;/p&gt;
+
+&lt;p&gt;\(\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
+= E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}\)  &lt;br /&gt;
+     where,   &lt;br /&gt;
+            \(N\) = 데이터 갯수  &lt;br /&gt;
+            \(\mu_1\) = X의 평균  &lt;br /&gt;
+            \(\mu_2\) = Y의 평균  &lt;br /&gt;
+            \(\sigma_1\) = X의 표준편차  &lt;br /&gt;
+            \(\sigma_2\) = Y의 표준편차&lt;/p&gt;
+
+&lt;p&gt;\(\begin{aligned} Cov(X,Y) = E[(X-\mu_1)(Y-\mu_2)]
+\\= E[XY-\mu_2X-\mu_1Y+\mu_1\mu_2]
+\\= E[XY]-\mu_2E[X]-\mu_1E[Y]+\mu_1\mu_2
+\\= E[XY]-\mu_2\mu_1-\mu_1\mu_2+\mu_1\mu_2
+\\= E[XY]-\mu_1\mu_2\end{aligned}\)&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Expectation Value 구할때 Degree of Freedom 1(계산하는 데 쓰인 독립 변수, 자기 자신) 생각해서 꼭 N-1 해줘야 함&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;상관관계는 인과관계가 절대 아니다&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;(e.g. 폭력물 시청과 아이의 폭력성)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;평균과 비율을 기초해서 구한 상관관계는 변수간의 관계를 과장시킨다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Covariance" /><summary type="html">위키피디아 정의 주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬</summary></entry><entry><title type="html">Batch Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/" rel="alternate" type="text/html" title="Batch Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">&lt;p&gt;Trainable layer normally used for addressing the issues of &lt;strong&gt;Internal Covariate Shift(ICF)&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;internal-covariate-shift&quot;&gt;Internal covariate shift&lt;/h2&gt;
 &lt;ul&gt;
@@ -297,7 +337,7 @@ Internal covariate shift와 함께 정리 잘된 논문을 정리
       &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적을 것으로 예측된다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry><entry><title type="html">Correlation VS Convolution</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution/" rel="alternate" type="text/html" title="Correlation VS Convolution" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution/">&lt;p&gt;&lt;a href=&quot;https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/&quot;&gt;https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/&lt;/a&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="CNN" /><summary type="html">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/</summary></entry><entry><title type="html">Local Minima</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/" rel="alternate" type="text/html" title="Local Minima" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Local-Minima</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/">&lt;ul&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry><entry><title type="html">Local Minima</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/" rel="alternate" type="text/html" title="Local Minima" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Local-Minima</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/">&lt;ul&gt;
   &lt;li&gt;Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
     &lt;h2 id=&quot;용어-정리&quot;&gt;용어 정리&lt;/h2&gt;
   &lt;/li&gt;
@@ -393,222 +433,4 @@ error remains approximately constant”.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://darkpgmr.tistory.com/148?category=761008&quot;&gt;https://darkpgmr.tistory.com/148?category=761008&lt;/a&gt;
 &lt;a href=&quot;https://hwiyong.tistory.com/9&quot;&gt;https://hwiyong.tistory.com/9&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;나는-용어-참조만-하고-싶었기-때문에-깊이-파보진-않았다-자세히-알고-싶으면-두-블로그에-정리-엄청-잘-되어있다&quot;&gt;나는 용어 참조만 하고 싶었기 때문에, 깊이 파보진 않았다. 자세히 알고 싶으면 두 블로그에 정리 엄청 잘 되어있다.&lt;/h3&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="Optimization" /><summary type="html">Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다. 용어 정리</summary></entry><entry><title type="html">Stationarity of Statistics in terms of CV</title><link href="http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics/" rel="alternate" type="text/html" title="Stationarity of Statistics in terms of CV" /><published>2020-08-26T00:00:00+09:00</published><updated>2020-08-26T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics/">&lt;p&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 논문 중에서,&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
-about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 있다.&lt;/p&gt;
-
-&lt;p&gt;the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;이 때, the nature of images의 조건 3가지,&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;namely&lt;/li&gt;
-  &lt;li&gt;stationarity of statistics&lt;/li&gt;
-  &lt;li&gt;locality of pixel dependencies  &lt;br /&gt;
-라고 한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;세 가지 각각의 의미는,&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;namely
-    &lt;ul&gt;
-      &lt;li&gt;an object modeller and a system that performs the matching of stored representations to those derived from the sensed image.   &lt;br /&gt;
-(i.e. 어떤 이미지에 대해 모델이 정확히 인식해야 한다.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;stationarity of statistics
-    &lt;ul&gt;
-      &lt;li&gt;개인적으로 뜻을 이해하기 정말 어려웠다.
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;Wikipida 인용&lt;/p&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 
-  확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  &lt;br /&gt;
-   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.&lt;/code&gt;&lt;br /&gt;
-  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.&lt;/code&gt;&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;위키피디아는 시간의 불변성을 이야기를 한다.  &lt;br /&gt;
- 그래서, 시간에 따른 a sequence of images, 즉 video를 생각하게 되었다.  &lt;br /&gt;
- 하지만, stackexchange에서는 시간이 아닌 &lt;strong&gt;픽셀&lt;/strong&gt;로 생각해야한다고 주장한다.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;StackExchange 인용 (약간 controversial 하네)
-            &lt;blockquote&gt;
-              &lt;p&gt;답변: stationarity of statistics might mean that the values of the pixels do not change over time, so this could be related to diffusion techniques in image processing. stationarity of statistics might also mean that the values of the pixels do not change much in a spatial neighborhood, even though, stationarity, e.g. in reinforcement learning, usually means that something does not change over time (so, if that’s the case, the terminology stationarity is at least misleading and confusing, in this context), so this might be related to the locality of pixel dependencies property. Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;I really think in this case stationarity isn’t regarding time, but &lt;strong&gt;spatial location (given no time exists– im assuming you meant over the dataset)&lt;/strong&gt; I think they’re saying a lot of local statistics are common across multiple areas of the image (therefore a single convolved filter can be a useful featurization of multiple fields rather than just one) – mshlis Jul 31 ‘19 at 1:19&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@mshlis You might be right. This was my interpretation, given the usual meaning of stationarity (e.g. in reinforcement learning). However, if your interpretation is correct, then their terminology is highly confusing or misleading. – nbro♦ Jul 31 ‘19 at 1:36&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;I completely agree, &lt;strong&gt;generally stationarity when referring to images draws on the distributions of the pixels themselves&lt;/strong&gt;, but here it seems to be used based on the dependencies, treating the moving indices of the convolution to parametrize some from of process. – mshlis Jul 31 ‘19 at 2:06&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;Thanks for the answer! Could you edit the part about stationarity of statistics? I don’t think there’s any temporal aspect to image processing at least in the context of the question. I can then accept the answer once that part of edited. Thanks again! – Shirish Kulhari Jul 31 ‘19 at 9:19&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@ShirishKulhari You can view an image or a sequence of images as a flow over time, so this interpretation is not completely wrong. Have a look at certain image processing techniques that are based on diffusion. – nbro♦ Jul 31 ‘19 at 10:12&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@nbro: Oh, my bad. I can understand that a video could definitely be interpreted as a sequence of images as a flow over time, but I’m not clear on how a single, static image be interpreted as such. Could you elaborate about that in the answer, if possible? – Shirish Kulhari Jul 31 ‘19 at 10:19&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@ShirishKulhari &lt;strong&gt;Essentially, a noisy image \(\hat{f}\) of an original image \(f\) might be viewed as an image of a sequence of images, \(f,f1,f2,\cdots,\hat{f},\hat{f^1} \cdots,\)that starts at the original image and goes through \(\hat{f}\), so this sequence of images is part of a “flow”.&lt;/strong&gt; &lt;strong&gt;This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image.&lt;/strong&gt; If you’re interested in this, have a look at the details of this technique. – nbro♦ Jul 31 ‘19 at 10:21&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@nbro: So denoising involves figuring out the transformation \(f→\hat{f}\) and inverting it? – Shirish Kulhari Jul 31 ‘19 at 10:23&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;blockquote&gt;
-              &lt;p&gt;@ShirishKulhari Yes, that’s basically the idea. – nbro♦ Jul 31 ‘19 at 10:24&lt;/p&gt;
-            &lt;/blockquote&gt;
-
-            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 한 이미지에 대한 noise가 일정하다(pixel의 분산정도가 낮다?)는 것이라고 강화 학습에서 주로 쓰는 용어라고 한다. (stationarity of pixel distribution)&lt;/code&gt;&lt;/p&gt;
-
-            &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. diffused image 같은 것들, anisotropic diffusion filter가 있다고 함. (Gaussian Filter가 영상의 엣지를 부드럽게 하는 것이라면 이거는 엣지를 더 세운다.)&lt;/code&gt;&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;i.e. 좀 더 선명해야 한다. 색이 퍼져 있음 안된다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;locality of pixel dependencies
-    &lt;blockquote&gt;
-      &lt;p&gt;&lt;strong&gt;neighboring pixels tend to be correlated&lt;/strong&gt;, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually chosen to be fixed and rectangular (or squared).&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;옆에 있는 픽셀끼리의 서로 간의 연관성이 있어야 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/public/asset/locality_of_pixel_dependency.png&quot; alt=&quot;locality&quot; /&gt;&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;아래 사진을 보면 코라는 특징은 파란색 사각형 안에 있는 픽셀값에서만 표현되고 해당 픽셀들끼리만 관계를 가진다고 볼 수 있다. 빨간색 사각형안의 픽셀들은 파란색 사각형안의 픽셀들과는 종속성이 없다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;Sparse interations 특성을 갖는 필터로 Convolution 연산을 하는 것과 잘 어울린다.&lt;/p&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;Sparse interations: 하나의 출력 유닛이 입력의 전체 유닛과 연관(연결)되어 있지 않고 입력의 일부(locality) 유닛들과만  연결되어 있다라는 의미&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;stationarity of statistics의 또한 Sparse interations 특성을 어느 정도 가지고 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;궁금한 점&lt;/strong&gt;:  &lt;br /&gt;
-  픽셀끼리의 서로 간의 연관성이 있어야 한다. 라는 말이 와닿지가 않는다. 이웃한 픽셀끼리 비슷한 값을 가진다라는게 correlated한 것이라고 하면, 뿌옇게 된 이미지는 locality of pixel dependencies가 좋다는 말이다. 하지만, stackexchange의 인용에 따르면 뿌옇게 된 것은 stationarity of statistics에 나쁜 것이다. 그럼 2번과 3번은 서로 trade-off 관계에 있는 것일까?&lt;/p&gt;
-
-    &lt;p&gt;[해결]&lt;/p&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;trade-off 가 아닌 이유는 locality는 feature를 정의하는데 필요한 것이고 stationarity는 그 feature를 가지고 추측을 하는데 필요한 것이다. 그러므로, 서로 상부상조하는 관계이다. ^^  &lt;br /&gt;
-Blurring 같은 경우에도 stationarity가 맞긴 하지만 여기서 이야기하는 CNN에 대한 stationarity가 아닌 이미지 프로세싱에 대한 stationarity에 대해 말하는 것 같다!&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/public/asset/stationarity_of_statistics.png&quot; alt=&quot;stationarity of statistics vs locality of pixel dependency&quot; /&gt;   &lt;br /&gt;
-  [추가 자료]&lt;a href=&quot;https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979&quot;&gt;https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979&lt;/a&gt;&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Stationarity of statistics는 시간이 변해도 패턴이 반복된다는 
-뜻이다. &lt;br /&gt;
-동일한 패턴이 반복되면 분석도 훨씬 쉬워진다.   &lt;br /&gt;
-~생략~  &lt;br /&gt;
-즉, 이미지의 특정 위치에서 학습한 파라미터를 이용해서 다른 위치에 있는 동일한 특징을 추출할 수 있다는 뜻이다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;&lt;u&gt;특정 위치에서 학습~~ 다른 위치에 있는 동일한 특징을 추출&lt;/u&gt;  &lt;br /&gt;
-  이 말이 CNN이 mask를 통해 이미지에서 feature를 filtering 하는 것과 동일하다. 그래서 AlexNet에서 the nature of images에 대해 설명할 때 이 단어를 넣은 것이다. (확신)   &lt;br /&gt;
-  그러면 locality of pixel dependency에 대해서도 설명이 가능하다.  &lt;br /&gt;
-  같은 feature를 가진 pixel들은 서로 연관성이 있어야 한다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;그럼 연산과정에서 이미지의 모든 위치에서 (어느 특징을 담은)filter를 공유할 수 있어야 겠네?&lt;/p&gt;
-
-    &lt;p&gt;CNN이 1 filter를 이미지 전체 (또는 feature map 전체)에 대해 공유를 한다. 그래서 stationarity는 feature를 공유할 수 있는 CNN과 잘 맞다고 볼 수 있다. &lt;strong&gt;stationarity of statistics의 특징은 brute force하게 하던 방법(e.g. MLP)보다 비교적 연산량은 더 적고, 메모리 사용량도 적고, 통계적 효율성도 더 높다.&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;이 Convolution연산은 이미지의 특정 부분과 필터를 내적하는것으로 볼 수도 일다. 두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습이 되는것이다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;&lt;u&gt;두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습&lt;/u&gt; 왜 우리가 image segmentation 할때 굳이 Convolution을 사용하는지에 대해 나온다.&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;많은 머신러닝 프레임워크에서는 필터를 반전하는 것을 제외하고는 Convolution과 완전 동일한 연산인 Cross-correlation을 구현한다. CNN에서 Convolution연산은 특징만 학습하면 되기 때문에 필터를 반전시키지 않아도 동일한 효과를 낼 수 있다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;마찬가지로, &lt;a href=&quot;/computer%20vision/2020/08/27/Correlation-vs-Convolution/&quot;&gt;CONV vs CORR&lt;/a&gt; 에서 본 것처럼 프레임 워크가 Convolution을 쓰는지 Cross-Correlation 쓰는지 동일한 효과를 내기 때문에 프레임워크 마다 서로 다르다고 한다.   &lt;br /&gt;
-  (추워서 입술이 돌아가도 입술은 입술이다.)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;이-블로그의-정리&quot;&gt;이 블로그의 정리&lt;/h3&gt;
-    &lt;ul&gt;
-      &lt;li&gt;CNN은 세가지 성질을 가지고 있다.
-        &lt;ol&gt;
-          &lt;li&gt;parameter sharing&lt;/li&gt;
-          &lt;li&gt;translation equivariance (입력과 출력의 변화가 같다.)&lt;/li&gt;
-          &lt;li&gt;Sparse interactions&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-      &lt;li&gt;그러므로, stationarity of statistics는 이미지 추출함에 있어 이 세가지 성질과 호흡이 잘 맞기 때문에 CNN에 적합한 특징이다.   &lt;br /&gt;
-  (locality of pixel dependency는 3번째 조건 충족)&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;[참고]  &lt;br /&gt;
-max-pooling은 대표적인 small translation invariance 함수이다. [1,0,0] 과 [0,0,1] 두 입력을 넣어도 동일한 1이 추출하기 때문에 모양이 약간씩 다르거나 위치가 달라진다. 이것 덕분에 segmentation하고 싶은 feature의 모양이 조금씩 다르거나 위치가 다른 경우에도 동일한 feature로 인식하게 되는 것이다. (80퍼 인정)&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;하지만-추워서-입술이-돌아간다고-입술이-떠다니면-안된다&quot;&gt;하지만 추워서 입술이 돌아간다고 입술이 떠다니면 안된다.&lt;/h3&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;tralanslation invariance 효과 덕분에 좀 더 일반적인 특징을 잡을 수 있게 되었다. 그러면 translation invariance를 피하고 싶은 경우도 있을까?&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;각 특징들의 위치 정보가 중요한 경우, translation invariance를 막는 CNN 구조들도 있다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/asset/translation_invariant.png&quot; alt=&quot;translation_invariance&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 예가 translation invariance의 단점이다.&lt;/p&gt;
-
-&lt;p&gt;그래서 이 문제를 해결하기 위한 방법으로,&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Locally connected layers(unshared convolution)는 일반적인 Convolution 연산과 동일하지만 파라미터 공유를 하지 않는다. 즉 각 위치마다 다른 필터를 사용하기 때문에 동일한 특징이라도 위치에 따라 다른 필터를 학습을 하게 된다.  &lt;br /&gt;
-결국 필터가 위치 정보를 포함한다고 볼 수 있으며, 결과적으로 translation invariance를 버리게 된다.  &lt;br /&gt;
-(max-pooling을 사용한다면 small translation invariance 특성은 가질 수 있다.)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;또 다른 유명한 모델로 캡슐 네트워크가 있다. 캡슐 네트워크는 아예 새로운 방식으로 translation invariance문제를 해결한다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;하지만 깊은 Convolutional layer 일수록 더 큰 형태의 특징들을 뽑아내기 때문에 저렇게 정확하게 눈,코,입 단위로만 따로 특징을 배워서 어떤 판단을 하지 않는다.  &lt;br /&gt;
-&lt;strong&gt;어느정도 전체 형태를 보기 때문에 각각의 작은 특징들의 위치를 아예 무시하지 않는다는 뜻이다&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;즉, &lt;strong&gt;CNN의 구조를 어떻게 만드냐에 따라 scale &amp;amp; translation 에 대한 문제는 충분히 커버 가능하다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[Reference]   &lt;br /&gt;
-&lt;a href=&quot;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&quot;&gt;https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen&lt;/a&gt;
-&lt;a href=&quot;https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979&quot;&gt;https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979&lt;/a&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="AlexNet" /><summary type="html">AlexNet 논문 중에서, Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions about the nature of images (namely, stationarity of statistics and locality of pixel dependencies). 이 있다.</summary></entry></feed>
+&lt;h3 id=&quot;나는-용어-참조만-하고-싶었기-때문에-깊이-파보진-않았다-자세히-알고-싶으면-두-블로그에-정리-엄청-잘-되어있다&quot;&gt;나는 용어 참조만 하고 싶었기 때문에, 깊이 파보진 않았다. 자세히 알고 싶으면 두 블로그에 정리 엄청 잘 되어있다.&lt;/h3&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="Optimization" /><summary type="html">Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다. 용어 정리</summary></entry></feed>

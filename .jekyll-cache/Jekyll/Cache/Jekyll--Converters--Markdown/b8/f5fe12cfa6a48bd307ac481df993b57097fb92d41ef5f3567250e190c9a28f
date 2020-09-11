@@ -1,0 +1,25 @@
+I"4<h2 id="20200908"><strong>2020/09/08</strong></h2>
+<ul>
+  <li>Large scale datasets을 tf api에 적재하기 대작전
+    <ol>
+      <li>tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소시켜 해결</li>
+      <li>256x256 image를 적재하기 대작전
+        <ul>
+          <li>실패
+            <blockquote>
+              <p>gpus = tf.config.experimental.list_physical_devices(‘GPU’)
+       if gpus:
+           try:
+               tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)])
+           except RuntimeError as e:
+               print(e)</p>
+            </blockquote>
+          </li>
+          <li></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+:ET

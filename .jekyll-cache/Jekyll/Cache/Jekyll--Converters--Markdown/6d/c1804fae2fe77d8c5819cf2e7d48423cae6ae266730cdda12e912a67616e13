@@ -1,0 +1,5 @@
+I"<p><strong>2020/09/08</strong>  <br />
+tf.data.Dataset.from_tensor_slices : 많은 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소시켜 해결, resize는 from_tensor_slices로 dataset 만든 다음에 해야 할듯  <br />
+———————–</p>
+
+:ET

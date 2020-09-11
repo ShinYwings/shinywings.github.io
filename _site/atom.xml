@@ -4,13 +4,71 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-09-06T14:25:34+09:00</updated>
+ <updated>2020-09-09T21:22:14+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
    <email>ski8992@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Tensorflow Note</title>
+   <link href="http://localhost:4000/others/2020/09/08/tensorflow_note/"/>
+   <updated>2020-09-08T00:00:00+09:00</updated>
+   <id>http://localhost:4000/others/2020/09/08/tensorflow_note</id>
+   <content type="html">&lt;h2 id=&quot;20200908&quot;&gt;&lt;strong&gt;2020/09/08&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Large scale datasets을 tf api에 적재하기 대작전
+    &lt;ol&gt;
+      &lt;li&gt;tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소&lt;/li&gt;
+      &lt;li&gt;256x256 image를 적재하기 대작전
+        &lt;ul&gt;
+          &lt;li&gt;그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐)
+            &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_physical_devices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GPU'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+          &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+              &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+                  &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_virtual_device_configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;experimental&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VirtualDeviceConfiguration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory_limit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;   
+              &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;RuntimeError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    
+                  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/gpu:1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;train_ds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_tensor_slices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train_images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;test_ds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_tensor_slices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test_images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_labels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐)&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기
+            &lt;ul&gt;
+              &lt;li&gt;진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ&lt;/li&gt;
+              &lt;li&gt;지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Lagrange Multipliers</title>
+   <link href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/"/>
+   <updated>2020-09-08T00:00:00+09:00</updated>
+   <id>http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers</id>
+   <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;sometimes called &lt;strong&gt;undetermined multipliers&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.&lt;/p&gt;
+
+&lt;p&gt;\(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면,  &lt;br /&gt;
+\(g(x_1, x_2)=0\)  &lt;br /&gt;
+—————————-&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Principal Component Analysis (PCA)</title>
@@ -1523,6 +1581,9 @@ many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런�
    <updated>2020-07-13T00:00:00+09:00</updated>
    <id>http://localhost:4000/numerical%20analysis/2020/07/13/SVD</id>
    <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Drawbacks: slow, computationally expensive, missing data에 대한 care 필요 (whereas Gradient descent approach (convex optimization method)is much faster and deals well with missing data.)&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;기하학적 의미: 직교하는 벡터 집합에 대해서, 선형 변환 후에 그 크기는 변하지만 여전히 직교할 수 있게 되는 그 직교 집합은 무엇인가? 그리고 선형 변환 후의 결과는 무엇인가?&lt;/p&gt;
   &lt;/li&gt;

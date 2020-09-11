@@ -1,0 +1,16 @@
+I"<h2 id="20200908"><strong>2020/09/08</strong></h2>
+<ul>
+  <li>Large scale datasets을 tf api에 적재하기 대작전
+    <ol>
+      <li>tf.data.Dataset.from_tensor_slices : 많은 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소시켜 해결</li>
+      <li>256x256 image를 적재하기 대작전
+        <ul>
+          <li>tf.config.set_gpu_growth (정확히 기억안남)  == True: 어차피 메모리 다 써도 터지는 거였어서 실패</li>
+          <li></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+:ET

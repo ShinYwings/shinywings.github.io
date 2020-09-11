@@ -1,0 +1,23 @@
+I"<h2 id="20200908"><strong>2020/09/08</strong></h2>
+<ul>
+  <li>Large scale datasets을 tf api에 적재하기 대작전
+    <ol>
+      <li>tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소</li>
+      <li>256x256 image를 적재하기 대작전
+        <ul>
+          <li>실패
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">gpus</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s">'GPU'</span><span class="p">)</span>    
+       <span class="k">if</span> <span class="n">gpus</span><span class="p">:</span>    
+           <span class="k">try</span><span class="p">:</span>    
+               <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">set_virtual_device_configuration</span><span class="p">(</span><span class="n">gpus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">VirtualDeviceConfiguration</span><span class="p">(</span><span class="n">memory_limit</span><span class="o">=</span><span class="mi">4096</span><span class="p">)])</span>   
+           <span class="k">except</span> <span class="nb">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>    
+               <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>    
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+:ET

@@ -162,6 +162,72 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/others/2020/09/08/tensorflow_note/">
+        Tensorflow Note
+      </a>
+    </h1>
+
+    <span class="post-date">08 Sep 2020</span>
+
+    <h2 id="20200908"><strong>2020/09/08</strong></h2>
+<ul>
+  <li>Large scale datasets을 tf api에 적재하기 대작전
+    <ol>
+      <li>tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소</li>
+      <li>256x256 image를 적재하기 대작전
+        <ul>
+          <li>그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐)
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">gpus</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s">'GPU'</span><span class="p">)</span>    
+          <span class="k">if</span> <span class="n">gpus</span><span class="p">:</span>    
+              <span class="k">try</span><span class="p">:</span>    
+                  <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">set_virtual_device_configuration</span><span class="p">(</span><span class="n">gpus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">VirtualDeviceConfiguration</span><span class="p">(</span><span class="n">memory_limit</span><span class="o">=</span><span class="mi">4096</span><span class="p">)])</span>   
+              <span class="k">except</span> <span class="nb">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>    
+                  <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>    
+  <span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'/gpu:1'</span><span class="p">)</span>
+      <span class="n">train_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">))</span>
+      <span class="n">test_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">))</span>
+</code></pre></div>            </div>
+          </li>
+          <li>
+            <p>dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐)</p>
+          </li>
+          <li>256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기
+            <ul>
+              <li>진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ</li>
+              <li>지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">
+        Lagrange Multipliers
+      </a>
+    </h1>
+
+    <span class="post-date">08 Sep 2020</span>
+
+    <blockquote>
+  <p>sometimes called <strong>undetermined multipliers</strong></p>
+</blockquote>
+
+<p>1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.</p>
+
+<p>\(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면,  <br />
+\(g(x_1, x_2)=0\)  <br />
+—————————-</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">
         Principal Component Analysis (PCA)
       </a>
@@ -324,68 +390,6 @@ Cov(Z,X) &amp; Cov(Z,Y) &amp; Cov(Z,Z)\\
     </ul>
   </li>
   <li><strong>평균과 비율을 기초해서 구한 상관관계는 변수간의 관계를 과장시킨다.</strong></li>
-</ul>
-
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">
-        Whitening
-      </a>
-    </h1>
-
-    <span class="post-date">31 Aug 2020</span>
-
-    <p>input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미</p>
-
-<p>이 조건을 만족하면 더 빨라진다!</p>
-
-<p>하지만 공분산 계산하는 computationally cost가 높다.</p>
-
-<p>Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  <br />
-왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">
-        Local Response Normalization
-      </a>
-    </h1>
-
-    <span class="post-date">31 Aug 2020</span>
-
-    <ul>
-  <li>Local Contrast Normalization과 유사 <br />
-  <a href="http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf">What is the Best Multi-Stage Architecture for Object Recognition?</a></li>
-</ul>
-
-<blockquote>
-  <p>아… feature map은 항상 1D 인가?</p>
-</blockquote>
-
-<ul>
-  <li>non-trainable layer</li>
-</ul>
-
-<p><img src="/public/asset/LRN-sort.png" alt="sort-LRN" /></p>
-<ul>
-  <li><a href="/deep%20learning/2020/08/23/AlexNet/">AlexNet</a> 에서 사용한 방식은 Inter-Channel LRN 이다. AlexNet 링크 참조하면 됨</li>
-  <li>Intra-Channel LRN:
-    <ul>
-      <li>
-        <p>the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by</p>
-
-        <p><img src="/public/asset/intra-channel-lrn.png" alt="intra-channel-lrn" /></p>
-        <ul>
-          <li>inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 \(-&gt;\) 2D neigborhood</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
 </ul>
 
 
