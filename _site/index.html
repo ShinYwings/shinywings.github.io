@@ -171,6 +171,13 @@
 
     <h2 id="20200908"><strong>2020/09/08</strong></h2>
 <ul>
+  <li>32X32 이미지를 256X256 으로 resize하기 작은 작전
+    <ol>
+      <li>32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다.</li>
+      <li>근데 막상 1만장을 tf에 적재할때 resize하니까 OOM 발생</li>
+      <li>그래서 독립적으로 실행하는 모듈을 만들어줌. 성공!</li>
+    </ol>
+  </li>
   <li>Large scale datasets을 tf api에 적재하기 대작전
     <ol>
       <li>tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소</li>
@@ -199,6 +206,19 @@
           </li>
         </ul>
       </li>
+    </ol>
+  </li>
+</ul>
+
+<hr />
+<p><strong>2020/09/11</strong></p>
+<ul>
+  <li>Custom Optimizer 만들기 대작전
+    <ol>
+      <li>keras natvie library안에 들어가서 SGD+momentum에 weight_decay 변수만 추가하려고 했는데  실질적으로 연산 코드는 c++에 작성되어 있다.
+  그래서 이 방법은 쓰지 못할듯 ㅠㅠ</li>
+      <li>resource_apply_dense 함수를 업데이트 하고 싶은데…. tf.assign() 함수가 V2로 넘어오면서 deprecated 되었다. 근데 이걸 대체할 만한 것들이 안보임!!</li>
+      <li>혹시나 해서 resource_apply_dense 안을 비워봤다. 근데 업데이트가 된다 ㅋㅋㅋㅋㅋㅋㅋ 후……….. 이 의미는 loss update가 전혀 안된다는 것이다.</li>
     </ol>
   </li>
 </ul>
