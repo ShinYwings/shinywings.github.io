@@ -1,4 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-14T22:26:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Lagrange Multipliers</title><link href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/" rel="alternate" type="text/html" title="Lagrange Multipliers" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-22T17:57:32+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Bayesian Networks</title><link href="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/" rel="alternate" type="text/html" title="Bayesian Networks" /><published>2020-09-21T00:00:00+09:00</published><updated>2020-09-21T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/">&lt;ul&gt;
+  &lt;li&gt;확률 이론 + 그래프 이론&lt;/li&gt;
+  &lt;li&gt;Directed Acyclic Gragh (DAG)
+    &lt;blockquote&gt;
+      &lt;p&gt;Cycle을 이루면 안된다.  &lt;br /&gt;
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 &lt;u&gt;a set of conditional independence&lt;/u&gt; 를 간결하게 표현했다.  &lt;br /&gt;
+&lt;img src=&quot;/public/asset/condition.jpg&quot; alt=&quot;condition&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Conditional Probability Table (CPT)
+    &lt;blockquote&gt;
+      &lt;p&gt;Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.
+  &lt;img src=&quot;/public/asset/Conditional_probability_table.png&quot; alt=&quot;conditioanl probability table&quot; /&gt;&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;joint distribution&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;conditional independence statements를 나타냄&lt;/p&gt;
+
+        &lt;blockquote&gt;
+          &lt;p&gt;Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함   &lt;br /&gt;
+하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.  &lt;br /&gt;
+여기서 &lt;strong&gt;k는 argmax(각 노드에 할당된 부모의 갯수)&lt;/strong&gt;    &lt;br /&gt;
+이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)    &lt;br /&gt;
+일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.     &lt;br /&gt;
+(실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)     &lt;br /&gt;
+  그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles   &lt;br /&gt;
+  \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Constructing a Bayesian Network&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Chain rule:
+  \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)&lt;/li&gt;
+      &lt;li&gt;Bayesian Networks:  &lt;br /&gt;
+  \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)  &lt;br /&gt;
+  \(x_i\) 는 이벤트&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.
+    &lt;ol&gt;
+      &lt;li&gt;관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, &lt;strong&gt;top-down 추론&lt;/strong&gt; 또는 &lt;strong&gt;예측&lt;/strong&gt; 한다.&lt;/li&gt;
+      &lt;li&gt;결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, &lt;strong&gt;bottom-up 추론&lt;/strong&gt; 또는 &lt;strong&gt;진단&lt;/strong&gt; 한다.
+        &lt;ul&gt;
+          &lt;li&gt;두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 &lt;strong&gt;은닉&lt;/strong&gt; 노드들의 값을 추론해 낸다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;p&gt;(e.g.)  &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/bayesian_network.jpg&quot; alt=&quot;bayesian networks&quot; /&gt;
+  Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.
+  P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)  &lt;br /&gt;
+  = P (MaryCalls | Alarm) 으로 &lt;strong&gt;제거(marginalise)&lt;/strong&gt;할 수 있다.   &lt;br /&gt;
+  왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라   &lt;br /&gt;
+  조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.&lt;/p&gt;
+
+    &lt;p&gt;bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.&lt;br /&gt;
+  반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.
+  \(\begin{equation} \begin{split} P(A|j,m) &amp;amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\ 
+  &amp;amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\ 
+  &amp;amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\
+  &amp;amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\
+  &amp;amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\
+  &amp;amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\
+  &amp;amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\
+  &amp;amp;= \alpha (0.0004987417790000001)   
+  \end{split}\end{equation}\)   &lt;br /&gt;
+  \(\neg A\)  yields  \(\alpha * 0.000498741779\)  &lt;br /&gt;
+  \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)  &lt;br /&gt;
+  j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;where \(\alpha\) is normalizing vector(constant)&lt;/li&gt;
+      &lt;li&gt;P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;합이 100%가 안되서 처음에 좀 놀랐다.    &lt;br /&gt;
+각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Local Markov Assumption  &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/local_markov_assumption.jpg&quot; alt=&quot;local_markov_assumption&quot; /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;\(X \perp NonDesc(X)\|Parent(X)\)&lt;/dt&gt;
+          &lt;dd&gt;X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Markov Blanket (Markov Boundary)    &lt;br /&gt;
+  &lt;img src=&quot;/public/asset/markov_blanket.jpg&quot; alt=&quot;markov_blanket&quot; /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;(a)는 markov blanket이 아니다.&lt;/li&gt;
+      &lt;li&gt;(b)는 markov blanket 이다.  &lt;br /&gt;
+  U: parents Z: co-parents Y: Children&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;각 노드들은 parents, co-parents, children 만 고려하면 된다.&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recognition" /><category term="Bayesian Networks" /><summary type="html">확률 이론 + 그래프 이론 Directed Acyclic Gragh (DAG) Cycle을 이루면 안된다. cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</summary></entry><entry><title type="html">Lagrange Multipliers</title><link href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/" rel="alternate" type="text/html" title="Lagrange Multipliers" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">&lt;blockquote&gt;
   &lt;p&gt;sometimes called &lt;strong&gt;undetermined multipliers&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -6,7 +124,8 @@
 
 &lt;p&gt;\(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면,  &lt;br /&gt;
 \(g(x_1, x_2)=0\)  &lt;br /&gt;
-—————————-&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recognition" /><category term="Regularization" /><summary type="html">sometimes called undetermined multipliers 1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다. \(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면, \(g(x_1, x_2)=0\) —————————-</summary></entry><entry><title type="html">Tensorflow Note</title><link href="http://localhost:4000/others/2020/09/08/tensorflow_note/" rel="alternate" type="text/html" title="Tensorflow Note" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/09/08/tensorflow_note</id><content type="html" xml:base="http://localhost:4000/others/2020/09/08/tensorflow_note/">&lt;h2 id=&quot;20200908&quot;&gt;&lt;strong&gt;2020/09/08&lt;/strong&gt;&lt;/h2&gt;
+—————————-&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recognition" /><category term="Regularization" /><summary type="html">sometimes called undetermined multipliers 1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다. \(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면, \(g(x_1, x_2)=0\) —————————-</summary></entry><entry><title type="html">Tensorflow Note</title><link href="http://localhost:4000/others/2020/09/08/tensorflow_note/" rel="alternate" type="text/html" title="Tensorflow Note" /><published>2020-09-08T00:00:00+09:00</published><updated>2020-09-08T00:00:00+09:00</updated><id>http://localhost:4000/others/2020/09/08/tensorflow_note</id><content type="html" xml:base="http://localhost:4000/others/2020/09/08/tensorflow_note/">&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;2020/09/08&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;32X32 이미지를 256X256 으로 resize하기 작은 작전
     &lt;ol&gt;
@@ -49,6 +168,7 @@
 
 &lt;hr /&gt;
 &lt;p&gt;&lt;strong&gt;2020/09/11&lt;/strong&gt;&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;Custom Optimizer 만들기 대작전
     &lt;ol&gt;
@@ -56,9 +176,105 @@
   그래서 이 방법은 쓰지 못할듯 ㅠㅠ&lt;/li&gt;
       &lt;li&gt;resource_apply_dense 함수를 업데이트 하고 싶은데…. tf.assign() 함수가 V2로 넘어오면서 deprecated 되었다. 근데 이걸 대체할 만한 것들이 안보임!!&lt;/li&gt;
       &lt;li&gt;혹시나 해서 resource_apply_dense 안을 비워봤다. 근데 업데이트가 된다 ㅋㅋㅋㅋㅋㅋㅋ 후……….. 이 의미는 loss update가 전혀 안된다는 것이다.&lt;/li&gt;
+      &lt;li&gt;tfrecord 변환 끝나면 이제 함 실험해볼라고&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="tensorflow" /><summary type="html">2020/09/08 32X32 이미지를 256X256 으로 resize하기 작은 작전 32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다. 근데 막상 1만장을 tf에 적재할때 resize하니까 OOM 발생 그래서 독립적으로 실행하는 모듈을 만들어줌. 성공! Large scale datasets을 tf api에 적재하기 대작전 tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소 256x256 image를 적재하기 대작전 그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐) gpus = tf.config.experimental.list_physical_devices('GPU') if gpus: try: tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]) except RuntimeError as e: print(e) with tf.device('/gpu:1') train_ds = tf.data.Dataset.from_tensor_slices((train_images, train_labels)) test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels)) dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐) 256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기 진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ 지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈 2020/09/11 Custom Optimizer 만들기 대작전 keras natvie library안에 들어가서 SGD+momentum에 weight_decay 변수만 추가하려고 했는데 실질적으로 연산 코드는 c++에 작성되어 있다. 그래서 이 방법은 쓰지 못할듯 ㅠㅠ resource_apply_dense 함수를 업데이트 하고 싶은데…. tf.assign() 함수가 V2로 넘어오면서 deprecated 되었다. 근데 이걸 대체할 만한 것들이 안보임!! 혹시나 해서 resource_apply_dense 안을 비워봤다. 근데 업데이트가 된다 ㅋㅋㅋㅋㅋㅋㅋ 후……….. 이 의미는 loss update가 전혀 안된다는 것이다.</summary></entry><entry><title type="html">Principal Component Analysis (PCA)</title><link href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/" rel="alternate" type="text/html" title="Principal Component Analysis (PCA)" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis</id><content type="html" xml:base="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">&lt;p&gt;제일 좋은 참조. 내꺼 안봐도 됨&lt;br /&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;2020/09/21&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;imagenet dataset 을 tfrecord로 변환하기 대작전
+    &lt;ol&gt;
+      &lt;li&gt;내가 가진 자원, 16기가 메모리, 를 가지고 데이터셋을 tf에 한번에 적재하기!&lt;/li&gt;
+      &lt;li&gt;왜냐하면 나눠서 적재하는거… 머리속에 안그려지기도 하고 bin 파일로 만들어서 한번에 메모리에 적재하면 빠르기도 하고!&lt;/li&gt;
+      &lt;li&gt;하지만 imagenet 데이터셋은 ~138GB, 그래서 나온게 tfrecord&lt;/li&gt;
+      &lt;li&gt;alexnet 만든 사람의 cifar 10 bin 데이터 6만장은 160mb 까지 나왓는데 (물론 32x32 reshape 해줘야 하는 작업이 더해짐)&lt;/li&gt;
+      &lt;li&gt;이거는 tf가 알수 없는 bin 파일임. 그래서 tf 적재전에 decoding해서 적재해줘야함 -&amp;gt; 무쓸모&lt;/li&gt;
+      &lt;li&gt;그래서 나는 tfrecord로 처음시도햇을때 30GB이상 나옴. 자원 초과함.&lt;/li&gt;
+      &lt;li&gt;그래서 이미지 퀄리티를 70으로 줄이면 ~13GB 까지 된다는 자료가 있어 지금 그걸로 시도중 jpeg 압축 이미지 퀄리티를 줄여도 모델훈련에는 문제 없음
+        &lt;ul&gt;
+          &lt;li&gt;cifar 데이터로 tfrecord 만드는 작업을 테스트 했을때 encoding 하는 과정에서 이미지 bin 데이터를 tf.train.bytelist에다가  set_sequential_values로 넣어줬음&lt;/li&gt;
+          &lt;li&gt;이걸로 decoding도 가능했었는데 그 이유는 이미지 데이터를
+            &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  with open(file_path, &quot;rb&quot;) as f:
+      f.read()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
+            &lt;p&gt;자체로 tfrecord로 변환 해주니까 된거였음.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;이번에는 이미지 resizing + bin encoding 을 한번에 해야하는 작업이라 이미지 디코딩 -&amp;gt; resizing -&amp;gt; encoding -&amp;gt; tfrecord 해줘야 했는데&lt;/li&gt;
+          &lt;li&gt;자꾸 tfrecord 받아오는 데이터가 못 읽는 것이였음.&lt;/li&gt;
+          &lt;li&gt;문제를 찾다 보니 tf.train.bytelist를 그냥 argument값인 value를 그대로 옮겨다가 넣어줬음 된거임….&lt;/li&gt;
+          &lt;li&gt;조심하자 ㅠㅠ 5일동안 이유를 못찾았는데 겨우 해결하고 파싱중… 근데 4일걸린다… 8 core 모두 사용해도…&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="tensorflow" /><summary type="html">2020/09/08 32X32 이미지를 256X256 으로 resize하기 작은 작전 32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다. 근데 막상 1만장을 tf에 적재할때 resize하니까 OOM 발생 그래서 독립적으로 실행하는 모듈을 만들어줌. 성공! Large scale datasets을 tf api에 적재하기 대작전 tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소 256x256 image를 적재하기 대작전 그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐) gpus = tf.config.experimental.list_physical_devices('GPU') if gpus: try: tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]) except RuntimeError as e: print(e) with tf.device('/gpu:1') train_ds = tf.data.Dataset.from_tensor_slices((train_images, train_labels)) test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels)) dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐) 256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기 진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ 지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈 2020/09/11</summary></entry><entry><title type="html">Covariance Matrix</title><link href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/" rel="alternate" type="text/html" title="Covariance Matrix" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Covariance-Matrix</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">&lt;h2 id=&quot;위키피디아-정의&quot;&gt;위키피디아 정의&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;random vector: random variable with multiple dimensions   &lt;br /&gt;
+(vector는 scalar양을 가짐; 관측된 경험 value (indefinite) 또는 유,무한의 potential value)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Diangonal은 variance \(\sigma^2\)이다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;두 확률 변수 사이 서로 간의 영향을 얼마나 끼치는지 (correlation) 나타내는 것을 행렬로 표현한 것이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;공분산 행렬  &lt;br /&gt;
+\(\begin{matrix} 
+Cov(X,X) &amp;amp; Cov(X,Y) &amp;amp; Cov(X,Z)\\
+Cov(Y,X) &amp;amp; Cov(Y,Y) &amp;amp; Cov(Y,Z)\\
+Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
+\end{matrix}\)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;확률 변수 X,Y,Z의 상관계수와 공분산이다.   &lt;br /&gt;
+공분산(e.g. Cov(X,Y))을 해당하는 확률 변수 두개 (e.g. X,Y)의 표준편차로 나누어 표준화한 값은 X와 Y의 상관계수 (coefficient correlation) 이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cov(X,Y) == Cov(Y,X) 이므로 공분산 행렬은 대칭행렬이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;correlation \(\rho\)에 대해&lt;/p&gt;
+
+&lt;p&gt;\(\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
+= E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}\)  &lt;br /&gt;
+     where,   &lt;br /&gt;
+            \(N\) = 데이터 갯수  &lt;br /&gt;
+            \(\mu_1\) = X의 평균  &lt;br /&gt;
+            \(\mu_2\) = Y의 평균  &lt;br /&gt;
+            \(\sigma_1\) = X의 표준편차  &lt;br /&gt;
+            \(\sigma_2\) = Y의 표준편차&lt;/p&gt;
+
+&lt;p&gt;\(\begin{aligned} Cov(X,Y) = E[(X-\mu_1)(Y-\mu_2)]
+\\= E[XY-\mu_2X-\mu_1Y+\mu_1\mu_2]
+\\= E[XY]-\mu_2E[X]-\mu_1E[Y]+\mu_1\mu_2
+\\= E[XY]-\mu_2\mu_1-\mu_1\mu_2+\mu_1\mu_2
+\\= E[XY]-\mu_1\mu_2\end{aligned}\)&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Expectation Value 구할때 Degree of Freedom 1(계산하는 데 쓰인 독립 변수, 자기 자신) 생각해서 꼭 N-1 해줘야 함&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;상관관계는 인과관계가 절대 아니다&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;(e.g. 폭력물 시청과 아이의 폭력성)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;평균과 비율을 기초해서 구한 상관관계는 변수간의 관계를 과장시킨다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Covariance" /><summary type="html">위키피디아 정의 주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬</summary></entry><entry><title type="html">Principal Component Analysis (PCA)</title><link href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/" rel="alternate" type="text/html" title="Principal Component Analysis (PCA)" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis</id><content type="html" xml:base="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">&lt;p&gt;제일 좋은 참조. 내꺼 안봐도 됨&lt;br /&gt;
 &lt;a href=&quot;https://excelsior-cjh.tistory.com/167&quot;&gt;https://excelsior-cjh.tistory.com/167&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/&quot;&gt;https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/&lt;/a&gt;&lt;/p&gt;
 
@@ -123,71 +339,100 @@
 
 &lt;p&gt;맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   &lt;br /&gt;
 유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   &lt;br /&gt;
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Covariance Matrix</title><link href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/" rel="alternate" type="text/html" title="Covariance Matrix" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Covariance-Matrix</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">&lt;h2 id=&quot;위키피디아-정의&quot;&gt;위키피디아 정의&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;random vector: random variable with multiple dimensions   &lt;br /&gt;
-(vector는 scalar양을 가짐; 관측된 경험 value (indefinite) 또는 유,무한의 potential value)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Diangonal은 variance \(\sigma^2\)이다.&lt;/p&gt;
-  &lt;/li&gt;
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Local Response Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/" rel="alternate" type="text/html" title="Local Response Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">&lt;ul&gt;
+  &lt;li&gt;Local Contrast Normalization과 유사 &lt;br /&gt;
+  &lt;a href=&quot;http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf&quot;&gt;What is the Best Multi-Stage Architecture for Object Recognition?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;두 확률 변수 사이 서로 간의 영향을 얼마나 끼치는지 (correlation) 나타내는 것을 행렬로 표현한 것이다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;공분산 행렬  &lt;br /&gt;
-\(\begin{matrix} 
-Cov(X,X) &amp;amp; Cov(X,Y) &amp;amp; Cov(X,Z)\\
-Cov(Y,X) &amp;amp; Cov(Y,Y) &amp;amp; Cov(Y,Z)\\
-Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
-\end{matrix}\)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;확률 변수 X,Y,Z의 상관계수와 공분산이다.   &lt;br /&gt;
-공분산(e.g. Cov(X,Y))을 해당하는 확률 변수 두개 (e.g. X,Y)의 표준편차로 나누어 표준화한 값은 X와 Y의 상관계수 (coefficient correlation) 이다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cov(X,Y) == Cov(Y,X) 이므로 공분산 행렬은 대칭행렬이다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;correlation \(\rho\)에 대해&lt;/p&gt;
-
-&lt;p&gt;\(\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
-= E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}\)  &lt;br /&gt;
-     where,   &lt;br /&gt;
-            \(N\) = 데이터 갯수  &lt;br /&gt;
-            \(\mu_1\) = X의 평균  &lt;br /&gt;
-            \(\mu_2\) = Y의 평균  &lt;br /&gt;
-            \(\sigma_1\) = X의 표준편차  &lt;br /&gt;
-            \(\sigma_2\) = Y의 표준편차&lt;/p&gt;
-
-&lt;p&gt;\(\begin{aligned} Cov(X,Y) = E[(X-\mu_1)(Y-\mu_2)]
-\\= E[XY-\mu_2X-\mu_1Y+\mu_1\mu_2]
-\\= E[XY]-\mu_2E[X]-\mu_1E[Y]+\mu_1\mu_2
-\\= E[XY]-\mu_2\mu_1-\mu_1\mu_2+\mu_1\mu_2
-\\= E[XY]-\mu_1\mu_2\end{aligned}\)&lt;/p&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;Expectation Value 구할때 Degree of Freedom 1(계산하는 데 쓰인 독립 변수, 자기 자신) 생각해서 꼭 N-1 해줘야 함&lt;/p&gt;
+  &lt;p&gt;아… feature map은 항상 1D 인가?&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;상관관계는 인과관계가 절대 아니다&lt;/strong&gt;
+  &lt;li&gt;non-trainable layer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/asset/LRN-sort.png&quot; alt=&quot;sort-LRN&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 에서 사용한 방식은 Inter-Channel LRN 이다. AlexNet 링크 참조하면 됨&lt;/li&gt;
+  &lt;li&gt;Intra-Channel LRN:
     &lt;ul&gt;
-      &lt;li&gt;(e.g. 폭력물 시청과 아이의 폭력성)&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by&lt;/p&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/public/asset/intra-channel-lrn.png&quot; alt=&quot;intra-channel-lrn&quot; /&gt;&lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li&gt;inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 \(-&amp;gt;\) 2D neigborhood&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;평균과 비율을 기초해서 구한 상관관계는 변수간의 관계를 과장시킨다.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Covariance" /><summary type="html">위키피디아 정의 주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬</summary></entry><entry><title type="html">Batch Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/" rel="alternate" type="text/html" title="Batch Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">&lt;p&gt;Trainable layer normally used for addressing the issues of &lt;strong&gt;Internal Covariate Shift(ICF)&lt;/strong&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry><entry><title type="html">Whitening</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/" rel="alternate" type="text/html" title="Whitening" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Whitening</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">&lt;p&gt;input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미&lt;/p&gt;
+
+&lt;p&gt;이 조건을 만족하면 더 빨라진다!&lt;/p&gt;
+
+&lt;p&gt;하지만 공분산 계산하는 computationally cost가 높다.&lt;/p&gt;
+
+&lt;p&gt;Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  &lt;br /&gt;
+왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="NormalizationNormalization" /><summary type="html">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미 이 조건을 만족하면 더 빨라진다! 하지만 공분산 계산하는 computationally cost가 높다.</summary></entry><entry><title type="html">LRN vs BN</title><link href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/" rel="alternate" type="text/html" title="LRN vs BN" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">&lt;p&gt;&lt;img src=&quot;/public/asset/BN_vs_LRN.png&quot; alt=&quot;bn-vs-lrn&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Batch Normalization&lt;/th&gt;
+      &lt;th&gt;vs&lt;/th&gt;
+      &lt;th&gt;Local Response Normalization&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;\(y= \frac {x-\mu} {\sqrt {\sigma^2 + \epsilon}} \gamma + \beta\)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;\(x_i= \frac {x_i} {(k+(\alpha\sum_{j} x_j^2))^\beta}\)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;\(\epsilon\): small constant&lt;br /&gt;(+)\(\gamma,\beta\): learnable parameters&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;(-) \(k, \alpha, \beta\): hyper-parameters&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;pixel-wise&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;pixel-wise&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(+) 2 trainable parameters&lt;br /&gt;    (shift &amp;amp; scale)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;(-) non-trainable parameters&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Internal Covariable Shift&lt;/td&gt;
+      &lt;td&gt;중점&lt;/td&gt;
+      &lt;td&gt;Lateral Inhibition&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(+) Regularization O&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;(-) Regularization X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Batch에 대해 정규화&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Feature Map에 대해 정규화&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
+    &lt;ul&gt;
+      &lt;li&gt;hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. (babysitting을 안해도 된다?)&lt;/li&gt;
+      &lt;li&gt;DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt; )&lt;/li&gt;
+      &lt;li&gt;Regularization을 통해 ~~~를 막는다.&lt;/li&gt;
+      &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적을 것으로 예측된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry><entry><title type="html">Batch Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/" rel="alternate" type="text/html" title="Batch Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">&lt;p&gt;Trainable layer normally used for addressing the issues of &lt;strong&gt;Internal Covariate Shift(ICF)&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;internal-covariate-shift&quot;&gt;Internal covariate shift&lt;/h2&gt;
 &lt;ul&gt;
@@ -264,193 +509,4 @@ Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기
 &lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt;  &lt;br /&gt;
 Internal covariate shift와 함께 정리 잘된 논문을 정리
-&lt;a href=&quot;https://dalpo0814.tistory.com/18&quot;&gt;https://dalpo0814.tistory.com/18&lt;/a&gt; BN 논문 정리&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Internal Covariate Shift" /><summary type="html">Trainable layer normally used for addressing the issues of Internal Covariate Shift(ICF)</summary></entry><entry><title type="html">Whitening</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/" rel="alternate" type="text/html" title="Whitening" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Whitening</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">&lt;p&gt;input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미&lt;/p&gt;
-
-&lt;p&gt;이 조건을 만족하면 더 빨라진다!&lt;/p&gt;
-
-&lt;p&gt;하지만 공분산 계산하는 computationally cost가 높다.&lt;/p&gt;
-
-&lt;p&gt;Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  &lt;br /&gt;
-왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="NormalizationNormalization" /><summary type="html">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미 이 조건을 만족하면 더 빨라진다! 하지만 공분산 계산하는 computationally cost가 높다.</summary></entry><entry><title type="html">Local Response Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/" rel="alternate" type="text/html" title="Local Response Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">&lt;ul&gt;
-  &lt;li&gt;Local Contrast Normalization과 유사 &lt;br /&gt;
-  &lt;a href=&quot;http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf&quot;&gt;What is the Best Multi-Stage Architecture for Object Recognition?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;아… feature map은 항상 1D 인가?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;non-trainable layer&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/asset/LRN-sort.png&quot; alt=&quot;sort-LRN&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 에서 사용한 방식은 Inter-Channel LRN 이다. AlexNet 링크 참조하면 됨&lt;/li&gt;
-  &lt;li&gt;Intra-Channel LRN:
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by&lt;/p&gt;
-
-        &lt;p&gt;&lt;img src=&quot;/public/asset/intra-channel-lrn.png&quot; alt=&quot;intra-channel-lrn&quot; /&gt;&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 \(-&amp;gt;\) 2D neigborhood&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry><entry><title type="html">LRN vs BN</title><link href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/" rel="alternate" type="text/html" title="LRN vs BN" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">&lt;p&gt;&lt;img src=&quot;/public/asset/BN_vs_LRN.png&quot; alt=&quot;bn-vs-lrn&quot; /&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Batch Normalization&lt;/th&gt;
-      &lt;th&gt;vs&lt;/th&gt;
-      &lt;th&gt;Local Response Normalization&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\(y= \frac {x-\mu} {\sqrt {\sigma^2 + \epsilon}} \gamma + \beta\)&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;\(x_i= \frac {x_i} {(k+(\alpha\sum_{j} x_j^2))^\beta}\)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\(\epsilon\): small constant&lt;br /&gt;(+)\(\gamma,\beta\): learnable parameters&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) \(k, \alpha, \beta\): hyper-parameters&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;pixel-wise&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;pixel-wise&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(+) 2 trainable parameters&lt;br /&gt;    (shift &amp;amp; scale)&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) non-trainable parameters&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Internal Covariable Shift&lt;/td&gt;
-      &lt;td&gt;중점&lt;/td&gt;
-      &lt;td&gt;Lateral Inhibition&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(+) Regularization O&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) Regularization X&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Batch에 대해 정규화&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;Feature Map에 대해 정규화&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
-    &lt;ul&gt;
-      &lt;li&gt;hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. (babysitting을 안해도 된다?)&lt;/li&gt;
-      &lt;li&gt;DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt; )&lt;/li&gt;
-      &lt;li&gt;Regularization을 통해 ~~~를 막는다.&lt;/li&gt;
-      &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적을 것으로 예측된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry><entry><title type="html">Local Minima</title><link href="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/" rel="alternate" type="text/html" title="Local Minima" /><published>2020-08-27T00:00:00+09:00</published><updated>2020-08-27T00:00:00+09:00</updated><id>http://localhost:4000/computer%20vision/2020/08/27/Local-Minima</id><content type="html" xml:base="http://localhost:4000/computer%20vision/2020/08/27/Local-Minima/">&lt;ul&gt;
-  &lt;li&gt;Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
-    &lt;h2 id=&quot;용어-정리&quot;&gt;용어 정리&lt;/h2&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Local Min, Max vs Global Min, Max  &lt;br /&gt;
-  &lt;img src=&quot;/public/asset/local_global.jpg&quot; alt=&quot;local global&quot; /&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;2차 미분값이 positive 값을 가지면 local minimum (여러 개 minima)&lt;/li&gt;
-      &lt;li&gt;2차 미분값이 negative 값을 가지면 local maximum (여러 개 maxima)&lt;/li&gt;
-      &lt;li&gt;Hessian 행렬이 positivie definite (convex) 인 경우, global minimum&lt;/li&gt;
-      &lt;li&gt;Hessian 행렬이 negative definite (concave) 인 경우, global maximum&lt;/li&gt;
-      &lt;li&gt;local minima를 주로 찾는다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Stationary Point(Critical Point) (정상점) &lt;br /&gt;
-  &lt;img src=&quot;/public/asset/stationary_points.jpg&quot; alt=&quot;Stationary Point&quot; /&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Stationary Point = Local Minima &amp;amp; Maxima + Global Minimum &amp;amp; Maximum + Saddle Point&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Saddle Point (안정점)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;convex도 concave도 아닌 stationary point &lt;br /&gt;
-  &lt;img src=&quot;/public/asset/saddle_point.jpg&quot; alt=&quot;Saddle Point&quot; /&gt;&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;\(f' = 0 (critical point), f''=0\)인 경우, saddle point일 수도 아닐 수도 있다.&lt;/li&gt;
-      &lt;li&gt;변곡점을 찾자(?)&lt;/li&gt;
-      &lt;li&gt;multiple dimension인 경우, 2차원에서는 local minima 였던 것들이 saddle point 일 수도 있다.&lt;/li&gt;
-      &lt;li&gt;딥 러닝 경우, 예전에는 성능 저하의 원인이 local minima라는게 일반적인 생각이였다. 그러나 &lt;a href=&quot;https://arxiv.org/pdf/1406.2572.pdf&quot;&gt;Y. Dauphin, R. Pascanu, C. Gulcehre, K. Cho, S. Ganguli, Y. Bengio. “Identifying and attacking the saddle point problem in high-dimensional non-convex optimization”&lt;/a&gt;에서, 차원이 엄청 많기 때문에, local minima가 생기는 경우는 극히 드물다고 한다.
-        &lt;blockquote&gt;
-          &lt;p&gt;왜냐하면, 여러 개의 차원에서, 어떤 critical point가 local minima가 되기 위해서는 모든 축의 방향으로 함수 그래프가 아래로 볼록(\(f''&amp;gt;0\))이 되어야만 한다. 그러나 수백개의 차원에서, 실제로 모든 변수가 이 조건을 만족해 local minimum을 이루는 경우가 과연 얼마나 있을까?&lt;/p&gt;
-        &lt;/blockquote&gt;
-        &lt;ul&gt;
-          &lt;li&gt;n차원의 다변수 함수 \(f(x_1, x_2, \cdots, x_n)\)이 있을 때, local minima를 만족하기 위해서는 다음의 조건을 필요하다.  &lt;br /&gt;
-    \(\frac {\partial f} {\partial x_i}=0, i=1,2,\cdots,n\)  &lt;br /&gt;
-    \(\frac {\partial ^2 f} {\partial ^2 x_i} &amp;gt;0, i=1,2,\cdots,n\)&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;Hessian Matrix는 Symmetric하다.&lt;/strong&gt;(&lt;a href=&quot;https://www.quora.com/Why-is-the-Hessian-matrix-symmetric&quot;&gt;헤시안 행렬이 대칭인 이유&lt;/a&gt;) 그래서 diagonal로 표현이 가능하다.
-그럼 Hessian 행렬은 positive definite 라면,  &lt;br /&gt;
-\(\frac {\partial ^2 f} {\partial ^2 x_i} &amp;gt;0, i=1,2,\cdots,n\)  &lt;br /&gt;
-이고, \(f_i'' &amp;gt;0\) 일 확률은 0.5이다.  &lt;br /&gt;
-그럼 \(f_i'', \cdots, f_n''\) 이 모두 positive일 확률은 \(\frac 1{2^n}\) 이고,   &lt;br /&gt;
-\(\frac 1 {2^n}\)는 global minimum일 확률이다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;그래서 학습 속도를 최적화할 때, 거의 대부분은 saddle point이며 우리는 saddle point를 극복할 수 있는 새로운 탐색 방법을 구색해야 한다.&lt;/li&gt;
-      &lt;li&gt;또한, &lt;strong&gt;local minima가 발생한다 하더라도 이는 global minimum이거나 global minimum과 거의 유사한 수준의 에러 값을 가진다.&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;그래서 대부분 local minima를 찾는 것 같다.&lt;/li&gt;
-      &lt;li&gt;말 안장(saddle)을 생각하면 편하다.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/public/asset/saddle_matlab.jpg&quot; alt=&quot;Saddle Point&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;그럼-최종-목적지는-어느-점으로-잡는게-좋을까&quot;&gt;그럼 최종 목적지는 어느 점으로 잡는게 좋을까?&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SGD + Momentum을 사용하여 학습 성능을 최적화할 때, local minima 지점을 거의 도달했는데도 왔다 갔다 하는 모습을 볼 수 있다. (cs231n 7장 강의 참조)&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;이것은 버그가 아니라 SGD+Momentum이 very sharp minima들을 스킵하는 현상이다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Flat Minima VS Sharp Minima&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Hochreiter &amp;amp; Schmidhuber (1997) defines a flat minimum
-as “a large connected region in weight space where the
-error remains approximately constant”.&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;sharp minima can overfits more, so we don’t want to land sharp minima.&lt;/p&gt;
-
-    &lt;p&gt;flat minima is robust&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/public/asset/sharp_minima.jpg&quot; alt=&quot;sharp minima&quot; /&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Sharpness Definition
-  &lt;img src=&quot;/public/asset/sharpness.jpg&quot; alt=&quot;sharpness&quot; /&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1703.04933.pdf&quot;&gt;L Dinh, R Pascanu, S Bengio, Y Bengio. “Sharp Minima Can Generalize For Deep Nets”&lt;/a&gt;을 참조해서 다시 작성해야함 (대충 훑어보고 자세히 읽지는 않음)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://darkpgmr.tistory.com/148?category=761008&quot;&gt;https://darkpgmr.tistory.com/148?category=761008&lt;/a&gt;
-&lt;a href=&quot;https://hwiyong.tistory.com/9&quot;&gt;https://hwiyong.tistory.com/9&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;나는-용어-참조만-하고-싶었기-때문에-깊이-파보진-않았다-자세히-알고-싶으면-두-블로그에-정리-엄청-잘-되어있다&quot;&gt;나는 용어 참조만 하고 싶었기 때문에, 깊이 파보진 않았다. 자세히 알고 싶으면 두 블로그에 정리 엄청 잘 되어있다.&lt;/h3&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Computer Vision" /><category term="Optimization" /><summary type="html">Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다. 용어 정리</summary></entry></feed>
+&lt;a href=&quot;https://dalpo0814.tistory.com/18&quot;&gt;https://dalpo0814.tistory.com/18&lt;/a&gt; BN 논문 정리&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Internal Covariate Shift" /><summary type="html">Trainable layer normally used for addressing the issues of Internal Covariate Shift(ICF)</summary></entry></feed>

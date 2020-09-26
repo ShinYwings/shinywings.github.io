@@ -1,0 +1,18 @@
+I"'<ul>
+  <li>관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.
+    <ol>
+      <li>관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, <strong>top-down 추론</strong> 또는 <strong>예측</strong> 한다.</li>
+      <li>결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, <strong>bottom-up 추론</strong> 또는 <strong>진단</strong> 한다.</li>
+    </ol>
+  </li>
+  <li>확률 이론 + 그래프 이론</li>
+  <li>Directed Acyclic Gragh (DAG)
+    <blockquote>
+      <p>Cycle을 이루면 안된다.  <br />
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 <u>a set of conditional independence</u> 를 간결하게 표현했다.  <br />
+<img src="/public/asset/condition.jpg" alt="condition" /></li>
+</ul>
+:ET

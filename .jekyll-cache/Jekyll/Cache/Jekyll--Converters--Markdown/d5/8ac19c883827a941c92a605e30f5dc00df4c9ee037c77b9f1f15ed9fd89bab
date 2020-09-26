@@ -1,0 +1,44 @@
+I"<ul>
+  <li>확률 이론 + 그래프 이론</li>
+  <li>Directed Acyclic Gragh (DAG)
+    <blockquote>
+      <p>Cycle을 이루면 안된다.  <br />
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 <u>a set of conditional independence</u> 를 간결하게 표현했다.  <br />
+<img src="/public/assets/condition.jpg" alt="condition" /></p>
+  </li>
+  <li>Conditional Probability Table (CPT)
+    <blockquote>
+      <p>Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.
+  <img src="/public/asset/Conditional_probability_table.png" alt="conditioanl probability table" /></p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>
+    <p><strong>joint distribution</strong></p>
+
+    <ul>
+      <li>
+        <p>conditional independence statements를 나타냄</p>
+      </li>
+      <li>
+        <p>Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles   <br />
+  \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)</p>
+      </li>
+    </ul>
+
+    <p>(e.g.)  <br />
+  <img src="/public/asset/bayesian_network.jpg" alt="bayesian networks" />
+  P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)  <br />
+  = P (MaryCalls | Alarm) 으로 나타낼 수 있다.  <br />
+  왜냐하면 JohnCalls, Earthquake, Burglary는 Alarm에 대해 조건부 독립이기 때문이다.</p>
+  </li>
+</ul>
+:ET

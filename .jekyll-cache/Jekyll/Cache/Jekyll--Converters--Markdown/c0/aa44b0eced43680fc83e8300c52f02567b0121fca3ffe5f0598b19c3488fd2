@@ -1,0 +1,22 @@
+I"9<ul>
+  <li><strong>베이지안 네트워크</strong>
+    <ul>
+      <li>확률 이론 + 그래프 이론</li>
+      <li>Directed Acyclic Gragh (DAG)
+        <blockquote>
+          <p>Cycle을 이루면 안된다. cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</p>
+        </blockquote>
+      </li>
+      <li>
+        <p>Edge represents Influence as Random Variable(확률 변수) (\(\aprox\) State, Node) &gt; conditional independence</p>
+      </li>
+      <li>Conditional Probability Table (CPT)
+        <blockquote>
+          <p>Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.
+  <a href="/public/asset/Conditional_probability_table.png">conditioanl probability distribution</a></p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

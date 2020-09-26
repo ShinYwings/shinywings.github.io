@@ -1,0 +1,12 @@
+I"#<ul>
+  <li>확률 이론 + 그래프 이론</li>
+  <li>Directed Acyclic Gragh (DAG)
+    <blockquote>
+      <p>Cycle을 이루면 안된다.  <br />
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 <u>a set of conditional independence</u> 를 간결하게 표현했다.  <br />
+<img src="/public/asset/condition.jpg" alt="condition" /></li>
+</ul>
+:ET
