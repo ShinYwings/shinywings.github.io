@@ -1,4 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-22T17:57:32+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Bayesian Networks</title><link href="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/" rel="alternate" type="text/html" title="Bayesian Networks" /><published>2020-09-21T00:00:00+09:00</published><updated>2020-09-21T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/">&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-14T11:24:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Sampling</title><link href="http://localhost:4000/statistics/2020/10/06/Sampling/" rel="alternate" type="text/html" title="Sampling" /><published>2020-10-06T00:00:00+09:00</published><updated>2020-10-06T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/10/06/Sampling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/10/06/Sampling/">&lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
+
+&lt;p&gt;숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;무작위를 확인하는 방법 (반복 체크)&lt;/strong&gt;
+    &lt;ol&gt;
+      &lt;li&gt;순서에서 엔트로피 계산&lt;/li&gt;
+      &lt;li&gt;압축 알고리즘을 순서에 적용 (압축 알고리즘의 &lt;strong&gt;반복성&lt;/strong&gt;을 활용)&lt;/li&gt;
+      &lt;li&gt;홀수와 짝수의 개수를 확인
+        &lt;blockquote&gt;
+          &lt;p&gt;하지만 보장은 못함, deterministic 임.&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;가우시안-난수&quot;&gt;&lt;strong&gt;가우시안 난수&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;일반적인 방법: &lt;strong&gt;Box-Muller scheme&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;두 개의 균일하게 분포된 무작위 번호들의 쌍을 사용해서 두 개의 독립적인 N(0,1) 에서 생성된 번호들을 만들어 낸다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+\[f(x,y) = \frac {1} {\sqrt {2\pi}} e^{-\frac {x^2} {2}}   \frac {1} {\sqrt {2\pi}} e^{-\frac {y^2} {2}} =  \frac {1} {\sqrt {2\pi}} e^{-\frac {x^2+y^2} {2}}\]
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre id=&quot;Box_Muller_Scheme&quot; style=&quot;display:hidden;&quot;&gt;
+    \begin{algorithm}
+    \caption{Box Muller Scheme}
+    \begin{algorithmic}
+
+    \STATE Choose two uniformed variant random variables. $0 \leq U_1, U_2 \leq 1$    
+    \STATE     .
+    \STATE Set  $ \theta = 2\pi U_1$ and $r = \sqrt {(-2ln(U_2))}$
+    \STATE    .
+    \STATE $x = rcos(\theta)$ and $y = rsin(\theta)$ are variables of Gaussian distribution following identified ( mean 0, unit variance) 
+    \end{algorithmic}
+    \end{algorithm}
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;또 다른 방법으로 \(-1 \leq U_1, U_2 \leq 1\) 로 크기를 조정해서 \(U_1^2+U_2^2 \leq 1\) 을 벗어나는 난수는 버려진다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;첫 번째는 \(sin(\theta)\)를 요구하고, 두 번째 방법은 샘플하고 버리는 작업을 반복한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;두 방법은 프로그래밍 언어와 컴퓨터 구조에 따라 빠르기가 달라진다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ziggurat 알고리즘은 박스 뮬러 방법보다 더 낮은 계산 비용으로 더 효율적으로 수행한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;가우시안 분포로 설명되기 힘든 분포들의 샘플 값을 원하는 상황도 있다. 특정 확률 분포에 맞춰지지 않아도 되며, 어떤 분포에서든 샘플링할 수 있는 일반적인 방법을 원할 것이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;박스 뮬러 형식에서는 &lt;strong&gt;Rejection&lt;/strong&gt; 이라는 중요한 개념이 들어간다.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;원본 샘플이 단위 원 안에 존재하지 않는다면 기각하며, 다시 다른 대체원을 찾는 것이다.&lt;/p&gt;
+
+      &lt;p&gt;이제 Rejection Sampling을 설명할 준비가 끝났다.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;몬테 카를로 원칙&lt;/strong&gt;&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;IID (Independent and Identically Distributed) 따르는 샘플들을 알 수 없는 고차원의 분포 \(p(x)\) 에서 취하는 데 있어서 샘플들의 개수가 많아지면 샘플들의 분포는 원래 분포를 따른다는 것이다.&lt;/li&gt;
+      &lt;li&gt;중심 극한 정리는 샘플들이 많아지면 샘플들의 분포는 가우시안 분포를 따른다는 것인데 같은 맥락인 것 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+    pseudocode.renderElement(document.getElementById(&quot;Box_Muller_Scheme&quot;));
+&lt;/script&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Bayesian Network" /><summary type="html">numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)</summary></entry><entry><title type="html">Bayesian Networks</title><link href="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/" rel="alternate" type="text/html" title="Bayesian Networks" /><published>2020-09-21T00:00:00+09:00</published><updated>2020-09-21T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/">&lt;ul&gt;
   &lt;li&gt;확률 이론 + 그래프 이론&lt;/li&gt;
   &lt;li&gt;Directed Acyclic Gragh (DAG)
     &lt;blockquote&gt;
@@ -210,6 +291,23 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
       &lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2020/09/26&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;loss가 Nan이 뜨던 원인을 찾았다. 그건 바로 &lt;strong&gt;tf.image.convert_image_dtype&lt;/strong&gt; 이다.
+    &lt;ul&gt;
+      &lt;li&gt;나는 데이터형변환만 필요했는데 저 함수는 &lt;strong&gt;scaling&lt;/strong&gt; 까지 해버린다.&lt;/li&gt;
+      &lt;li&gt;그래서 imagenet mean을 빼주면 전부다 imagenet mean에 맞춰지니까 당연히 Nan이 뜨지 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ&lt;/li&gt;
+      &lt;li&gt;아 진짜 증오한다ㅏ아아아아아아아ㅓㄹ머ㅗㄴ아ㅓ론마이뢈ㅇ니&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;loss Nan이 뜨던 원인2
+    &lt;ul&gt;
+      &lt;li&gt;sparse categorical crossentropy는 ~~~! 인덱스 0부터임… ㅠㅠ&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Others" /><category term="tensorflow" /><summary type="html">2020/09/08 32X32 이미지를 256X256 으로 resize하기 작은 작전 32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다. 근데 막상 1만장을 tf에 적재할때 resize하니까 OOM 발생 그래서 독립적으로 실행하는 모듈을 만들어줌. 성공! Large scale datasets을 tf api에 적재하기 대작전 tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소 256x256 image를 적재하기 대작전 그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐) gpus = tf.config.experimental.list_physical_devices('GPU') if gpus: try: tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]) except RuntimeError as e: print(e) with tf.device('/gpu:1') train_ds = tf.data.Dataset.from_tensor_slices((train_images, train_labels)) test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels)) dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐) 256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기 진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ 지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈 2020/09/11</summary></entry><entry><title type="html">Covariance Matrix</title><link href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/" rel="alternate" type="text/html" title="Covariance Matrix" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Covariance-Matrix</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">&lt;h2 id=&quot;위키피디아-정의&quot;&gt;위키피디아 정의&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -339,7 +437,14 @@ Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
 
 &lt;p&gt;맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   &lt;br /&gt;
 유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   &lt;br /&gt;
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Local Response Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/" rel="alternate" type="text/html" title="Local Response Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">&lt;ul&gt;
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Whitening</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/" rel="alternate" type="text/html" title="Whitening" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Whitening</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">&lt;p&gt;input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미&lt;/p&gt;
+
+&lt;p&gt;이 조건을 만족하면 더 빨라진다!&lt;/p&gt;
+
+&lt;p&gt;하지만 공분산 계산하는 computationally cost가 높다.&lt;/p&gt;
+
+&lt;p&gt;Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  &lt;br /&gt;
+왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="NormalizationNormalization" /><summary type="html">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미 이 조건을 만족하면 더 빨라진다! 하지만 공분산 계산하는 computationally cost가 높다.</summary></entry><entry><title type="html">Local Response Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/" rel="alternate" type="text/html" title="Local Response Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">&lt;ul&gt;
   &lt;li&gt;Local Contrast Normalization과 유사 &lt;br /&gt;
   &lt;a href=&quot;http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf&quot;&gt;What is the Best Multi-Stage Architecture for Object Recognition?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -367,14 +472,7 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</conte
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry><entry><title type="html">Whitening</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/" rel="alternate" type="text/html" title="Whitening" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Whitening</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">&lt;p&gt;input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미&lt;/p&gt;
-
-&lt;p&gt;이 조건을 만족하면 더 빨라진다!&lt;/p&gt;
-
-&lt;p&gt;하지만 공분산 계산하는 computationally cost가 높다.&lt;/p&gt;
-
-&lt;p&gt;Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  &lt;br /&gt;
-왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="NormalizationNormalization" /><summary type="html">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미 이 조건을 만족하면 더 빨라진다! 하지만 공분산 계산하는 computationally cost가 높다.</summary></entry><entry><title type="html">LRN vs BN</title><link href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/" rel="alternate" type="text/html" title="LRN vs BN" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">&lt;p&gt;&lt;img src=&quot;/public/asset/BN_vs_LRN.png&quot; alt=&quot;bn-vs-lrn&quot; /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry><entry><title type="html">LRN vs BN</title><link href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/" rel="alternate" type="text/html" title="LRN vs BN" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">&lt;p&gt;&lt;img src=&quot;/public/asset/BN_vs_LRN.png&quot; alt=&quot;bn-vs-lrn&quot; /&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -411,14 +509,14 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</conte
       &lt;td&gt;Lateral Inhibition&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;(+) Regularization O&lt;/td&gt;
+      &lt;td&gt;(+) Weight Regularization O&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) Regularization X&lt;/td&gt;
+      &lt;td&gt;(-) Weight Regularization X&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Batch에 대해 정규화&lt;/td&gt;
+      &lt;td&gt;Batch에 대한 정규화&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;Feature Map에 대해 정규화&lt;/td&gt;
+      &lt;td&gt;각각의 Feature position에 대한 정규화&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -426,87 +524,12 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</conte
 &lt;ul&gt;
   &lt;li&gt;LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
     &lt;ul&gt;
-      &lt;li&gt;hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. (babysitting을 안해도 된다?)&lt;/li&gt;
+      &lt;li&gt;hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. 왜냐하면 분포가 일정해지기 때문에 수렴속도가 빠르기 때문이다. 반면에 LRN은 Kernel maps의 분포가 hidden layer를 지나갈 때마다 바뀐다. (internal covariate shift)&lt;/li&gt;
       &lt;li&gt;DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt; )&lt;/li&gt;
-      &lt;li&gt;Regularization을 통해 ~~~를 막는다.&lt;/li&gt;
-      &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적을 것으로 예측된다.&lt;/li&gt;
+      &lt;li&gt;Regularization을 통해 가중치의 급격한 변화를 막는다.&lt;/li&gt;
+      &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적다. LRN의 Radius (n) 의 개수에 따라 수십초가 차이난다.(엄청 큼!!)&lt;/li&gt;
+      &lt;li&gt;n = 10일때 보다 n = 5일때 30초가 덜 걸렸다. n = 1 인 BN을 사용했을 때 n = 3보다 40초가 덜 걸렸다. 엄청난 차이를 보인다.&lt;/li&gt;
+      &lt;li&gt;LRN의 k는 학습을 불안정하게 만든다. 만약 Input Normalization을 한 상태라면 참조하는 kernel의 합이 1이 안되는데 k = 1 또는 2 를 더해주게 되면 모든 kernel은 비슷한 특징을 보이게 될 것이다. 내 실험에서도 항상 accuracy가 10%를 유지했다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry><entry><title type="html">Batch Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/" rel="alternate" type="text/html" title="Batch Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">&lt;p&gt;Trainable layer normally used for addressing the issues of &lt;strong&gt;Internal Covariate Shift(ICF)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;internal-covariate-shift&quot;&gt;Internal covariate shift&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;hidden layer들의 covariate shift를 의미&lt;/li&gt;
-  &lt;li&gt;hidden neurons이나 activation의 분포가 변화하는 것 때문에 고려된다.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;layer는 계속해서 새로운 분포를 적용시켜야한다.&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/public/asset/ICF.png&quot; alt=&quot;ICF&quot; /&gt;&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Say we have trained a neural network, and now we select two significantly different looking batches from the dataset for inference (as shown above).&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2 batches를 각각 forward pass를 시켜 hidden layer의 feature map을 plot하면 위의 그림처럼 엄청난 분포의 변화가 발생한다는 것을 알 수 있다.&lt;/li&gt;
-  &lt;li&gt;이것을 &lt;strong&gt;Covariate shift&lt;/strong&gt; 라고 부른다.&lt;/li&gt;
-  &lt;li&gt;During training, if we select batches that belong to different distributions then it slows down the training due to the fact that for a given batch it tries to learn a certain distribution, which is different for the next batch.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Hence it keeps on bouncing back and forth between distributions until it converges. This Covariate Shift can be mitigated by making sure that the members within a batch do not belong to the same/similar distribution.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;우리가 hidden neurons의 분포를 직접 control 하지 못한다는 문제가 있음&lt;/li&gt;
-  &lt;li&gt;왜냐하면 훈련이 훈련 패러미터들을 계속 업데이트하기 때문이다.&lt;/li&gt;
-  &lt;li&gt;BN은 이 문제를 완화시켜줌.    &lt;br /&gt;
-Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기 힘들다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://towardsdatascience.com/difference-between-local-response-normalization-and-batch-normalization-272308c034ac&quot;&gt;Reference&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;In the paper of BN,&lt;/p&gt;
-
-&lt;p&gt;network와 its training parameters를 바꿔야 한다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Increase learning rate
-    &lt;ul&gt;
-      &lt;li&gt;higher learning rate로 부터 training speedup을 부작용 없이 이뤄냄&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Remove Dropout
-    &lt;ul&gt;
-      &lt;li&gt;BN은 Dropout의 목표를 충족시켰다. in Sec 3.4&lt;/li&gt;
-      &lt;li&gt;수정된 BN-Inception로 부터의 dropout은 훈련 속도를 증가시켰다. without increasing overfitting.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Reduce the \(L_2\) weight regularization
-    &lt;ul&gt;
-      &lt;li&gt;While in Inception an \(L_2\) loss on the model parameters controls overfitting, in Modified BN-Inception the weight of this loss is reduced by a factor of 5.(5배 가량 이 loss의 가중치가 감소)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Accelerate the learning rate decay
-    &lt;ul&gt;
-      &lt;li&gt;In training Inception, learning rate was decayed exponentially.    Because our network trains faster than Inception, we lower the learning rate 6 times faster. (learning rate를 6배 빠르게 감소시켰다(?) 그래서 learning rate가 exponentially 하게 감소 되었다.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Remove &lt;a href=&quot;/deep%20learning/2020/08/31/Local-Response-Normalization/&quot;&gt;Local Response Normalization&lt;/a&gt;&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;while Inception and other networks benefit from it, we found that with Batch Normalization it is not necessary.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Shuffle training examples more thoroughly (training examples을 더 잘 섞음)
-    &lt;ul&gt;
-      &lt;li&gt;shard (DB) 안에서 training data가 잘 섞여서, mini-batch에서 항상 같은 examples이 나오는 것을 방지함.&lt;/li&gt;
-      &lt;li&gt;이것은 1%의 validation accuracy를 증가시킴. (which is consistent with the view of Batch Normalization as a regularizer: the randomization inherent in out method should be most beneficial when it affects an example differently each time it is seen.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Reduce the photometric distortions.
-    &lt;ul&gt;
-      &lt;li&gt;BN networks는 빠르게 학습하고 각각의 학습 example을 fewer times 관찰하기 때문에, trainer focus를 더 “real”한 (덜 distorting함으로써)이미지에 맞춘다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt;  &lt;br /&gt;
-Internal covariate shift와 함께 정리 잘된 논문을 정리
-&lt;a href=&quot;https://dalpo0814.tistory.com/18&quot;&gt;https://dalpo0814.tistory.com/18&lt;/a&gt; BN 논문 정리&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Internal Covariate Shift" /><summary type="html">Trainable layer normally used for addressing the issues of Internal Covariate Shift(ICF)</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry></feed>

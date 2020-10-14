@@ -9,12 +9,12 @@
    
   <title>
     
-      Sparse Coding &middot; Shin
+      Sampling &middot; Shin
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding/">
+  <link rel="canonical" href="http://localhost:4000/statistics/2020/10/06/Sampling/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -160,59 +160,95 @@
 <!---->
 
 <div class="post">
-  <h1 class="post-title">Sparse Coding</h1>
-  <span class="post-date">24 Aug 2020</span>
+  <h1 class="post-title">Sampling</h1>
+  <span class="post-date">06 Oct 2020</span>
   <article>
       <script type="text/javascript" async
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
       </script> 
-      <ul>
-  <li>unsupervised learning 방법</li>
-  <li>overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨</li>
-  <li>primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보임  <br />
-  “Emergence of simple cell receptive field properties by learning sparse code for natural iamges”, Olshausen, 1996  <br />
-  “Sparse coding with an overcomplete set: a strategy employed by V1”, Field, 1997</li>
-</ul>
+      <p>numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)</p>
 
-<p><img src="/public/asset/sparse_coding.jpg" alt="Sparse coding" />
-Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖고 있으며, 데이터 X를 \(\alpha\)로 나타낸다.
-여기서 \(\alpha\) 안의 빨간색에 해당하는 부분은 0이 아니기 때문에 결과적으로는 해당 위치에 기저벡터를 \(\alpha\)의 각 원소만큼 곱해서 더하는 방식으로 표현이 된다.</p>
+<p>숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.</p>
 
 <ul>
-  <li>
-    <p>여기서 풀어야 할 문제: D와 \(\alpha\)를 어떻게 구할까?</p>
-
-\[\arg \min_{D,A} ||X-AD||^2_F+\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\]
-
-    <p>\(\arg \min_{D,A} ||X-AD||^2_F\) : reconstruction error  <br />
-      - AD를 이용해 X를 얼마나 잘 표현할 수 있는지를 나타냄   <br />
-  \(\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|\) : penalty  <br />
-      - 기저 벡터 \(\alpha\)에서 0이 아닌 element의 개수를 제한하는 방향으로 penalty 역할을 한다.</p>
+  <li><strong>무작위를 확인하는 방법 (반복 체크)</strong>
+    <ol>
+      <li>순서에서 엔트로피 계산</li>
+      <li>압축 알고리즘을 순서에 적용 (압축 알고리즘의 <strong>반복성</strong>을 활용)</li>
+      <li>홀수와 짝수의 개수를 확인
+        <blockquote>
+          <p>하지만 보장은 못함, deterministic 임.</p>
+        </blockquote>
+      </li>
+    </ol>
   </li>
 </ul>
 
-<p><img src="/public/asset/sparse_coding_2.jpg" alt="Sparse coding2" /></p>
+<h2 id="가우시안-난수"><strong>가우시안 난수</strong></h2>
 
 <ul>
-  <li>결과적으로, 위 식을 최소화하는 것이 목표이다. 기본적으로 Matching pursuit(MP)와 Basic pursuit(BP) 방식으로 풀어낸다.</li>
-  <li>
-    <p>data compression이나 잡음 제거 및 컬러 interpolation 등에서 효과가 좋다.</p>
-  </li>
-  <li>예시
+  <li>일반적인 방법: <strong>Box-Muller scheme</strong>
     <ul>
-      <li>Denoising  <br />
-  <img src="/public/asset/denoising.jpg" alt="Sparse coding_denoising" /></li>
-      <li>inpainting  <br />
-  <img src="/public/asset/inpainting.jpg" alt="Sparse coding_inpainting" /></li>
+      <li>두 개의 균일하게 분포된 무작위 번호들의 쌍을 사용해서 두 개의 독립적인 N(0,1) 에서 생성된 번호들을 만들어 낸다.</li>
     </ul>
   </li>
-  <li>Sparse Coding 강의 노트
-  https://www.cs.ubc.ca/~schmidtm/MLRG/sparseCoding.pdf
-  https://www.youtube.com/watch?v=7a0_iEruGoM&amp;feature=emb_logo</li>
+  <li>
+\[f(x,y) = \frac {1} {\sqrt {2\pi}} e^{-\frac {x^2} {2}}   \frac {1} {\sqrt {2\pi}} e^{-\frac {y^2} {2}} =  \frac {1} {\sqrt {2\pi}} e^{-\frac {x^2+y^2} {2}}\]
+  </li>
 </ul>
 
-<h5 id="reference">Reference</h5>
-<p>http://blog.naver.com/laonple/220914873095</p>
+<pre id="Box_Muller_Scheme" style="display:hidden;">
+    \begin{algorithm}
+    \caption{Box Muller Scheme}
+    \begin{algorithmic}
+
+    \STATE Choose two uniformed variant random variables. $0 \leq U_1, U_2 \leq 1$    
+    \STATE     .
+    \STATE Set  $ \theta = 2\pi U_1$ and $r = \sqrt {(-2ln(U_2))}$
+    \STATE    .
+    \STATE $x = rcos(\theta)$ and $y = rsin(\theta)$ are variables of Gaussian distribution following identified ( mean 0, unit variance) 
+    \end{algorithmic}
+    \end{algorithm}
+</pre>
+
+<ul>
+  <li>
+    <p>또 다른 방법으로 \(-1 \leq U_1, U_2 \leq 1\) 로 크기를 조정해서 \(U_1^2+U_2^2 \leq 1\) 을 벗어나는 난수는 버려진다.</p>
+  </li>
+  <li>
+    <p>첫 번째는 \(sin(\theta)\)를 요구하고, 두 번째 방법은 샘플하고 버리는 작업을 반복한다.</p>
+  </li>
+  <li>
+    <p>두 방법은 프로그래밍 언어와 컴퓨터 구조에 따라 빠르기가 달라진다.</p>
+  </li>
+  <li>
+    <p>Ziggurat 알고리즘은 박스 뮬러 방법보다 더 낮은 계산 비용으로 더 효율적으로 수행한다.</p>
+  </li>
+  <li>
+    <p>가우시안 분포로 설명되기 힘든 분포들의 샘플 값을 원하는 상황도 있다. 특정 확률 분포에 맞춰지지 않아도 되며, 어떤 분포에서든 샘플링할 수 있는 일반적인 방법을 원할 것이다.</p>
+  </li>
+  <li>
+    <p>박스 뮬러 형식에서는 <strong>Rejection</strong> 이라는 중요한 개념이 들어간다.</p>
+
+    <blockquote>
+      <p>원본 샘플이 단위 원 안에 존재하지 않는다면 기각하며, 다시 다른 대체원을 찾는 것이다.</p>
+
+      <p>이제 Rejection Sampling을 설명할 준비가 끝났다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>몬테 카를로 원칙</strong></p>
+    <ul>
+      <li>IID (Independent and Identically Distributed) 따르는 샘플들을 알 수 없는 고차원의 분포 \(p(x)\) 에서 취하는 데 있어서 샘플들의 개수가 많아지면 샘플들의 분포는 원래 분포를 따른다는 것이다.</li>
+      <li>중심 극한 정리는 샘플들이 많아지면 샘플들의 분포는 가우시안 분포를 따른다는 것인데 같은 맥락인 것 같다.</li>
+    </ul>
+  </li>
+</ul>
+
+<script>
+    pseudocode.renderElement(document.getElementById("Box_Muller_Scheme"));
+</script>
+
 
   </article>
 </div>
@@ -221,15 +257,6 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
 <div class="related">
   <h2>Related posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/statistics/2020/10/06/Sampling/">
-            Sampling
-            <small>06 Oct 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -244,6 +271,15 @@ Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖
         <h3>
           <a href="/others/2020/09/08/tensorflow_note/">
             Tensorflow Note
+            <small>08 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">
+            Lagrange Multipliers
             <small>08 Sep 2020</small>
           </a>
         </h3>

@@ -162,6 +162,67 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling/">
+        Maxpooling의 한계
+      </a>
+    </h1>
+
+    <span class="post-date">01 Sep 2020</span>
+
+    <p><a href="https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/</a></p>
+<ul>
+  <li>
+    <p>이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</p>
+
+    <ul>
+      <li>
+        <p><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">translation invariance</a> 조건으로 feature을 discard (maxpooling) 하느냐 아니면 translation equivariance할 수 있는 다른 새로운 방법을 찾아 disentangling 하냐에 대해서 논란이 있다.   <br />
+  확실히 disentangling하는 것이 더 나은 방법이라고 생각한다. 객체 지향처럼 encapsulation이라는 개념이 소개 되었는데, 세상의 모든 성질을 객체에다가 넣어서 평가하려면… 불가능함에 가까워 보인다. 이런 부분을 고려해서 CapsNet 구조를 만들었을 것이다. CapsNet을 아직 안봐서 이 부분은 나중에 내 생각의 수정이 필요하다.</p>
+      </li>
+      <li>maxpooling의 잘못된 점
+        <ol>
+          <li>내재되어있는 선형적인 구조를 사용하지 않는다. (Fails to use underlying linear structure).
+            <ul>
+              <li>SIFT를 통해서도 알겠지만 여러 방면으로 3D 물체를 돌려보는 것은 비선형적이다. 이를 globally linear 한 곳으로 변환시킨다면 대량의 extrapolation이 가능합니다. 즉, 물체의 다양한 모습을 추정 가능하다는 말과 같습니다. 하지만 pooling에는 이러한 과정이 없습니다.</li>
+            </ul>
+          </li>
+          <li>Dynamic routing과는 어울리지 않음
+            <ul>
+              <li>pooling에서는 캡스넷(캡슐 네트워크)의 가장 큰 특징 중 하나인 dynamic routing을 사용할 수 없다.</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li>현재 CNN의 주요한 문제점
+        <blockquote>
+          <p>Internal data representation of a convolutional neural network doesn’t take into account important spatial hierarchies between simple and complex objects”</p>
+        </blockquote>
+        <ul>
+          <li>CNN 내부 데이터의 간단한 오브젝트와 복잡한 오브젝트 사이의 spatial hierarchies를 고려하지 않는다.</li>
+        </ul>
+      </li>
+      <li>CapsNet은 feature간의 공간적인 관계까지 고려하게 됩니다.
+        <ul>
+          <li>그럼 feature 간의 weight 또한 필요하다고 볼 수 있네</li>
+        </ul>
+      </li>
+      <li>Maxpooling은 학습 가능한 파라미터가 존재하지 않으며 단순히 가장 큰 특징적인 값만 뽑아내서 FOV를 넓히는 것 밖에 못한다는 것입니다.
+        <ul>
+          <li>하지만 캡슐은 벡터로 이루어져 있기 때문에 dynamic rouing을 통해 오브젝트 파트들의 상대적 위치를 조합할 수 있음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   <br />
+유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   <br />
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/statistics/2020/09/01/Covariance-Matrix/">
         Covariance Matrix
       </a>
@@ -346,14 +407,14 @@ Cov(Z,X) &amp; Cov(Z,Y) &amp; Cov(Z,Z)\\
       <td>Lateral Inhibition</td>
     </tr>
     <tr>
-      <td>(+) Regularization O</td>
+      <td>(+) Weight Regularization O</td>
       <td> </td>
-      <td>(-) Regularization X</td>
+      <td>(-) Weight Regularization X</td>
     </tr>
     <tr>
-      <td>Batch에 대해 정규화</td>
+      <td>Batch에 대한 정규화</td>
       <td> </td>
-      <td>Feature Map에 대해 정규화</td>
+      <td>각각의 Feature position에 대한 정규화</td>
     </tr>
   </tbody>
 </table>
@@ -361,103 +422,15 @@ Cov(Z,X) &amp; Cov(Z,Y) &amp; Cov(Z,Z)\\
 <ul>
   <li>LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
     <ul>
-      <li>hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. (babysitting을 안해도 된다?)</li>
+      <li>hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. 왜냐하면 분포가 일정해지기 때문에 수렴속도가 빠르기 때문이다. 반면에 LRN은 Kernel maps의 분포가 hidden layer를 지나갈 때마다 바뀐다. (internal covariate shift)</li>
       <li>DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]<a href="https://ml-dnn.tistory.com/6">https://ml-dnn.tistory.com/6</a> )</li>
-      <li>Regularization을 통해 ~~~를 막는다.</li>
-      <li>Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적을 것으로 예측된다.</li>
+      <li>Regularization을 통해 가중치의 급격한 변화를 막는다.</li>
+      <li>Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적다. LRN의 Radius (n) 의 개수에 따라 수십초가 차이난다.(엄청 큼!!)</li>
+      <li>n = 10일때 보다 n = 5일때 30초가 덜 걸렸다. n = 1 인 BN을 사용했을 때 n = 3보다 40초가 덜 걸렸다. 엄청난 차이를 보인다.</li>
+      <li>LRN의 k는 학습을 불안정하게 만든다. 만약 Input Normalization을 한 상태라면 참조하는 kernel의 합이 1이 안되는데 k = 1 또는 2 를 더해주게 되면 모든 kernel은 비슷한 특징을 보이게 될 것이다. 내 실험에서도 항상 accuracy가 10%를 유지했다.</li>
     </ul>
   </li>
 </ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/deep%20learning/2020/08/31/Batch-Normalization/">
-        Batch Normalization
-      </a>
-    </h1>
-
-    <span class="post-date">31 Aug 2020</span>
-
-    <p>Trainable layer normally used for addressing the issues of <strong>Internal Covariate Shift(ICF)</strong></p>
-
-<h2 id="internal-covariate-shift">Internal covariate shift</h2>
-<ul>
-  <li>hidden layer들의 covariate shift를 의미</li>
-  <li>hidden neurons이나 activation의 분포가 변화하는 것 때문에 고려된다.</li>
-  <li>
-    <p>layer는 계속해서 새로운 분포를 적용시켜야한다.</p>
-
-    <p><img src="/public/asset/ICF.png" alt="ICF" /></p>
-    <ul>
-      <li>Say we have trained a neural network, and now we select two significantly different looking batches from the dataset for inference (as shown above).</li>
-    </ul>
-  </li>
-  <li>2 batches를 각각 forward pass를 시켜 hidden layer의 feature map을 plot하면 위의 그림처럼 엄청난 분포의 변화가 발생한다는 것을 알 수 있다.</li>
-  <li>이것을 <strong>Covariate shift</strong> 라고 부른다.</li>
-  <li>During training, if we select batches that belong to different distributions then it slows down the training due to the fact that for a given batch it tries to learn a certain distribution, which is different for the next batch.</li>
-  <li>
-    <p>Hence it keeps on bouncing back and forth between distributions until it converges. This Covariate Shift can be mitigated by making sure that the members within a batch do not belong to the same/similar distribution.</p>
-  </li>
-  <li>우리가 hidden neurons의 분포를 직접 control 하지 못한다는 문제가 있음</li>
-  <li>왜냐하면 훈련이 훈련 패러미터들을 계속 업데이트하기 때문이다.</li>
-  <li>BN은 이 문제를 완화시켜줌.    <br />
-Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기 힘들다.</li>
-</ul>
-
-<p><a href="https://towardsdatascience.com/difference-between-local-response-normalization-and-batch-normalization-272308c034ac">Reference</a></p>
-
-<hr />
-
-<p>In the paper of BN,</p>
-
-<p>network와 its training parameters를 바꿔야 한다.</p>
-
-<ol>
-  <li>Increase learning rate
-    <ul>
-      <li>higher learning rate로 부터 training speedup을 부작용 없이 이뤄냄</li>
-    </ul>
-  </li>
-  <li>Remove Dropout
-    <ul>
-      <li>BN은 Dropout의 목표를 충족시켰다. in Sec 3.4</li>
-      <li>수정된 BN-Inception로 부터의 dropout은 훈련 속도를 증가시켰다. without increasing overfitting.</li>
-    </ul>
-  </li>
-  <li>Reduce the \(L_2\) weight regularization
-    <ul>
-      <li>While in Inception an \(L_2\) loss on the model parameters controls overfitting, in Modified BN-Inception the weight of this loss is reduced by a factor of 5.(5배 가량 이 loss의 가중치가 감소)</li>
-    </ul>
-  </li>
-  <li>Accelerate the learning rate decay
-    <ul>
-      <li>In training Inception, learning rate was decayed exponentially.    Because our network trains faster than Inception, we lower the learning rate 6 times faster. (learning rate를 6배 빠르게 감소시켰다(?) 그래서 learning rate가 exponentially 하게 감소 되었다.)</li>
-    </ul>
-  </li>
-  <li><strong>Remove <a href="/deep%20learning/2020/08/31/Local-Response-Normalization/">Local Response Normalization</a></strong>
-    <ul>
-      <li>while Inception and other networks benefit from it, we found that with Batch Normalization it is not necessary.</li>
-    </ul>
-  </li>
-  <li>Shuffle training examples more thoroughly (training examples을 더 잘 섞음)
-    <ul>
-      <li>shard (DB) 안에서 training data가 잘 섞여서, mini-batch에서 항상 같은 examples이 나오는 것을 방지함.</li>
-      <li>이것은 1%의 validation accuracy를 증가시킴. (which is consistent with the view of Batch Normalization as a regularizer: the randomization inherent in out method should be most beneficial when it affects an example differently each time it is seen.)</li>
-    </ul>
-  </li>
-  <li>Reduce the photometric distortions.
-    <ul>
-      <li>BN networks는 빠르게 학습하고 각각의 학습 example을 fewer times 관찰하기 때문에, trainer focus를 더 “real”한 (덜 distorting함으로써)이미지에 맞춘다.</li>
-    </ul>
-  </li>
-</ol>
-
-<h2 id="reference">Reference</h2>
-<p><a href="https://ml-dnn.tistory.com/6">https://ml-dnn.tistory.com/6</a>  <br />
-Internal covariate shift와 함께 정리 잘된 논문을 정리
-<a href="https://dalpo0814.tistory.com/18">https://dalpo0814.tistory.com/18</a> BN 논문 정리</p>
 
   </div>
   
