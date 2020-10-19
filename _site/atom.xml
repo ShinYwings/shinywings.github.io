@@ -4,7 +4,7 @@
  <title>Shin</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-10-14T11:25:12+09:00</updated>
+ <updated>2020-10-19T21:36:54+09:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Shin</name>
@@ -17,7 +17,9 @@
    <link href="http://localhost:4000/statistics/2020/10/06/Sampling/"/>
    <updated>2020-10-06T00:00:00+09:00</updated>
    <id>http://localhost:4000/statistics/2020/10/06/Sampling</id>
-   <content type="html">&lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;strong&gt;샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
 
 &lt;p&gt;숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.&lt;/p&gt;
 
@@ -672,6 +674,47 @@ Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기
 
 &lt;p&gt;&lt;a href=&quot;https://towardsdatascience.com/difference-between-local-response-normalization-and-batch-normalization-272308c034ac&quot;&gt;Reference&lt;/a&gt;&lt;/p&gt;
 
+&lt;!-- &lt;pre id=&quot;Update Rule of Gamma and Beta&quot; style=&quot;display:hidden;&quot;&gt;
+    \begin{algorithm}
+    \caption{Update Rule of Gamma and Beta}
+    \begin{algorithmic}
+
+    \FUNCTION {BackPropagation}{$A, \vec{b}$}
+    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
+    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
+    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
+        \FOR{$p = 1$ \TO $n$}
+            \STATE *Optionally insert pivoting code here*  
+            \STATE $s \leftarrow \frac 1 {u_{pp}}$
+            \STATE $y_p \leftarrow s \cdot y_p$
+            \FOR{$c = p$ \TO $n$}
+                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
+            \ENDFOR
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow {-u_{rp}}$
+                \STATE $y_r \leftarrow y_r + s \cdot y_p$
+                \FOR{$c=p$ \TO $n$}
+                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $U, \vec{y}$
+    \ENDFUNCTION  
+    
+    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
+    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
+    \STATE $\vec{x} \leftarrow \vec{y}$
+        \FOR{$p = n$ \TO $1$}
+            \FOR{$r = 1$ \TO $p - 1$}
+                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
+            \ENDFOR
+        \ENDFOR
+    \RETURN $\vec{x}$
+    \ENDFUNCTION
+    \end{algorithmic}
+    \end{algorithm}
+&lt;/pre&gt; --&gt;
+
 &lt;hr /&gt;
 
 &lt;p&gt;In the paper of BN,&lt;/p&gt;
@@ -718,10 +761,42 @@ Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기
   &lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h2 id=&quot;gamma--beta-updates-on-backpropagation&quot;&gt;Gamma &amp;amp; Beta updates on BackPropagation&lt;/h2&gt;
+
+&lt;p&gt;Given \(y = \gamma \hat {x}_i + \beta\)&lt;/p&gt;
+
+\[\begin{equation} \begin{split}     
+\frac {\partial \ell} {\partial \hat {x}_i} &amp;amp;= \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \hat {x}_i} \\
+\frac {\partial \ell} {\partial \hat {x}_i} &amp;amp;= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \gamma \\
+\end{split}\end{equation}\]
+
+&lt;p&gt;Since \(\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}\)&lt;/p&gt;
+
+\[\begin{equation} \begin{split}
+\frac {\partial \ell} {\partial \sigma^2_B} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial \sigma^2_B} \\     
+\frac {\partial \ell} {\partial \sigma^2_B} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot (x_i - \mu_B) \cdot \frac {-1} {2} (\sigma^2_B + \epsilon)^{-3/2} \\ 
+\\
+\frac {\partial \ell} {\partial \mu_B} &amp;amp;= \Biggl( \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial \mu_B} \Biggr) + \frac {\partial \ell} {\partial \sigma^2_B} \cdot  \frac {\partial \sigma^2_B} {\partial \mu_B}\\
+\frac {\partial \ell} {\partial \mu_B} &amp;amp;= \Biggl( \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {-1} {\sqrt {\sigma^2_B+\epsilon}} \Biggr) + \frac {\partial \ell} {\partial \sigma^2_B} \cdot  \frac { \sum^m_{i=1} -2(x_i - \mu_B)} {m}\\
+\\
+\frac {\partial \ell} {\partial x_i} &amp;amp;= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial x_i} + \frac {\partial \ell} {\partial \sigma^2_B} \cdot \frac {\partial \sigma^2_B} {\partial x_i} + \frac {\partial \ell} {\partial \mu_B} \cdot \frac {\partial \mu_B} {\partial x_i}\\
+\frac {\partial \ell} {\partial x_i} &amp;amp;= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {1} {\sqrt {\sigma^2_B+\epsilon}} + \frac {\partial \ell} {\partial \sigma^2_B} \cdot \frac {2(x_i - \mu_B)} {m} + \frac {\partial \ell} {\partial \mu_B} \cdot \frac {1} {m}\\
+\\
+\frac {\partial \ell} {\partial \gamma} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \gamma}\\
+\frac {\partial \ell} {\partial \gamma} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \hat {x}_i\\
+\\
+\frac {\partial \ell} {\partial \beta} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \beta}\\
+\frac {\partial \ell} {\partial \beta} &amp;amp;= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot 1\\
+\end{split}\end{equation}\]
+
 &lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt;  &lt;br /&gt;
 Internal covariate shift와 함께 정리 잘된 논문을 정리
 &lt;a href=&quot;https://dalpo0814.tistory.com/18&quot;&gt;https://dalpo0814.tistory.com/18&lt;/a&gt; BN 논문 정리&lt;/p&gt;
+
+&lt;!-- &lt;script&gt;
+    pseudocode.renderElement(document.getElementById(&quot;Update Rule of Gamma and Beta&quot;));
+&lt;/script&gt; --&gt;
 </content>
  </entry>
  

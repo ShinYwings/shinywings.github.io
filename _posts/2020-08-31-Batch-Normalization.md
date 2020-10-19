@@ -27,6 +27,48 @@ Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기
 
 [Reference](https://towardsdatascience.com/difference-between-local-response-normalization-and-batch-normalization-272308c034ac)    
 
+<!-- <pre id="Update Rule of Gamma and Beta" style="display:hidden;">
+    \begin{algorithm}
+    \caption{Update Rule of Gamma and Beta}
+    \begin{algorithmic}
+
+    \FUNCTION {BackPropagation}{$A, \vec{b}$}
+    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
+    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
+    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
+        \FOR{$p = 1$ \TO $n$}
+            \STATE *Optionally insert pivoting code here*  
+            \STATE $s \leftarrow \frac 1 {u_{pp}}$
+            \STATE $y_p \leftarrow s \cdot y_p$
+            \FOR{$c = p$ \TO $n$}
+                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
+            \ENDFOR
+            \FOR{$r = p + 1$ \TO $n$}
+                \STATE $s \leftarrow {-u_{rp}}$
+                \STATE $y_r \leftarrow y_r + s \cdot y_p$
+                \FOR{$c=p$ \TO $n$}
+                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR
+    \RETURN $U, \vec{y}$
+    \ENDFUNCTION  
+    
+    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
+    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
+    \STATE $\vec{x} \leftarrow \vec{y}$
+        \FOR{$p = n$ \TO $1$}
+            \FOR{$r = 1$ \TO $p - 1$}
+                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
+            \ENDFOR
+        \ENDFOR
+    \RETURN $\vec{x}$
+    \ENDFUNCTION
+    \end{algorithmic}
+    \end{algorithm}
+</pre> -->
+
+
 -------------
 
 In the paper of BN,    
@@ -50,7 +92,39 @@ network와 its training parameters를 바꿔야 한다.
 7. Reduce the photometric distortions.
     - BN networks는 빠르게 학습하고 각각의 학습 example을 fewer times 관찰하기 때문에, trainer focus를 더 "real"한 (덜 distorting함으로써)이미지에 맞춘다. 
 
+## Gamma & Beta updates on BackPropagation
+     
+Given $$y = \gamma \hat {x}_i + \beta$$     
+     
+$$\begin{equation} \begin{split}     
+\frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \hat {x}_i} \\
+\frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \gamma \\
+\end{split}\end{equation}$$     
+    
+Since $$\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}$$     
+     
+$$\begin{equation} \begin{split}
+\frac {\partial \ell} {\partial \sigma^2_B} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial \sigma^2_B} \\     
+\frac {\partial \ell} {\partial \sigma^2_B} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot (x_i - \mu_B) \cdot \frac {-1} {2} (\sigma^2_B + \epsilon)^{-3/2} \\ 
+\\
+\frac {\partial \ell} {\partial \mu_B} &= \Biggl( \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial \mu_B} \Biggr) + \frac {\partial \ell} {\partial \sigma^2_B} \cdot  \frac {\partial \sigma^2_B} {\partial \mu_B}\\
+\frac {\partial \ell} {\partial \mu_B} &= \Biggl( \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {-1} {\sqrt {\sigma^2_B+\epsilon}} \Biggr) + \frac {\partial \ell} {\partial \sigma^2_B} \cdot  \frac { \sum^m_{i=1} -2(x_i - \mu_B)} {m}\\
+\\
+\frac {\partial \ell} {\partial x_i} &= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial x_i} + \frac {\partial \ell} {\partial \sigma^2_B} \cdot \frac {\partial \sigma^2_B} {\partial x_i} + \frac {\partial \ell} {\partial \mu_B} \cdot \frac {\partial \mu_B} {\partial x_i}\\
+\frac {\partial \ell} {\partial x_i} &= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {1} {\sqrt {\sigma^2_B+\epsilon}} + \frac {\partial \ell} {\partial \sigma^2_B} \cdot \frac {2(x_i - \mu_B)} {m} + \frac {\partial \ell} {\partial \mu_B} \cdot \frac {1} {m}\\
+\\
+\frac {\partial \ell} {\partial \gamma} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \gamma}\\
+\frac {\partial \ell} {\partial \gamma} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \hat {x}_i\\
+\\
+\frac {\partial \ell} {\partial \beta} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \beta}\\
+\frac {\partial \ell} {\partial \beta} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial y_i} \cdot 1\\
+\end{split}\end{equation}$$     
+
 ## Reference
 <https://ml-dnn.tistory.com/6>    
 Internal covariate shift와 함께 정리 잘된 논문을 정리
 <https://dalpo0814.tistory.com/18> BN 논문 정리
+
+<!-- <script>
+    pseudocode.renderElement(document.getElementById("Update Rule of Gamma and Beta"));
+</script> -->
