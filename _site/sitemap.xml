@@ -81,6 +81,10 @@
 <lastmod>2020-10-06T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/</loc>
+<lastmod>2020-10-22T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/categories/Computer%20Vision/</loc>
 </url>
 <url>
@@ -118,6 +122,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/page4/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page5/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/public/pseudocode.js-2.1.1/katex-samples.html</loc>

@@ -112,6 +112,10 @@
       
     
       
+        
+      
+    
+      
     
       
     
@@ -287,7 +291,7 @@ Batch Normalisation만 가지고는 우리의 방법의 full advantage를 얻기
 
 \[\begin{equation} \begin{split}     
 \frac {\partial \ell} {\partial \hat {x}_i} &amp;= \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \hat {x}_i} \\
-\frac {\partial \ell} {\partial \hat {x}_i} &amp;= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \gamma \\
+\frac {\partial \ell} {\partial \hat {x}_i} &amp;= \frac {\partial \ell} {\partial y_i} \cdot \gamma \\
 \end{split}\end{equation}\]
 
 <p>Since \(\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}\)</p>
@@ -328,6 +332,15 @@ Internal covariate shift와 함께 정리 잘된 논문을 정리
     
       <li>
         <h3>
+          <a href="/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">
+            Analytic Gradient vs Numerical Gradient
+            <small>22 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/statistics/2020/10/06/Sampling/">
             Sampling
             <small>06 Oct 2020</small>
@@ -340,15 +353,6 @@ Internal covariate shift와 함께 정리 잘된 논문을 정리
           <a href="/pattern%20recognition/2020/09/21/Bayesian-Networks/">
             Bayesian Networks
             <small>21 Sep 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/others/2020/09/08/tensorflow_note/">
-            Tensorflow Note
-            <small>08 Sep 2020</small>
           </a>
         </h3>
       </li>

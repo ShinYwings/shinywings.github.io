@@ -112,6 +112,10 @@
       
     
       
+        
+      
+    
+      
     
       
     
@@ -159,6 +163,36 @@
 <!---->
 
 <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/pattern%20recongnition/2020/09/01/Principal-Component-Analysis/">
+        Principal Component Analysis (PCA)
+      </a>
+    </h1>
+
+    <span class="post-date">01 Sep 2020</span>
+
+    <p>제일 좋은 참조. 내꺼 안봐도 됨<br />
+<a href="https://excelsior-cjh.tistory.com/167">https://excelsior-cjh.tistory.com/167</a><br />
+<a href="https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/">https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/</a></p>
+
+<p><img src="/public/asset/PCA-1.jpg" alt="PCA1" />
+<img src="/public/asset/PCA-2.jpg" alt="PCA2" />
+<img src="/public/asset/PCA-3.jpg" alt="PCA3" />
+<img src="/public/asset/PCA-4.jpg" alt="PCA4" />
+<img src="/public/asset/PCA-5.jpg" alt="PCA5" /></p>
+<ul>
+  <li>왜 분산이 제일 큰 것을 고를까?
+    <ul>
+      <li>분산이 제일 큰 것은 원래 데이터의 설명력을 가장 잘 보존하는 데이터(매개변수) 이기 때문이다. e.g. 3차원의 데이터를 1차원으로 줄일 수 있음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/public/asset/PCA-6.jpg" alt="PCA6" /></p>
+
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -358,79 +392,6 @@ Cov(Z,X) &amp; Cov(Z,Y) &amp; Cov(Z,Z)\\
   </li>
 </ul>
 
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">
-        LRN vs BN
-      </a>
-    </h1>
-
-    <span class="post-date">31 Aug 2020</span>
-
-    <p><img src="/public/asset/BN_vs_LRN.png" alt="bn-vs-lrn" /></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Batch Normalization</th>
-      <th>vs</th>
-      <th>Local Response Normalization</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>\(y= \frac {x-\mu} {\sqrt {\sigma^2 + \epsilon}} \gamma + \beta\)</td>
-      <td> </td>
-      <td>\(x_i= \frac {x_i} {(k+(\alpha\sum_{j} x_j^2))^\beta}\)</td>
-    </tr>
-    <tr>
-      <td>\(\epsilon\): small constant<br />(+)\(\gamma,\beta\): learnable parameters</td>
-      <td> </td>
-      <td>(-) \(k, \alpha, \beta\): hyper-parameters</td>
-    </tr>
-    <tr>
-      <td>pixel-wise</td>
-      <td> </td>
-      <td>pixel-wise</td>
-    </tr>
-    <tr>
-      <td>(+) 2 trainable parameters<br />    (shift &amp; scale)</td>
-      <td> </td>
-      <td>(-) non-trainable parameters</td>
-    </tr>
-    <tr>
-      <td>Internal Covariable Shift</td>
-      <td>중점</td>
-      <td>Lateral Inhibition</td>
-    </tr>
-    <tr>
-      <td>(+) Weight Regularization O</td>
-      <td> </td>
-      <td>(-) Weight Regularization X</td>
-    </tr>
-    <tr>
-      <td>Batch에 대한 정규화</td>
-      <td> </td>
-      <td>각각의 Feature position에 대한 정규화</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
-    <ul>
-      <li>hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. 왜냐하면 분포가 일정해지기 때문에 수렴속도가 빠르기 때문이다. 반면에 LRN은 Kernel maps의 분포가 hidden layer를 지나갈 때마다 바뀐다. (internal covariate shift)</li>
-      <li>DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]<a href="https://ml-dnn.tistory.com/6">https://ml-dnn.tistory.com/6</a> )</li>
-      <li>Regularization을 통해 가중치의 급격한 변화를 막는다.</li>
-      <li>Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적다. LRN의 Radius (n) 의 개수에 따라 수십초가 차이난다.(엄청 큼!!)</li>
-      <li>n = 10일때 보다 n = 5일때 30초가 덜 걸렸다. n = 1 인 BN을 사용했을 때 n = 3보다 40초가 덜 걸렸다. 엄청난 차이를 보인다.</li>
-      <li>LRN의 k는 학습을 불안정하게 만든다. 만약 Input Normalization을 한 상태라면 참조하는 kernel의 합이 1이 안되는데 k = 1 또는 2 를 더해주게 되면 모든 kernel은 비슷한 특징을 보이게 될 것이다. 내 실험에서도 항상 accuracy가 10%를 유지했다.</li>
-    </ul>
-  </li>
-</ul>
 
   </div>
   

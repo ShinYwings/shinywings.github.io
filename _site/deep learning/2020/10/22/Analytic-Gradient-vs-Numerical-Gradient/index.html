@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+   
+  <title>
+    
+      Analytic Gradient vs Numerical Gradient &middot; Shin
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+  <body class="theme-base-08">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/categories/">Categories</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Shin</a>
+            <small>jotting down</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script> 
+        <!-- Katex, pseudocode.js-->
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"
+        integrity="sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=" crossorigin="anonymous">
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js">
+  </script>
+
+  
+</head>
+<!---->
+
+<div class="post">
+  <h1 class="post-title">Analytic Gradient vs Numerical Gradient</h1>
+  <span class="post-date">22 Oct 2020</span>
+  <article>
+      <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script> 
+      <h2 id="in-cs231n">In CS231n,</h2>
+<h4 id="analytic-gradient">Analytic Gradient</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math.
+</code></pre></div></div>
+
+<h4 id="numerical-gradient">Numerical Gradient</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Numerical gradient is simple but it is approximate and expensive to compute.
+</code></pre></div></div>
+
+<p>Hence, in practice we always use the analytic gradient and then perform a <strong>gradient check</strong>, in which its implementation is compared to the numerical gradient.</p>
+
+<p>그래서 나는 AG나 NG가 mini-batch gradient descent가 full batch gradient descent에 비해 수렴 속도가 늦는다는 통념?에 대한 설명이라 생각한다.</p>
+
+<p>근데, mini-batch gradient descent은 stochastic적으로 full batch에 대한 gradient를 근사 (approximate) 하는 것이다.</p>
+
+<p>이 맥락을 Batch Normalization으로 가져다 놓으면,</p>
+
+<p>training 할 때 각 mini-batch의 mean과 variance를 구한다.  mean과 variance는 mini-batch의 분포를 (대표, 요약, 설명, 압축)할 수 있다.</p>
+<blockquote>
+  <p>분포 -&gt; mean, var -&gt; 원래 분포를 표현할 수 있지만  분포 -&gt; median, quantile -&gt; 원래 분포로는 불가능하다</p>
+</blockquote>
+
+<p>그래서 각 mini-batch의 mean과 variance를 평균을 내서 저장한다. 그러면 Full-batch에 대한 mean과 variance를 구할 수 있다.</p>
+
+<p>즉, training때는 mini-batch의 mean과 variance를 통해 analytic gradient를 구해 가중치 업데이트하는데 사용한다.</p>
+<blockquote>
+  <p>BN post에 보면 BackPropagation과정에서 dl/dx = 정규화된 x의 미분값 + 평균의 미분값 + 분산의 미분값이다.</p>
+</blockquote>
+
+<p><del>반면에, inference할 때, analytic gradient를 사용하면 정확히 테스트를 진행할 수가 없다. 왜냐하면 컴퓨터는 완벽한 gradient를 계산할 수 없고 approximate 이기 때문이다. (in CS231n)</del>  <br />
+예를 들어, 한번에 미분할 수 있는 것을 100개로 쪼개서 미분을 하게되면 condition error(=forward error - backward error)가 에러가 1번 발생할 것이 100번 발생할 것이기 때문이다. (100배 커지는다고는 확신 못하겠다.)</p>
+<blockquote>
+  <p>forward error : input을 알면 그 추정치와 true 값과의 차이
+backward error : input값을 모르지만 추정치를 알 수 있을때 true 값과의 차이</p>
+</blockquote>
+
+<p>그래서 dropout, bn 등 inference mode에서는 training과 같은 방법을 사용하면 안된다.</p>
+
+<p><del>그렇기 때문에 inference 때는 BN에서 사용할 numerical한 것이 필요하기 때문에 training 과정때 full-batch에 대한 mean과 variance를 계산한 것이다.
+그래서 numerical gradient 라고 하고 싶은데 inference때는 gradient update를 안하잖아…. ㅠㅠ</del></p>
+<h4>바보다..................................... cs231n에서 말하는 gradient check은 우리가 손으로 계산한게 analytic gradient고
+컴퓨터가 계산하는게 numerical gradient라고 말한건데 내가 보고싶은대로 해석함..............</h4>
+
+<p>그래서 더 찾아보기로 했다.</p>
+
+<h4 id="analytic-solution-vs-numerical-solution">Analytic Solution vs Numerical Solution</h4>
+
+<p>In mathematics, some problems can be solved analyticaaly and numerically.</p>
+
+<ul>
+  <li>An analytical solution involves framing the problem in a well-understood form and calculating the exact solution (and fast)</li>
+  <li>A numerical solution means making guesses at the solution and <strong>testing whether the problem is solved well enough to stop.</strong></li>
+</ul>
+
+<p>numerical method is being used due to the limitations of time or hardware capacity(can’t fit all the data into the memory to perform the analytical calculation)   <br />
+Moreover, analytical solution is unknown, so we have to work with numerical approach.</p>
+
+<h4 id="analytical-solution">Analytical Solution</h4>
+<p>Many problems have well-defined solutions that are obvious once the problem has been defined.
+A set of logical steps that we can follow to calculate an exact outcome.</p>
+
+<h4 id="numerical-solutions">Numerical Solutions</h4>
+<p>There are many problems that we are interested in that do not have exact solutions.
+Or at least, analytical solutions that we have figured out yet.
+<strong>We have to make guesses at solutions</strong> and test them to see how good the solution is. This involves framing the problem and using trial and error across a set of candidate solutions.</p>
+
+  </article>
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/statistics/2020/10/06/Sampling/">
+            Sampling
+            <small>06 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/pattern%20recognition/2020/09/21/Bayesian-Networks/">
+            Bayesian Networks
+            <small>21 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/others/2020/09/08/tensorflow_note/">
+            Tensorflow Note
+            <small>08 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>

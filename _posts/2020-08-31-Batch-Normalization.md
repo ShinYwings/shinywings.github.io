@@ -98,7 +98,7 @@ Given $$y = \gamma \hat {x}_i + \beta$$
      
 $$\begin{equation} \begin{split}     
 \frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \hat {x}_i} \\
-\frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial \hat {x}_i} \cdot \gamma \\
+\frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial y_i} \cdot \gamma \\
 \end{split}\end{equation}$$     
     
 Since $$\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}$$     

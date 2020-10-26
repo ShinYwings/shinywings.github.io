@@ -1,4 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-19T21:36:54+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Sampling</title><link href="http://localhost:4000/statistics/2020/10/06/Sampling/" rel="alternate" type="text/html" title="Sampling" /><published>2020-10-06T00:00:00+09:00</published><updated>2020-10-06T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/10/06/Sampling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/10/06/Sampling/">&lt;p&gt;&lt;strong&gt;샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…&lt;/strong&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-22T11:09:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Analytic Gradient vs Numerical Gradient</title><link href="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/" rel="alternate" type="text/html" title="Analytic Gradient vs Numerical Gradient" /><published>2020-10-22T00:00:00+09:00</published><updated>2020-10-22T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">&lt;h2 id=&quot;in-cs231n&quot;&gt;In CS231n,&lt;/h2&gt;
+&lt;h4 id=&quot;analytic-gradient&quot;&gt;Analytic Gradient&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;numerical-gradient&quot;&gt;Numerical Gradient&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The Numerical gradient is simple but it is approximate and expensive to compute.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hence, in practice we always use the analytic gradient and then perform a &lt;strong&gt;gradient check&lt;/strong&gt;, in which its implementation is compared to the numerical gradient.&lt;/p&gt;
+
+&lt;p&gt;그래서 나는 AG나 NG가 mini-batch gradient descent가 full batch gradient descent에 비해 수렴 속도가 늦는다는 통념?에 대한 설명이라 생각한다.&lt;/p&gt;
+
+&lt;p&gt;근데, mini-batch gradient descent은 stochastic적으로 full batch에 대한 gradient를 근사 (approximate) 하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;이 맥락을 Batch Normalization으로 가져다 놓으면,&lt;/p&gt;
+
+&lt;p&gt;training 할 때 각 mini-batch의 mean과 variance를 구한다.  mean과 variance는 mini-batch의 분포를 (대표, 요약, 설명, 압축)할 수 있다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;분포 -&amp;gt; mean, var -&amp;gt; 원래 분포를 표현할 수 있지만  분포 -&amp;gt; median, quantile -&amp;gt; 원래 분포로는 불가능하다&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그래서 각 mini-batch의 mean과 variance를 평균을 내서 저장한다. 그러면 Full-batch에 대한 mean과 variance를 구할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;즉, training때는 mini-batch의 mean과 variance를 통해 analytic gradient를 구해 가중치 업데이트하는데 사용한다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;BN post에 보면 BackPropagation과정에서 dl/dx = 정규화된 x의 미분값 + 평균의 미분값 + 분산의 미분값이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;del&gt;반면에, inference할 때, analytic gradient를 사용하면 정확히 테스트를 진행할 수가 없다. 왜냐하면 컴퓨터는 완벽한 gradient를 계산할 수 없고 approximate 이기 때문이다. (in CS231n)&lt;/del&gt;  &lt;br /&gt;
+예를 들어, 한번에 미분할 수 있는 것을 100개로 쪼개서 미분을 하게되면 condition error(=forward error - backward error)가 에러가 1번 발생할 것이 100번 발생할 것이기 때문이다. (100배 커지는다고는 확신 못하겠다.)&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;forward error : input을 알면 그 추정치와 true 값과의 차이
+backward error : input값을 모르지만 추정치를 알 수 있을때 true 값과의 차이&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그래서 dropout, bn 등 inference mode에서는 training과 같은 방법을 사용하면 안된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;그렇기 때문에 inference 때는 BN에서 사용할 numerical한 것이 필요하기 때문에 training 과정때 full-batch에 대한 mean과 variance를 계산한 것이다.
+그래서 numerical gradient 라고 하고 싶은데 inference때는 gradient update를 안하잖아…. ㅠㅠ&lt;/del&gt;&lt;/p&gt;
+&lt;h4&gt;바보다..................................... cs231n에서 말하는 gradient check은 우리가 손으로 계산한게 analytic gradient고
+컴퓨터가 계산하는게 numerical gradient라고 말한건데 내가 보고싶은대로 해석함..............&lt;/h4&gt;
+
+&lt;p&gt;그래서 더 찾아보기로 했다.&lt;/p&gt;
+
+&lt;h4 id=&quot;analytic-solution-vs-numerical-solution&quot;&gt;Analytic Solution vs Numerical Solution&lt;/h4&gt;
+
+&lt;p&gt;In mathematics, some problems can be solved analyticaaly and numerically.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An analytical solution involves framing the problem in a well-understood form and calculating the exact solution (and fast)&lt;/li&gt;
+  &lt;li&gt;A numerical solution means making guesses at the solution and &lt;strong&gt;testing whether the problem is solved well enough to stop.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;numerical method is being used due to the limitations of time or hardware capacity(can’t fit all the data into the memory to perform the analytical calculation)   &lt;br /&gt;
+Moreover, analytical solution is unknown, so we have to work with numerical approach.&lt;/p&gt;
+
+&lt;h4 id=&quot;analytical-solution&quot;&gt;Analytical Solution&lt;/h4&gt;
+&lt;p&gt;Many problems have well-defined solutions that are obvious once the problem has been defined.
+A set of logical steps that we can follow to calculate an exact outcome.&lt;/p&gt;
+
+&lt;h4 id=&quot;numerical-solutions&quot;&gt;Numerical Solutions&lt;/h4&gt;
+&lt;p&gt;There are many problems that we are interested in that do not have exact solutions.
+Or at least, analytical solutions that we have figured out yet.
+&lt;strong&gt;We have to make guesses at solutions&lt;/strong&gt; and test them to see how good the solution is. This involves framing the problem and using trial and error across a set of candidate solutions.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Gradient Descent" /><summary type="html">In CS231n, Analytic Gradient the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math. Numerical Gradient The Numerical gradient is simple but it is approximate and expensive to compute.</summary></entry><entry><title type="html">Sampling</title><link href="http://localhost:4000/statistics/2020/10/06/Sampling/" rel="alternate" type="text/html" title="Sampling" /><published>2020-10-06T00:00:00+09:00</published><updated>2020-10-06T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/10/06/Sampling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/10/06/Sampling/">&lt;p&gt;&lt;strong&gt;샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
 
@@ -474,64 +538,4 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</conte
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry><entry><title type="html">LRN vs BN</title><link href="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/" rel="alternate" type="text/html" title="LRN vs BN" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/LRN-VS-BN/">&lt;p&gt;&lt;img src=&quot;/public/asset/BN_vs_LRN.png&quot; alt=&quot;bn-vs-lrn&quot; /&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Batch Normalization&lt;/th&gt;
-      &lt;th&gt;vs&lt;/th&gt;
-      &lt;th&gt;Local Response Normalization&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\(y= \frac {x-\mu} {\sqrt {\sigma^2 + \epsilon}} \gamma + \beta\)&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;\(x_i= \frac {x_i} {(k+(\alpha\sum_{j} x_j^2))^\beta}\)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\(\epsilon\): small constant&lt;br /&gt;(+)\(\gamma,\beta\): learnable parameters&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) \(k, \alpha, \beta\): hyper-parameters&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;pixel-wise&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;pixel-wise&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(+) 2 trainable parameters&lt;br /&gt;    (shift &amp;amp; scale)&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) non-trainable parameters&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Internal Covariable Shift&lt;/td&gt;
-      &lt;td&gt;중점&lt;/td&gt;
-      &lt;td&gt;Lateral Inhibition&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;(+) Weight Regularization O&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;(-) Weight Regularization X&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Batch에 대한 정규화&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;각각의 Feature position에 대한 정규화&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;LRN이 더 이상 쓰이지 않는 것에 대한 내 생각
-    &lt;ul&gt;
-      &lt;li&gt;hyper-parameters의 수가 너무 많다. 반면에 BN은 trainable parameters가 존재하여 가중치를 업데이트하는데 도움이 된다. 왜냐하면 분포가 일정해지기 때문에 수렴속도가 빠르기 때문이다. 반면에 LRN은 Kernel maps의 분포가 hidden layer를 지나갈 때마다 바뀐다. (internal covariate shift)&lt;/li&gt;
-      &lt;li&gt;DL에서 가장 중요한 문제점인 Internal Covariable Shift의 문제를 해결한다.(어떤 논문에서는 이것을 해결하는게 아니지만 여전히 좋은 도구라고 생각 [참조]&lt;a href=&quot;https://ml-dnn.tistory.com/6&quot;&gt;https://ml-dnn.tistory.com/6&lt;/a&gt; )&lt;/li&gt;
-      &lt;li&gt;Regularization을 통해 가중치의 급격한 변화를 막는다.&lt;/li&gt;
-      &lt;li&gt;Batch에 대한 정규화 작업이 Feature Map에 대한 정규화 작업보다 계산할 parameters의 수가 적다. LRN의 Radius (n) 의 개수에 따라 수십초가 차이난다.(엄청 큼!!)&lt;/li&gt;
-      &lt;li&gt;n = 10일때 보다 n = 5일때 30초가 덜 걸렸다. n = 1 인 BN을 사용했을 때 n = 3보다 40초가 덜 걸렸다. 엄청난 차이를 보인다.&lt;/li&gt;
-      &lt;li&gt;LRN의 k는 학습을 불안정하게 만든다. 만약 Input Normalization을 한 상태라면 참조하는 kernel의 합이 1이 안되는데 k = 1 또는 2 를 더해주게 되면 모든 kernel은 비슷한 특징을 보이게 될 것이다. 내 실험에서도 항상 accuracy가 10%를 유지했다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><category term="Local Response Normalization" /><summary type="html"></summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry></feed>
