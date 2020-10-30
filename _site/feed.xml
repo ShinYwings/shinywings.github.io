@@ -1,4 +1,254 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-22T11:09:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Analytic Gradient vs Numerical Gradient</title><link href="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/" rel="alternate" type="text/html" title="Analytic Gradient vs Numerical Gradient" /><published>2020-10-22T00:00:00+09:00</published><updated>2020-10-22T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">&lt;h2 id=&quot;in-cs231n&quot;&gt;In CS231n,&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-29T16:38:51+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Attention Mechanism</title><link href="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/" rel="alternate" type="text/html" title="Attention Mechanism" /><published>2020-10-28T00:00:00+09:00</published><updated>2020-10-28T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/">&lt;h2 id=&quot;attention-mechanism&quot;&gt;Attention Mechanism&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;문제   &lt;br /&gt;
+seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 하나의 고정된 크기의 벡터 표현으로 압축하고,
+디코더는 context vector를 통해 출력 seq를 만들어냄.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;하나의 고정된 크기의 벡터에 모든 정보를 압축하려고 하니까 정보 손실이 발생&lt;/strong&gt;
+&lt;strong&gt;Vanishing gradient 문제 존재&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Idea    &lt;br /&gt;
+Decoder에서 출력 단어를 예측하는 매 시점마다 (time step), encoder에서의 전체 입력 문장을 다시 한 번 참고한다는 점입니다.
+단, 전체 입력 문장을 전부 다 동일한 비율로 참고하는 것이 아니라, 해당 시점에서 예측해야할 단어와 연관이 있는 입력 단어 부분을
+좀 더 집중(attention)해서 보게 됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Attention&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Attention&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Q: query (t 시점의 디코더 셀에서의 은닉 상태)   &lt;br /&gt;
+K: key (모든 시점의 인코더 셀의 은닉 상태들)  &lt;br /&gt;
+V: value (모든 시점의 인코더 셀의 은닉 상태들)&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Attention Map" /><summary type="html">Attention Mechanism</summary></entry><entry><title type="html">Autoencoder</title><link href="http://localhost:4000/deep%20learning/2020/10/27/Autoencoder/" rel="alternate" type="text/html" title="Autoencoder" /><published>2020-10-27T00:00:00+09:00</published><updated>2020-10-27T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/27/Autoencoder</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/27/Autoencoder/">&lt;h2 id=&quot;definition&quot;&gt;Definition&lt;/h2&gt;
+
+&lt;p&gt;a neural network that is trained to attempt to copy its input to its output.&lt;/p&gt;
+
+&lt;p&gt;Encoder(deterministic functions): \(h = f(x)\)   &lt;br /&gt;
+Decoder(stochastic mappings): \(r = g(h)\)&lt;/p&gt;
+
+&lt;p&gt;So, learning to set \(g(f(x)) = x\)&lt;/p&gt;
+
+&lt;p&gt;However, autoencoders are designed to be &lt;strong&gt;unable&lt;/strong&gt; to learn to copy &lt;strong&gt;perfectly&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Objective : h taking on useful properties(features).&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;useful featrues from the autoencoder is to constrain \(h\) to have a smaller dimension than \(x\).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Usage : feature learning (feature extraction), dimensionality reduction&lt;/p&gt;
+
+&lt;h2 id=&quot;modern-autoencoders&quot;&gt;Modern Autoencoders&lt;/h2&gt;
+&lt;p&gt;Encoder =&amp;gt; Deterministic functions : \(p_{encoder}(h|x)\)   &lt;br /&gt;
+Decoder =&amp;gt; Stochastic mappings : \(P_{decoder}(x|h)\)&lt;/p&gt;
+
+&lt;p&gt;So, autoencoders + latent variable models =&amp;gt; generative modeling.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Latent Variable(as opposed to observable variables)  &lt;br /&gt;
+ := the variables that are not directly observed but are rather inferred from other variables that are observed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Autoencoder training&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;minibatch gradient descent&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;recirculation&lt;/strong&gt;   &lt;br /&gt;
+  := a learning algorithm based on comparing the activations of the network on the original input to the activations on the reconstructed input.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The learning process&lt;/p&gt;
+
+\[min({L(x,g(f(x)))})\]
+
+&lt;p&gt;\(L\) is a loss function penalizing \(g(f(x))\)&lt;/p&gt;
+
+&lt;h2 id=&quot;undercomplete-autoencoders&quot;&gt;Undercomplete Autoencoders&lt;/h2&gt;
+&lt;p&gt;an autoencoder whose hidden code (\(h\)) dimension is less than the input dimension.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;undercomplete with (decoder = linear), (\(L\) = MSE)
+    &lt;ul&gt;
+      &lt;li&gt;learns to span the same subspace as &lt;strong&gt;PCA&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;trained to perform the copying task has learnt the princple subspace of the training data as a &lt;strong&gt;side effect&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;undercomplete with (encoder = nonlinear), (decoder = nonlinear)
+    &lt;ul&gt;
+      &lt;li&gt;learn a more &lt;strong&gt;powerful nonlinear generalization of PCA&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DON’T allows too much capacity&lt;/strong&gt;  &lt;br /&gt;
+  -about the distribution of the data, feature extracting 대신에 copying 함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;overcomplete-autoencoders&quot;&gt;Overcomplete Autoencoders&lt;/h2&gt;
+&lt;p&gt;an autoencoder whose hidden code (\(h\)) dimension is greater than the input dimension.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;overcomplete with (encoder = linear), (decoder = linear)
+    &lt;ul&gt;
+      &lt;li&gt;learn to copy the input to the output without learning anything useful about the data distribution.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;regularized-autoencoders&quot;&gt;Regularized Autoencoders&lt;/h2&gt;
+&lt;p&gt;get ability to &lt;strong&gt;choose the code dimension and the capacity&lt;/strong&gt; of the encoder and decoder based on the complexity of distribution to be modeled.&lt;/p&gt;
+
+&lt;p&gt;Rather than limiting the model capacity by keeping the encoder and decoder shallow and the code size small.&lt;/p&gt;
+
+&lt;p&gt;Objective : use a loss function that encourages the model to have other properties include sparsity of the representation, smallness of the derivative of the representation, and robustness to noise or to missing inputs.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Regularized + Overcomplete = Undercomplete   &lt;br /&gt;
+(in terms of feature extraction)
+    &lt;ul&gt;
+      &lt;li&gt;can be nonlinear and overcomplete but still learn something useful about the data distribution, even if the model capacity is great enough to learn a trivial identity function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;particular-form-of-autoencoder-regularized-autoencoders-관련된-모델들&quot;&gt;Particular form of Autoencoder (regularized autoencoders 관련된 모델들)&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;nearly any generative model with latent variables&lt;/li&gt;
+  &lt;li&gt;equipped with an inference procedure (for computing latent representations given input)
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Two generative modeling approaches that emphasize this connection with autoencoders are &lt;strong&gt;the descendants of the Helmholtz machine&lt;/strong&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Helmholtz machine&lt;/p&gt;
+        &lt;ol&gt;
+          &lt;li&gt;variational autoencoder (section 20.10.3 in deep learning book)&lt;/li&gt;
+          &lt;li&gt;generative stochastic networks (section 20.12 in deep learning book)
+            &lt;ul&gt;
+              &lt;li&gt;These models naturally learn high-capacity, overcomplete encodings of the input and do not require regularization for these encodings to be useful.&lt;/li&gt;
+              &lt;li&gt;there encodings are naturally useful because the models were trained to approximately maximize the probability of the training data rather than to copy to input to the output.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;sparse-autoencoders&quot;&gt;Sparse Autoencoders&lt;/h2&gt;
+&lt;p&gt;an autoencoder whose training criterion involves a sparsity penalty \(\Omega(h)\) on the code layer \(h\), in addition to the reconstruction error&lt;/p&gt;
+
+\[L(x,g(f(x))) + \Omega(h)\]
+
+&lt;p&gt;usage : learn features for another task (e.g. classification)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;copying task(vanila autoencoder) + sparsity penalty 목적
+    &lt;ul&gt;
+      &lt;li&gt;yield a model that has learnt useful features(unique statistical features) as a byproduct.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;\(\Omega(h)\) is sort of Regularizer
+    &lt;ul&gt;
+      &lt;li&gt;However, there is not a straightforward Bayesian interpretation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;training with weight decay(= regularizer) and other regularization penalties can be intpreted as a MAP approximation to Bayesian inference, with the added regularizing penalty corresponding to &lt;strong&gt;a prior probability distribution&lt;/strong&gt; over the model parameters.&lt;/p&gt;
+
+    &lt;p&gt;\(\begin{equation} \begin{split} i.e.\;\; MAP\;approxiamtion &amp;amp;\approx Bayesian\;inference + regularizing\;panelty \\    
+                    &amp;amp;\approx training + regularizing\;penalty \end{split}\end{equation}\)   &lt;br /&gt;
+In this view, \(\begin{equation}\begin{split} regularized\;maximum\;likelihood &amp;amp;= max\;p(\theta|x) \\
+      &amp;amp;= max\;(MAP\;Estimation(p(\theta|x))) \\
+      &amp;amp;= max\;(log(MAP(p(\theta|x)))) \\
+      &amp;amp;= max\;(log\:p(x|\theta)p(\theta)) \\ 
+      &amp;amp;= max\;(log\:p(x|\theta)+log\;p(\theta)) \\
+      &amp;amp;Equivalent,\\
+      &amp;amp;= max\;(log\;likelihood + prior\;distribution) \\ \end{split}\end{equation}\)
+      where,  &lt;br /&gt;
+          \(p(\theta|x)\) is conditonal probability  &lt;br /&gt;
+          \(p(x|\theta)\) is likelihood  &lt;br /&gt;
+          all \(\theta\) is independent  &lt;br /&gt;
+          &lt;strong&gt;prior distribution can implicitly expressed as a preference over functions&lt;/strong&gt;&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;MAP inference using a gaussian prior on W (Maximum A Posteriori)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Bayes theorem (conditional probability)   &lt;br /&gt;
+  evidence  = (likelihood * prior P) / (posterior P)&lt;/li&gt;
+        &lt;/ul&gt;
+
+\[p(x|z) = \frac {p(x \cap z)} {p(z)}  = \frac {p(z|x)p(x)} {p(z)}\]
+
+        &lt;ul&gt;
+          &lt;li&gt;MAP method
+            &lt;ul&gt;
+              &lt;li&gt;posterior P를 최대화 시킨다.&lt;/li&gt;
+              &lt;li&gt;장점: leveraging information that is brought by the prior and cannot be found in the training data.  &lt;br /&gt;
+  (this additional information helps to reduce the variance in the MAP point estimate)&lt;/li&gt;
+              &lt;li&gt;단점: the price of increased bias&lt;/li&gt;
+            &lt;/ul&gt;
+
+            &lt;p&gt;(e.g.)   &lt;br /&gt;
+  z = 머리카락 발견  &lt;br /&gt;
+  남자것일 확률: \(p(male|z)\)  &lt;br /&gt;
+  여자것일 확률: \(p(female|z)\)&lt;/p&gt;
+
+            &lt;p&gt;비교 후, 큰 값을 갖는 클래스(성별) 찾는 방법&lt;/p&gt;
+
+\[\begin{equation} \begin{split}
+  p(female|z) &amp;amp;= \frac {p( female \cap z)} {p(female \cap z) + p(male \cap z)} \\     
+  &amp;amp;= \frac {p(z|female)p(z)} {p(z|female)p(z) + p(z|male)p(z)} \\
+  &amp;amp;\;Since,\;the\;summation\;of\;all\;probablities\;is\;1      \\
+  &amp;amp;(male\;and\;female\;are\;independent) \\
+  &amp;amp;= p(z|female)p(z) 
+  \end{split}\end{equation}\]
+
+            &lt;table&gt;
+              &lt;thead&gt;
+                &lt;tr&gt;
+                  &lt;th&gt;Maximum likelihood&lt;/th&gt;
+                  &lt;th&gt;Maximum A Posteriori&lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/thead&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td&gt;class 비율 고려X&lt;/td&gt;
+                  &lt;td&gt;class 비율 고려O&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/li&gt;
+          &lt;li&gt;MAP Estimation
+  choose the point of maximal posterior probability  &lt;br /&gt;
+  \(\theta_{MAP} = arg\;max_\theta\;p(\theta|x) = arg\;max_\theta\;log\:p(x|\theta) + log\:p(\theta)\)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, Regularized autoencoders defy such an interpretation because the regularizer \(\Omega(h)\)는 데이터에 의존하므로 정의상 단어의 공식적인 의미에서 &lt;strong&gt;a prior&lt;/strong&gt;이 아닙니다.  &lt;br /&gt;
+So, Rather than thinking of the sparsity penalty as a regularizer for the copying task, we can think of the entire sparse autoencoder framework as &lt;strong&gt;approximating maximum likelihood training of a generative model that has latent variables.&lt;/strong&gt; Again,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;explicit joint distribution \(p_{model}(h,x)=p_{model}(h)p_{model}(x|h)\)  &lt;br /&gt;
+where, h is latent varibles and x is visible variables&lt;/li&gt;
+  &lt;li&gt;\(p(\theta)\) encodes our beliefs about the model’s parameters before we have seen the training data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thus, log-likelihood can be decomposed as&lt;/p&gt;
+
+\[log\;p_{model}(x)=log\displaystyle \sum_h p_{model}(h,x)\]
+
+&lt;blockquote&gt;
+  &lt;p&gt;p(x)가 exp함수이면 log likelihood의 softmax의 loss 함수 꼴&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이러면, autoencoder를 approximating this sum with a point estimate for just one highly likely value for \(h\)  &lt;br /&gt;
+(sparse coding generative model이랑 비슷하다)&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="GAN" /><summary type="html">Definition</summary></entry><entry><title type="html">Analytic Gradient vs Numerical Gradient</title><link href="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/" rel="alternate" type="text/html" title="Analytic Gradient vs Numerical Gradient" /><published>2020-10-22T00:00:00+09:00</published><updated>2020-10-22T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">&lt;h2 id=&quot;in-cs231n&quot;&gt;In CS231n,&lt;/h2&gt;
 &lt;h4 id=&quot;analytic-gradient&quot;&gt;Analytic Gradient&lt;/h4&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -62,9 +312,7 @@ A set of logical steps that we can follow to calculate an exact outcome.&lt;/p&g
 &lt;h4 id=&quot;numerical-solutions&quot;&gt;Numerical Solutions&lt;/h4&gt;
 &lt;p&gt;There are many problems that we are interested in that do not have exact solutions.
 Or at least, analytical solutions that we have figured out yet.
-&lt;strong&gt;We have to make guesses at solutions&lt;/strong&gt; and test them to see how good the solution is. This involves framing the problem and using trial and error across a set of candidate solutions.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Gradient Descent" /><summary type="html">In CS231n, Analytic Gradient the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math. Numerical Gradient The Numerical gradient is simple but it is approximate and expensive to compute.</summary></entry><entry><title type="html">Sampling</title><link href="http://localhost:4000/statistics/2020/10/06/Sampling/" rel="alternate" type="text/html" title="Sampling" /><published>2020-10-06T00:00:00+09:00</published><updated>2020-10-06T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/10/06/Sampling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/10/06/Sampling/">&lt;p&gt;&lt;strong&gt;샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
+&lt;strong&gt;We have to make guesses at solutions&lt;/strong&gt; and test them to see how good the solution is. This involves framing the problem and using trial and error across a set of candidate solutions.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Gradient Descent" /><summary type="html">In CS231n, Analytic Gradient the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math. Numerical Gradient The Numerical gradient is simple but it is approximate and expensive to compute.</summary></entry><entry><title type="html">Sampling</title><link href="http://localhost:4000/statistics/2020/10/06/Sampling/" rel="alternate" type="text/html" title="Sampling" /><published>2020-10-06T00:00:00+09:00</published><updated>2020-10-06T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/10/06/Sampling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/10/06/Sampling/">&lt;p&gt;numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)&lt;/p&gt;
 
 &lt;p&gt;숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.&lt;/p&gt;
 
@@ -143,9 +391,15 @@ Or at least, analytical solutions that we have figured out yet.
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;rejection sampling - goodnote advanced ai week2에 있음&lt;/p&gt;
+
+&lt;p&gt;importance sampling - goodnote advanced ai week2에 있음&lt;/p&gt;
+
+&lt;p&gt;gibble sampler - goodnote advanced ai week2에 있음&lt;/p&gt;
+
 &lt;script&gt;
     pseudocode.renderElement(document.getElementById(&quot;Box_Muller_Scheme&quot;));
-&lt;/script&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Bayesian Network" /><summary type="html">샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…</summary></entry><entry><title type="html">Bayesian Networks</title><link href="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/" rel="alternate" type="text/html" title="Bayesian Networks" /><published>2020-09-21T00:00:00+09:00</published><updated>2020-09-21T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/">&lt;ul&gt;
+&lt;/script&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="Bayesian Network" /><summary type="html">numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)</summary></entry><entry><title type="html">Bayesian Networks</title><link href="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/" rel="alternate" type="text/html" title="Bayesian Networks" /><published>2020-09-21T00:00:00+09:00</published><updated>2020-09-21T00:00:00+09:00</updated><id>http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks</id><content type="html" xml:base="http://localhost:4000/pattern%20recognition/2020/09/21/Bayesian-Networks/">&lt;ul&gt;
   &lt;li&gt;확률 이론 + 그래프 이론&lt;/li&gt;
   &lt;li&gt;Directed Acyclic Gragh (DAG)
     &lt;blockquote&gt;
@@ -503,39 +757,4 @@ Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
 
 &lt;p&gt;맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   &lt;br /&gt;
 유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   &lt;br /&gt;
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry><entry><title type="html">Whitening</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/" rel="alternate" type="text/html" title="Whitening" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Whitening</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">&lt;p&gt;input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미&lt;/p&gt;
-
-&lt;p&gt;이 조건을 만족하면 더 빨라진다!&lt;/p&gt;
-
-&lt;p&gt;하지만 공분산 계산하는 computationally cost가 높다.&lt;/p&gt;
-
-&lt;p&gt;Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  &lt;br /&gt;
-왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="NormalizationNormalization" /><summary type="html">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미 이 조건을 만족하면 더 빨라진다! 하지만 공분산 계산하는 computationally cost가 높다.</summary></entry><entry><title type="html">Local Response Normalization</title><link href="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/" rel="alternate" type="text/html" title="Local Response Normalization" /><published>2020-08-31T00:00:00+09:00</published><updated>2020-08-31T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/08/31/Local-Response-Normalization/">&lt;ul&gt;
-  &lt;li&gt;Local Contrast Normalization과 유사 &lt;br /&gt;
-  &lt;a href=&quot;http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf&quot;&gt;What is the Best Multi-Stage Architecture for Object Recognition?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;아… feature map은 항상 1D 인가?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;non-trainable layer&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/asset/LRN-sort.png&quot; alt=&quot;sort-LRN&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/deep%20learning/2020/08/23/AlexNet/&quot;&gt;AlexNet&lt;/a&gt; 에서 사용한 방식은 Inter-Channel LRN 이다. AlexNet 링크 참조하면 됨&lt;/li&gt;
-  &lt;li&gt;Intra-Channel LRN:
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by&lt;/p&gt;
-
-        &lt;p&gt;&lt;img src=&quot;/public/asset/intra-channel-lrn.png&quot; alt=&quot;intra-channel-lrn&quot; /&gt;&lt;/p&gt;
-        &lt;ul&gt;
-          &lt;li&gt;inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 \(-&amp;gt;\) 2D neigborhood&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="Batch Normalization" /><summary type="html">Local Contrast Normalization과 유사 What is the Best Multi-Stage Architecture for Object Recognition?</summary></entry></feed>
+Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry></feed>

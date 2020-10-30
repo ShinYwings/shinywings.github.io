@@ -166,6 +166,250 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/computer%20vision/2020/08/27/Correlation-vs-Convolution/">
+        Correlation VS Convolution
+      </a>
+    </h1>
+
+    <span class="post-date">27 Aug 2020</span>
+
+    <p><a href="https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/</a></p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/computer%20vision/2020/08/26/stationarity-of-statistics/">
+        Stationarity of Statistics in terms of CV
+      </a>
+    </h1>
+
+    <span class="post-date">26 Aug 2020</span>
+
+    <p><a href="/deep%20learning/2020/08/23/AlexNet/">AlexNet</a> 논문 중에서,</p>
+<blockquote>
+  <p>Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
+about the nature of images (namely, stationarity of statistics and locality of pixel dependencies).</p>
+</blockquote>
+
+<p>이 있다.</p>
+
+<p>the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기를 컨트롤 할 수 있고 강력하고 정확한 assumptions을 생성할 수 있다.</p>
+
+<p>이 때, the nature of images의 조건 3가지,</p>
+<ol>
+  <li>namely</li>
+  <li>stationarity of statistics</li>
+  <li>locality of pixel dependencies  <br />
+라고 한다.</li>
+</ol>
+
+<p>세 가지 각각의 의미는,</p>
+
+<ul>
+  <li>namely
+    <ul>
+      <li>an object modeller and a system that performs the matching of stored representations to those derived from the sensed image.   <br />
+(i.e. 어떤 이미지에 대해 모델이 정확히 인식해야 한다.)</li>
+    </ul>
+  </li>
+  <li>stationarity of statistics
+    <ul>
+      <li>개인적으로 뜻을 이해하기 정말 어려웠다.
+        <ul>
+          <li>
+            <p>Wikipida 인용</p>
+
+            <blockquote>
+              <p>확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 
+  확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  <br />
+   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.</p>
+            </blockquote>
+
+            <p><code class="language-plaintext highlighter-rouge">1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.</code><br />
+  <code class="language-plaintext highlighter-rouge">2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.</code></p>
+          </li>
+          <li>
+            <p>위키피디아는 시간의 불변성을 이야기를 한다.  <br />
+ 그래서, 시간에 따른 a sequence of images, 즉 video를 생각하게 되었다.  <br />
+ 하지만, stackexchange에서는 시간이 아닌 <strong>픽셀</strong>로 생각해야한다고 주장한다.</p>
+          </li>
+          <li>StackExchange 인용 (약간 controversial 하네)
+            <blockquote>
+              <p>답변: stationarity of statistics might mean that the values of the pixels do not change over time, so this could be related to diffusion techniques in image processing. stationarity of statistics might also mean that the values of the pixels do not change much in a spatial neighborhood, even though, stationarity, e.g. in reinforcement learning, usually means that something does not change over time (so, if that’s the case, the terminology stationarity is at least misleading and confusing, in this context), so this might be related to the locality of pixel dependencies property. Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.</p>
+            </blockquote>
+
+            <blockquote>
+              <p>I really think in this case stationarity isn’t regarding time, but <strong>spatial location (given no time exists– im assuming you meant over the dataset)</strong> I think they’re saying a lot of local statistics are common across multiple areas of the image (therefore a single convolved filter can be a useful featurization of multiple fields rather than just one) – mshlis Jul 31 ‘19 at 1:19</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@mshlis You might be right. This was my interpretation, given the usual meaning of stationarity (e.g. in reinforcement learning). However, if your interpretation is correct, then their terminology is highly confusing or misleading. – nbro♦ Jul 31 ‘19 at 1:36</p>
+            </blockquote>
+
+            <blockquote>
+              <p>I completely agree, <strong>generally stationarity when referring to images draws on the distributions of the pixels themselves</strong>, but here it seems to be used based on the dependencies, treating the moving indices of the convolution to parametrize some from of process. – mshlis Jul 31 ‘19 at 2:06</p>
+            </blockquote>
+
+            <blockquote>
+              <p>Thanks for the answer! Could you edit the part about stationarity of statistics? I don’t think there’s any temporal aspect to image processing at least in the context of the question. I can then accept the answer once that part of edited. Thanks again! – Shirish Kulhari Jul 31 ‘19 at 9:19</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@ShirishKulhari You can view an image or a sequence of images as a flow over time, so this interpretation is not completely wrong. Have a look at certain image processing techniques that are based on diffusion. – nbro♦ Jul 31 ‘19 at 10:12</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@nbro: Oh, my bad. I can understand that a video could definitely be interpreted as a sequence of images as a flow over time, but I’m not clear on how a single, static image be interpreted as such. Could you elaborate about that in the answer, if possible? – Shirish Kulhari Jul 31 ‘19 at 10:19</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@ShirishKulhari <strong>Essentially, a noisy image \(\hat{f}\) of an original image \(f\) might be viewed as an image of a sequence of images, \(f,f1,f2,\cdots,\hat{f},\hat{f^1} \cdots,\)that starts at the original image and goes through \(\hat{f}\), so this sequence of images is part of a “flow”.</strong> <strong>This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image.</strong> If you’re interested in this, have a look at the details of this technique. – nbro♦ Jul 31 ‘19 at 10:21</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@nbro: So denoising involves figuring out the transformation \(f→\hat{f}\) and inverting it? – Shirish Kulhari Jul 31 ‘19 at 10:23</p>
+            </blockquote>
+
+            <blockquote>
+              <p>@ShirishKulhari Yes, that’s basically the idea. – nbro♦ Jul 31 ‘19 at 10:24</p>
+            </blockquote>
+
+            <p><code class="language-plaintext highlighter-rouge">1. 한 이미지에 대한 noise가 일정하다(pixel의 분산정도가 낮다?)는 것이라고 강화 학습에서 주로 쓰는 용어라고 한다. (stationarity of pixel distribution)</code></p>
+
+            <p><code class="language-plaintext highlighter-rouge">2. diffused image 같은 것들, anisotropic diffusion filter가 있다고 함. (Gaussian Filter가 영상의 엣지를 부드럽게 하는 것이라면 이거는 엣지를 더 세운다.)</code></p>
+          </li>
+          <li>i.e. 좀 더 선명해야 한다. 색이 퍼져 있음 안된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>locality of pixel dependencies
+    <blockquote>
+      <p><strong>neighboring pixels tend to be correlated</strong>, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually chosen to be fixed and rectangular (or squared).</p>
+    </blockquote>
+
+    <ul>
+      <li>옆에 있는 픽셀끼리의 서로 간의 연관성이 있어야 한다.</li>
+    </ul>
+
+    <p><img src="/public/asset/locality_of_pixel_dependency.png" alt="locality" /></p>
+
+    <blockquote>
+      <p>아래 사진을 보면 코라는 특징은 파란색 사각형 안에 있는 픽셀값에서만 표현되고 해당 픽셀들끼리만 관계를 가진다고 볼 수 있다. 빨간색 사각형안의 픽셀들은 파란색 사각형안의 픽셀들과는 종속성이 없다.</p>
+    </blockquote>
+
+    <p>Sparse interations 특성을 갖는 필터로 Convolution 연산을 하는 것과 잘 어울린다.</p>
+    <blockquote>
+      <p>Sparse interations: 하나의 출력 유닛이 입력의 전체 유닛과 연관(연결)되어 있지 않고 입력의 일부(locality) 유닛들과만  연결되어 있다라는 의미</p>
+    </blockquote>
+
+    <p>stationarity of statistics의 또한 Sparse interations 특성을 어느 정도 가지고 있다.</p>
+  </li>
+  <li>
+    <p><strong>궁금한 점</strong>:  <br />
+  픽셀끼리의 서로 간의 연관성이 있어야 한다. 라는 말이 와닿지가 않는다. 이웃한 픽셀끼리 비슷한 값을 가진다라는게 correlated한 것이라고 하면, 뿌옇게 된 이미지는 locality of pixel dependencies가 좋다는 말이다. 하지만, stackexchange의 인용에 따르면 뿌옇게 된 것은 stationarity of statistics에 나쁜 것이다. 그럼 2번과 3번은 서로 trade-off 관계에 있는 것일까?</p>
+
+    <p>[해결]</p>
+    <blockquote>
+      <p>trade-off 가 아닌 이유는 locality는 feature를 정의하는데 필요한 것이고 stationarity는 그 feature를 가지고 추측을 하는데 필요한 것이다. 그러므로, 서로 상부상조하는 관계이다. ^^  <br />
+Blurring 같은 경우에도 stationarity가 맞긴 하지만 여기서 이야기하는 CNN에 대한 stationarity가 아닌 이미지 프로세싱에 대한 stationarity에 대해 말하는 것 같다!</p>
+    </blockquote>
+
+    <p><img src="/public/asset/stationarity_of_statistics.png" alt="stationarity of statistics vs locality of pixel dependency" />   <br />
+  [추가 자료]<a href="https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979">https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979</a></p>
+
+    <blockquote>
+      <p>Stationarity of statistics는 시간이 변해도 패턴이 반복된다는 
+뜻이다. <br />
+동일한 패턴이 반복되면 분석도 훨씬 쉬워진다.   <br />
+~생략~  <br />
+즉, 이미지의 특정 위치에서 학습한 파라미터를 이용해서 다른 위치에 있는 동일한 특징을 추출할 수 있다는 뜻이다.</p>
+    </blockquote>
+
+    <blockquote>
+      <p><u>특정 위치에서 학습~~ 다른 위치에 있는 동일한 특징을 추출</u>  <br />
+  이 말이 CNN이 mask를 통해 이미지에서 feature를 filtering 하는 것과 동일하다. 그래서 AlexNet에서 the nature of images에 대해 설명할 때 이 단어를 넣은 것이다. (확신)   <br />
+  그러면 locality of pixel dependency에 대해서도 설명이 가능하다.  <br />
+  같은 feature를 가진 pixel들은 서로 연관성이 있어야 한다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>그럼 연산과정에서 이미지의 모든 위치에서 (어느 특징을 담은)filter를 공유할 수 있어야 겠네?</p>
+
+    <p>CNN이 1 filter를 이미지 전체 (또는 feature map 전체)에 대해 공유를 한다. 그래서 stationarity는 feature를 공유할 수 있는 CNN과 잘 맞다고 볼 수 있다. <strong>stationarity of statistics의 특징은 brute force하게 하던 방법(e.g. MLP)보다 비교적 연산량은 더 적고, 메모리 사용량도 적고, 통계적 효율성도 더 높다.</strong></p>
+
+    <blockquote>
+      <p>이 Convolution연산은 이미지의 특정 부분과 필터를 내적하는것으로 볼 수도 일다. 두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습이 되는것이다.</p>
+    </blockquote>
+
+    <p><u>두 벡터가 유사할수록 큰 값을 출력하는 내적의 특성에 의해 필터는 이미지에 있는 패턴들과 유사한 형태로 학습</u> 왜 우리가 image segmentation 할때 굳이 Convolution을 사용하는지에 대해 나온다.</p>
+
+    <blockquote>
+      <p>많은 머신러닝 프레임워크에서는 필터를 반전하는 것을 제외하고는 Convolution과 완전 동일한 연산인 Cross-correlation을 구현한다. CNN에서 Convolution연산은 특징만 학습하면 되기 때문에 필터를 반전시키지 않아도 동일한 효과를 낼 수 있다.</p>
+    </blockquote>
+
+    <p>마찬가지로, <a href="/computer%20vision/2020/08/27/Correlation-vs-Convolution/">CONV vs CORR</a> 에서 본 것처럼 프레임 워크가 Convolution을 쓰는지 Cross-Correlation 쓰는지 동일한 효과를 내기 때문에 프레임워크 마다 서로 다르다고 한다.   <br />
+  (추워서 입술이 돌아가도 입술은 입술이다.)</p>
+  </li>
+  <li>
+    <h3 id="이-블로그의-정리">이 블로그의 정리</h3>
+    <ul>
+      <li>CNN은 세가지 성질을 가지고 있다.
+        <ol>
+          <li>parameter sharing</li>
+          <li>translation equivariance (입력과 출력의 변화가 같다.)</li>
+          <li>Sparse interactions</li>
+        </ol>
+      </li>
+      <li>그러므로, stationarity of statistics는 이미지 추출함에 있어 이 세가지 성질과 호흡이 잘 맞기 때문에 CNN에 적합한 특징이다.   <br />
+  (locality of pixel dependency는 3번째 조건 충족)</li>
+    </ul>
+
+    <blockquote>
+      <p>[참고]  <br />
+max-pooling은 대표적인 small translation invariance 함수이다. [1,0,0] 과 [0,0,1] 두 입력을 넣어도 동일한 1이 추출하기 때문에 모양이 약간씩 다르거나 위치가 달라진다. 이것 덕분에 segmentation하고 싶은 feature의 모양이 조금씩 다르거나 위치가 다른 경우에도 동일한 feature로 인식하게 되는 것이다. (80퍼 인정)</p>
+    </blockquote>
+  </li>
+  <li>
+    <h3 id="하지만-추워서-입술이-돌아간다고-입술이-떠다니면-안된다">하지만 추워서 입술이 돌아간다고 입술이 떠다니면 안된다.</h3>
+  </li>
+</ul>
+
+<p>tralanslation invariance 효과 덕분에 좀 더 일반적인 특징을 잡을 수 있게 되었다. 그러면 translation invariance를 피하고 싶은 경우도 있을까?</p>
+
+<p><strong>각 특징들의 위치 정보가 중요한 경우, translation invariance를 막는 CNN 구조들도 있다.</strong></p>
+
+<p><img src="/public/asset/translation_invariant.png" alt="translation_invariance" /></p>
+
+<p>위의 예가 translation invariance의 단점이다.</p>
+
+<p>그래서 이 문제를 해결하기 위한 방법으로,</p>
+
+<ol>
+  <li>
+    <p>Locally connected layers(unshared convolution)는 일반적인 Convolution 연산과 동일하지만 파라미터 공유를 하지 않는다. 즉 각 위치마다 다른 필터를 사용하기 때문에 동일한 특징이라도 위치에 따라 다른 필터를 학습을 하게 된다.  <br />
+결국 필터가 위치 정보를 포함한다고 볼 수 있으며, 결과적으로 translation invariance를 버리게 된다.  <br />
+(max-pooling을 사용한다면 small translation invariance 특성은 가질 수 있다.)</p>
+  </li>
+  <li>
+    <p>또 다른 유명한 모델로 캡슐 네트워크가 있다. 캡슐 네트워크는 아예 새로운 방식으로 translation invariance문제를 해결한다.</p>
+  </li>
+</ol>
+
+<p>하지만 깊은 Convolutional layer 일수록 더 큰 형태의 특징들을 뽑아내기 때문에 저렇게 정확하게 눈,코,입 단위로만 따로 특징을 배워서 어떤 판단을 하지 않는다.  <br />
+<strong>어느정도 전체 형태를 보기 때문에 각각의 작은 특징들의 위치를 아예 무시하지 않는다는 뜻이다</strong></p>
+
+<p>즉, <strong>CNN의 구조를 어떻게 만드냐에 따라 scale &amp; translation 에 대한 문제는 충분히 커버 가능하다.</strong></p>
+
+<p>[Reference]   <br />
+<a href="https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen">https://ai.stackexchange.com/questions/13683/what-is-the-meaning-of-stationarity-of-statistics-and-locality-of-pixel-depen</a>
+<a href="https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979">https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979</a></p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/computer%20vision/2020/08/24/Sparse-Coding/">
         Sparse Coding
       </a>
@@ -1009,512 +1253,6 @@ many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런�
 <p>그 이유는 정확히는 모르겠지만 stackoverflow에서 확인할 수 있듯이, eigenvalue-decomposition에서는 공분산 행렬을 메모리상에 가지고 있어야하는 반면 SVD는 공분산 행렬을 따로 메모리에 저장할 필요가 없으므로 효율적이기 때문이다.</p>
 
 <p>출처: https://excelsior-cjh.tistory.com/167 [EXCELSIOR]</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/others/2020/07/13/Mathjax/">
-        Mathjax, pseudocode 사용법
-      </a>
-    </h1>
-
-    <span class="post-date">13 Jul 2020</span>
-
-    <h3 id="조건">조건</h3>
-<p>github page, Jekyll theme</p>
-
-<h3 id="사용방법">사용방법</h3>
-<p>수식 적용방법은
-inline, outline의 경우,</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$[수식]$$
-</code></pre></div></div>
-<p>을 이용한다. (psuedocode.js 때문에 그런지 $ 하나로 안됨)</p>
-
-<h3 id="--fomula-case">- Fomula Case</h3>
-<p>\(\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\)</p>
-
-\[\begin{align*}
-  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
-      \vdots &amp; \ddots &amp; \vdots \\
-      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}\]
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
-
-$$
-\begin{align*}
-  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
-      \vdots &amp; \ddots &amp; \vdots \\
-      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
-$$
-</code></pre></div></div>
-
-<h3 id="--algorithm-case">- Algorithm Case</h3>
-
-<pre id="quicksort" style="display:hidden;">
-    % This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
-    \begin{algorithm}
-    \caption{Quicksort}
-    \begin{algorithmic}
-    \PROCEDURE{Quicksort}{$A, p, r$}
-        \IF{$p &lt; r$} 
-            \STATE $q = $ \CALL{Partition}{$A, p, r$}
-            \STATE \CALL{Quicksort}{$A, p, q - 1$}
-            \STATE \CALL{Quicksort}{$A, q + 1, r$}
-        \ENDIF
-    \ENDPROCEDURE
-    \PROCEDURE{Partition}{$A, p, r$}
-        \STATE $x = A[r]$
-        \STATE $i = p - 1$
-        \FOR{$j = p$ \TO $r - 1$}
-            \IF{$A[j] &lt; x$}
-                \STATE $i = i + 1$
-                \STATE exchange
-                $A[i]$ with $A[j]$
-            \ENDIF
-            \STATE exchange $A[i]$ with $A[r]$
-        \ENDFOR
-    \ENDPROCEDURE
-    \end{algorithmic}
-    \end{algorithm}
-</pre>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;pre id="quicksort" style="display:hidden;"&gt;
-    % This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
-    \begin{algorithm}
-    \caption{Quicksort}
-    \begin{algorithmic}
-    \PROCEDURE{Quicksort}{$A, p, r$}
-        \IF{$p &lt; r$} 
-            \STATE $q = $ \CALL{Partition}{$A, p, r$}
-            \STATE \CALL{Quicksort}{$A, p, q - 1$}
-            \STATE \CALL{Quicksort}{$A, q + 1, r$}
-        \ENDIF
-    \ENDPROCEDURE
-    \PROCEDURE{Partition}{$A, p, r$}
-        \STATE $x = A[r]$
-        \STATE $i = p - 1$
-        \FOR{$j = p$ \TO $r - 1$}
-            \IF{$A[j] &lt; x$}
-                \STATE $i = i + 1$
-                \STATE exchange
-                $A[i]$ with $A[j]$
-            \ENDIF
-            \STATE exchange $A[i]$ with $A[r]$
-        \ENDFOR
-    \ENDPROCEDURE
-    \end{algorithmic}
-    \end{algorithm}
-&lt;/pre&gt;
-
-&lt;!-- 알고리즘 렌더링--&gt;
-&lt;script&gt;
-    pseudocode.renderElement(document.getElementById("quicksort"));
-&lt;/script&gt;
-</code></pre></div></div>
-
-<!-- 알고리즘 렌더링-->
-<script>
-    pseudocode.renderElement(document.getElementById("quicksort"));
-</script>
-
-<p>문법의 내용은 다음의 사이트들을 참고한다.</p>
-
-<ul>
-  <li><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">LaTex docs</a></li>
-  <li><a href="https://johngrib.github.io/wiki/mathjax-latex/">간단한 사용 예시</a></li>
-  <li><a href="http://detexify.kirelabs.org/classify.html">모르는 기호를 LaTex 문법으로 맞춰 제안</a></li>
-  <li><a href="https://latexbase.com/">온라인 LaTeX 수식 확인 가능 사이트 -상당히 유용!</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/numerical%20analysis/2020/07/12/LU-Decomposition/">
-        LU Decomposition (LU factorization)
-      </a>
-    </h1>
-
-    <span class="post-date">12 Jul 2020</span>
-
-    <ul>
-  <li>행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
-<img src="/public/asset/matrix_time_tradeoff.jpg" alt="CM_tradoff" /></li>
-  <li>LU 분해는 첫번째로 <strong>계산의 편리함</strong>, 두번째로 <strong>분석적 용이성</strong>을 위함이 있다. (모든 행렬 분해에 해당)</li>
-  <li><del><strong>가우시안 소거법</strong>의 시간 복잡도 문제를 해결했다.</del><br />
-<strong>LU분해는 가우스 소거법과 비교하여 <u>flop(floating point operation) 비용의 이점을 갖지 않는다.</u></strong>    (그럼 왜 계산 비용이 줄은거지??? 아무리 찾아봐도 명쾌한 해답이 나와있지 않다…)<br />
-하지만 <strong>다른 장점</strong>을 갖고 있어 더 선호된다.
-    <blockquote>
-      <ol>
-        <li>가우스 소거법은 Augmented Matrx \([A\|b]\)를 사용하므로, b의 값을 알아야 한다.<br />
-반면 LU분해는 행렬 A만 사용하므로 그 분해값을 안다면, 오른쪽 항이 아무리 많이 필요하다고 해도 한번에 하나씩 사용해서 해결할 수 있다. (해 구하기 전 단계)</li>
-        <li>\(Ax=b\)의 해를 구하기 위하여 계산하는 LU분해는 만일 필요하다면, 거의 추가 작업 없이 \(A^{-1}\)의 계산에 사용할 수 있다. (삼각행렬의 계산은 \(O(n^2)\) 이므로)</li>
-        <li>LDU 분해를 통해, 한개의 행렬에 L,D,U 모두 저장할 수 있다. 따라서 시스템이 해결하는 데 필요한 메모리의 양을 감소시킨다.</li>
-        <li>만일 행렬 A가 대부분 영으로 구성되어 있는 크기가 큰 행렬이라면, 또는 영 아닌 성분들이 주 대각선 주위의 “띠(band)”에 집중되어 있따면, LU분해의 비용을 절감하는데 사용할 수 있는 기술이 있다.<br />
-(와닿지 않는다. 차차 알아가자)</li>
-      </ol>
-    </blockquote>
-  </li>
-</ul>
-
-<p>(안톤의 선형대수학 p589 참조)</p>
-
-<h2 id="1-gaussian-elimination">1. Gaussian Elimination</h2>
-
-<pre id="Gaussian_Elimination" style="display:hidden;">
-    \begin{algorithm}
-    \caption{Gaussian Elimination}
-    \begin{algorithmic}
-
-    \FUNCTION {Forward-Substitution}{$A, \vec{b}$}
-    \STATE Converts a system $A\vec{x} = \vec{b}$ to an upper-triangular system $U\vec{x} = \vec{y}$  
-    \STATE Assumes invertible $A \isin \reals^{n \times n}$ and $\vec{b} \isin \reals^{n}$.
-    \STATE $U, \vec{y} \leftarrow A, \vec{b}$
-        \FOR{$p = 1$ \TO $n$}
-            \STATE *Optionally insert pivoting code here*  
-            \STATE $s \leftarrow \frac 1 {u_{pp}}$
-            \STATE $y_p \leftarrow s \cdot y_p$
-            \FOR{$c = p$ \TO $n$}
-                \STATE $u_{pc} \leftarrow s \cdot u_{pc}$
-            \ENDFOR
-            \FOR{$r = p + 1$ \TO $n$}
-                \STATE $s \leftarrow {-u_{rp}}$
-                \STATE $y_r \leftarrow y_r + s \cdot y_p$
-                \FOR{$c=p$ \TO $n$}
-                    \STATE ${u_{rc}} \leftarrow {u_{rc}} + s \cdot u_{pc}$
-                \ENDFOR
-            \ENDFOR
-        \ENDFOR
-    \RETURN $U, \vec{y}$
-    \ENDFUNCTION  
-    
-    \FUNCTION {Backward-Substitution}{$U, \vec{y}$}
-    \STATE Solves upper-triangular systems $U\vec{x} = \vec{y}$  for  $\vec{x}$.
-    \STATE $\vec{x} \leftarrow \vec{y}$
-        \FOR{$p = n$ \TO $1$}
-            \FOR{$r = 1$ \TO $p - 1$}
-                \STATE $x_{r} \leftarrow x_{r} - \frac {u_{rp}x_p} {u_{pp}}$
-            \ENDFOR
-        \ENDFOR
-    \RETURN $\vec{x}$
-    \ENDFUNCTION
-    \end{algorithmic}
-    \end{algorithm}
-</pre>
-
-<blockquote>
-  <p>Gaussian Elimination’s Total Running Time</p>
-  <h4 id="on3">\(O(n^3)\)</h4>
-</blockquote>
-
-<h4 id="optionally-insert-pivoting-code-here"><strong><em>*Optionally insert pivoting code here*</em></strong></h4>
-<blockquote>
-  <p>가우시안 제거 방법은 pivot의 역수로 scaling 하기때문에 
-수치적으로 안정적인 방법으로 <em>큰 pivot</em> 을 가져가도록 해야한다.</p>
-</blockquote>
-
-<h4 id="pivoting-전략"><strong>Pivoting 전략</strong></h4>
-<p>대각행렬 안 절대값이 낮은 피벗 원소를 해당 피벗의 열 벡터중 가장 큰 절대값을 가진 원소로 바꾼다.</p>
-
-<blockquote>
-  <ol>
-    <li><em>Partial pivoting</em>
-      <ul>
-        <li>Only 행교환</li>
-      </ul>
-    </li>
-    <li><em>Full pivoting</em>
-      <ul>
-        <li>행교환 + 열교환</li>
-      </ul>
-    </li>
-  </ol>
-</blockquote>
-
-<p><em>Full pivoting은 partial pivoting에 비해 더 많은 computational cost가 필요하지만 수치적으로는 더 안정적임</em><br />
-(행렬 전체를 한번 훑어 봄, 우선순위 큐 사용. In practice, rarely necessory)</p>
-
-<hr />
-<h2 id="python-code"><strong>Python Code</strong></h2>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">forward_substitution</span><span class="p">(</span><span class="n">A</span> <span class="o">=</span> <span class="s">"matrix"</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="s">"vector"</span><span class="p">):</span>
-
-    <span class="c1"># AM = np.c_[A, b]   Augmented Matrix
-</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>   <span class="c1"># will be upper triagle matrix
-</span>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-    
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-        
-        <span class="c1">#partial pivoting    
-</span>        <span class="n">pivot</span> <span class="o">=</span> <span class="n">p</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">]):</span>
-                <span class="n">pivot</span> <span class="o">=</span> <span class="n">i</span>
-        <span class="n">U</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">],:]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">],:]</span>
-        <span class="n">y</span><span class="p">[[</span><span class="n">p</span><span class="p">,</span><span class="n">pivot</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[[</span><span class="n">pivot</span><span class="p">,</span><span class="n">p</span><span class="p">]]</span>
-        <span class="c1"># y[p], y[pivot] = y[pivot], y[p] # 이거 안먹힘
-</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
-
-        <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>         <span class="c1"># 피벗 항 scaling
-</span>            <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>       <span class="c1"># 행 연산
-</span>            <span class="n">s</span> <span class="o">=</span> <span class="o">-</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
-            <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
-
-            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-                <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">y</span>
-
-<span class="k">def</span> <span class="nf">back_substitution</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="s">"matrix"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"vector"</span><span class="p">):</span>
-    
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-            <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">U</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]))</span>
-    <span class="k">return</span> <span class="n">x</span>
-</code></pre></div></div>
-<hr />
-<h2 id="2-lu-decomposition">2. LU Decomposition</h2>
-<p><img src="/public/asset/lu_definition.jpg" alt="LU_DEF" /></p>
-<ul>
-  <li>
-    <h3 id="아이디어들">아이디어들</h3>
-    <ol>
-      <li>
-        <h4 id="삼각행렬이-아닌-square-matrix의-전진-대입법은-on3-이-걸리고-후진-대입법은-on2이-걸린다">삼각행렬이 아닌 Square Matrix의 전진 대입법은 \(O(n^3)\) 이 걸리고, 후진 대입법은 \(O(n^2)\)이 걸린다.</h4>
-        <blockquote>
-          <p>삼각행렬의 \(O(n^2)\) 시간 복잡도를 활용하고 싶다.</p>
-        </blockquote>
-      </li>
-      <li>
-        <h4 id="leading-variable-이-1이-아니여도-괜찮다">leading variable 이 1이 아니여도 괜찮다.</h4>
-        <blockquote>
-          <p>변형을 안해줘도 선도 변수를 자유 변수처럼 표현할 수 있지 않을까?</p>
-        </blockquote>
-      </li>
-      <li>
-        <h5 id="a--lu">\(A = LU\)</h5>
-        <blockquote>
-          <ul>
-            <li>A를 Lower trianglular &amp; Upper trianglular 로 분해할 수 있음.</li>
-            <li>삼각행렬의 대각곱이 Det임을 이용하여 L, U의 대각곱으로 A의 행렬식을 구할때도 용이하다.</li>
-            <li>A를 LU를 분해하는 과정은 \(\approx \frac 2 3 n^3\)이 걸린다.<br />
-(가우스 소거법의 전진 대입과 같은 flop (floating point operation) 이 소요)</li>
-          </ul>
-        </blockquote>
-      </li>
-    </ol>
-  </li>
-</ul>
-
-<!-- - ### 삼각행렬의 장점
-> 선도 변수 앞에 있는 요소들을 스케일링할 필요 없다.
-back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. -->
-
-<ul>
-  <li>
-    <h3 id="짚고-넘어가야-할-문제">짚고 넘어가야 할 문제</h3>
-    <ol>
-      <li>모든 행렬 A는 LU 분해가 가능한가요?</li>
-      <li>행렬 A가 LU 분해 가능하면 유일하게 L, U가 정해지나요?</li>
-      <li>(1)의 답이 <strong>NO</strong> 라면 어떤 행렬이 LU분해가 가능한가요?
-        <blockquote>
-          <p>(1) 아니오<br />
-(2) 아니오<br />
-(3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.<br />
-왜냐하면 상삼각행렬 \(U\)가 유도되기 때문이다.<br />
-그러면<br />
-<img src="/public/asset/a.jpg" width="600px" height="400px" title="invertible_matrix_proof" alt="proof_1" />
-이고,
-EA는 A에 같은 기본 행연산을 한것과 같기 때문에,<br />
-\(E_k, ..., E_2 , E_1\) (하삼각 기본행렬) 들로<br />
-\(E_k...E_2E_1A = U\)로 표현할 수 있고,<br />
-기본행렬 E는 반드시 Invertible Matrix 이다.  <br />
-그러면, \(A = E_1^{-1}E_2^{-1}...E_k^{-1}U\)을 만족하고,<br />
-가역인 L에 대해서,  \(L * L = L\) 과 \(L^{-1} = L\) 이므로,<br />
-\(L = E_1^{-1}E_2^{-1}...E_k^{-1}\) 이다.</p>
-        </blockquote>
-      </li>
-    </ol>
-  </li>
-  <li>(참고) 기본행렬 표현 (where \(l &gt; k\))</li>
-</ul>
-
-\[E_{i} = I_{n \times n} +c \vec{e_l} \vec{e_k}^{T}\]
-
-\[E_{i}^{-1} = I_{n \times n} -c \vec{e_l} \vec{e_k}^{T}\]
-
-<blockquote>
-  <p>기본행렬의 inverse는 음수, 대각행렬의 inverse는 역수</p>
-</blockquote>
-
-<pre id="LU_Factorization" style="display:hidden;">
-    \begin{algorithm}
-    \caption{LU Factorization}
-    \begin{algorithmic}
-
-    \FUNCTION {LU-FACTORIZATION-COMPACT}{$A$}
-    \STATE Factors $A \isin \reals^{n \times n}$ to $A = LU$ in compact format.
-        \FOR{$p = 1$ \TO $n$}
-            \FOR{$r = p + 1$ \TO $n$}
-                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
-                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
-                \FOR{$c=p+1$ \TO $n$}
-                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
-                \ENDFOR
-            \ENDFOR
-        \ENDFOR
-    \RETURN $A\qquad\triangleright$LU분해된 A임
-    \ENDFUNCTION  
-    \end{algorithmic}
-    \end{algorithm}
-</pre>
-<ul>
-  <li>Result<br />
-\(A = \left( \begin{array}{cccc} U &amp; \cdots &amp; \cdots &amp; \cdots &amp; U \\ L &amp; U &amp; U &amp; U &amp; \vdots\\ \vdots &amp; L &amp; \ddots &amp; U &amp; \vdots\\ \vdots &amp; L &amp; L &amp; U &amp; \vdots \\ L &amp; \cdots &amp; \cdots &amp; L &amp; U \end{array} \right)\)</li>
-</ul>
-
-<blockquote>
-  <p>LU Factorization-compact’s Total Running Time</p>
-  <h4 id="on3-approx-frac-2-3-n3">\(O(n^3) \approx \frac 2 3 n^3\)</h4>
-</blockquote>
-
-<ol>
-  <li>잃어버린 L 의 대각행렬 성분은 모두 1이다.</li>
-  <li>인수 분해하는데 걸린 전체 시간은 \(O(n^3)\) 이지만,<br />
- \(A\vec{x}=\vec{b}\)를 푸는데 전진 대입, 후진 대입을 사용하면 오직 \(O(n^2)\) 밖에 안걸린다.</li>
-</ol>
-
-<hr />
-<h2 id="python-code-1"><strong>Python Code</strong></h2>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LU_Factorization_compact</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-
-    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">])</span>
-            <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span> <span class="c1">#하삼각행렬 E^-1 에 저장
-</span>            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-                <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">M</span>
-</code></pre></div></div>
-<hr />
-
-<h4 id="l-u는-유일하지-않다-그래서-유일한-l-u를-추출해주고-싶다"><strong>L, U는 유일하지 않다. 그래서 유일한 L, U를 추출해주고 싶다.</strong></h4>
-<blockquote>
-  <p>U의 대각행렬 성분을 따로 빼주면 유일하게 인수분해가 될 수 있다.<br />
- \(\triangleright\) LDU 분해 사용</p>
-</blockquote>
-
-<pre id="LDU" style="display:hidden;">
-    \begin{algorithm}
-    \caption{LDU Factorization}
-    \begin{algorithmic}
-
-    \FUNCTION {LDU-FACTORIZATION-COMPACT}{$A$}
-    \STATE $\triangleright$Factors $A \isin \reals^{n \times n}$ to $A = LDU$ in compact format.
-        \FOR{$p = 1$ \TO $n$}
-            \FOR{$r = p + 1$ \TO $n$}
-                \STATE $s \leftarrow \frac {-a_{rp}} {a_{pp}}$
-                \STATE $a_{rp} \leftarrow -s$ $\qquad\triangleright$ A에다 L 성분 저장, L은 $E^{-1}$ 이므로 음수  
-                \FOR{$c=p+1$ \TO $n$}
-                    \STATE ${a_{rc}} \leftarrow {a_{rc}} + s \cdot a_{pc}$
-                \ENDFOR
-            \ENDFOR
-        \ENDFOR
-        \STATE $\quad$
-        \STATE *추가부분*
-        \FOR{$p = 1$ \TO $n$}
-            \FOR{$r = p + 1$ \TO $n$} 
-                \STATE ${a_{pr}} \leftarrow \frac {a_{pr}} {a_{pp}}$$\qquad\triangleright$ Diagonal 성분을 따로 빼줌  
-            \ENDFOR
-        \ENDFOR
-        \STATE $\quad$
-    \RETURN $A\qquad\triangleright$LDU분해된 A임
-    \ENDFUNCTION  
-    \end{algorithmic}
-    \end{algorithm}
-</pre>
-
-<ul>
-  <li>Result<br />
-\(A = \left( \begin{array}{ccc} D &amp; U &amp; \cdots &amp; \cdots &amp; U \\ L &amp; D &amp; U &amp; U &amp; \vdots\\ \vdots &amp; L &amp; \ddots &amp; U &amp; \vdots\\ \vdots &amp; L &amp; L &amp; D &amp; U \\ L &amp; \cdots &amp; \cdots &amp; L &amp; D \end{array} \right)\)</li>
-</ul>
-
-<hr />
-<h2 id="python-code-2"><strong>Python Code</strong></h2>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">LDU_Factorization_compact</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-
-    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">])</span>
-            <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span> <span class="c1">#하삼각행렬 E^-1 에 저장
-</span>            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-                <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">c</span><span class="p">]</span>
-
-    <span class="c1">#LDU로 바꿔 유일하게 인수분해 될 수 있게 바꿔줌
-</span>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">M</span>
-</code></pre></div></div>
-<hr />
-
-<blockquote>
-  <h3 id="ldu-분해로-구한-diagonal-matrix-의-모든-성분의-곱은-deta-이다">LDU 분해로 구한 Diagonal Matrix 의 모든 성분의 곱은 Det(A) 이다.</h3>
-</blockquote>
-
-<h3 id="lu-분해를-pivoting-하는-방법--plu">LU 분해를 Pivoting 하는 방법 : PLU</h3>
-<blockquote>
-  <p>LU 앞에 Permutation Matrix 곱해준다. (순서 바꾼 Identity Matrix)<br />
-\(P == P^{-1}\) 를 이용</p>
-</blockquote>
-
-<!-- 알고리즘 렌더링-->
-<script>
-    pseudocode.renderElement(document.getElementById("Gaussian_Elimination"));
-    pseudocode.renderElement(document.getElementById("LU_Factorization"));
-    pseudocode.renderElement(document.getElementById("LDU"));
-</script>
-
-<blockquote>
-
-</blockquote>
 
   </div>
   

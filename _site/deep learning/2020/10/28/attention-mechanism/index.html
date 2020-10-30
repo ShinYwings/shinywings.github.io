@@ -9,12 +9,12 @@
    
   <title>
     
-      Maxpooling의 한계 &middot; Shin
+      Attention Mechanism &middot; Shin
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling/">
+  <link rel="canonical" href="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -164,61 +164,36 @@
 <!---->
 
 <div class="post">
-  <h1 class="post-title">Maxpooling의 한계</h1>
-  <span class="post-date">01 Sep 2020</span>
+  <h1 class="post-title">Attention Mechanism</h1>
+  <span class="post-date">28 Oct 2020</span>
   <article>
       <script type="text/javascript" async
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
       </script> 
-      <p><a href="https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/</a></p>
-<ul>
-  <li>
-    <p>이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</p>
+      <h2 id="attention-mechanism">Attention Mechanism</h2>
 
-    <ul>
-      <li>
-        <p><a href="/computer%20vision/2020/08/26/stationarity-of-statistics/">translation invariance</a> 조건으로 feature을 discard (maxpooling) 하느냐 아니면 translation equivariance할 수 있는 다른 새로운 방법을 찾아 disentangling 하냐에 대해서 논란이 있다.   <br />
-  확실히 disentangling하는 것이 더 나은 방법이라고 생각한다. 객체 지향처럼 encapsulation이라는 개념이 소개 되었는데, 세상의 모든 성질을 객체에다가 넣어서 평가하려면… 불가능함에 가까워 보인다. 이런 부분을 고려해서 CapsNet 구조를 만들었을 것이다. CapsNet을 아직 안봐서 이 부분은 나중에 내 생각의 수정이 필요하다.</p>
-      </li>
-      <li>maxpooling의 잘못된 점
-        <ol>
-          <li>내재되어있는 선형적인 구조를 사용하지 않는다. (Fails to use underlying linear structure).
-            <ul>
-              <li>SIFT를 통해서도 알겠지만 여러 방면으로 3D 물체를 돌려보는 것은 비선형적이다. 이를 globally linear 한 곳으로 변환시킨다면 대량의 extrapolation이 가능합니다. 즉, 물체의 다양한 모습을 추정 가능하다는 말과 같습니다. 하지만 pooling에는 이러한 과정이 없습니다.</li>
-            </ul>
-          </li>
-          <li>Dynamic routing과는 어울리지 않음
-            <ul>
-              <li>pooling에서는 캡스넷(캡슐 네트워크)의 가장 큰 특징 중 하나인 dynamic routing을 사용할 수 없다.</li>
-            </ul>
-          </li>
-        </ol>
-      </li>
-      <li>현재 CNN의 주요한 문제점
-        <blockquote>
-          <p>Internal data representation of a convolutional neural network doesn’t take into account important spatial hierarchies between simple and complex objects”</p>
-        </blockquote>
-        <ul>
-          <li>CNN 내부 데이터의 간단한 오브젝트와 복잡한 오브젝트 사이의 spatial hierarchies를 고려하지 않는다.</li>
-        </ul>
-      </li>
-      <li>CapsNet은 feature간의 공간적인 관계까지 고려하게 됩니다.
-        <ul>
-          <li>그럼 feature 간의 weight 또한 필요하다고 볼 수 있네</li>
-        </ul>
-      </li>
-      <li>Maxpooling은 학습 가능한 파라미터가 존재하지 않으며 단순히 가장 큰 특징적인 값만 뽑아내서 FOV를 넓히는 것 밖에 못한다는 것입니다.
-        <ul>
-          <li>하지만 캡슐은 벡터로 이루어져 있기 때문에 dynamic rouing을 통해 오브젝트 파트들의 상대적 위치를 조합할 수 있음</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+<ul>
+  <li>문제   <br />
+seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 하나의 고정된 크기의 벡터 표현으로 압축하고,
+디코더는 context vector를 통해 출력 seq를 만들어냄.</li>
 </ul>
 
-<p>맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   <br />
-유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   <br />
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;</p>
+<p><strong>하나의 고정된 크기의 벡터에 모든 정보를 압축하려고 하니까 정보 손실이 발생</strong>
+<strong>Vanishing gradient 문제 존재</strong></p>
+
+<ul>
+  <li>Idea    <br />
+Decoder에서 출력 단어를 예측하는 매 시점마다 (time step), encoder에서의 전체 입력 문장을 다시 한 번 참고한다는 점입니다.
+단, 전체 입력 문장을 전부 다 동일한 비율로 참고하는 것이 아니라, 해당 시점에서 예측해야할 단어와 연관이 있는 입력 단어 부분을
+좀 더 집중(attention)해서 보게 됩니다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Attention</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="p">)</span> <span class="o">=</span> <span class="n">Attention</span> <span class="n">Value</span>
+</code></pre></div></div>
+<p>Q: query (t 시점의 디코더 셀에서의 은닉 상태)   <br />
+K: key (모든 시점의 인코더 셀의 은닉 상태들)  <br />
+V: value (모든 시점의 인코더 셀의 은닉 상태들)</p>
+
 
   </article>
 </div>
@@ -227,15 +202,6 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;</p>
 <div class="related">
   <h2>Related posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/deep%20learning/2020/10/28/attention-mechanism/">
-            Attention Mechanism
-            <small>28 Oct 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -251,6 +217,15 @@ Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;</p>
           <a href="/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">
             Analytic Gradient vs Numerical Gradient
             <small>22 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/statistics/2020/10/06/Sampling/">
+            Sampling
+            <small>06 Oct 2020</small>
           </a>
         </h3>
       </li>

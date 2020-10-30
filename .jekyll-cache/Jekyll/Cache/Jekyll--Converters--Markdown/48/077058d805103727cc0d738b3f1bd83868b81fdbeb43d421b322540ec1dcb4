@@ -1,7 +1,0 @@
-I"3<p>In CS231n,</p>
-<h2 id="analytic-gradient">Analytic Gradient</h2>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Numerical gradient is simple but it is approximate and expensive to compute.
-the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math.
-hence, in practice we always use the analytic gradient and then perform a gradient check, in which its implementation is compared to the numerical gradient.
-</code></pre></div></div>
-:ET

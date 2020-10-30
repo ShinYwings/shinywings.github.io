@@ -166,6 +166,283 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/">
+        Attention Mechanism
+      </a>
+    </h1>
+
+    <span class="post-date">28 Oct 2020</span>
+
+    <h2 id="attention-mechanism">Attention Mechanism</h2>
+
+<ul>
+  <li>문제   <br />
+seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 하나의 고정된 크기의 벡터 표현으로 압축하고,
+디코더는 context vector를 통해 출력 seq를 만들어냄.</li>
+</ul>
+
+<p><strong>하나의 고정된 크기의 벡터에 모든 정보를 압축하려고 하니까 정보 손실이 발생</strong>
+<strong>Vanishing gradient 문제 존재</strong></p>
+
+<ul>
+  <li>Idea    <br />
+Decoder에서 출력 단어를 예측하는 매 시점마다 (time step), encoder에서의 전체 입력 문장을 다시 한 번 참고한다는 점입니다.
+단, 전체 입력 문장을 전부 다 동일한 비율로 참고하는 것이 아니라, 해당 시점에서 예측해야할 단어와 연관이 있는 입력 단어 부분을
+좀 더 집중(attention)해서 보게 됩니다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Attention</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">V</span><span class="p">)</span> <span class="o">=</span> <span class="n">Attention</span> <span class="n">Value</span>
+</code></pre></div></div>
+<p>Q: query (t 시점의 디코더 셀에서의 은닉 상태)   <br />
+K: key (모든 시점의 인코더 셀의 은닉 상태들)  <br />
+V: value (모든 시점의 인코더 셀의 은닉 상태들)</p>
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/deep%20learning/2020/10/27/Autoencoder/">
+        Autoencoder
+      </a>
+    </h1>
+
+    <span class="post-date">27 Oct 2020</span>
+
+    <h2 id="definition">Definition</h2>
+
+<p>a neural network that is trained to attempt to copy its input to its output.</p>
+
+<p>Encoder(deterministic functions): \(h = f(x)\)   <br />
+Decoder(stochastic mappings): \(r = g(h)\)</p>
+
+<p>So, learning to set \(g(f(x)) = x\)</p>
+
+<p>However, autoencoders are designed to be <strong>unable</strong> to learn to copy <strong>perfectly</strong></p>
+
+<p>Objective : h taking on useful properties(features).</p>
+<blockquote>
+  <p>useful featrues from the autoencoder is to constrain \(h\) to have a smaller dimension than \(x\).</p>
+</blockquote>
+
+<p>Usage : feature learning (feature extraction), dimensionality reduction</p>
+
+<h2 id="modern-autoencoders">Modern Autoencoders</h2>
+<p>Encoder =&gt; Deterministic functions : \(p_{encoder}(h|x)\)   <br />
+Decoder =&gt; Stochastic mappings : \(P_{decoder}(x|h)\)</p>
+
+<p>So, autoencoders + latent variable models =&gt; generative modeling.</p>
+
+<ul>
+  <li>
+    <p>Latent Variable(as opposed to observable variables)  <br />
+ := the variables that are not directly observed but are rather inferred from other variables that are observed.</p>
+  </li>
+  <li>
+    <p>Autoencoder training</p>
+    <ul>
+      <li>minibatch gradient descent</li>
+      <li><strong>recirculation</strong>   <br />
+  := a learning algorithm based on comparing the activations of the network on the original input to the activations on the reconstructed input.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The learning process</p>
+
+\[min({L(x,g(f(x)))})\]
+
+<p>\(L\) is a loss function penalizing \(g(f(x))\)</p>
+
+<h2 id="undercomplete-autoencoders">Undercomplete Autoencoders</h2>
+<p>an autoencoder whose hidden code (\(h\)) dimension is less than the input dimension.</p>
+
+<ul>
+  <li>undercomplete with (decoder = linear), (\(L\) = MSE)
+    <ul>
+      <li>learns to span the same subspace as <strong>PCA</strong></li>
+      <li>trained to perform the copying task has learnt the princple subspace of the training data as a <strong>side effect</strong></li>
+    </ul>
+  </li>
+  <li>undercomplete with (encoder = nonlinear), (decoder = nonlinear)
+    <ul>
+      <li>learn a more <strong>powerful nonlinear generalization of PCA</strong></li>
+    </ul>
+  </li>
+  <li><strong>DON’T allows too much capacity</strong>  <br />
+  -about the distribution of the data, feature extracting 대신에 copying 함</li>
+</ul>
+
+<h2 id="overcomplete-autoencoders">Overcomplete Autoencoders</h2>
+<p>an autoencoder whose hidden code (\(h\)) dimension is greater than the input dimension.</p>
+
+<ul>
+  <li>overcomplete with (encoder = linear), (decoder = linear)
+    <ul>
+      <li>learn to copy the input to the output without learning anything useful about the data distribution.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="regularized-autoencoders">Regularized Autoencoders</h2>
+<p>get ability to <strong>choose the code dimension and the capacity</strong> of the encoder and decoder based on the complexity of distribution to be modeled.</p>
+
+<p>Rather than limiting the model capacity by keeping the encoder and decoder shallow and the code size small.</p>
+
+<p>Objective : use a loss function that encourages the model to have other properties include sparsity of the representation, smallness of the derivative of the representation, and robustness to noise or to missing inputs.</p>
+
+<ul>
+  <li>Regularized + Overcomplete = Undercomplete   <br />
+(in terms of feature extraction)
+    <ul>
+      <li>can be nonlinear and overcomplete but still learn something useful about the data distribution, even if the model capacity is great enough to learn a trivial identity function.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="particular-form-of-autoencoder-regularized-autoencoders-관련된-모델들">Particular form of Autoencoder (regularized autoencoders 관련된 모델들)</h2>
+<ol>
+  <li>nearly any generative model with latent variables</li>
+  <li>equipped with an inference procedure (for computing latent representations given input)
+    <ul>
+      <li>
+        <p>Two generative modeling approaches that emphasize this connection with autoencoders are <strong>the descendants of the Helmholtz machine</strong></p>
+      </li>
+      <li>
+        <p>Helmholtz machine</p>
+        <ol>
+          <li>variational autoencoder (section 20.10.3 in deep learning book)</li>
+          <li>generative stochastic networks (section 20.12 in deep learning book)
+            <ul>
+              <li>These models naturally learn high-capacity, overcomplete encodings of the input and do not require regularization for these encodings to be useful.</li>
+              <li>there encodings are naturally useful because the models were trained to approximately maximize the probability of the training data rather than to copy to input to the output.</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="sparse-autoencoders">Sparse Autoencoders</h2>
+<p>an autoencoder whose training criterion involves a sparsity penalty \(\Omega(h)\) on the code layer \(h\), in addition to the reconstruction error</p>
+
+\[L(x,g(f(x))) + \Omega(h)\]
+
+<p>usage : learn features for another task (e.g. classification)</p>
+
+<ul>
+  <li>copying task(vanila autoencoder) + sparsity penalty 목적
+    <ul>
+      <li>yield a model that has learnt useful features(unique statistical features) as a byproduct.</li>
+    </ul>
+  </li>
+  <li>\(\Omega(h)\) is sort of Regularizer
+    <ul>
+      <li>However, there is not a straightforward Bayesian interpretation</li>
+    </ul>
+  </li>
+  <li>
+    <p>training with weight decay(= regularizer) and other regularization penalties can be intpreted as a MAP approximation to Bayesian inference, with the added regularizing penalty corresponding to <strong>a prior probability distribution</strong> over the model parameters.</p>
+
+    <p>\(\begin{equation} \begin{split} i.e.\;\; MAP\;approxiamtion &amp;\approx Bayesian\;inference + regularizing\;panelty \\    
+                    &amp;\approx training + regularizing\;penalty \end{split}\end{equation}\)   <br />
+In this view, \(\begin{equation}\begin{split} regularized\;maximum\;likelihood &amp;= max\;p(\theta|x) \\
+      &amp;= max\;(MAP\;Estimation(p(\theta|x))) \\
+      &amp;= max\;(log(MAP(p(\theta|x)))) \\
+      &amp;= max\;(log\:p(x|\theta)p(\theta)) \\ 
+      &amp;= max\;(log\:p(x|\theta)+log\;p(\theta)) \\
+      &amp;Equivalent,\\
+      &amp;= max\;(log\;likelihood + prior\;distribution) \\ \end{split}\end{equation}\)
+      where,  <br />
+          \(p(\theta|x)\) is conditonal probability  <br />
+          \(p(x|\theta)\) is likelihood  <br />
+          all \(\theta\) is independent  <br />
+          <strong>prior distribution can implicitly expressed as a preference over functions</strong></p>
+    <ul>
+      <li>
+        <p>MAP inference using a gaussian prior on W (Maximum A Posteriori)</p>
+
+        <ul>
+          <li>Bayes theorem (conditional probability)   <br />
+  evidence  = (likelihood * prior P) / (posterior P)</li>
+        </ul>
+
+\[p(x|z) = \frac {p(x \cap z)} {p(z)}  = \frac {p(z|x)p(x)} {p(z)}\]
+
+        <ul>
+          <li>MAP method
+            <ul>
+              <li>posterior P를 최대화 시킨다.</li>
+              <li>장점: leveraging information that is brought by the prior and cannot be found in the training data.  <br />
+  (this additional information helps to reduce the variance in the MAP point estimate)</li>
+              <li>단점: the price of increased bias</li>
+            </ul>
+
+            <p>(e.g.)   <br />
+  z = 머리카락 발견  <br />
+  남자것일 확률: \(p(male|z)\)  <br />
+  여자것일 확률: \(p(female|z)\)</p>
+
+            <p>비교 후, 큰 값을 갖는 클래스(성별) 찾는 방법</p>
+
+\[\begin{equation} \begin{split}
+  p(female|z) &amp;= \frac {p( female \cap z)} {p(female \cap z) + p(male \cap z)} \\     
+  &amp;= \frac {p(z|female)p(z)} {p(z|female)p(z) + p(z|male)p(z)} \\
+  &amp;\;Since,\;the\;summation\;of\;all\;probablities\;is\;1      \\
+  &amp;(male\;and\;female\;are\;independent) \\
+  &amp;= p(z|female)p(z) 
+  \end{split}\end{equation}\]
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Maximum likelihood</th>
+                  <th>Maximum A Posteriori</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>class 비율 고려X</td>
+                  <td>class 비율 고려O</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>MAP Estimation
+  choose the point of maximal posterior probability  <br />
+  \(\theta_{MAP} = arg\;max_\theta\;p(\theta|x) = arg\;max_\theta\;log\:p(x|\theta) + log\:p(\theta)\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>However, Regularized autoencoders defy such an interpretation because the regularizer \(\Omega(h)\)는 데이터에 의존하므로 정의상 단어의 공식적인 의미에서 <strong>a prior</strong>이 아닙니다.  <br />
+So, Rather than thinking of the sparsity penalty as a regularizer for the copying task, we can think of the entire sparse autoencoder framework as <strong>approximating maximum likelihood training of a generative model that has latent variables.</strong> Again,</p>
+<ul>
+  <li>explicit joint distribution \(p_{model}(h,x)=p_{model}(h)p_{model}(x|h)\)  <br />
+where, h is latent varibles and x is visible variables</li>
+  <li>\(p(\theta)\) encodes our beliefs about the model’s parameters before we have seen the training data.</li>
+</ul>
+
+<p>Thus, log-likelihood can be decomposed as</p>
+
+\[log\;p_{model}(x)=log\displaystyle \sum_h p_{model}(h,x)\]
+
+<blockquote>
+  <p>p(x)가 exp함수이면 log likelihood의 softmax의 loss 함수 꼴</p>
+</blockquote>
+
+<ul>
+  <li>이러면, autoencoder를 approximating this sum with a point estimate for just one highly likely value for \(h\)  <br />
+(sparse coding generative model이랑 비슷하다)</li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">
         Analytic Gradient vs Numerical Gradient
       </a>
@@ -250,9 +527,7 @@ Or at least, analytical solutions that we have figured out yet.
 
     <span class="post-date">06 Oct 2020</span>
 
-    <p><strong>샘플링 못하고있다 ㅠㅠㅠㅠㅠ importance sampling 중요한데…</strong></p>
-
-<p>numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)</p>
+    <p>numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)</p>
 
 <p>숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.</p>
 
@@ -330,6 +605,12 @@ Or at least, analytical solutions that we have figured out yet.
     </ul>
   </li>
 </ul>
+
+<p>rejection sampling - goodnote advanced ai week2에 있음</p>
+
+<p>importance sampling - goodnote advanced ai week2에 있음</p>
+
+<p>gibble sampler - goodnote advanced ai week2에 있음</p>
 
 <script>
     pseudocode.renderElement(document.getElementById("Box_Muller_Scheme"));
@@ -466,143 +747,6 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
     </ul>
   </li>
 </ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/others/2020/09/08/tensorflow_note/">
-        Tensorflow Note
-      </a>
-    </h1>
-
-    <span class="post-date">08 Sep 2020</span>
-
-    <hr />
-<p><strong>2020/09/08</strong></p>
-<ul>
-  <li>32X32 이미지를 256X256 으로 resize하기 작은 작전
-    <ol>
-      <li>32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다.</li>
-      <li>근데 막상 1만장을 tf에 적재할때 resize하니까 OOM 발생</li>
-      <li>그래서 독립적으로 실행하는 모듈을 만들어줌. 성공!</li>
-    </ol>
-  </li>
-  <li>Large scale datasets을 tf api에 적재하기 대작전
-    <ol>
-      <li>tf.data.Dataset.from_tensor_slices : 50,000개 이미지 256x256 이미지 넣으면 OOM 발생, 32x32로 축소</li>
-      <li>256x256 image를 적재하기 대작전
-        <ul>
-          <li>그래픽카드 메모리 사용량을 제한 (실패 - 프로세스 터짐)
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">gpus</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s">'GPU'</span><span class="p">)</span>    
-          <span class="k">if</span> <span class="n">gpus</span><span class="p">:</span>    
-              <span class="k">try</span><span class="p">:</span>    
-                  <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">set_virtual_device_configuration</span><span class="p">(</span><span class="n">gpus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">VirtualDeviceConfiguration</span><span class="p">(</span><span class="n">memory_limit</span><span class="o">=</span><span class="mi">4096</span><span class="p">)])</span>   
-              <span class="k">except</span> <span class="nb">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>    
-                  <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>    
-  <span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'/gpu:1'</span><span class="p">)</span>
-      <span class="n">train_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">))</span>
-      <span class="n">test_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">))</span>
-</code></pre></div>            </div>
-          </li>
-          <li>
-            <p>dataset을 여러개의 tf.data.dataset.from_tensor_slices()로 나눈 다음에 session에 돌려보기 (실패- 프로세스 터짐)</p>
-          </li>
-          <li>256x256 사이즈 데이터셋 저장 후 tfrecord로 변환해보기
-            <ul>
-              <li>진행중인 상황: label:int64, image:int64 인데 bytes로 변환하고 싶다…………. image는 255 나누면 자꾸 빠갈나서 (256x256 일때만) 돌리기가 싫ㅎㅎㅎ다 ㅎㅎㅎ</li>
-              <li>지금 image는 ndarray 형인데 int형을 요구함 . 이거 해결하기 위해서 오른쪽 창에 image to tfrecord 띄어놈</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-</ul>
-
-<hr />
-<p><strong>2020/09/11</strong></p>
-
-<ul>
-  <li>Custom Optimizer 만들기 대작전
-    <ol>
-      <li>keras natvie library안에 들어가서 SGD+momentum에 weight_decay 변수만 추가하려고 했는데  실질적으로 연산 코드는 c++에 작성되어 있다.
-  그래서 이 방법은 쓰지 못할듯 ㅠㅠ</li>
-      <li>resource_apply_dense 함수를 업데이트 하고 싶은데…. tf.assign() 함수가 V2로 넘어오면서 deprecated 되었다. 근데 이걸 대체할 만한 것들이 안보임!!</li>
-      <li>혹시나 해서 resource_apply_dense 안을 비워봤다. 근데 업데이트가 된다 ㅋㅋㅋㅋㅋㅋㅋ 후……….. 이 의미는 loss update가 전혀 안된다는 것이다.</li>
-      <li>tfrecord 변환 끝나면 이제 함 실험해볼라고</li>
-    </ol>
-  </li>
-</ul>
-
-<hr />
-<p><strong>2020/09/21</strong></p>
-
-<ul>
-  <li>imagenet dataset 을 tfrecord로 변환하기 대작전
-    <ol>
-      <li>내가 가진 자원, 16기가 메모리, 를 가지고 데이터셋을 tf에 한번에 적재하기!</li>
-      <li>왜냐하면 나눠서 적재하는거… 머리속에 안그려지기도 하고 bin 파일로 만들어서 한번에 메모리에 적재하면 빠르기도 하고!</li>
-      <li>하지만 imagenet 데이터셋은 ~138GB, 그래서 나온게 tfrecord</li>
-      <li>alexnet 만든 사람의 cifar 10 bin 데이터 6만장은 160mb 까지 나왓는데 (물론 32x32 reshape 해줘야 하는 작업이 더해짐)</li>
-      <li>이거는 tf가 알수 없는 bin 파일임. 그래서 tf 적재전에 decoding해서 적재해줘야함 -&gt; 무쓸모</li>
-      <li>그래서 나는 tfrecord로 처음시도햇을때 30GB이상 나옴. 자원 초과함.</li>
-      <li>그래서 이미지 퀄리티를 70으로 줄이면 ~13GB 까지 된다는 자료가 있어 지금 그걸로 시도중 jpeg 압축 이미지 퀄리티를 줄여도 모델훈련에는 문제 없음
-        <ul>
-          <li>cifar 데이터로 tfrecord 만드는 작업을 테스트 했을때 encoding 하는 과정에서 이미지 bin 데이터를 tf.train.bytelist에다가  set_sequential_values로 넣어줬음</li>
-          <li>이걸로 decoding도 가능했었는데 그 이유는 이미지 데이터를
-            <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  with open(file_path, "rb") as f:
-      f.read()
-</code></pre></div>            </div>
-            <p>자체로 tfrecord로 변환 해주니까 된거였음.</p>
-          </li>
-          <li>이번에는 이미지 resizing + bin encoding 을 한번에 해야하는 작업이라 이미지 디코딩 -&gt; resizing -&gt; encoding -&gt; tfrecord 해줘야 했는데</li>
-          <li>자꾸 tfrecord 받아오는 데이터가 못 읽는 것이였음.</li>
-          <li>문제를 찾다 보니 tf.train.bytelist를 그냥 argument값인 value를 그대로 옮겨다가 넣어줬음 된거임….</li>
-          <li>조심하자 ㅠㅠ 5일동안 이유를 못찾았는데 겨우 해결하고 파싱중… 근데 4일걸린다… 8 core 모두 사용해도…</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-</ul>
-
-<p><strong>2020/09/26</strong></p>
-
-<ul>
-  <li>loss가 Nan이 뜨던 원인을 찾았다. 그건 바로 <strong>tf.image.convert_image_dtype</strong> 이다.
-    <ul>
-      <li>나는 데이터형변환만 필요했는데 저 함수는 <strong>scaling</strong> 까지 해버린다.</li>
-      <li>그래서 imagenet mean을 빼주면 전부다 imagenet mean에 맞춰지니까 당연히 Nan이 뜨지 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ</li>
-      <li>아 진짜 증오한다ㅏ아아아아아아아ㅓㄹ머ㅗㄴ아ㅓ론마이뢈ㅇ니</li>
-    </ul>
-  </li>
-  <li>loss Nan이 뜨던 원인2
-    <ul>
-      <li>sparse categorical crossentropy는 ~~~! 인덱스 0부터임… ㅠㅠ</li>
-    </ul>
-  </li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/pattern%20recognition/2020/09/08/Lagrange-Multipliers/">
-        Lagrange Multipliers
-      </a>
-    </h1>
-
-    <span class="post-date">08 Sep 2020</span>
-
-    <blockquote>
-  <p>sometimes called <strong>undetermined multipliers</strong></p>
-</blockquote>
-
-<p>1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.</p>
-
-<p>\(x_1, x_2\)에 관련된 constraint에 대하여 \(f(x_1, x_2)\) 의 maximum을 찾는 문제를 정의하면,  <br />
-\(g(x_1, x_2)=0\)  <br />
-—————————-</p>
 
   </div>
   
