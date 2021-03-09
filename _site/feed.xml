@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-29T16:38:51+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">Attention Mechanism</title><link href="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/" rel="alternate" type="text/html" title="Attention Mechanism" /><published>2020-10-28T00:00:00+09:00</published><updated>2020-10-28T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/">&lt;h2 id=&quot;attention-mechanism&quot;&gt;Attention Mechanism&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-06T17:04:58+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shin</title><subtitle>A reserved &lt;a href=&quot;https://jekyllrb.com&quot; target=&quot;_blank&quot;&gt;Jekyll&lt;/a&gt; theme that places the utmost gravity on content with a hidden drawer. Made by &lt;a href=&quot;https://twitter.com/mdo&quot; target=&quot;_blank&quot;&gt;@mdo&lt;/a&gt;.</subtitle><author><name>Shin</name><email>ski8992@gmail.com</email></author><entry><title type="html">RNN</title><link href="http://localhost:4000/deep%20learning/2020/11/06/RNN/" rel="alternate" type="text/html" title="RNN" /><published>2020-11-06T00:00:00+09:00</published><updated>2020-11-06T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/11/06/RNN</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/11/06/RNN/">&lt;p&gt;특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음&lt;/p&gt;
+
+&lt;p&gt;그래서 가장 중요한거는 &lt;strong&gt;parameter sharing&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(e.g.) I went to Nepal in 2009.   &lt;br /&gt;
+     In 2009, I went to Nepal.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;연도에 대해서 두 문장의 “2009”는 서로 다른 position에 위치함.&lt;/p&gt;
+
+&lt;p&gt;이 문제를 해결하는 네트워크로   &lt;br /&gt;
+기존 “뉴런” 기반의 FC layer는 “갈라진(separate) 파라미터”들을 가지고 있다. 그래서 문장의 각 포지션마다 “모든 언어 규칙”을 따로따로 배워야할 필요가 있다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;parameter 개수 = Weight Matrix 크기 * kernel 크기 + bias 크기 (뉴런)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;RNN는 cell이라는 cell의 가중치는 time step에 대해 독립적이다. 이 의미는 
+반대로, RNN은 시간의 변화(step?)에도 같은 가중치 변수를 가지고 공유한다. 서로 다른 input들은 시간을 통해서 서로 인과관계를 가진다.
+그럼 Markov random field랑 무엇이 다른가?&lt;/p&gt;
+
+&lt;p&gt;아래는 RNN을 뉴런 기반으로 표현한 것이다. hidden state가 
+&lt;img src=&quot;/public/asset/RNN.jpg&quot; alt=&quot;RNN&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;convolution을 사용해 time steps 에 따라 weight를 공유한 연구들
+ 1D temporal(of time) sequence
+ basis for time-delay NN, parameters sharing across time but is shallow&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;RNN은 2D 정보도 받을 수 있음&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;spatial data (image)&lt;/li&gt;
+  &lt;li&gt;시간 관련 데이터 (네트워크에 시간이 거슬러 올라가는 연결이 있을 수 있는…), 전체 시퀀스가 네트워크에 제공되기 전에 관찰됨.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Classical form of a dynamical system&lt;/li&gt;
+&lt;/ul&gt;
+
+\[s^{(s)}=f(s^{(t-1)};\theta)\]</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Deep Learning" /><category term="RNN" /><summary type="html">특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음</summary></entry><entry><title type="html">Attention Mechanism</title><link href="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/" rel="alternate" type="text/html" title="Attention Mechanism" /><published>2020-10-28T00:00:00+09:00</published><updated>2020-10-28T00:00:00+09:00</updated><id>http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism</id><content type="html" xml:base="http://localhost:4000/deep%20learning/2020/10/28/attention-mechanism/">&lt;h2 id=&quot;attention-mechanism&quot;&gt;Attention Mechanism&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;문제   &lt;br /&gt;
@@ -709,52 +749,4 @@ Cov(Z,X) &amp;amp; Cov(Z,Y) &amp;amp; Cov(Z,Z)\\
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/asset/PCA-6.jpg&quot; alt=&quot;PCA6&quot; /&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recongnition" /><category term="PCA" /><summary type="html">제일 좋은 참조. 내꺼 안봐도 됨 https://excelsior-cjh.tistory.com/167 https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/</summary></entry><entry><title type="html">Maxpooling의 한계</title><link href="http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling/" rel="alternate" type="text/html" title="Maxpooling의 한계" /><published>2020-09-01T00:00:00+09:00</published><updated>2020-09-01T00:00:00+09:00</updated><id>http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling</id><content type="html" xml:base="http://localhost:4000/statistics/2020/09/01/Limit-of-Maxpooling/">&lt;p&gt;&lt;a href=&quot;https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/&quot;&gt;https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;&lt;a href=&quot;/computer%20vision/2020/08/26/stationarity-of-statistics/&quot;&gt;translation invariance&lt;/a&gt; 조건으로 feature을 discard (maxpooling) 하느냐 아니면 translation equivariance할 수 있는 다른 새로운 방법을 찾아 disentangling 하냐에 대해서 논란이 있다.   &lt;br /&gt;
-  확실히 disentangling하는 것이 더 나은 방법이라고 생각한다. 객체 지향처럼 encapsulation이라는 개념이 소개 되었는데, 세상의 모든 성질을 객체에다가 넣어서 평가하려면… 불가능함에 가까워 보인다. 이런 부분을 고려해서 CapsNet 구조를 만들었을 것이다. CapsNet을 아직 안봐서 이 부분은 나중에 내 생각의 수정이 필요하다.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;maxpooling의 잘못된 점
-        &lt;ol&gt;
-          &lt;li&gt;내재되어있는 선형적인 구조를 사용하지 않는다. (Fails to use underlying linear structure).
-            &lt;ul&gt;
-              &lt;li&gt;SIFT를 통해서도 알겠지만 여러 방면으로 3D 물체를 돌려보는 것은 비선형적이다. 이를 globally linear 한 곳으로 변환시킨다면 대량의 extrapolation이 가능합니다. 즉, 물체의 다양한 모습을 추정 가능하다는 말과 같습니다. 하지만 pooling에는 이러한 과정이 없습니다.&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Dynamic routing과는 어울리지 않음
-            &lt;ul&gt;
-              &lt;li&gt;pooling에서는 캡스넷(캡슐 네트워크)의 가장 큰 특징 중 하나인 dynamic routing을 사용할 수 없다.&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-      &lt;li&gt;현재 CNN의 주요한 문제점
-        &lt;blockquote&gt;
-          &lt;p&gt;Internal data representation of a convolutional neural network doesn’t take into account important spatial hierarchies between simple and complex objects”&lt;/p&gt;
-        &lt;/blockquote&gt;
-        &lt;ul&gt;
-          &lt;li&gt;CNN 내부 데이터의 간단한 오브젝트와 복잡한 오브젝트 사이의 spatial hierarchies를 고려하지 않는다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;CapsNet은 feature간의 공간적인 관계까지 고려하게 됩니다.
-        &lt;ul&gt;
-          &lt;li&gt;그럼 feature 간의 weight 또한 필요하다고 볼 수 있네&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Maxpooling은 학습 가능한 파라미터가 존재하지 않으며 단순히 가장 큰 특징적인 값만 뽑아내서 FOV를 넓히는 것 밖에 못한다는 것입니다.
-        &lt;ul&gt;
-          &lt;li&gt;하지만 캡슐은 벡터로 이루어져 있기 때문에 dynamic rouing을 통해 오브젝트 파트들의 상대적 위치를 조합할 수 있음&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;맥스풀링은 깐깐함에서 좀 더 유연하게 풀어주는 역할을 한다.   &lt;br /&gt;
-유연함은 필요하지만 가지고 있는 특징들을 버리면서까지 유연함을 유지하는 것은 좋지 않은 방법이라는 말에 동의한다.   &lt;br /&gt;
-Maxpooling 말고 PCA를 통해 줄여도 똑같겠지? ㅎㅎ;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Statistics" /><category term="CNN" /><category term="CapsNet" /><summary type="html">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/ 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/public/asset/PCA-6.jpg&quot; alt=&quot;PCA6&quot; /&gt;&lt;/p&gt;</content><author><name>Shin</name><email>ski8992@gmail.com</email></author><category term="Pattern Recongnition" /><category term="PCA" /><summary type="html">제일 좋은 참조. 내꺼 안봐도 됨 https://excelsior-cjh.tistory.com/167 https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/</summary></entry></feed>

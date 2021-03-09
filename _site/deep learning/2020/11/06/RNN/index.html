@@ -9,12 +9,12 @@
    
   <title>
     
-      Whitening &middot; Shin
+      RNN &middot; Shin
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/deep%20learning/2020/08/31/Whitening/">
+  <link rel="canonical" href="http://localhost:4000/deep%20learning/2020/11/06/RNN/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -164,20 +164,53 @@
 <!---->
 
 <div class="post">
-  <h1 class="post-title">Whitening</h1>
-  <span class="post-date">31 Aug 2020</span>
+  <h1 class="post-title">RNN</h1>
+  <span class="post-date">06 Nov 2020</span>
   <article>
       <script type="text/javascript" async
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
       </script> 
-      <p>input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미</p>
+      <p>특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음</p>
 
-<p>이 조건을 만족하면 더 빨라진다!</p>
+<p>그래서 가장 중요한거는 <strong>parameter sharing</strong>.</p>
 
-<p>하지만 공분산 계산하는 computationally cost가 높다.</p>
+<blockquote>
+  <p>(e.g.) I went to Nepal in 2009.   <br />
+     In 2009, I went to Nepal.</p>
+</blockquote>
 
-<p>Batch Normalization 논문에 따르면, bias가 무한대로 증가할 가능성이 있어 loss update가 안된다고 한다. 그래서 꼭 좋지만은 않은 것이다.  <br />
-왜 그런지는 좀 더 논문을 살펴봐야 알 것같다.</p>
+<p>연도에 대해서 두 문장의 “2009”는 서로 다른 position에 위치함.</p>
+
+<p>이 문제를 해결하는 네트워크로   <br />
+기존 “뉴런” 기반의 FC layer는 “갈라진(separate) 파라미터”들을 가지고 있다. 그래서 문장의 각 포지션마다 “모든 언어 규칙”을 따로따로 배워야할 필요가 있다.</p>
+<blockquote>
+  <p>parameter 개수 = Weight Matrix 크기 * kernel 크기 + bias 크기 (뉴런)</p>
+</blockquote>
+
+<p>RNN는 cell이라는 cell의 가중치는 time step에 대해 독립적이다. 이 의미는 
+반대로, RNN은 시간의 변화(step?)에도 같은 가중치 변수를 가지고 공유한다. 서로 다른 input들은 시간을 통해서 서로 인과관계를 가진다.
+그럼 Markov random field랑 무엇이 다른가?</p>
+
+<p>아래는 RNN을 뉴런 기반으로 표현한 것이다. hidden state가 
+<img src="/public/asset/RNN.jpg" alt="RNN" /></p>
+
+<blockquote>
+  <p>convolution을 사용해 time steps 에 따라 weight를 공유한 연구들
+ 1D temporal(of time) sequence
+ basis for time-delay NN, parameters sharing across time but is shallow</p>
+</blockquote>
+
+<p>RNN은 2D 정보도 받을 수 있음</p>
+<ol>
+  <li>spatial data (image)</li>
+  <li>시간 관련 데이터 (네트워크에 시간이 거슬러 올라가는 연결이 있을 수 있는…), 전체 시퀀스가 네트워크에 제공되기 전에 관찰됨.</li>
+</ol>
+
+<ul>
+  <li>Classical form of a dynamical system</li>
+</ul>
+
+\[s^{(s)}=f(s^{(t-1)};\theta)\]
 
   </article>
 </div>
@@ -186,15 +219,6 @@
 <div class="related">
   <h2>Related posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/deep%20learning/2020/11/06/RNN/">
-            RNN
-            <small>06 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -210,6 +234,15 @@
           <a href="/deep%20learning/2020/10/27/Autoencoder/">
             Autoencoder
             <small>27 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/deep%20learning/2020/10/22/Analytic-Gradient-vs-Numerical-Gradient/">
+            Analytic Gradient vs Numerical Gradient
+            <small>22 Oct 2020</small>
           </a>
         </h3>
       </li>
