@@ -1,12 +1,11 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
-  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
-
-<html lang="ko-KR" class="no-js">
+<html lang="ko" class="no-js">
   <head>
     <meta charset="utf-8">
 
@@ -63,7 +62,17 @@
 
 
 
-
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "신경익",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/mmistakes","https://www.facebook.com/michaelrose"]
+    
+  }
+</script>
 
 
   <meta name="google-site-verification" content="UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y" />
@@ -78,17 +87,19 @@
 
 
   <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Shinywings Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-  window.enable_copy_code_button = true;
 </script>
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
 
 
 
@@ -98,9 +109,11 @@
 
 <!-- end custom head snippets -->
 
+
+    
   </head>
 
-  <body class="layout--archive" dir="ltr">
+  <body class="layout--archive">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -108,6 +121,10 @@
     <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
   </ul>
 </nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
 
     
 
@@ -120,37 +137,96 @@
           Shinywings
           <span class="site-subtitle">경익->耿翼->Shinywings</span>
         </a>
-        <ul class="visible-links"><li class="masthead__menu-item">
-              <a
-                href="/docs/quick-start-guide/"
+        <ul class="visible-links">
+              
                 
                 
-              >Quick-Start Guide</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/about/"
                 
                 
-              >About</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/year-archive/"
+                  <li class="masthead__menu-item">
+                    <a href="/math/">Math</a>
+                  </li>
+                
+              
                 
                 
-              >Sample Posts</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/collection-archive/"
                 
                 
-              >Sample Collections</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/terms/"
+              
                 
                 
-              >Terms &amp; Privacy Policy</a>
-            </li></ul>
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/etc/">Etc</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+            
+            <li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/collection-archive/">Collections</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/portfolio/">Portfolio</a>
+            </li>
+            </ul>
         
         <button class="search__toggle" type="button">
           <span class="visually-hidden">Toggle search</span>
@@ -158,7 +234,7 @@
         </button>
         
         <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Toggle menu</span>
+          <span class="visually-hidden">토글 메뉴</span>
           <div class="navicon"></div>
         </button>
         <ul class="hidden-links hidden"></ul>
@@ -166,7 +242,6 @@
     </div>
   </div>
 </div>
-
 
     <div class="initial-content">
       
@@ -184,8 +259,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
-
+          <a href="http://localhost:4000//" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -206,22 +280,22 @@
   
 
 
-<div itemscope itemtype="https://schema.org/Person" class="h-card">
+<div itemscope itemtype="https://schema.org/Person">
 
   
     <div class="author__avatar">
-      <a href="http://localhost:4000/">
-        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image" class="u-photo">
-      </a>
+      
+        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image">
+      
     </div>
   
 
   <div class="author__content">
-    <h3 class="author__name p-name" itemprop="name">
-      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">신경익</a>
-    </h3>
     
-      <div class="author__bio p-note" itemprop="description">
+      <h3 class="author__name" itemprop="name">신경익</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
         <p>Software Engineer (Computer vision)</p>
 
       </div>
@@ -229,22 +303,22 @@
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">팔로우</button>
     <ul class="author__urls social-icons">
       
         <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
-          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Seoul, South Korea</span>
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, South Korea</span>
         </li>
       
 
       
         
           
-            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
           
         
           
-            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
           
         
       
@@ -299,7 +373,7 @@
 
       <!--
   <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
       <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
     </a>
   </li>
@@ -318,23 +392,11 @@
       <h1 id="page-title" class="page__title">Posts by Collection</h1>
     
     
-
-
-  
-    
-    
-      <h2 id="docs" class="archive__subtitle">docs</h2>
-      
-    
-  
-  
-    
-      
-
-
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;h2 id="docs" class="archive__subtitle"&gt;docs&lt;/h2&gt;
+</code></pre></div></div>
 
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -350,15 +412,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -374,15 +429,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -398,15 +446,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -422,15 +463,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -446,15 +480,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -470,15 +497,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -494,15 +514,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -518,15 +531,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -542,15 +548,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -566,15 +565,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -590,15 +582,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -614,15 +599,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -638,15 +616,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -662,15 +633,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -686,15 +650,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -710,15 +667,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -734,15 +684,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -758,15 +701,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -782,15 +718,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -806,15 +735,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -831,80 +753,20 @@
   </article>
 </div>
 
-    
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;h2 id="pets" class="archive__subtitle"&gt;pets&lt;/h2&gt;
   
 
   
-    
-    
-      <h2 id="pets" class="archive__subtitle">pets</h2>
-      
-    
   
+
   
-    
-      
 
 
+  &lt;h2 id="portfolio" class="archive__subtitle"&gt;portfolio&lt;/h2&gt;
+</code></pre></div></div>
 
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/pets/lhasa-apso/" rel="permalink">Lhasa Apso
-</a>
-      
-    </h2>
-    
-
-
-    <p class="archive__item-excerpt" itemprop="description">The Lhasa Apso is a non-sporting dog breed originating in Tibet.
-</p>
-  </article>
-</div>
-
-    
-  
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/pets/tabby/" rel="permalink">Tabby
-</a>
-      
-    </h2>
-    
-
-
-    <p class="archive__item-excerpt" itemprop="description">A tabby is any domestic cat that has a coat featuring distinctive stripes, dots, lines or swirling patterns, usually with a mark resembling an ‘M’ on its for...</p>
-  </article>
-</div>
-
-    
-  
-
-  
-    
-    
-      <h2 id="portfolio" class="archive__subtitle">portfolio</h2>
-      
-    
-  
-  
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -920,15 +782,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -944,15 +799,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -968,15 +816,8 @@
   </article>
 </div>
 
-    
-  
-    
-      
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
@@ -992,178 +833,44 @@
   </article>
 </div>
 
-    
-  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;h2 id="recipes" class="archive__subtitle"&gt;recipes&lt;/h2&gt;
+</code></pre></div></div>
 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-    
-    
-      <h2 id="recipes" class="archive__subtitle">recipes</h2>
-      
-    
-  
-  
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/recipes/chocolate-chip-cookies/" rel="permalink">Chocolate Chip Cookies
-</a>
-      
-    </h2>
-    
-
-
-    <p class="archive__item-excerpt" itemprop="description">A chocolate chip cookie is a drop cookie that originated in the United States and features chocolate chips as its distinguishing ingredient.
-
-</p>
-  </article>
-</div>
-
-    
-  
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/recipes/oatmeal-cookies/" rel="permalink">Oatmeal Cookies
-</a>
-      
-    </h2>
-    
-
-
-    <p class="archive__item-excerpt" itemprop="description">Oatmeal cookies are a proverbial favorite with both kids and adults. This crisp and chewy cookie is loaded with oats, dried fruit, and chopped nuts.
-
-</p>
-  </article>
-</div>
-
-    
-  
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/recipes/peanut-butter-cookies/" rel="permalink">Peanut Butter Cookies
-</a>
-      
-    </h2>
-    
-
-
-    <p class="archive__item-excerpt" itemprop="description">A peanut butter cookie is a type of cookie that is distinguished for having peanut butter as a principal ingredient. The cookie generally originated in the U...</p>
-  </article>
-</div>
-
-    
-  
 
   </div>
 </div>
-
-      <div align="center" style="margin: 1em 0;">
-  <ins class="adsbygoogle"
-        style="display:block; border-bottom: initial;"
-        data-ad-client="ca-pub-7328585512091257"
-        data-ad-slot="3049671934"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-</div>
-
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+             style="display:block; border-bottom: initial;"
+             data-ad-client="ca-pub-7328585512091257"
+             data-ad-slot="3049671934"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div> -->
     </div>
 
     
       <div class="search-content">
-        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
     <label class="sr-only" for="search">
       Enter your search term...
     </label>
-    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
   </form>
   <div id="results" class="results"></div></div>
 
       </div>
     
 
-    <div id="footer" class="page__footer">
+    <div class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
 <!-- end custom footer snippets -->
         <div class="page__footer-follow">
   <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
     
 
     
@@ -1179,12 +886,12 @@
     
 
     
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
     
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">Shinywings</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2025 신경익. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -1212,5 +919,17 @@
 
 
 
-  </body>
+    <style>
+      .google-auto-placed {
+        margin: 2em auto;
+      }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    
+
+    
+        
+    </body>
 </html>

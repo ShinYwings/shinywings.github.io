@@ -1,0 +1,1080 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Bayesian Networks - Shinywings</title>
+<meta name="description" content="확률 이론 + 그래프 이론   Directed Acyclic Gragh (DAG)            Cycle을 이루면 안된다.   cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.                Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 a set of conditional independence 를 간결하게 표현했다.         Conditional Probability Table (CPT)            Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.                        joint distribution             모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)                conditional independence statements를 나타냄                     Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함    하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.   여기서 k는 argmax(각 노드에 할당된 부모의 갯수)     이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)     일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.      (실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)        그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^                       Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles      \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)           Constructing a Bayesian Network            Chain rule:   \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)       Bayesian Networks:     \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)     \(x_i\) 는 이벤트       베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.           관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.            관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, top-down 추론 또는 예측 한다.       결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, bottom-up 추론 또는 진단 한다.                    두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 은닉 노드들의 값을 추론해 낸다.                           (e.g.)        Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.   P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)     = P (MaryCalls | Alarm) 으로 제거(marginalise)할 수 있다.      왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라      조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.      bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.   반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.   \(\begin{equation} \begin{split} P(A|j,m) &amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\    &amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\    &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\   &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\   &amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\   &amp;= \alpha (0.0004987417790000001)      \end{split}\end{equation}\)      \(\neg A\)  yields  \(\alpha * 0.000498741779\)     \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)     j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.             where \(\alpha\) is normalizing vector(constant)       P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.                  합이 100%가 안되서 처음에 좀 놀랐다.     각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.           Local Markov Assumption                                     \(X \perp NonDesc(X)\|Parent(X)\)           X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))                           Markov Blanket (Markov Boundary)                   (a)는 markov blanket이 아니다.       (b)는 markov blanket 이다.     U: parents Z: co-parents Y: Children       각 노드들은 parents, co-parents, children 만 고려하면 된다.">
+
+
+  <meta name="author" content="신경익">
+  
+  <meta property="article:author" content="신경익">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Shinywings">
+<meta property="og:title" content="Bayesian Networks">
+<meta property="og:url" content="http://localhost:4000/deep%20learning/pattern%20recognition/Bayesian-Networks/">
+
+
+  <meta property="og:description" content="확률 이론 + 그래프 이론   Directed Acyclic Gragh (DAG)            Cycle을 이루면 안된다.   cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.                Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 a set of conditional independence 를 간결하게 표현했다.         Conditional Probability Table (CPT)            Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.                        joint distribution             모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)                conditional independence statements를 나타냄                     Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함    하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.   여기서 k는 argmax(각 노드에 할당된 부모의 갯수)     이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)     일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.      (실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)        그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^                       Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles      \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)           Constructing a Bayesian Network            Chain rule:   \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)       Bayesian Networks:     \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)     \(x_i\) 는 이벤트       베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.           관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.            관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, top-down 추론 또는 예측 한다.       결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, bottom-up 추론 또는 진단 한다.                    두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 은닉 노드들의 값을 추론해 낸다.                           (e.g.)        Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.   P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)     = P (MaryCalls | Alarm) 으로 제거(marginalise)할 수 있다.      왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라      조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.      bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.   반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.   \(\begin{equation} \begin{split} P(A|j,m) &amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\    &amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\    &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\   &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\   &amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\   &amp;= \alpha (0.0004987417790000001)      \end{split}\end{equation}\)      \(\neg A\)  yields  \(\alpha * 0.000498741779\)     \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)     j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.             where \(\alpha\) is normalizing vector(constant)       P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.                  합이 100%가 안되서 처음에 좀 놀랐다.     각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.           Local Markov Assumption                                     \(X \perp NonDesc(X)\|Parent(X)\)           X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))                           Markov Blanket (Markov Boundary)                   (a)는 markov blanket이 아니다.       (b)는 markov blanket 이다.     U: parents Z: co-parents Y: Children       각 노드들은 parents, co-parents, children 만 고려하면 된다.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/site-logo.png">
+
+
+
+  <meta name="twitter:site" content="@mmistakes">
+  <meta name="twitter:title" content="Bayesian Networks">
+  <meta name="twitter:description" content="확률 이론 + 그래프 이론   Directed Acyclic Gragh (DAG)            Cycle을 이루면 안된다.   cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.                Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 a set of conditional independence 를 간결하게 표현했다.         Conditional Probability Table (CPT)            Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.                        joint distribution             모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)                conditional independence statements를 나타냄                     Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함    하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.   여기서 k는 argmax(각 노드에 할당된 부모의 갯수)     이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)     일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.      (실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)        그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^                       Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles      \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)           Constructing a Bayesian Network            Chain rule:   \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)       Bayesian Networks:     \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)     \(x_i\) 는 이벤트       베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.           관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.            관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, top-down 추론 또는 예측 한다.       결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, bottom-up 추론 또는 진단 한다.                    두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 은닉 노드들의 값을 추론해 낸다.                           (e.g.)        Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.   P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)     = P (MaryCalls | Alarm) 으로 제거(marginalise)할 수 있다.      왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라      조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.      bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.   반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.   \(\begin{equation} \begin{split} P(A|j,m) &amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\    &amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\    &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\   &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\   &amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\   &amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\   &amp;= \alpha (0.0004987417790000001)      \end{split}\end{equation}\)      \(\neg A\)  yields  \(\alpha * 0.000498741779\)     \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)     j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.             where \(\alpha\) is normalizing vector(constant)       P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.                  합이 100%가 안되서 처음에 좀 놀랐다.     각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.           Local Markov Assumption                                     \(X \perp NonDesc(X)\|Parent(X)\)           X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))                           Markov Blanket (Markov Boundary)                   (a)는 markov blanket이 아니다.       (b)는 markov blanket 이다.     U: parents Z: co-parents Y: Children       각 노드들은 parents, co-parents, children 만 고려하면 된다.">
+  <meta name="twitter:url" content="http://localhost:4000/deep%20learning/pattern%20recognition/Bayesian-Networks/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/images/site-logo.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-09-21T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/deep%20learning/pattern%20recognition/Bayesian-Networks/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "신경익",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/mmistakes","https://www.facebook.com/michaelrose"]
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y" />
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Shinywings Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Shinywings
+          <span class="site-subtitle">경익->耿翼->Shinywings</span>
+        </a>
+        <ul class="visible-links">
+              
+                
+                
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/math/">Math</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/etc/">Etc</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+            
+            <li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/collection-archive/">Collections</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/portfolio/">Portfolio</a>
+            </li>
+            </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000//" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#deep-learning" itemprop="item"><span itemprop="name">Deep learning</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#pattern-recognition" itemprop="item"><span itemprop="name">Pattern recognition</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Bayesian Networks</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">신경익</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Software Engineer (Computer vision)</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Bayesian Networks">
+    <meta itemprop="description" content="  확률 이론 + 그래프 이론  Directed Acyclic Gragh (DAG)          Cycle을 이루면 안된다.  cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.            Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 a set of conditional independence 를 간결하게 표현했다.      Conditional Probability Table (CPT)          Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.              joint distribution          모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)              conditional independence statements를 나타냄                  Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함   하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.  여기서 k는 argmax(각 노드에 할당된 부모의 갯수)    이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)    일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.     (실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)       그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^                    Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles     \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)        Constructing a Bayesian Network          Chain rule:  \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)      Bayesian Networks:    \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)    \(x_i\) 는 이벤트      베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.        관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.          관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, top-down 추론 또는 예측 한다.      결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, bottom-up 추론 또는 진단 한다.                  두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 은닉 노드들의 값을 추론해 낸다.                      (e.g.)      Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.  P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)    = P (MaryCalls | Alarm) 으로 제거(marginalise)할 수 있다.     왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라     조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.    bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.  반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.  \(\begin{equation} \begin{split} P(A|j,m) &amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\   &amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\   &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\  &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\  &amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\  &amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\  &amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\  &amp;= \alpha (0.0004987417790000001)     \end{split}\end{equation}\)     \(\neg A\)  yields  \(\alpha * 0.000498741779\)    \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)    j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.          where \(\alpha\) is normalizing vector(constant)      P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.              합이 100%가 안되서 처음에 좀 놀랐다.    각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.        Local Markov Assumption                                \(X \perp NonDesc(X)\|Parent(X)\)          X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))                      Markov Blanket (Markov Boundary)                (a)는 markov blanket이 아니다.      (b)는 markov blanket 이다.    U: parents Z: co-parents Y: Children      각 노드들은 parents, co-parents, children 만 고려하면 된다.      ">
+    <meta itemprop="datePublished" content="2020-09-21T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Bayesian Networks
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-21T00:00:00+09:00">September 21, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              
+
+            </nav>
+          </aside>
+        
+        <ul>
+  <li>확률 이론 + 그래프 이론</li>
+  <li>Directed Acyclic Gragh (DAG)
+    <blockquote>
+      <p>Cycle을 이루면 안된다.  <br />
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Edge represents Influence as Random Variable(확률 변수) (\(\approx\) State, Node) 그리고 모든 Edge들을 통해 <u>a set of conditional independence</u> 를 간결하게 표현했다.  <br />
+<img src="/assets/images/condition.jpg" alt="condition" /></p>
+  </li>
+  <li>Conditional Probability Table (CPT)
+    <blockquote>
+      <p>Random Variable (\(X_i\)) 과 부모 노드들과의 확률 분포를 나타낸다.
+  <img src="/assets/images/Conditional_probability_table.png" alt="conditioanl probability table" /></p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>
+    <p><strong>joint distribution</strong></p>
+
+    <ul>
+      <li>모든 정보를 알때 유용함 (하지만 그럴 일은 없으므로 베이지안 네트워크가 유리)</li>
+      <li>
+        <p>conditional independence statements를 나타냄</p>
+
+        <blockquote>
+          <p>Joint Distribution을 나타내기 위해서 \(2^n\)개가 필요함   <br />
+하지만, Bayesian network의 표현은 \(n\cdot 2^k\) 개만 있으면 된다.  <br />
+여기서 <strong>k는 argmax(각 노드에 할당된 부모의 갯수)</strong>    <br />
+이와 같이 poly tree의 경우 계산 비용이 전체 네트워크 크기에 선형적으로 증가한다.(근데 이런 경우는 극히 드뭄)    <br />
+일반적으로 베이지안 네트워크의 정확한 값의 추론은 NP-Hard 문제이다.     <br />
+(실제로는 #P-hard문제임, 근데 #p-hard문제가 뭔지 모르겠다.)     <br />
+  그래서 n=30 일때, Joint distribution은 1B 개의 숫자가 필요하지만, 베이지안 네트워크는 960개만 있으면 된다. 메모리를 팍 줄였다^^</p>
+        </blockquote>
+      </li>
+      <li>Joint Distribution \(P(x_1, \ldots, x_n)\) represents the multiplication of all possibles   <br />
+  \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)</li>
+    </ul>
+  </li>
+  <li><strong>Constructing a Bayesian Network</strong>
+    <ul>
+      <li>Chain rule:
+  \(\begin{equation} \begin{split}P(x_1, \ldots, x_n) &amp;= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&amp;= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}\)</li>
+      <li>Bayesian Networks:  <br />
+  \(P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))\)  <br />
+  \(x_i\) 는 이벤트</li>
+      <li><strong>베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.</strong></li>
+    </ul>
+  </li>
+  <li>관측 가능한 정보가 그래프의 위 또는 아래에 존재하는지에 따라 두가지 추론으로 나뉜다.
+    <ol>
+      <li>관측 가능한 값들을 알려지지 않은 결과 값들을 예측하는데 사용할 수 있다면, <strong>top-down 추론</strong> 또는 <strong>예측</strong> 한다.</li>
+      <li>결과 값들이 알려져 있지만 원인(관측 값)들을 알 수 없을 때, <strong>bottom-up 추론</strong> 또는 <strong>진단</strong> 한다.
+        <ul>
+          <li>두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 <strong>은닉</strong> 노드들의 값을 추론해 낸다.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <p>(e.g.)  <br />
+  <img src="/assets/images/bayesian_network.jpg" alt="bayesian networks" />
+  Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.
+  P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)  <br />
+  = P (MaryCalls | Alarm) 으로 <strong>제거(marginalise)</strong>할 수 있다.   <br />
+  왜냐하면 \(\prod^{n}_{i=1} P(x_i|parents(X_i))\) 에 따라   <br />
+  조건부 독립 상태에 따라 JohnCalls, Earthquake, Burglary는 Mary Calls에 대해 직접적인 영향을 미치지 못하기 때문이다.</p>
+
+    <p>bottom-up추론 (진단) 같은 경우에도 Mary Calls가 발생(TRUE)했는데 그 원인을 모를 때 원인을 알고 싶다.<br />
+  반대 입장에서 생각하는 것이므로 Bayes’ rule을 사용한다.
+  \(\begin{equation} \begin{split} P(A|j,m) &amp;= \alpha \displaystyle \sum_{b,e} P(A,j,m,b,e) \\ 
+  &amp;= \alpha \displaystyle\sum_{b,e} P(b)P(e)P(A|b,e)P(j|A)P(m|A) \\ 
+  &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \displaystyle\sum_{b} P(b)P(A|e,b) \\
+  &amp;= \alpha P(j|A)P(m|A) \displaystyle\sum_{e} P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\
+  &amp;= \alpha P(j|A)P(m|A) \lbrack P(e) \lbrace P(b)P(A|e,b) + P(\neg b)P(A|e, \neg b) \rbrace \\
+  &amp;+ P(\neg e) \lbrace P(b)P(A| \neg e, b) + P(\neg b)P(A| \neg e, \neg b) \rbrace \rbrack\\
+  &amp;= \alpha (0.9)(0.7)\lbrack (0.002) \lbrace (0.001)(0.95)+(0.999)(0.29) \rbrace + (0.998) \lbrace (0.001)(0.94) + (0.999)(0.001) \rbrace \rbrack \\
+  &amp;= \alpha (0.0004987417790000001)   
+  \end{split}\end{equation}\)   <br />
+  \(\neg A\)  yields  \(\alpha * 0.000498741779\)  <br />
+  \(P(A|j,m) = \alpha \langle 0.00158535846, 0.000498741779 \rangle \approx \langle 0.953909991039174, 0.30009286728551704 \rangle\)  <br />
+  j,m이 주어졌을 때 Alarm이 울릴 확률 약 95%, Alarm이 안 울릴 확률 약 30% 이다.</p>
+
+    <ul>
+      <li>where \(\alpha\) is normalizing vector(constant)</li>
+      <li>P(j,m|A)는 j,m이 서로 독립이기 때문에 P(j|A)P(m|A) 로 나눠줄 수 있다.</li>
+    </ul>
+
+    <blockquote>
+      <p>합이 100%가 안되서 처음에 좀 놀랐다.    <br />
+각각 j,m의 4가지 경우일때 각각의 True값과 False 값들을 곱해준 것이다.</p>
+    </blockquote>
+  </li>
+  <li>Local Markov Assumption  <br />
+  <img src="/assets/images/local_markov_assumption.jpg" alt="local_markov_assumption" />
+    <ul>
+      <li>
+        <dl>
+          <dt>\(X \perp NonDesc(X)\|Parent(X)\)</dt>
+          <dd>X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent (\(\perp\))</dd>
+        </dl>
+      </li>
+    </ul>
+  </li>
+  <li>Markov Blanket (Markov Boundary)    <br />
+  <img src="/assets/images/markov_blanket.jpg" alt="markov_blanket" />
+    <ul>
+      <li>(a)는 markov blanket이 아니다.</li>
+      <li>(b)는 markov blanket 이다.  <br />
+  U: parents Z: co-parents Y: Children</li>
+      <li><strong>각 노드들은 parents, co-parents, children 만 고려하면 된다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#bayesian-networks" class="page__taxonomy-item" rel="tag">Bayesian Networks</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#deep-learning" class="page__taxonomy-item" rel="tag">deep learning</a><span class="sep">, </span>
+    
+      <a href="/categories/#pattern-recognition" class="page__taxonomy-item" rel="tag">Pattern Recognition</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-09-21T00:00:00+09:00">September 21, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=mmistakes&text=Bayesian+Networks%20http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2Fpattern%2520recognition%2FBayesian-Networks%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2Fpattern%2520recognition%2FBayesian-Networks%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2Fpattern%2520recognition%2FBayesian-Networks%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/math/pattern%20recognition/Lagrange-Multipliers/" class="pagination--pager" title="Lagrange Multipliers
+">이전</a>
+    
+    
+      <a href="/deep%20learning/statistics/Sampling/" class="pagination--pager" title="Sampling
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+              style="display:block; border-bottom: initial;"
+              data-ad-client="ca-pub-7328585512091257"
+              data-ad-slot="3049671934"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+      </div> -->
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/RNN/" rel="permalink">RNN
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-11-06T00:00:00+09:00">November 6, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음
+
+그래서 가장 중요한거는 parameter sharing.
+
+
+  (e.g.) I went to Nepal in 2009.   
+     In 2009, I...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/attention-mechanism/" rel="permalink">Attention Mechanism
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-28T00:00:00+09:00">October 28, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Attention Mechanism
+
+
+  문제   
+seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 하나의 고정된 크기의 벡터 표현으로 압축하고,
+디코더는 context vector를 통해 출력 seq를 만들어냄.
+
+
+하나의 고정된 크기의 벡...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Autoencoder/" rel="permalink">Autoencoder
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-27T00:00:00+09:00">October 27, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Definition
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Analytic-Gradient-vs-Numerical-Gradient/" rel="permalink">Analytic Gradient vs Numerical Gradient
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-22T00:00:00+09:00">October 22, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In CS231n,
+Analytic Gradient
+the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math....</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/statistics/Sampling/" rel="permalink">Sampling
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-06T00:00:00+09:00">October 6, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)
+
+숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.
+
+
+  무작위를 확인하는 방법 (반복 체크...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/pattern%20recognition/Lagrange-Multipliers/" rel="permalink">Lagrange Multipliers
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-08T00:00:00+09:00">September 8, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  sometimes called undetermined multipliers
+
+
+1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.
+
+\(x_1, x_2\)에 관련된 c...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+             style="display:block; border-bottom: initial;"
+             data-ad-client="ca-pub-7328585512091257"
+             data-ad-slot="3049671934"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div> -->
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 신경익. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+<style>
+.google-auto-placed {
+  margin: 2em auto;
+}
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+
+
+
+    <style>
+      .google-auto-placed {
+        margin: 2em auto;
+      }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    
+
+    
+        
+    </body>
+</html>

@@ -1,12 +1,11 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
-  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
-
-<html lang="ko-KR" class="no-js">
+<html lang="ko" class="no-js">
   <head>
     <meta charset="utf-8">
 
@@ -63,7 +62,17 @@
 
 
 
-
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "신경익",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/mmistakes","https://www.facebook.com/michaelrose"]
+    
+  }
+</script>
 
 
   <meta name="google-site-verification" content="UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y" />
@@ -78,17 +87,19 @@
 
 
   <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Shinywings Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-  window.enable_copy_code_button = true;
 </script>
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
 
 
 
@@ -98,9 +109,11 @@
 
 <!-- end custom head snippets -->
 
+
+    
   </head>
 
-  <body class="layout--categories" dir="ltr">
+  <body class="layout--categories">
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -108,6 +121,10 @@
     <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
   </ul>
 </nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
 
     
 
@@ -120,37 +137,96 @@
           Shinywings
           <span class="site-subtitle">경익->耿翼->Shinywings</span>
         </a>
-        <ul class="visible-links"><li class="masthead__menu-item">
-              <a
-                href="/docs/quick-start-guide/"
+        <ul class="visible-links">
+              
                 
                 
-              >Quick-Start Guide</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/about/"
                 
                 
-              >About</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/year-archive/"
+                  <li class="masthead__menu-item">
+                    <a href="/math/">Math</a>
+                  </li>
+                
+              
                 
                 
-              >Sample Posts</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/collection-archive/"
                 
                 
-              >Sample Collections</a>
-            </li><li class="masthead__menu-item">
-              <a
-                href="/terms/"
+              
                 
                 
-              >Terms &amp; Privacy Policy</a>
-            </li></ul>
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/etc/">Etc</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+            
+            <li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/collection-archive/">Collections</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/portfolio/">Portfolio</a>
+            </li>
+            </ul>
         
         <button class="search__toggle" type="button">
           <span class="visually-hidden">Toggle search</span>
@@ -158,7 +234,7 @@
         </button>
         
         <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Toggle menu</span>
+          <span class="visually-hidden">토글 메뉴</span>
           <div class="navicon"></div>
         </button>
         <ul class="hidden-links hidden"></ul>
@@ -166,7 +242,6 @@
     </div>
   </div>
 </div>
-
 
     <div class="initial-content">
       
@@ -184,8 +259,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/" itemprop="item"><span itemprop="name">Home</span></a>
-
+          <a href="http://localhost:4000//" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -206,22 +280,22 @@
   
 
 
-<div itemscope itemtype="https://schema.org/Person" class="h-card">
+<div itemscope itemtype="https://schema.org/Person">
 
   
     <div class="author__avatar">
-      <a href="http://localhost:4000/">
-        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image" class="u-photo">
-      </a>
+      
+        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image">
+      
     </div>
   
 
   <div class="author__content">
-    <h3 class="author__name p-name" itemprop="name">
-      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">신경익</a>
-    </h3>
     
-      <div class="author__bio p-note" itemprop="description">
+      <h3 class="author__name" itemprop="name">신경익</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
         <p>Software Engineer (Computer vision)</p>
 
       </div>
@@ -229,22 +303,22 @@
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">팔로우</button>
     <ul class="author__urls social-icons">
       
         <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
-          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Seoul, South Korea</span>
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, South Korea</span>
         </li>
       
 
       
         
           
-            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
           
         
           
-            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
           
         
       
@@ -299,7 +373,7 @@
 
       <!--
   <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
       <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
     </a>
   </li>
@@ -333,6 +407,184 @@
       
     
       
+    
+      
+        <li>
+          <a href="#deep-learning">
+            <strong>deep learning</strong> <span class="taxonomy__count">16</span>
+          </a>
+        </li>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
         <li>
           <a href="#deep-learning">
             <strong>Deep Learning</strong> <span class="taxonomy__count">9</span>
@@ -348,22 +600,6 @@
     
       
     
-  
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
   
@@ -373,18 +609,6 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
     
       
     
@@ -420,6 +644,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
       
@@ -429,29 +659,27 @@
       
     
       
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
     
       
         <li>
-          <a href="#computer-vision">
-            <strong>Computer Vision</strong> <span class="taxonomy__count">4</span>
-          </a>
-        </li>
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-      
-    
-      
-        <li>
-          <a href="#others">
-            <strong>Others</strong> <span class="taxonomy__count">3</span>
+          <a href="#math">
+            <strong>math</strong> <span class="taxonomy__count">5</span>
           </a>
         </li>
       
@@ -463,11 +691,13 @@
       
     
       
-        <li>
-          <a href="#statistics">
-            <strong>Statistics</strong> <span class="taxonomy__count">3</span>
-          </a>
-        </li>
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -477,6 +707,52 @@
   
     
       
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
     
       
     
@@ -491,7 +767,27 @@
       
     
       
+        <li>
+          <a href="#others">
+            <strong>Others</strong> <span class="taxonomy__count">2</span>
+          </a>
+        </li>
+      
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <li>
+          <a href="#statistics">
+            <strong>Statistics</strong> <span class="taxonomy__count">2</span>
+          </a>
+        </li>
       
     
       
@@ -507,9 +803,13 @@
   
     
       
+    
+      
+    
+      
         <li>
-          <a href="#edge-case">
-            <strong>Edge Case</strong> <span class="taxonomy__count">1</span>
+          <a href="#etc">
+            <strong>etc</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -520,6 +820,20 @@
     
       
     
+      
+        <li>
+          <a href="#computer-vision">
+            <strong>computer vision</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
+    
+      
+        <li>
+          <a href="#computer-vision">
+            <strong>Computer Vision</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
       
     
       
@@ -547,8 +861,19 @@
     
   
     
+  
+    
       <section id="deep-learning" class="taxonomy__section">
-        <h2 class="archive__subtitle">Deep Learning</h2>
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            deep learning          
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -568,8 +893,15 @@
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-11-06T00:00:00+09:00">November 6, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -578,7 +910,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
         
       </span>
     
@@ -613,8 +945,15 @@
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-28T00:00:00+09:00">October 28, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -623,7 +962,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
         
       </span>
     
@@ -660,8 +999,15 @@ seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 �
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-27T00:00:00+09:00">October 27, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -670,7 +1016,7 @@ seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 �
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          4 minute read
+          4 분 소요
         
       </span>
     
@@ -701,8 +1047,15 @@ seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 �
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-22T00:00:00+09:00">October 22, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -711,7 +1064,7 @@ seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 �
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          2 분 소요
         
       </span>
     
@@ -734,7 +1087,7 @@ the analytic gradient is exact, fast to compute but more error-prone since it re
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/deep%20learning/Whitening/" rel="permalink">Whitening
+        <a href="/deep%20learning/statistics/Sampling/" rel="permalink">Sampling
 </a>
       
     </h2>
@@ -742,8 +1095,15 @@ the analytic gradient is exact, fast to compute but more error-prone since it re
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-06T00:00:00+09:00">October 6, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -752,7 +1112,219 @@ the analytic gradient is exact, fast to compute but more error-prone since it re
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)
+
+숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.
+
+
+  무작위를 확인하는 방법 (반복 체크...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/pattern%20recognition/Bayesian-Networks/" rel="permalink">Bayesian Networks
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-21T00:00:00+09:00">September 21, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  확률 이론 + 그래프 이론
+  Directed Acyclic Gragh (DAG)
+    
+      Cycle을 이루면 안된다.  
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.
+    
+  
+  
+    Edge represents I...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/others/tensorflow_note/" rel="permalink">Tensorflow Note
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-08T00:00:00+09:00">September 8, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+2020/09/08
+
+  32X32 이미지를 256X256 으로 resize하기 작은 작전
+    
+      32X32에서 256X256 으로 resize 하는 방법은 그냥 tf.image.resize하면 된다고 생각했다.
+      근데 막상 1만장을 tf에 적재할때 res...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Limit-of-Maxpooling/" rel="permalink">Maxpooling의 한계
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-01T00:00:00+09:00">September 1, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/
+
+  
+    이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)
+
+    
+      
+        translation invariance 조건으로 feat...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Whitening/" rel="permalink">Whitening
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
         
       </span>
     
@@ -787,8 +1359,15 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -797,7 +1376,7 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
         
       </span>
     
@@ -836,8 +1415,15 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -846,7 +1432,7 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          1 분 소요
         
       </span>
     
@@ -887,8 +1473,15 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -897,7 +1490,7 @@ Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          3 minute read
+          3 분 소요
         
       </span>
     
@@ -923,7 +1516,7 @@ Internal covariate shift
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/deep%20learning/AlexNet/" rel="permalink">AlexNet
+        <a href="/deep%20learning/Local-Minima/" rel="permalink">Local Minima
 </a>
       
     </h2>
@@ -931,8 +1524,15 @@ Internal covariate shift
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-27T00:00:00+09:00">August 27, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -941,7 +1541,154 @@ Internal covariate shift
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          14 minute read
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
+    용어 정리
+  
+  
+  ...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/computer%20vision/Correlation-vs-Convolution/" rel="permalink">Correlation VS Convolution
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-27T00:00:00+09:00">August 27, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/
+</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/stationarity-of-statistics/" rel="permalink">Stationarity of Statistics in terms of CV
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-26T00:00:00+09:00">August 26, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AlexNet 논문 중에서,
+
+  Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions
+about the na...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/AlexNet/" rel="permalink">AlexNet
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-23T00:00:00+09:00">August 23, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          14 분 소요
         
       </span>
     
@@ -972,7 +1719,7 @@ Internal covariate shift
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
@@ -984,20 +1731,6 @@ Internal covariate shift
   
     
   
-
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -1009,18 +1742,6 @@ Internal covariate shift
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
   
     
   
@@ -1056,6 +1777,12 @@ Internal covariate shift
   
     
   
+    
+  
+    
+  
+    
+  
 
   
     
@@ -1067,8 +1794,115 @@ Internal covariate shift
     
   
     
-      <section id="computer-vision" class="taxonomy__section">
-        <h2 class="archive__subtitle">Computer Vision</h2>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <section id="deep-learning" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Deep Learning          
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1080,7 +1914,7 @@ Internal covariate shift
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/computer%20vision/Local-Minima/" rel="permalink">Local Minima
+        <a href="/deep%20learning/RNN/" rel="permalink">RNN
 </a>
       
     </h2>
@@ -1088,8 +1922,15 @@ Internal covariate shift
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-11-06T00:00:00+09:00">November 6, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1098,19 +1939,20 @@ Internal covariate shift
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          최대 1 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">
-  Local Minima 문제는 에러를 최소화 시키는 최적의 파라미터를 찾는 문제에서 파라미터 공간에 수많은 지역적인 hole들이 존재하여 이러한 local minima에 빠질 경우 global minimun을 찾기 힘들게 되는 문제를 말한다.
-    용어 정리
-  
-  
-  ...</p>
+    <p class="archive__item-excerpt" itemprop="description">특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음
+
+그래서 가장 중요한거는 parameter sharing.
+
+
+  (e.g.) I went to Nepal in 2009.   
+     In 2009, I...</p>
   </article>
 </div>
 
@@ -1124,7 +1966,7 @@ Internal covariate shift
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/computer%20vision/Correlation-vs-Convolution/" rel="permalink">Correlation VS Convolution
+        <a href="/deep%20learning/Autoencoder/" rel="permalink">Autoencoder
 </a>
       
     </h2>
@@ -1132,8 +1974,15 @@ Internal covariate shift
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-27T00:00:00+09:00">October 27, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1142,14 +1991,15 @@ Internal covariate shift
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          4 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/
+    <p class="archive__item-excerpt" itemprop="description">Definition
+
 </p>
   </article>
 </div>
@@ -1164,7 +2014,7 @@ Internal covariate shift
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/computer%20vision/stationarity-of-statistics/" rel="permalink">Stationarity of Statistics in terms of CV
+        <a href="/deep%20learning/Analytic-Gradient-vs-Numerical-Gradient/" rel="permalink">Analytic Gradient vs Numerical Gradient
 </a>
       
     </h2>
@@ -1172,8 +2022,15 @@ Internal covariate shift
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-22T00:00:00+09:00">October 22, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1182,7 +2039,272 @@ Internal covariate shift
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          7 minute read
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In CS231n,
+Analytic Gradient
+the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math....</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Whitening/" rel="permalink">Whitening
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">input mean:0, \(\sigma^2\): 1, 그리고 decorrelated 한 것을 의미
+
+이 조건을 만족하면 더 빨라진다!
+
+하지만 공분산 계산하는 computationally cost가 높다.
+
+Batch Normalization 논문에 따르면, bias가 무한대로 ...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Local-Response-Normalization/" rel="permalink">Local Response Normalization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  Local Contrast Normalization과 유사 
+  What is the Best Multi-Stage Architecture for Object Recognition?
+
+
+
+  아… feature map은 항상 1D 인가?
+
+
+
+  non-trainable la...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/LRN-VS-BN/" rel="permalink">LRN vs BN
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+
+  
+    
+      Batch Normalization
+      vs
+      Local Response Normalization
+    
+  
+  
+    
+      \(y= \frac {x-\mu} {\sqrt {\sigma^2 + \epsilon}} \gamm...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Batch-Normalization/" rel="permalink">Batch Normalization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-31T00:00:00+09:00">August 31, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Trainable layer normally used for addressing the issues of Internal Covariate Shift(ICF)
+
+Internal covariate shift
+
+  hidden layer들의 covariate shift를 의미
+  hi...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/stationarity-of-statistics/" rel="permalink">Stationarity of Statistics in terms of CV
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-26T00:00:00+09:00">August 26, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 분 소요
         
       </span>
     
@@ -1206,7 +2328,7 @@ about the na...</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/computer%20vision/Sparse-Coding/" rel="permalink">Sparse Coding
+        <a href="/deep%20learning/AlexNet/" rel="permalink">AlexNet
 </a>
       
     </h2>
@@ -1214,8 +2336,15 @@ about the na...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-23T00:00:00+09:00">August 23, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1224,7 +2353,7 @@ about the na...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          14 분 소요
         
       </span>
     
@@ -1232,15 +2361,30 @@ about the na...</p>
 
 
     <p class="archive__item-excerpt" itemprop="description">
-  unsupervised learning 방법
-  overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨
-  primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보...</p>
+  
+    Overview
+
+    
+
+    
+      
+        
+          CONV1
+        
+        
+          MAX POOL1
+        
+        
+          NORM1
+        
+        
+      ...</p>
   </article>
 </div>
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
@@ -1250,13 +2394,96 @@ about the na...</p>
   
     
   
+    
+  
+    
+  
 
   
     
   
     
-      <section id="others" class="taxonomy__section">
-        <h2 class="archive__subtitle">Others</h2>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+      <section id="math" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            <a href="/math/">math</a>
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1268,7 +2495,7 @@ about the na...</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/others/tensorflow_note/" rel="permalink">Tensorflow Note
+        <a href="/math/pattern%20recognition/Lagrange-Multipliers/" rel="permalink">Lagrange Multipliers
 </a>
       
     </h2>
@@ -1276,8 +2503,15 @@ about the na...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-08T00:00:00+09:00">September 8, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1286,7 +2520,481 @@ about the na...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  sometimes called undetermined multipliers
+
+
+1~n개의 constraints (regularization인듯?) 에 대하여 여러 변수를 가진 함수에서 stationary points를 찾기 위해 사용한다.
+
+\(x_1, x_2\)에 관련된 c...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/pattern%20recongnition/Principal-Component-Analysis/" rel="permalink">Principal Component Analysis (PCA)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-01T00:00:00+09:00">September 1, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">제일 좋은 참조. 내꺼 안봐도 됨
+https://excelsior-cjh.tistory.com/167
+https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/
+
+
+
+
+
+
+
+  왜 분산이 제일 큰 것을 고를까?
+    
+      분...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/statistics/Covariance-Matrix/" rel="permalink">Covariance Matrix
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-01T00:00:00+09:00">September 1, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">위키피디아 정의
+
+
+  
+    주어진 random vector의 각각 쌍의 원소들 사이의 공분산이 주어진 정방행렬
+  
+  
+    random vector: random variable with multiple dimensions   
+(vector는 scalar양을 가짐; 관...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/numerical%20analysis/SVD/" rel="permalink">Singular Value Decomposition (SVD)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-13T00:00:00+09:00">July 13, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+    Drawbacks: slow, computationally expensive, missing data에 대한 care 필요 (whereas Gradient descent approach (convex optimization method)is much faster an...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/numerical%20analysis/LU-Decomposition/" rel="permalink">LU Decomposition (LU factorization)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-12T00:00:00+09:00">July 12, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
+
+  LU 분해는 첫번째로 계산의 편리함, 두번째로 분석적 용이성을 위함이 있다. (모든 행렬 분해에 해당)
+  가우시안 소거법의 시간 복잡도 문제를 해결했다.
+LU분해는 가우스 소거법과 비교하여 flop(floa...</p>
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
+      </section>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+      <section id="numerical-analysis" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Numerical Analysis          
+          
+        </h2>
+        <div class="entries-list">
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/numerical%20analysis/SVD/" rel="permalink">Singular Value Decomposition (SVD)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-13T00:00:00+09:00">July 13, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+    Drawbacks: slow, computationally expensive, missing data에 대한 care 필요 (whereas Gradient descent approach (convex optimization method)is much faster an...</p>
+  </article>
+</div>
+
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/numerical%20analysis/LU-Decomposition/" rel="permalink">LU Decomposition (LU factorization)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-12T00:00:00+09:00">July 12, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
+
+  LU 분해는 첫번째로 계산의 편리함, 두번째로 분석적 용이성을 위함이 있다. (모든 행렬 분해에 해당)
+  가우시안 소거법의 시간 복잡도 문제를 해결했다.
+LU분해는 가우스 소거법과 비교하여 flop(floa...</p>
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
+      </section>
+    
+  
+    
+  
+    
+      <section id="others" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Others          
+          
+        </h2>
+        <div class="entries-list">
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/others/tensorflow_note/" rel="permalink">Tensorflow Note
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-08T00:00:00+09:00">September 8, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
         
       </span>
     
@@ -1314,7 +3022,7 @@ about the na...</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/others/Mathjax/" rel="permalink">Mathjax, pseudocode 사용법
+        <a href="/etc/others/Mathjax/" rel="permalink">Mathjax, pseudocode 사용법
 </a>
       
     </h2>
@@ -1322,8 +3030,15 @@ about the na...</p>
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-13T00:00:00+09:00">July 13, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1332,7 +3047,7 @@ about the na...</p>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          1 분 소요
         
       </span>
     
@@ -1355,52 +3070,8 @@ $$[수식]$$
 </div>
 
           
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/others/template/" rel="permalink">Post Template
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Link Generator
-Jekyll
-
-Quote
-
-  Jekyll is a simple, blog aware, static site generator. It takes a template directory […] and spits out a complete, static web...</p>
-  </article>
-</div>
-
-          
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
@@ -1411,8 +3082,19 @@ Quote
     
   
     
+  
+    
       <section id="statistics" class="taxonomy__section">
-        <h2 class="archive__subtitle">Statistics</h2>
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Statistics          
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1424,7 +3106,7 @@ Quote
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/statistics/Sampling/" rel="permalink">Sampling
+        <a href="/deep%20learning/statistics/Sampling/" rel="permalink">Sampling
 </a>
       
     </h2>
@@ -1432,8 +3114,15 @@ Quote
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-06T00:00:00+09:00">October 6, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1442,7 +3131,7 @@ Quote
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 minute read
+          1 분 소요
         
       </span>
     
@@ -1468,7 +3157,7 @@ Quote
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/statistics/Limit-of-Maxpooling/" rel="permalink">Maxpooling의 한계
+        <a href="/math/statistics/Covariance-Matrix/" rel="permalink">Covariance Matrix
 </a>
       
     </h2>
@@ -1476,54 +3165,15 @@ Quote
 
   <p class="page__meta">
     
-
-    
-
-    
       
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-          1 minute read
-        
+        <time datetime="2020-09-01T00:00:00+09:00">September 1, 2020</time>
       </span>
     
-  </p>
 
-
-    <p class="archive__item-excerpt" itemprop="description">https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/
-
-  
-    이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)
-
-    
-      
-        translation invariance 조건으로 feat...</p>
-  </article>
-</div>
-
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/statistics/Covariance-Matrix/" rel="permalink">Covariance Matrix
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1532,7 +3182,7 @@ Quote
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
         
       </span>
     
@@ -1553,122 +3203,24 @@ Quote
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
-    
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-    
-      <section id="numerical-analysis" class="taxonomy__section">
-        <h2 class="archive__subtitle">Numerical Analysis</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/numerical%20analysis/SVD/" rel="permalink">Singular Value Decomposition (SVD)
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          less than 1 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    Drawbacks: slow, computationally expensive, missing data에 대한 care 필요 (whereas Gradient descent approach (convex optimization method)is much faster an...</p>
-  </article>
-</div>
-
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/numerical%20analysis/LU-Decomposition/" rel="permalink">LU Decomposition (LU factorization)
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          6 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">description
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-  
-    
-  
     
   
     
   
     
       <section id="pattern-recognition" class="taxonomy__section">
-        <h2 class="archive__subtitle">Pattern Recognition</h2>
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Pattern Recognition          
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1680,7 +3232,7 @@ Quote
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/pattern%20recognition/Bayesian-Networks/" rel="permalink">Bayesian Networks
+        <a href="/deep%20learning/pattern%20recognition/Bayesian-Networks/" rel="permalink">Bayesian Networks
 </a>
       
     </h2>
@@ -1688,8 +3240,15 @@ Quote
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-21T00:00:00+09:00">September 21, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1698,7 +3257,7 @@ Quote
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          2 분 소요
         
       </span>
     
@@ -1728,7 +3287,7 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/pattern%20recognition/Lagrange-Multipliers/" rel="permalink">Lagrange Multipliers
+        <a href="/math/pattern%20recognition/Lagrange-Multipliers/" rel="permalink">Lagrange Multipliers
 </a>
       
     </h2>
@@ -1736,8 +3295,15 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-08T00:00:00+09:00">September 8, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1746,7 +3312,7 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
         
       </span>
     
@@ -1765,15 +3331,28 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
 
   
     
-      <section id="edge-case" class="taxonomy__section">
-        <h2 class="archive__subtitle">Edge Case</h2>
+  
+    
+  
+    
+      <section id="etc" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            <a href="/etc/">etc</a>
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1785,7 +3364,7 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/edge%20case/edge-case-nested-and-mixed-lists/" rel="permalink">Edge Case: Nested and Mixed Lists
+        <a href="/etc/others/Mathjax/" rel="permalink">Mathjax, pseudocode 사용법
 </a>
       
     </h2>
@@ -1793,8 +3372,15 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-07-13T00:00:00+09:00">July 13, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1803,22 +3389,31 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          1 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Nested and mixed lists are an interesting beast. It’s a corner case to make sure that
+    <p class="archive__item-excerpt" itemprop="description">조건
+github page, Jekyll theme
 
-</p>
+사용방법
+수식 적용방법은
+inline, outline의 경우,
+$$[수식]$$
+
+을 이용한다. (psuedocode.js 때문에 그런지 $ 하나로 안됨)
+
+- Fomula Case
+\(\sum_{i=0}^n i^2 = \frac...</p>
   </article>
 </div>
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
@@ -1829,12 +3424,17 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
     
   
     
-  
-    
-  
-    
-      <section id="pattern-recongnition" class="taxonomy__section">
-        <h2 class="archive__subtitle">Pattern Recongnition</h2>
+      <section id="computer-vision" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            computer vision          
+          
+        </h2>
         <div class="entries-list">
           
             
@@ -1846,7 +3446,7 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/pattern%20recongnition/Principal-Component-Analysis/" rel="permalink">Principal Component Analysis (PCA)
+        <a href="/computer%20vision/Sparse-Coding/" rel="permalink">Sparse Coding
 </a>
       
     </h2>
@@ -1854,8 +3454,15 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
 
   <p class="page__meta">
     
-
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-24T00:00:00+09:00">August 24, 2020</time>
+      </span>
     
+
+    <span class="page__meta-sep"></span>
 
     
       
@@ -1864,7 +3471,143 @@ cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          less than 1 minute read
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  unsupervised learning 방법
+  overcomplete basis vector를 기반으로 데이터를 좀 더 효율적으로 표현하기 위한 용도로 개발이 됨
+  primary visual cortex의 동작을 sparse code를 통해 체계적으로 설명할 수 있음을 보...</p>
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
+      </section>
+    
+  
+    
+      <section id="computer-vision" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Computer Vision          
+          
+        </h2>
+        <div class="entries-list">
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/computer%20vision/Correlation-vs-Convolution/" rel="permalink">Correlation VS Convolution
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-27T00:00:00+09:00">August 27, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">https://www.popit.kr/%EB%94%AE%EB%9F%AC%EB%8B%9D%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-convolution-correlation-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/
+</p>
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
+      </section>
+    
+  
+    
+  
+    
+      <section id="pattern-recongnition" class="taxonomy__section">
+        
+        
+        
+        
+        
+        <h2 class="archive__subtitle">
+          
+            Pattern Recongnition          
+          
+        </h2>
+        <div class="entries-list">
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/math/pattern%20recongnition/Principal-Component-Analysis/" rel="permalink">Principal Component Analysis (PCA)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-01T00:00:00+09:00">September 1, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
         
       </span>
     
@@ -1889,49 +3632,47 @@ https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/
 
           
         </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+        <a href="#page-title" class="back-to-top">맨 위로 이동 &uarr;</a>
       </section>
     
   
     
   
 
-
-
   </div>
 </div>
-
-      <div align="center" style="margin: 1em 0;">
-  <ins class="adsbygoogle"
-        style="display:block; border-bottom: initial;"
-        data-ad-client="ca-pub-7328585512091257"
-        data-ad-slot="3049671934"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-</div>
-
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+             style="display:block; border-bottom: initial;"
+             data-ad-client="ca-pub-7328585512091257"
+             data-ad-slot="3049671934"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div> -->
     </div>
 
     
       <div class="search-content">
-        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
     <label class="sr-only" for="search">
       Enter your search term...
     </label>
-    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
   </form>
   <div id="results" class="results"></div></div>
 
       </div>
     
 
-    <div id="footer" class="page__footer">
+    <div class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
 <!-- end custom footer snippets -->
         <div class="page__footer-follow">
   <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
     
 
     
@@ -1947,12 +3688,12 @@ https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/
     
 
     
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
     
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2025 <a href="http://localhost:4000">Shinywings</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2025 신경익. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -1980,5 +3721,17 @@ https://ratsgo.github.io/machine%20learning/2017/04/24/PCA/
 
 
 
-  </body>
+    <style>
+      .google-auto-placed {
+        margin: 2em auto;
+      }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    
+
+    
+        
+    </body>
 </html>

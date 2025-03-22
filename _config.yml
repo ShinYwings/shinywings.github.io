@@ -5,9 +5,9 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # `jekyll serve`. If you change this file, please restart the server process.
 
-remote_theme             : "mmistakes/minimal-mistakes@master"
+remote_theme             : "mmistakes/minimal-mistakes@4.24.0"
 
-minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "ko-KR"
@@ -128,6 +128,11 @@ footer:
 include:
   - .htaccess
   - _pages
+  - deeplearning
+  - computervision
+  - etc
+  - graphics
+  - math
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -152,6 +157,7 @@ exclude:
   - Rakefile
   - README
   - tmp
+  - template
 keep_files:
   - .git
   - .svn
@@ -205,9 +211,12 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
+      show_date: true
       comments: true
       share: true
       related: true
+      toc: true
+      toc_sticky: true
   # _pages
   - scope:
       path: "_pages"
@@ -217,7 +226,7 @@ defaults:
       author_profile: true
   # _docs
   - scope:
-      path: ""
+      path: "_docs"
       type: docs
     values:
       layout: single
@@ -228,27 +237,9 @@ defaults:
       toc_sticky: true
       sidebar:
         nav: "docs"
-  # _recipes
-  - scope:
-      path: ""
-      type: recipes
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
-  # _pets
-  - scope:
-      path: ""
-      type: pets
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
   # _portfolio
   - scope:
-      path: ""
+      path: "_portfolio"
       type: portfolio
     values:
       layout: single

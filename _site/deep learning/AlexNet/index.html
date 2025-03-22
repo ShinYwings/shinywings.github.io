@@ -1,8 +1,463 @@
-<ul>
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>AlexNet - Shinywings</title>
+<meta name="description" content="Overview                                       CONV1                             MAX POOL1                             NORM1                             COVN2                             MAX POOL2                             NORM2                             COVN3                             COVN4                             COVN5                             MAX POOL3                             FC6                             FC7                             FC8                                  60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)       5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)       3 FC layers       1000 ways softmax in the end       non-saturating neurons를 사용했다. (ReLUs)                INTRODUCTION      이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?             학습 모델의 성능을 높히기 위한 조건      (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)                    larger datasets =&gt; Data augmentation           learn more powerful models =&gt; MLP to CNN           use better techniques for preventing overfitting =&gt; Data augmentation, dropout            excerpt From Here                       물체 인식에서 strong &amp; correct assumption이 되기 위한 조건     (dataset 크기에 관한)                    namely (모델이 정확히 판별해야한다)           stationarity of statistics (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)           locality of pixel dependencies                   이 세 가지를 the nature of images 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.                                  stationarity of statistics?                            확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.                           [정리]   1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.   2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.   3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.              [refer from here]                                   locality of pixel dependencies?                            neighboring pixels tend to be correlated, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).                                               CNN의 장점                    기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다                            connections이 적고               parameter가 적고               easier to train 하다.                                                   왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,     첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.      둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)      excerpt from Here            MLP = 선형 perceptron + multi-layers + non-linear activation    excerpt from https://en.wikipedia.org/wiki/Multilayer_perceptron           그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)           특징            Overlapping Maxpooling       ReLUs 처음으로 도입       GPU를 처음 시도 (with 분산처리)       Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) 괜찮은 참고자료       overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)                    Dropout -&gt; FC layers 에서 처리, regularization method임           Data Augmentation           하나의 데이터로부터 여러 개를 뽑아냄      (Random Crops, Mirror Crops \(\cdots\))                       Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)       256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224       NO pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)       8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels       AlexNet Contribution     한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)     cuda-convnet2 github link                Outline     Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개      Section 4. Overfitting 방지를 위한 효과적인 테크닉들      Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가                 (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images           Section 3. Architecture                      ReLU Nonlinearity                     활성화 함수를 선형 함수로 쓰면 안되는 이유                            선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.     Refer from 밑바닥부터 시작하는 딥러닝                                                훈련 시간 관점 with gradient descent                                             \(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인     (\(f(x) = max(0,x)\)) 보다 매우 느리다.        ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.                                               왜 학습 속도가 빠를까?                  x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) 미분하기도 편리해 계산복잡성이 낮다. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.         Excerpt From Here                                                          ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.     (Gradient Vanishing 걱정 안해도 된다!)   (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))                     [참고]                             왜 batch normalization일까?   We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.                                BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)                 입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.                 학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.                 Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.   CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.                               [tanh(x) 특징]                                Squashes numbers to range[-1, 1]   + zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.)  - kills gradients when saturated                               [Sigmoid 특징]                                                   Squashes numbers to range [0, 1]   - kills gradients when saturated   - Sigmoid outputs are not zero-centered   - \(exp()\) is a bit compute expensive                                                     batch normalization + tanh 에 대해 생각해봤다.     BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,            (첫번째 원인으로, Bad Initialization.        두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))                    실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.                                                [궁금한 점]   그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.      왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.      그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.      하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.     혹시 몰라서 BN 논문 링크https://arxiv.org/pdf/1502.03167.pdf                           [해결]                                                Training on Multiple GPUs             singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it   그래서, 2개 GPU 사용!              내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.                             2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  without going through host machine memory     (나중에 꼭 해보고 싶다…)                                                parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)                            puts half of the kernels (or neurons) on each GPU               additional trick : the GPUs commnunicate only in certain layers                                2 GPU net takes slightly less time to train than the one-GPU net                                                          the GPUs commnunicate only in certain layers?                                            e.g.    the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &gt; 3 which reside on the same GPU.                                                                                2 GPU net takes slightly less time to train than the one-GPU net?                                            the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)                        그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.     그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.                        그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.                                                                                                                                Local Response Normalization (LRN)                    ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.                        activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)   입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.      그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)                                   applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)                                   \(a^{i}_{x,y}\) : the activity of a neuron computed by applying kernel \(i\) at position \(x,y\)     Then, applying the ReLU nonlinearity,     the response-normalizaed activity \(b^{i}_{x,y}\) is given by the expression     \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)     where the sum runs over \(n\) “adjacent” kernel maps at the same spatial position, and \(N\) is the total # of kernels in the layer     \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.     (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))                            The ordering of the kernel(filter) maps : arbitrary and determined before training begins           modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함           여기서 나온 scheme은 local contrast normalization scheme [11]과 유사           요즘은 이거 안쓰고 batch normalization 사용                            왜 LRN 안쓰고 BN 사용할까?                                                        overlapping maxpooling         overlapping pooling은 덜 overfitting 한다.      AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.   이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.                       Overall Architecture         Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.         트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!                     2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨           3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨           Response-normalization layers는 1번째 layer와 2번째 layer를 따름           Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름           ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨                                                    1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널   FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨                                   총 60M parameters가 있음                                           Section 4. Reducing Overfitting      이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.                      1. Data Augmentation                    overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)    transformation images = image translations * horizontal reflections   (10 = 5 * 2)                                           1-1. First Form                             image translations =                                    center patch                                                                                                                                                                                                                                            1                                                                                                                                                                                                                                        top left corner patch                                                                                                  1                                                                                                                                                                                                                                                                                                                                                                                  top right corner patch                                                                                                                                                  1                                                                                                                                                                                                                                                                                                                                  bottom left corner patch                                                                                                                                                                                                                                                                                                                                      1                                                                                                                                              bottom right corner patch                                                                                                                                                                                                                                                                                                                                                                                      1                                                                                                        수평 reflections (좌우반전)=                                                                                                         |                                                                                         8                       |                       8                                                                                         |                                                                                                               transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다               transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.               이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)               1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)               10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.                                                           궁금한 점   왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 &gt; &gt; &gt; 잘되지 않을까? training에 근접해서 오히려 overfitting 유발할까 ?                                                               1-2. Second Form                            altering the intensities of the RGB channels in training images.                           in details,     the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.              each training image,       we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)                                              따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.                  \([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)     where     \(p_i = eigenvector\)     \(\lambda_i = eigenvalue\)     \(\alpha_i\) = a random variable   of the 3 X 3 covariance matrix of RGB pixel values                                          \(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.     image가 다시 사용될때, 그 point에서 re-drawn 된다.                             This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.               This scheme reduces the top-1 error rate by over 1%                                                        2. Dropout                     Combining the predictions of many different models is a very successful way to reduce test errors.                                             근데, too expensive for big NN &gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)                                                  Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.           “dropped out” 된 neurons 은 feed forward에 don’t contribute &amp; back propagation 에 don’t participate           So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)                            궁금한 점     뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)                                   그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.                                             아리까리 한거: 왜 남아있는 것들이 robust 한지? many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?                                                  test time, we use all the neurons but (their outputs X 0.5)      0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate                            큰수의 법칙 때문인듯?               test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)                                   2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.                                Section 5. Details of learning                     SGD + momentum 사용           batch size : 128 examples           momentum : 0.9           weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)                                             The update rule for weight \(w\) was                  \(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)      \(w_{i+1} := w_i + v_{i+1}\)                  where      \(i\) : the iteration index     \(v\) : the momentum variable     \(\epsilon\) : the learning rate      \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)                                                  weights 초기화 : N(0, 0.01) (in each layer)           neuron biases 초기화                            2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1               나머지 layers : constant 0               초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.               각 layer의 DoF는 1이라서 (일변수이기 때문에??)     무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?   왜 bias 0 이 성립이 되는지 확인                                   learning rate 초기화 : 0.01                            모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)               heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)               termination 전에 3배 감소한다.                                   training set : 1.2M images           trained cycles : 90           training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs                                6. Result                                  ILSVRC-2010 summary                                                                 Model                   Top-1                   Top-5                                                     Sparse coding                   47.1%                   28.2%                                                     SIFT + FVs                   45.7%                   25.7%                                                     CNN                   37.5%                   17.0%                                                                          논문에서 안쓰였는데 ImageNet 2009 fall version에서 사용한 리포트에서 비교할때 쓰인 것                                    SIFT: distribution of features                   Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters                                                                                Qualitative Evaluations                              the network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs   무슨말인지 모르겠음 나중에 확인                     GPU1                            specialized in largely color-agnostic (색깔 인지불능)                                   GPU2                            specialized in largely color-specific                                           2개의 specialization은 돌아갈 때 마다 any particular random weight initialization 에 독립적이다.          두 이미지가 마지막 4096 hidden layer를 지나 생성된 feature activations vectors 가 얼마 차이 안날때 (Euclidean seperation between two 4096-dimensional, real-valued vectors), 두 이미지는 유사하다고 볼 수 있다.     하지만, auto-encoder를 훈련시키면 to compresss these vectors to short binary codes 더 효율적으로 만들 수 있다.          this should produce a much better image retrieval method than applying auto-encoders to the raw pixels, which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar.          at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column.   =&gt; 만약에 여러 포즈를 취하는 개 사진이 여러 개가 있다면 결과를 내기 위해서는 더 많은 test images가 보충되어야 함.                     [참고]         Choosing the pattern of connectivity is a problem for cross-validation           - 훈련해야할 파라미터 수              (weight + bias) * # of feature maps ( bias 는 보통 1)">
+
+
+  <meta name="author" content="신경익">
+  
+  <meta property="article:author" content="신경익">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Shinywings">
+<meta property="og:title" content="AlexNet">
+<meta property="og:url" content="http://localhost:4000/deep%20learning/AlexNet/">
+
+
+  <meta property="og:description" content="Overview                                       CONV1                             MAX POOL1                             NORM1                             COVN2                             MAX POOL2                             NORM2                             COVN3                             COVN4                             COVN5                             MAX POOL3                             FC6                             FC7                             FC8                                  60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)       5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)       3 FC layers       1000 ways softmax in the end       non-saturating neurons를 사용했다. (ReLUs)                INTRODUCTION      이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?             학습 모델의 성능을 높히기 위한 조건      (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)                    larger datasets =&gt; Data augmentation           learn more powerful models =&gt; MLP to CNN           use better techniques for preventing overfitting =&gt; Data augmentation, dropout            excerpt From Here                       물체 인식에서 strong &amp; correct assumption이 되기 위한 조건     (dataset 크기에 관한)                    namely (모델이 정확히 판별해야한다)           stationarity of statistics (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)           locality of pixel dependencies                   이 세 가지를 the nature of images 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.                                  stationarity of statistics?                            확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.                           [정리]   1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.   2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.   3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.              [refer from here]                                   locality of pixel dependencies?                            neighboring pixels tend to be correlated, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).                                               CNN의 장점                    기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다                            connections이 적고               parameter가 적고               easier to train 하다.                                                   왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,     첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.      둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)      excerpt from Here            MLP = 선형 perceptron + multi-layers + non-linear activation    excerpt from https://en.wikipedia.org/wiki/Multilayer_perceptron           그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)           특징            Overlapping Maxpooling       ReLUs 처음으로 도입       GPU를 처음 시도 (with 분산처리)       Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) 괜찮은 참고자료       overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)                    Dropout -&gt; FC layers 에서 처리, regularization method임           Data Augmentation           하나의 데이터로부터 여러 개를 뽑아냄      (Random Crops, Mirror Crops \(\cdots\))                       Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)       256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224       NO pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)       8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels       AlexNet Contribution     한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)     cuda-convnet2 github link                Outline     Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개      Section 4. Overfitting 방지를 위한 효과적인 테크닉들      Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가                 (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images           Section 3. Architecture                      ReLU Nonlinearity                     활성화 함수를 선형 함수로 쓰면 안되는 이유                            선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.     Refer from 밑바닥부터 시작하는 딥러닝                                                훈련 시간 관점 with gradient descent                                             \(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인     (\(f(x) = max(0,x)\)) 보다 매우 느리다.        ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.                                               왜 학습 속도가 빠를까?                  x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) 미분하기도 편리해 계산복잡성이 낮다. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.         Excerpt From Here                                                          ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.     (Gradient Vanishing 걱정 안해도 된다!)   (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))                     [참고]                             왜 batch normalization일까?   We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.                                BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)                 입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.                 학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.                 Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.   CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.                               [tanh(x) 특징]                                Squashes numbers to range[-1, 1]   + zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.)  - kills gradients when saturated                               [Sigmoid 특징]                                                   Squashes numbers to range [0, 1]   - kills gradients when saturated   - Sigmoid outputs are not zero-centered   - \(exp()\) is a bit compute expensive                                                     batch normalization + tanh 에 대해 생각해봤다.     BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,            (첫번째 원인으로, Bad Initialization.        두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))                    실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.                                                [궁금한 점]   그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.      왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.      그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.      하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.     혹시 몰라서 BN 논문 링크https://arxiv.org/pdf/1502.03167.pdf                           [해결]                                                Training on Multiple GPUs             singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it   그래서, 2개 GPU 사용!              내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.                             2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  without going through host machine memory     (나중에 꼭 해보고 싶다…)                                                parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)                            puts half of the kernels (or neurons) on each GPU               additional trick : the GPUs commnunicate only in certain layers                                2 GPU net takes slightly less time to train than the one-GPU net                                                          the GPUs commnunicate only in certain layers?                                            e.g.    the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &gt; 3 which reside on the same GPU.                                                                                2 GPU net takes slightly less time to train than the one-GPU net?                                            the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)                        그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.     그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.                        그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.                                                                                                                                Local Response Normalization (LRN)                    ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.                        activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)   입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.      그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)                                   applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)                                   \(a^{i}_{x,y}\) : the activity of a neuron computed by applying kernel \(i\) at position \(x,y\)     Then, applying the ReLU nonlinearity,     the response-normalizaed activity \(b^{i}_{x,y}\) is given by the expression     \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)     where the sum runs over \(n\) “adjacent” kernel maps at the same spatial position, and \(N\) is the total # of kernels in the layer     \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.     (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))                            The ordering of the kernel(filter) maps : arbitrary and determined before training begins           modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함           여기서 나온 scheme은 local contrast normalization scheme [11]과 유사           요즘은 이거 안쓰고 batch normalization 사용                            왜 LRN 안쓰고 BN 사용할까?                                                        overlapping maxpooling         overlapping pooling은 덜 overfitting 한다.      AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.   이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.                       Overall Architecture         Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.         트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!                     2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨           3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨           Response-normalization layers는 1번째 layer와 2번째 layer를 따름           Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름           ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨                                                    1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널   FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨                                   총 60M parameters가 있음                                           Section 4. Reducing Overfitting      이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.                      1. Data Augmentation                    overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)    transformation images = image translations * horizontal reflections   (10 = 5 * 2)                                           1-1. First Form                             image translations =                                    center patch                                                                                                                                                                                                                                            1                                                                                                                                                                                                                                        top left corner patch                                                                                                  1                                                                                                                                                                                                                                                                                                                                                                                  top right corner patch                                                                                                                                                  1                                                                                                                                                                                                                                                                                                                                  bottom left corner patch                                                                                                                                                                                                                                                                                                                                      1                                                                                                                                              bottom right corner patch                                                                                                                                                                                                                                                                                                                                                                                      1                                                                                                        수평 reflections (좌우반전)=                                                                                                         |                                                                                         8                       |                       8                                                                                         |                                                                                                               transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다               transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.               이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)               1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)               10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.                                                           궁금한 점   왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 &gt; &gt; &gt; 잘되지 않을까? training에 근접해서 오히려 overfitting 유발할까 ?                                                               1-2. Second Form                            altering the intensities of the RGB channels in training images.                           in details,     the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.              each training image,       we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)                                              따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.                  \([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)     where     \(p_i = eigenvector\)     \(\lambda_i = eigenvalue\)     \(\alpha_i\) = a random variable   of the 3 X 3 covariance matrix of RGB pixel values                                          \(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.     image가 다시 사용될때, 그 point에서 re-drawn 된다.                             This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.               This scheme reduces the top-1 error rate by over 1%                                                        2. Dropout                     Combining the predictions of many different models is a very successful way to reduce test errors.                                             근데, too expensive for big NN &gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)                                                  Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.           “dropped out” 된 neurons 은 feed forward에 don’t contribute &amp; back propagation 에 don’t participate           So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)                            궁금한 점     뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)                                   그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.                                             아리까리 한거: 왜 남아있는 것들이 robust 한지? many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?                                                  test time, we use all the neurons but (their outputs X 0.5)      0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate                            큰수의 법칙 때문인듯?               test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)                                   2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.                                Section 5. Details of learning                     SGD + momentum 사용           batch size : 128 examples           momentum : 0.9           weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)                                             The update rule for weight \(w\) was                  \(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)      \(w_{i+1} := w_i + v_{i+1}\)                  where      \(i\) : the iteration index     \(v\) : the momentum variable     \(\epsilon\) : the learning rate      \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)                                                  weights 초기화 : N(0, 0.01) (in each layer)           neuron biases 초기화                            2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1               나머지 layers : constant 0               초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.               각 layer의 DoF는 1이라서 (일변수이기 때문에??)     무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?   왜 bias 0 이 성립이 되는지 확인                                   learning rate 초기화 : 0.01                            모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)               heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)               termination 전에 3배 감소한다.                                   training set : 1.2M images           trained cycles : 90           training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs                                6. Result                                  ILSVRC-2010 summary                                                                 Model                   Top-1                   Top-5                                                     Sparse coding                   47.1%                   28.2%                                                     SIFT + FVs                   45.7%                   25.7%                                                     CNN                   37.5%                   17.0%                                                                          논문에서 안쓰였는데 ImageNet 2009 fall version에서 사용한 리포트에서 비교할때 쓰인 것                                    SIFT: distribution of features                   Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters                                                                                Qualitative Evaluations                              the network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs   무슨말인지 모르겠음 나중에 확인                     GPU1                            specialized in largely color-agnostic (색깔 인지불능)                                   GPU2                            specialized in largely color-specific                                           2개의 specialization은 돌아갈 때 마다 any particular random weight initialization 에 독립적이다.          두 이미지가 마지막 4096 hidden layer를 지나 생성된 feature activations vectors 가 얼마 차이 안날때 (Euclidean seperation between two 4096-dimensional, real-valued vectors), 두 이미지는 유사하다고 볼 수 있다.     하지만, auto-encoder를 훈련시키면 to compresss these vectors to short binary codes 더 효율적으로 만들 수 있다.          this should produce a much better image retrieval method than applying auto-encoders to the raw pixels, which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar.          at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column.   =&gt; 만약에 여러 포즈를 취하는 개 사진이 여러 개가 있다면 결과를 내기 위해서는 더 많은 test images가 보충되어야 함.                     [참고]         Choosing the pattern of connectivity is a problem for cross-validation           - 훈련해야할 파라미터 수              (weight + bias) * # of feature maps ( bias 는 보통 1)">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/site-logo.png">
+
+
+
+  <meta name="twitter:site" content="@mmistakes">
+  <meta name="twitter:title" content="AlexNet">
+  <meta name="twitter:description" content="Overview                                       CONV1                             MAX POOL1                             NORM1                             COVN2                             MAX POOL2                             NORM2                             COVN3                             COVN4                             COVN5                             MAX POOL3                             FC6                             FC7                             FC8                                  60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)       5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)       3 FC layers       1000 ways softmax in the end       non-saturating neurons를 사용했다. (ReLUs)                INTRODUCTION      이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?             학습 모델의 성능을 높히기 위한 조건      (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)                    larger datasets =&gt; Data augmentation           learn more powerful models =&gt; MLP to CNN           use better techniques for preventing overfitting =&gt; Data augmentation, dropout            excerpt From Here                       물체 인식에서 strong &amp; correct assumption이 되기 위한 조건     (dataset 크기에 관한)                    namely (모델이 정확히 판별해야한다)           stationarity of statistics (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)           locality of pixel dependencies                   이 세 가지를 the nature of images 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.                                  stationarity of statistics?                            확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.   임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.                           [정리]   1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.   2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.   3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.              [refer from here]                                   locality of pixel dependencies?                            neighboring pixels tend to be correlated, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).                                               CNN의 장점                    기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다                            connections이 적고               parameter가 적고               easier to train 하다.                                                   왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,     첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.      둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)      excerpt from Here            MLP = 선형 perceptron + multi-layers + non-linear activation    excerpt from https://en.wikipedia.org/wiki/Multilayer_perceptron           그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)           특징            Overlapping Maxpooling       ReLUs 처음으로 도입       GPU를 처음 시도 (with 분산처리)       Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) 괜찮은 참고자료       overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)                    Dropout -&gt; FC layers 에서 처리, regularization method임           Data Augmentation           하나의 데이터로부터 여러 개를 뽑아냄      (Random Crops, Mirror Crops \(\cdots\))                       Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)       256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224       NO pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)       8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels       AlexNet Contribution     한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)     cuda-convnet2 github link                Outline     Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개      Section 4. Overfitting 방지를 위한 효과적인 테크닉들      Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가                 (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images           Section 3. Architecture                      ReLU Nonlinearity                     활성화 함수를 선형 함수로 쓰면 안되는 이유                            선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.     Refer from 밑바닥부터 시작하는 딥러닝                                                훈련 시간 관점 with gradient descent                                             \(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인     (\(f(x) = max(0,x)\)) 보다 매우 느리다.        ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.                                               왜 학습 속도가 빠를까?                  x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) 미분하기도 편리해 계산복잡성이 낮다. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.         Excerpt From Here                                                          ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.     (Gradient Vanishing 걱정 안해도 된다!)   (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))                     [참고]                             왜 batch normalization일까?   We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.                                BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)                 입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.                 학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.                 Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.   CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.                               [tanh(x) 특징]                                Squashes numbers to range[-1, 1]   + zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.)  - kills gradients when saturated                               [Sigmoid 특징]                                                   Squashes numbers to range [0, 1]   - kills gradients when saturated   - Sigmoid outputs are not zero-centered   - \(exp()\) is a bit compute expensive                                                     batch normalization + tanh 에 대해 생각해봤다.     BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,            (첫번째 원인으로, Bad Initialization.        두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))                    실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.                                                [궁금한 점]   그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.      왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.      그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.      하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.     혹시 몰라서 BN 논문 링크https://arxiv.org/pdf/1502.03167.pdf                           [해결]                                                Training on Multiple GPUs             singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it   그래서, 2개 GPU 사용!              내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.                             2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  without going through host machine memory     (나중에 꼭 해보고 싶다…)                                                parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)                            puts half of the kernels (or neurons) on each GPU               additional trick : the GPUs commnunicate only in certain layers                                2 GPU net takes slightly less time to train than the one-GPU net                                                          the GPUs commnunicate only in certain layers?                                            e.g.    the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &gt; 3 which reside on the same GPU.                                                                                2 GPU net takes slightly less time to train than the one-GPU net?                                            the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)                        그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.     그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.                        그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.                                                                                                                                Local Response Normalization (LRN)                    ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.                        activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)   입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.      그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)                                   applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)                                   \(a^{i}_{x,y}\) : the activity of a neuron computed by applying kernel \(i\) at position \(x,y\)     Then, applying the ReLU nonlinearity,     the response-normalizaed activity \(b^{i}_{x,y}\) is given by the expression     \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)     where the sum runs over \(n\) “adjacent” kernel maps at the same spatial position, and \(N\) is the total # of kernels in the layer     \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.     (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))                            The ordering of the kernel(filter) maps : arbitrary and determined before training begins           modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함           여기서 나온 scheme은 local contrast normalization scheme [11]과 유사           요즘은 이거 안쓰고 batch normalization 사용                            왜 LRN 안쓰고 BN 사용할까?                                                        overlapping maxpooling         overlapping pooling은 덜 overfitting 한다.      AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.   이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.                       Overall Architecture         Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.         트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!                     2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨           3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨           Response-normalization layers는 1번째 layer와 2번째 layer를 따름           Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름           ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨                                                    1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널   FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨                                   총 60M parameters가 있음                                           Section 4. Reducing Overfitting      이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.                      1. Data Augmentation                    overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)    transformation images = image translations * horizontal reflections   (10 = 5 * 2)                                           1-1. First Form                             image translations =                                    center patch                                                                                                                                                                                                                                            1                                                                                                                                                                                                                                        top left corner patch                                                                                                  1                                                                                                                                                                                                                                                                                                                                                                                  top right corner patch                                                                                                                                                  1                                                                                                                                                                                                                                                                                                                                  bottom left corner patch                                                                                                                                                                                                                                                                                                                                      1                                                                                                                                              bottom right corner patch                                                                                                                                                                                                                                                                                                                                                                                      1                                                                                                        수평 reflections (좌우반전)=                                                                                                         |                                                                                         8                       |                       8                                                                                         |                                                                                                               transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다               transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.               이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)               1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)               10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.                                                           궁금한 점   왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 &gt; &gt; &gt; 잘되지 않을까? training에 근접해서 오히려 overfitting 유발할까 ?                                                               1-2. Second Form                            altering the intensities of the RGB channels in training images.                           in details,     the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.              each training image,       we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)                                              따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.                  \([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)     where     \(p_i = eigenvector\)     \(\lambda_i = eigenvalue\)     \(\alpha_i\) = a random variable   of the 3 X 3 covariance matrix of RGB pixel values                                          \(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.     image가 다시 사용될때, 그 point에서 re-drawn 된다.                             This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.               This scheme reduces the top-1 error rate by over 1%                                                        2. Dropout                     Combining the predictions of many different models is a very successful way to reduce test errors.                                             근데, too expensive for big NN &gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)                                                  Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.           “dropped out” 된 neurons 은 feed forward에 don’t contribute &amp; back propagation 에 don’t participate           So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)                            궁금한 점     뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)                                   그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.                                             아리까리 한거: 왜 남아있는 것들이 robust 한지? many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?                                                  test time, we use all the neurons but (their outputs X 0.5)      0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate                            큰수의 법칙 때문인듯?               test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)                                   2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.                                Section 5. Details of learning                     SGD + momentum 사용           batch size : 128 examples           momentum : 0.9           weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)                                             The update rule for weight \(w\) was                  \(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)      \(w_{i+1} := w_i + v_{i+1}\)                  where      \(i\) : the iteration index     \(v\) : the momentum variable     \(\epsilon\) : the learning rate      \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)                                                  weights 초기화 : N(0, 0.01) (in each layer)           neuron biases 초기화                            2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1               나머지 layers : constant 0               초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.               각 layer의 DoF는 1이라서 (일변수이기 때문에??)     무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?   왜 bias 0 이 성립이 되는지 확인                                   learning rate 초기화 : 0.01                            모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)               heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)               termination 전에 3배 감소한다.                                   training set : 1.2M images           trained cycles : 90           training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs                                6. Result                                  ILSVRC-2010 summary                                                                 Model                   Top-1                   Top-5                                                     Sparse coding                   47.1%                   28.2%                                                     SIFT + FVs                   45.7%                   25.7%                                                     CNN                   37.5%                   17.0%                                                                          논문에서 안쓰였는데 ImageNet 2009 fall version에서 사용한 리포트에서 비교할때 쓰인 것                                    SIFT: distribution of features                   Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters                                                                                Qualitative Evaluations                              the network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs   무슨말인지 모르겠음 나중에 확인                     GPU1                            specialized in largely color-agnostic (색깔 인지불능)                                   GPU2                            specialized in largely color-specific                                           2개의 specialization은 돌아갈 때 마다 any particular random weight initialization 에 독립적이다.          두 이미지가 마지막 4096 hidden layer를 지나 생성된 feature activations vectors 가 얼마 차이 안날때 (Euclidean seperation between two 4096-dimensional, real-valued vectors), 두 이미지는 유사하다고 볼 수 있다.     하지만, auto-encoder를 훈련시키면 to compresss these vectors to short binary codes 더 효율적으로 만들 수 있다.          this should produce a much better image retrieval method than applying auto-encoders to the raw pixels, which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar.          at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column.   =&gt; 만약에 여러 포즈를 취하는 개 사진이 여러 개가 있다면 결과를 내기 위해서는 더 많은 test images가 보충되어야 함.                     [참고]         Choosing the pattern of connectivity is a problem for cross-validation           - 훈련해야할 파라미터 수              (weight + bias) * # of feature maps ( bias 는 보통 1)">
+  <meta name="twitter:url" content="http://localhost:4000/deep%20learning/AlexNet/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/images/site-logo.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-08-23T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/deep%20learning/AlexNet/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "신경익",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/mmistakes","https://www.facebook.com/michaelrose"]
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="UQj93ERU9zgECodaaXgVpkjrFn9UrDMEzVamacSoQ8Y" />
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Shinywings Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Shinywings
+          <span class="site-subtitle">경익->耿翼->Shinywings</span>
+        </a>
+        <ul class="visible-links">
+              
+                
+                
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/math/">Math</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+                  <li class="masthead__menu-item">
+                    <a href="/etc/">Etc</a>
+                  </li>
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+                
+                
+                
+                
+              
+            
+            <li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/collection-archive/">Collections</a>
+            </li>
+            
+            <li class="masthead__menu-item">
+              <a href="/portfolio/">Portfolio</a>
+            </li>
+            </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000//" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#deep-learning" itemprop="item"><span itemprop="name">Deep learning</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">AlexNet</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/shinywings.png" alt="신경익" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">신경익</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Software Engineer (Computer vision)</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AlexNet">
+    <meta itemprop="description" content="      Overview                                CONV1                          MAX POOL1                          NORM1                          COVN2                          MAX POOL2                          NORM2                          COVN3                          COVN4                          COVN5                          MAX POOL3                          FC6                          FC7                          FC8                            60M parameteres &amp; 650,000 neurons 가 존재 (왜 이렇게 되는지는 밑에서 자세하게 다룸)      5 CONV layers ( 몇개는 max-pooling layers를 따름(CONV1, CONV2), 한개라도 없애면 나쁜 성능을 보임)      3 FC layers      1000 ways softmax in the end      non-saturating neurons를 사용했다. (ReLUs)            INTRODUCTION    이 모델은 물체를 더 잘 인식하기 위해 노력하였다. 잘 인식하기 위해서 학습 모델의 성능이 좋아야 하며, 추론을 더 정확하게 해야한다. 그럼 어떻게 해야 학습 모델의 성능이 좋아지고 더욱 잘 물체를 인식할 수 있을까?          학습 모델의 성능을 높히기 위한 조건     (추론? 학습? 인지는 안나와있다. 3가지 조건을 모두 만족하면 두 개 모두 성능이 좋아질 것이라 생각한다. 밑에 설명으로 미루어본 내 추측이다.)                  larger datasets =&gt; Data augmentation          learn more powerful models =&gt; MLP to CNN          use better techniques for preventing overfitting =&gt; Data augmentation, dropout           excerpt From Here                    물체 인식에서 strong &amp; correct assumption이 되기 위한 조건    (dataset 크기에 관한)                  namely (모델이 정확히 판별해야한다)          stationarity of statistics (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)          locality of pixel dependencies                이 세 가지를 the nature of images 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.                              stationarity of statistics?                          확률 과정 \(X_t: t\) \(\in\) \(T\) 에서 임의의 확률변수 \(X_{t_1},\dotsc,X_{t_k}\) 에 대한 결합분포 \(F_x(X_{t_1},\dotsc,X_{t_k})\) 이 있다고 가정하자.  임의의 \(\tau\) 에 대해 \(F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})\) 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.                        [정리]  1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.  2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.  3. 이 논문에서는 시간이 아닌 픽셀 관점에서 본 것이라 생각한다. 이미지 관점에서는, Possibly, stationarity of statistics could also indirectly mean that you can use the same filter to detect the same feature in different regions of the image.            [refer from here]                                locality of pixel dependencies?                          neighboring pixels tend to be correlated, while faraway pixels are usually no correlated. This assumption is usually made in several image processsing techniques (e.g. filters). Of course, the size and the shape of the neightborhood could vary, depending on the region of the image (or whatever), but, in practice, it is usually cohsen to be fixed and rectangular (or squared).                                          CNN의 장점                  기존 Feed Forward NN (a.k.a. Multi-Layered Perceptron(MLP)) 보다                          connections이 적고              parameter가 적고              easier to train 하다.                                            왜냐하면, MLP는 모든 layer가 Fully Connected 이기 때문에,    첫째로, # of total parameters가 레이어를 통과할 때 마다 파라미터의 수가 기하급수적으로 증가한다.     둘째로, 공간 정보를 고려하지 않는다. (large-scale datasets이 input으로 들어간다면 메모리용량이 버틸 수 있을까?)     excerpt from Here          MLP = 선형 perceptron + multi-layers + non-linear activation   excerpt from https://en.wikipedia.org/wiki/Multilayer_perceptron        그래서 이 논문에서 CNN을 채택했다. 근데 이론적인 성능은 FFNNs 보다 조금 나쁘다.(not powerful 하다, 성능만 받쳐준다면 언제나 brute force한 방법이 짱인거 같다.)        특징          Overlapping Maxpooling      ReLUs 처음으로 도입      GPU를 처음 시도 (with 분산처리)      Local Response Normalization (LRN) 을 처음 소개함 ( &lt;-&gt; batch normalization ) 괜찮은 참고자료      overfitting 방지 (이 논문에서는 이걸 많이 신경씀, 이 당시에는 네트워크가 큰 편이였던 것 같음)                  Dropout -&gt; FC layers 에서 처리, regularization method임          Data Augmentation          하나의 데이터로부터 여러 개를 뽑아냄     (Random Crops, Mirror Crops \(\cdots\))                    Dataset은 ImageNet 사용 (15M labeled images, 22,000 categories, 지금은 더 많겠지?)      256 X 256 fixed resolution 에서 down sampling 함 =&gt; 224 X 224      NO pre-processing image ( except for subtarcting the mean activity over the training set from each pixel)      8번 때문에 이 네트워크에서 (centered) trained RAW RGB values of the pixels      AlexNet Contribution    한개의 큰 CNN에서 2D CONV를 GPU로 구현 (잘 optimized 됨)    cuda-convnet2 github link            Outline    Section 3.Improve its performance &amp; Reduce its training time 할 수 있는 새로운 특징들을 소개    Section 4. Overfitting 방지를 위한 효과적인 테크닉들    Section 6. ILSVRC-2012에 쓰인 datasets version을 사용해서 결과를 낸 후 평가                (test set labels are unavailable) 1.2M training images, 50,000 validation images, and 150,000 testing images        Section 3. Architecture                  ReLU Nonlinearity                  활성화 함수를 선형 함수로 쓰면 안되는 이유                          선형함수인 h(x)=cx를 활성화함수로 사용한 3층 네트워크를 떠올려 보세요. 이를 식으로 나타내면 y(x)=h(h(h(x)))가 됩니다. 이는 실은 y(x)=ax와 똑같은 식입니다. a=c3이라고만 하면 끝이죠. 즉, 은닉층이 없는 네트워크로 표현할 수 있습니다. 뉴럴네트워크에서 층을 쌓는 혜택을 얻고 싶다면 활성화함수로는 반드시 비선형 함수를 사용해야 합니다.    Refer from 밑바닥부터 시작하는 딥러닝                                            훈련 시간 관점 with gradient descent                                          \(tanh(x)\)같은 saturating nonlinearities 는 non-saturating nonlinearity인    (\(f(x) = max(0,x)\)) 보다 매우 느리다.       ReLU는 이전에 saturating non-linearity를 없애기 위한 노력, \(|tanh(x)|\), 보다 빠른 학습 속도를 보여준다.                                            왜 학습 속도가 빠를까?                x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) 미분하기도 편리해 계산복잡성이 낮다. 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.       Excerpt From Here                                                    ReLUs have the desirable property that they don’t require input normalization to prevent them from saturating.    (Gradient Vanishing 걱정 안해도 된다!)  (입력의 normalization이 필요 없어짐, 하지만 여러 feature map 에서의 결과를 normalization 해주면 lateral inhibition(측면 억제)이 발생 (generalization 관점에서 훨씬 좋다.))                  [참고]                          왜 batch normalization일까?  We normalize our input layer by adjusting and scaling the activations. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.                              BN은 Activation values를 정규화하는 작업이다. (실제 Data가 Gaussian 되는 것이 아님! batch가 Gaussian이라고 가정만 하는 것)                입력 분포가 일정해져, learning rate를 크게 설정해도 상관이 없다.                학습할때 마다 활성화값/출력값을 정규화하기 때문에 (가중치)초기화 문제에서 비교적 자유로워 진다.                Deep Network에서 각 weight이 지속적으로 곱해져서 Bad Scaling Effect가 발생한 것을 BN이 bad effect를 상쇄시켜준다.  CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.                            [tanh(x) 특징]                              Squashes numbers to range[-1, 1]  + zero-centered: 정규화됨 (엄밀히 말해서 zero-centered는 정규화가 아니다. 하지만 pixel값이 0~255로 fix되어 있기 때문에 정규화라고도 볼 수 있다.) - kills gradients when saturated                            [Sigmoid 특징]                                                Squashes numbers to range [0, 1]  - kills gradients when saturated  - Sigmoid outputs are not zero-centered  - \(exp()\) is a bit compute expensive                                                  batch normalization + tanh 에 대해 생각해봤다.    BN + ReLUs 조합은 많이 사용한다. 근데 dead ReLU     (will not activate(update), \(\nabla=0\))가 생기는 경우가 있어,           (첫번째 원인으로, Bad Initialization.       두번째 원인으로, 너무 높은 학습률(양수로 무한대까지 가서 너무 큰 업데이트 발생-가중치가 점프해버림-데이터의 다양성을 죽임-overfitting))                  실제로는 10~20%의 Dead ReLU가 발생한다고 한다.(From cs231n 강의) 그래서 ReLU neuron에 positive bias (e.g. 0.01)을 주었는데 효과적이지 못했다. 그래서 나온 것들이 Leaky ReLU, ELU등이 있다.                                            [궁금한 점]  그러면 BN + tanh는 앞서 얘기한 문제를 해결할 수 있지 않을까? 라는 생각을 가지게 되었다.     왜냐하면 batch normalization으로 [-1, 1] 사이의 값을 가지게 될 것이고, [-1, 1] 사이의 범위 안에서 tanh는 gradient vanishing에 위배되지 않을 것이므로 output이 정규화까지 되서 batch가 실제로 Gaussian Distribution을 따를 것이라 생각한다.     그리고 ReLU의 문제점인 음의 가중치를 갖지 못하는 것 또한 해결이 가능할 것이라 생각하기 때문이다.     하지만, 가장 먼저 걸리는 것은 computational cost (1/6배 + \(\alpha\) where \(\alpha\)=BN cost)이다.    혹시 몰라서 BN 논문 링크https://arxiv.org/pdf/1502.03167.pdf                        [해결]                                            Training on Multiple GPUs            singe GTX 580 GPU: 3GB Memory =&gt; limits the max size of the networks that can be trained on it  그래서, 2개 GPU 사용!            내 환경: GTX 1060 6GB 이므로 1개의 GPU 만 사용한다.                          2개 GPU가 서로 directly memory access 가 가능해야함 (RW)  without going through host machine memory    (나중에 꼭 해보고 싶다…)                                            parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)                          puts half of the kernels (or neurons) on each GPU              additional trick : the GPUs commnunicate only in certain layers                              2 GPU net takes slightly less time to train than the one-GPU net                                                      the GPUs commnunicate only in certain layers?                                          e.g.   the kernels of layer 3 take input from all kernel maps in layer 2. However kernels in layer 4 take input only from those kernel maps in layer &gt; 3 which reside on the same GPU.                                                                            2 GPU net takes slightly less time to train than the one-GPU net?                                          the final convolutional layer에서 (one-GPU 의 커널 수 == two-GPU 의 커널 수)                      그 이유는 net’s parameters 의 대부분이 (마지막 CONV layer로 부터 input을 받는) 첫번째 FC layer 에 있기 때문이다.    그래서, 두개의 네트워크에서 대략적으로 같은 수의 파라미터를 가지도록하기 위해서 마지막 CONV layer의 사이즈를 반으로 줄이지 않았다.                      그래서, 이 비교는 one-GPU net 쪽으로 편향되어 있다, since it is bigger than “half the size” of the two-GPU net.                                                                                                                      Local Response Normalization (LRN)                  ReLUs가 input normalization이 필요 없지만 은 generalization을 도와준다.                      activation function으로 ReLU를 사용했을 때, 장점은 sigmoid나 tanh와 달리 결과값이 양수에 한해서는 막히지 않았기 때문에 (no gradient vanishing)  입력하는 데이터에 대해서 normalization이 필요하지 않았다. 그럼에도 양수 방향으로 무한히 커질 가능성이 있어 너무 큰 값이 주변 값들을 무시할 수 있기 때문에 normalization(local normalization scheme)을 해주는게 좋다.     그래서 일반적인 관점(generalization)을 도와주는 local normalization scheme 을 찾음. 그게 LRN 이다. (요즘에는 LRN 잘 사용 안하고 batch normalization 사용, 이유 찾아보기!)                                applied this normalization after applying the ReLU nonlinearity in certain layers (Section 3.5)                                \(a^{i}_{x,y}\) : the activity of a neuron computed by applying kernel \(i\) at position \(x,y\)    Then, applying the ReLU nonlinearity,    the response-normalizaed activity \(b^{i}_{x,y}\) is given by the expression    \(b^{i}_{x,y} = a^{i}_{x,y} / \bigg(k + \alpha \displaystyle\sum_{j=max(0,i-n/2)}^{min(N-1, i+n/2)} (a^{j}_{x,y})^2 \biggr)^{\beta}\)    where the sum runs over \(n\) “adjacent” kernel maps at the same spatial position, and \(N\) is the total # of kernels in the layer    \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.    (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))                         The ordering of the kernel(filter) maps : arbitrary and determined before training begins          modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함          여기서 나온 scheme은 local contrast normalization scheme [11]과 유사          요즘은 이거 안쓰고 batch normalization 사용                          왜 LRN 안쓰고 BN 사용할까?                                                  overlapping maxpooling        overlapping pooling은 덜 overfitting 한다.     AlexNet에서 3X3 크기의 커널, stride=2로 설정하여 풀링이 겹치게 하였다.  이 결과, top-1 error는 0.3, top-5 error는 0.4 정도 성능 개선이 있었다.                    Overall Architecture        Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution.        트레이닝 케이스들의 확률 분포 아래 정확한 label의 (확률의 log)의 평균을 최대화 합니다!                  2,4,5 CONV layers 는 오직 그 이전의 layer가 있던 같은 GPU 안의 그들의 kernel maps으로 연결됨          3번째 CONV layer는 2번째 CONV layer 안에 있는 모든 kernel maps과 연결됨          Response-normalization layers는 1번째 layer와 2번째 layer를 따름          Max-pooling layers는 reponse-normalization layers 와 5번째 CONV layer를 같이 따름          ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨                                              1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널  FC layer의 뉴런들은 이전 layer의 모든 neurons들과 연결됨                                총 60M parameters가 있음                                    Section 4. Reducing Overfitting    이 연구는 overfitting을 고려하지 않으면 learning 하기 insufficient하다.                  1. Data Augmentation                  overfitting을 감소시키는 가장 쉽고 common method는 내가 데이터셋을 만들어 늘리자! (인공적으로)   transformation images = image translations * horizontal reflections  (10 = 5 * 2)                                      1-1. First Form                          image translations =                                  center patch                                                                                                                                                                                                                                1                                                                                                                                                                                                                            top left corner patch                                                                                            1                                                                                                                                                                                                                                                                                                                                                                top right corner patch                                                                                                                                          1                                                                                                                                                                                                                                                                                                                  bottom left corner patch                                                                                                                                                                                                                                                                                                                      1                                                                                                                                      bottom right corner patch                                                                                                                                                                                                                                                                                                                                                                    1                                                                                                  수평 reflections (좌우반전)=                                                                                                   |                                                                                     8                      |                      8                                                                                     |                                                                                                         transformation image는 label-preserving 이고 disk에 저장할 필요 없다. 그래서 computationally free 하다              transformation image는 CPU에서 python 코드로 제작되고, GPU에서는 previous batch 를 training한다.              이 과정에서 256X256 image를 224X224로 pre-processing 한다 (extracted patches) (이거 말고 pre-processing과정 없음, input이 224X224X3 인 이유)              1개의 이미지로 부터 2048개의 이미지를 만들어낼 수 있었다. (10*204.8? 어떻게?)              10 patches에 대해, network의 softmax layer에서 만들어진 predictions를 averaging 한다.                                                      궁금한 점  왜 8 corners, vertical 를 안쓸까? 그럼 총 9개 transformation images * 2 horizental * 2 vertical = 36배로 늘어나서 더 training이 &gt; &gt; &gt; 잘되지 않을까?training에 근접해서 오히려 overfitting 유발할까 ?                                                          1-2. Second Form                          altering the intensities of the RGB channels in training images.                        in details,    the set of RGB pixel values 에다가 ImageNet training set을 통해 PCA를 perform 한다.            each training image,      we add multiples of the 찾아낸 principal components (\(I_{xy}\)의 각 채널을 말하는듯), with magnitudes proportional to the corresponding ( eigenvalues X a random variable ) from a \(N(0,0.1)\)                                          따라서, each RGB image pixel, \(I_{xy} = [I^R_{xy},I^G_{xy},I^B_{xy}]^T\) 에다가 다음 quantity를 더한다.                \([p_1,p_2,p_3][\alpha_1\lambda_1,\alpha_2\lambda_2,\alpha_3\lambda_3]^T\)    where    \(p_i = eigenvector\)    \(\lambda_i = eigenvalue\)    \(\alpha_i\) = a random variable  of the 3 X 3 covariance matrix of RGB pixel values                                      \(\alpha\)는 특정 training image가 다시 training에 사용되기까지 그 image의 모든 pixel에 대해서 오직 1번만 drawing 된다.    image가 다시 사용될때, 그 point에서 re-drawn 된다.                          This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination.              This scheme reduces the top-1 error rate by over 1%                                                  2. Dropout                  Combining the predictions of many different models is a very successful way to reduce test errors.                                          근데, too expensive for big NN &gt; efficient version of model combination은 training 동안 오직 cost가 2배씩 상승한다. (아직도 많은거 같은데?)                                              Prob = 0.5 인 each hidden neuron의 output을 0으로 “dropped out” 한다.          “dropped out” 된 neurons 은 feed forward에 don’t contribute &amp; back propagation 에 don’t participate          So, dropout 방식은 complex co-adaptations of neurons를 줄인다. (왜냐하면 뉴런은 특정 다른 뉴런들의 존재에 의존하지 못하기 때문이다.)                          궁금한 점    뉴런이 particular other neurons의 presence에 의존하지 못한다… 그럼 LRN은?? 어느 뉴런이 강하게 반응할때 주변 뉴런을 억제하는 경향이다. 이 말은 한 뉴런이 다른 뉴런에 대해 의존적이다… ? (rely on과 depends on의 뉘앙스 차이……….)                                그러므로, 좀 더 robust features를 배워야 하는게 강제된다. 여기서 robust features는 다른 뉴런들의 many different random subsets과 함께 유용하다.                                          아리까리 한거: 왜 남아있는 것들이 robust 한지?many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런들의 parameter 인가?                                              test time, we use all the neurons but (their outputs X 0.5)     0.5: which is the geometric mean of the 지수적으로 많은 (급속도로 많아지는) dropout networks로 부터 만들어진 예측 분포로 부터 taking 한 a reasonable approximate                          큰수의 법칙 때문인듯?              test time때 output을 절반으로 줄여야 한다. (training time때 절반의 뉴런만 학습되었기 때문에 맞춰줘야함. 아직 와닿지는 않음)                                2개의 FC layers에 dropout 사용. Dropout은 수렴하기 위해 iterations 갯수의 두배정도 필요하다.                            Section 5. Details of learning                  SGD + momentum 사용          batch size : 128 examples          momentum : 0.9          weight decay : 0.0005 (not merely a regularizer, it reduces the model’s training error)                                          The update rule for weight \(w\) was                \(v_{i+1} := 0.9 \cdot v_i - 0.0005 \cdot \epsilon \cdot w_i - \epsilon \cdot \langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\)     \(w_{i+1} := w_i + v_{i+1}\)                where     \(i\) : the iteration index    \(v\) : the momentum variable    \(\epsilon\) : the learning rate     \(\langle \frac {\partial L}  {\partial w} | _{w_i} \rangle_{D_i}\) : the average over the \(i\)th batch \(D_i\) of the derivative of the objective with respect to \(w\), evaluted at \(w_i\)                                              weights 초기화 : N(0, 0.01) (in each layer)          neuron biases 초기화                          2nd, 4th, 5th CONV layers, and FC hidden layers : constant 1              나머지 layers : constant 0              초기화는 ReLU에서 나온 positivie inputs을 학습하는 the early stages 를 accelerates 한다.              각 layer의 DoF는 1이라서 (일변수이기 때문에??)    무조건 bias 1을 더해주는지 알았다. 그냥 공간상의 1을 더해주는 건지, 실제로 bias 가 있다는 의미의 1인지…?  왜 bias 0 이 성립이 되는지 확인                                learning rate 초기화 : 0.01                          모든 layers의 learning rate는 동일하게 한다. (training을 통해 조정해나감)              heuristic : learning rate / 10 ( 현재 learning rate에서 validation error rate가 증가하는 것을 멈췄을 때 나눠줌)              termination 전에 3배 감소한다.                                training set : 1.2M images          trained cycles : 90          training period : 5~6 days on two NVIDIA GTX 580 3GB GPUs                            6. Result                              ILSVRC-2010 summary                                                            Model                  Top-1                  Top-5                                                  Sparse coding                  47.1%                  28.2%                                                  SIFT + FVs                  45.7%                  25.7%                                                  CNN                  37.5%                  17.0%                                                                    논문에서 안쓰였는데 ImageNet 2009 fall version에서 사용한 리포트에서 비교할때 쓰인 것                                  SIFT: distribution of features                  Fisher Vector: encodes the gradients of the log-likelihood of the features under the Gaussian Mixture Model, with respect to the GMM parameters                                                                          Qualitative Evaluations                          the network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs  무슨말인지 모르겠음 나중에 확인                  GPU1                          specialized in largely color-agnostic (색깔 인지불능)                                GPU2                          specialized in largely color-specific                                      2개의 specialization은 돌아갈 때 마다 any particular random weight initialization 에 독립적이다.        두 이미지가 마지막 4096 hidden layer를 지나 생성된 feature activations vectors 가 얼마 차이 안날때 (Euclidean seperation between two 4096-dimensional, real-valued vectors), 두 이미지는 유사하다고 볼 수 있다.    하지만, auto-encoder를 훈련시키면 to compresss these vectors to short binary codes 더 효율적으로 만들 수 있다.        this should produce a much better image retrieval method than applying auto-encoders to the raw pixels, which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar.        at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column.  =&gt; 만약에 여러 포즈를 취하는 개 사진이 여러 개가 있다면 결과를 내기 위해서는 더 많은 test images가 보충되어야 함.              [참고]        Choosing the pattern of connectivity is a problem for cross-validation          - 훈련해야할 파라미터 수             (weight + bias) * # of feature maps ( bias 는 보통 1)">
+    <meta itemprop="datePublished" content="2020-08-23T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">AlexNet
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-08-23T00:00:00+09:00">August 23, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          14 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-cogs"></i> Helpers</h4></header>
+              <ul class="toc__menu"><li><a href="#overview">Overview</a></li><li><a href="#introduction">INTRODUCTION</a><ul><li><a href="#stationarity-of-statistics">stationarity of statistics?</a></li><li><a href="#locality-of-pixel-dependencies">locality of pixel dependencies?</a></li></ul></li></ul></li><li><a href="#특징">특징</a></li><li><a href="#outline">Outline</a></li><li><a href="#section-3-architecture">Section 3. Architecture</a><ul><li><a href="#relu-nonlinearity">ReLU Nonlinearity</a><ul><li><a href="#훈련-시간-관점-with-gradient-descent">훈련 시간 관점 with gradient descent</a></li><li><a href="#training-on-multiple-gpus">Training on Multiple GPUs</a></li><li><a href="#parallelization-scheme-나는-1개-gpu로-구축해서-적용-못함">parallelization scheme (나는 1개 GPU로 구축해서 적용 못함)</a><ul><li><a href="#the-gpus-commnunicate-only-in-certain-layers">the GPUs commnunicate only in certain layers?</a></li></ul></li><li><a href="#2-gpu-net-takes-slightly-less-time-to-train-than-the-one-gpu-net">2 GPU net takes slightly less time to train than the one-GPU net?</a></li></ul></li><li><a href="#local-response-normalization-lrn">Local Response Normalization (LRN)</a></li><li><a href="#overlapping-maxpooling">overlapping maxpooling</a></li><li><a href="#overall-architecture">Overall Architecture</a></li></ul></li><li><a href="#section-4-reducing-overfitting">Section 4. Reducing Overfitting</a><ul><li><a href="#1-data-augmentation">1. Data Augmentation</a><ul><li><a href="#1-1-first-form">1-1. First Form</a></li><li><a href="#수평-reflections-좌우반전">수평 reflections (좌우반전)=</a></li><li><a href="#1-2-second-form">1-2. Second Form</a></li></ul></li><li><a href="#2-dropout">2. Dropout</a></li></ul></li><li><a href="#section-5-details-of-learning">Section 5. Details of learning</a></li><li><a href="#6-result">6. Result</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <ul>
   <li>
     <h2 id="overview">Overview</h2>
 
-    <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+    <p><img src="/assets/images/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
 
     <table>
       <tbody>
@@ -75,11 +530,11 @@
   (dataset 크기에 관한)
         <ol>
           <li>namely (모델이 정확히 판별해야한다)</li>
-          <li><a href="/computer%20vision/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
-          <li><a href="/computer%20vision/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
+          <li><a href="/deep%20learning/stationarity-of-statistics/"><strong>stationarity of statistics</strong></a> (이해가 잘 안됨. 픽셀의 변함이 없어야한다. 어떤게?)</li>
+          <li><a href="/deep%20learning/stationarity-of-statistics/"><strong>locality of pixel dependencies</strong></a></li>
         </ol>
 
-        <p>이 세 가지를 <a href="/computer%20vision/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
+        <p>이 세 가지를 <a href="/deep%20learning/stationarity-of-statistics/">the nature of images</a> 라고 부르고, 이를 만족하면 strong &amp; correct assumption을 할 수 있다고 말할 수 있다.</p>
 
         <ul>
           <li>
@@ -187,7 +642,7 @@ excerpt from <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">https
                 <p>왜 학습 속도가 빠를까?</p>
 
                 <p>x가 양수이기만 하면 그래디언트는 1로 일정하므로 그래디언트가 죽는 현상을 피할 수 있고, (하지만 무한대 양수로는 갈 수 있다 이것을 피하기 위해 여기서 LRN을 사용하는데, 요즘은 batch normalization을 많이 사용한다.) <strong>미분하기도 편리해 계산복잡성이 낮다.</strong> 실제로 sigmod 또는 tanh 함수 대비 Training error rate가 0.25까지 도달하는 수렴 속도가 6배나 빠르다고 한다.   <br />
-  <img src="/public/asset/reluVStanh.jpg" alt="ReLUs vs tanh" />
+  <img src="/assets/images/reluVStanh.jpg" alt="ReLUs vs tanh" />
   <a href="https://ratsgo.github.io/deep%20learning/2017/04/22/NNtricks/">Excerpt From Here</a></p>
               </li>
             </ul>
@@ -246,7 +701,7 @@ CONV layer 경우, Activation map 마다 1개의 \(\mu, \sigma^2\)을 구한다.
             </blockquote>
 
             <p>[해결]          <br />
-  <img src="/public/asset/BN_question.png" alt="bn question" /></p>
+  <img src="/assets/images/BN_question.png" alt="bn question" /></p>
           </li>
           <li>
             <h4 id="training-on-multiple-gpus">Training on Multiple GPUs</h4>
@@ -313,7 +768,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
   where the sum runs over <strong><em>\(n\) “adjacent” kernel maps</em></strong> at the same spatial position, and \(N\) <strong><em>is the total # of kernels in the layer</em></strong>  <br />
   \(k, n, \alpha, and\) \(\beta\) : hyper-parameters whose values are determined using a validation set.  <br />
   (in this paper, using \(k = 2, n = 5, \alpha = 10^{-4}, and\) \(\beta = 0.75\))   <br />
-  <img src="/public/asset/LRN.png" alt="LRN" /></p>
+  <img src="/assets/images/LRN.png" alt="LRN" /></p>
           </li>
           <li>The ordering of the kernel(filter) maps : arbitrary and determined before training begins</li>
           <li>modeling like lateral inhibition : 하나의 뉴런이 다른 뉴런들을 억제하는 경향을 따라함</li>
@@ -344,7 +799,7 @@ the kernels of layer 3 take input from all kernel maps in layer 2. However kerne
           <li>ReLU non-linearity 는 모든 CONV &amp; FC layers의 output에 적용됨</li>
         </ul>
 
-        <p><img src="/public/asset/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
+        <p><img src="/assets/images/alexnet_structure.jpg" alt="AlexNet Structure" /></p>
         <ul>
           <li>
             <p>1번째 CONV layer는 224 X 224 X 3 input image를 (커널 사이즈가 11 X 11 X 3 사이즈 그리고 stride가 4 pixels 인) 96개의 커널
@@ -735,3 +1190,502 @@ many different random subsets… 은 dropout이 끝나고 남은 다른 뉴런�
         - 훈련해야할 파라미터 수  <br />
            (weight + bias) * # of feature maps ( bias 는 보통 1)</p>
 </blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#deep-learning-architecture" class="page__taxonomy-item" rel="tag">Deep Learning Architecture</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#deep-learning" class="page__taxonomy-item" rel="tag">deep learning</a><span class="sep">, </span>
+    
+      <a href="/categories/#deep-learning" class="page__taxonomy-item" rel="tag">Deep Learning</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-08-23T00:00:00+09:00">August 23, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=mmistakes&text=AlexNet%20http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2FAlexNet%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2FAlexNet%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdeep%2520learning%2FAlexNet%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/math/numerical%20analysis/SVD/" class="pagination--pager" title="Singular Value Decomposition (SVD)
+">이전</a>
+    
+    
+      <a href="/computer%20vision/Sparse-Coding/" class="pagination--pager" title="Sparse Coding
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+              style="display:block; border-bottom: initial;"
+              data-ad-client="ca-pub-7328585512091257"
+              data-ad-slot="3049671934"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+      </div> -->
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/RNN/" rel="permalink">RNN
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-11-06T00:00:00+09:00">November 6, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">특징: CNN은 grid 모양의 데이터에 특화되있다면 RNN은 sequential 데이터(대표적으로 시계열)에 특화되어 있음
+
+그래서 가장 중요한거는 parameter sharing.
+
+
+  (e.g.) I went to Nepal in 2009.   
+     In 2009, I...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/attention-mechanism/" rel="permalink">Attention Mechanism
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-28T00:00:00+09:00">October 28, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Attention Mechanism
+
+
+  문제   
+seq2seq 모델에서 처음 나왔는데, 입력 seq 를 context vector라는 하나의 고정된 크기의 벡터 표현으로 압축하고,
+디코더는 context vector를 통해 출력 seq를 만들어냄.
+
+
+하나의 고정된 크기의 벡...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Autoencoder/" rel="permalink">Autoencoder
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-27T00:00:00+09:00">October 27, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Definition
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/Analytic-Gradient-vs-Numerical-Gradient/" rel="permalink">Analytic Gradient vs Numerical Gradient
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-22T00:00:00+09:00">October 22, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">In CS231n,
+Analytic Gradient
+the analytic gradient is exact, fast to compute but more error-prone since it requires the derivation of the gradient with math....</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/statistics/Sampling/" rel="permalink">Sampling
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-10-06T00:00:00+09:00">October 6, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">numpy에서 사용되는 난수 생성기: Mersenne Twister (based on Mersenne prime number, uniform random variable 생성)
+
+숫자들의 순서가 진실로 무작위인지를 밝히는 것은 불가능하다.
+
+
+  무작위를 확인하는 방법 (반복 체크...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/deep%20learning/pattern%20recognition/Bayesian-Networks/" rel="permalink">Bayesian Networks
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2020-09-21T00:00:00+09:00">September 21, 2020</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  확률 이론 + 그래프 이론
+  Directed Acyclic Gragh (DAG)
+    
+      Cycle을 이루면 안된다.  
+cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.
+    
+  
+  
+    Edge represents I...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+      <!-- <div align="center" style="margin: 1em 0;">
+        <ins class="adsbygoogle"
+             style="display:block; border-bottom: initial;"
+             data-ad-client="ca-pub-7328585512091257"
+             data-ad-slot="3049671934"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div> -->
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:ski8992@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://github.com/shinywings" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 신경익. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+<style>
+.google-auto-placed {
+  margin: 2em auto;
+}
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+
+
+
+    <style>
+      .google-auto-placed {
+        margin: 2em auto;
+      }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    
+
+    
+        
+    </body>
+</html>
