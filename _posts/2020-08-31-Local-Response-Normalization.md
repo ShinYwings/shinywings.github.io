@@ -5,7 +5,7 @@ tags:
 - Batch Normalization
 ---
 - Local Contrast Normalization과 유사   
-    [What is the Best Multi-Stage Architecture for Object Recognition?](http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf)
+    [What is the Best Multi-Stage Architecture for Object Recognition?](http://yann.lecun.com/exdb/publish/pdf/jarrett-iccv-09.pdf)
 
 > 아... feature map은 항상 1D 인가?
 
