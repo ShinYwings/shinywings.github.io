@@ -206,9 +206,6 @@ defaults:
 
 sass:
   style: compressed
-  load_paths:
-    - _sass
-    - vendor/bundle/ruby/3.0.0/gems/bootstrap-5.3.0/assets/stylesheets
 
 compress_html:
   clippings: all
