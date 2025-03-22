@@ -1,0 +1,229 @@
+<h2 id="definition">Definition</h2>
+
+<p>a neural network that is trained to attempt to copy its input to its output.</p>
+
+<p>Encoder(deterministic functions): \(h = f(x)\)   <br />
+Decoder(stochastic mappings): \(r = g(h)\)</p>
+
+<p>So, learning to set \(g(f(x)) = x\)</p>
+
+<p>However, autoencoders are designed to be <strong>unable</strong> to learn to copy <strong>perfectly</strong></p>
+
+<p>Objective : h taking on useful properties(features).</p>
+<blockquote>
+  <p>useful featrues from the autoencoder is to constrain \(h\) to have a smaller dimension than \(x\).</p>
+</blockquote>
+
+<p>Usage : feature learning (feature extraction), dimensionality reduction</p>
+
+<h2 id="modern-autoencoders">Modern Autoencoders</h2>
+<p>Encoder =&gt; Deterministic functions : \(p_{encoder}(h|x)\)   <br />
+Decoder =&gt; Stochastic mappings : \(P_{decoder}(x|h)\)</p>
+
+<p>So, autoencoders + latent variable models =&gt; generative modeling.</p>
+
+<ul>
+  <li>
+    <p>Latent Variable(as opposed to observable variables)  <br />
+ := the variables that are not directly observed but are rather inferred from other variables that are observed.</p>
+  </li>
+  <li>
+    <p>Autoencoder training</p>
+    <ul>
+      <li>minibatch gradient descent</li>
+      <li><strong>recirculation</strong>   <br />
+  := a learning algorithm based on comparing the activations of the network on the original input to the activations on the reconstructed input.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The learning process</p>
+
+\[min({L(x,g(f(x)))})\]
+
+<p>\(L\) is a loss function penalizing \(g(f(x))\)</p>
+
+<h2 id="undercomplete-autoencoders">Undercomplete Autoencoders</h2>
+<p>an autoencoder whose hidden code (\(h\)) dimension is less than the input dimension.</p>
+
+<ul>
+  <li>undercomplete with (decoder = linear), (\(L\) = MSE)
+    <ul>
+      <li>learns to span the same subspace as <strong>PCA</strong></li>
+      <li>trained to perform the copying task has learnt the princple subspace of the training data as a <strong>side effect</strong></li>
+    </ul>
+  </li>
+  <li>undercomplete with (encoder = nonlinear), (decoder = nonlinear)
+    <ul>
+      <li>learn a more <strong>powerful nonlinear generalization of PCA</strong></li>
+    </ul>
+  </li>
+  <li><strong>DON’T allows too much capacity</strong>  <br />
+  -about the distribution of the data, feature extracting 대신에 copying 함</li>
+</ul>
+
+<h2 id="overcomplete-autoencoders">Overcomplete Autoencoders</h2>
+<p>an autoencoder whose hidden code (\(h\)) dimension is greater than the input dimension.</p>
+
+<ul>
+  <li>overcomplete with (encoder = linear), (decoder = linear)
+    <ul>
+      <li>learn to copy the input to the output without learning anything useful about the data distribution.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="regularized-autoencoders">Regularized Autoencoders</h2>
+<p>get ability to <strong>choose the code dimension and the capacity</strong> of the encoder and decoder based on the complexity of distribution to be modeled.</p>
+
+<p>Rather than limiting the model capacity by keeping the encoder and decoder shallow and the code size small.</p>
+
+<p>Objective : use a loss function that encourages the model to have other properties include sparsity of the representation, smallness of the derivative of the representation, and robustness to noise or to missing inputs.</p>
+
+<ul>
+  <li>Regularized + Overcomplete = Undercomplete   <br />
+(in terms of feature extraction)
+    <ul>
+      <li>can be nonlinear and overcomplete but still learn something useful about the data distribution, even if the model capacity is great enough to learn a trivial identity function.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="particular-form-of-autoencoder-regularized-autoencoders-관련된-모델들">Particular form of Autoencoder (regularized autoencoders 관련된 모델들)</h2>
+<ol>
+  <li>nearly any generative model with latent variables</li>
+  <li>equipped with an inference procedure (for computing latent representations given input)
+    <ul>
+      <li>
+        <p>Two generative modeling approaches that emphasize this connection with autoencoders are <strong>the descendants of the Helmholtz machine</strong></p>
+      </li>
+      <li>
+        <p>Helmholtz machine</p>
+        <ol>
+          <li>variational autoencoder (section 20.10.3 in deep learning book)</li>
+          <li>generative stochastic networks (section 20.12 in deep learning book)
+            <ul>
+              <li>These models naturally learn high-capacity, overcomplete encodings of the input and do not require regularization for these encodings to be useful.</li>
+              <li>there encodings are naturally useful because the models were trained to approximately maximize the probability of the training data rather than to copy to input to the output.</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="sparse-autoencoders">Sparse Autoencoders</h2>
+<p>an autoencoder whose training criterion involves a sparsity penalty \(\Omega(h)\) on the code layer \(h\), in addition to the reconstruction error</p>
+
+\[L(x,g(f(x))) + \Omega(h)\]
+
+<p>usage : learn features for another task (e.g. classification)</p>
+
+<ul>
+  <li>copying task(vanila autoencoder) + sparsity penalty 목적
+    <ul>
+      <li>yield a model that has learnt useful features(unique statistical features) as a byproduct.</li>
+    </ul>
+  </li>
+  <li>\(\Omega(h)\) is sort of Regularizer
+    <ul>
+      <li>However, there is not a straightforward Bayesian interpretation</li>
+    </ul>
+  </li>
+  <li>
+    <p>training with weight decay(= regularizer) and other regularization penalties can be intpreted as a MAP approximation to Bayesian inference, with the added regularizing penalty corresponding to <strong>a prior probability distribution</strong> over the model parameters.</p>
+
+    <p>\(\begin{equation} \begin{split} i.e.\;\; MAP\;approxiamtion &amp;\approx Bayesian\;inference + regularizing\;panelty \\    
+                    &amp;\approx training + regularizing\;penalty \end{split}\end{equation}\)   <br />
+In this view, \(\begin{equation}\begin{split} regularized\;maximum\;likelihood &amp;= max\;p(\theta|x) \\
+      &amp;= max\;(MAP\;Estimation(p(\theta|x))) \\
+      &amp;= max\;(log(MAP(p(\theta|x)))) \\
+      &amp;= max\;(log\:p(x|\theta)p(\theta)) \\ 
+      &amp;= max\;(log\:p(x|\theta)+log\;p(\theta)) \\
+      &amp;Equivalent,\\
+      &amp;= max\;(log\;likelihood + prior\;distribution) \\ \end{split}\end{equation}\)
+      where,  <br />
+          \(p(\theta|x)\) is conditonal probability  <br />
+          \(p(x|\theta)\) is likelihood  <br />
+          all \(\theta\) is independent  <br />
+          <strong>prior distribution can implicitly expressed as a preference over functions</strong></p>
+    <ul>
+      <li>
+        <p>MAP inference using a gaussian prior on W (Maximum A Posteriori)</p>
+
+        <ul>
+          <li>Bayes theorem (conditional probability)   <br />
+  evidence  = (likelihood * prior P) / (posterior P)</li>
+        </ul>
+
+\[p(x|z) = \frac {p(x \cap z)} {p(z)}  = \frac {p(z|x)p(x)} {p(z)}\]
+
+        <ul>
+          <li>MAP method
+            <ul>
+              <li>posterior P를 최대화 시킨다.</li>
+              <li>장점: leveraging information that is brought by the prior and cannot be found in the training data.  <br />
+  (this additional information helps to reduce the variance in the MAP point estimate)</li>
+              <li>단점: the price of increased bias</li>
+            </ul>
+
+            <p>(e.g.)   <br />
+  z = 머리카락 발견  <br />
+  남자것일 확률: \(p(male|z)\)  <br />
+  여자것일 확률: \(p(female|z)\)</p>
+
+            <p>비교 후, 큰 값을 갖는 클래스(성별) 찾는 방법</p>
+
+\[\begin{equation} \begin{split}
+  p(female|z) &amp;= \frac {p( female \cap z)} {p(female \cap z) + p(male \cap z)} \\     
+  &amp;= \frac {p(z|female)p(z)} {p(z|female)p(z) + p(z|male)p(z)} \\
+  &amp;\;Since,\;the\;summation\;of\;all\;probablities\;is\;1      \\
+  &amp;(male\;and\;female\;are\;independent) \\
+  &amp;= p(z|female)p(z) 
+  \end{split}\end{equation}\]
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Maximum likelihood</th>
+                  <th>Maximum A Posteriori</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>class 비율 고려X</td>
+                  <td>class 비율 고려O</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>MAP Estimation
+  choose the point of maximal posterior probability  <br />
+  \(\theta_{MAP} = arg\;max_\theta\;p(\theta|x) = arg\;max_\theta\;log\:p(x|\theta) + log\:p(\theta)\)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>However, Regularized autoencoders defy such an interpretation because the regularizer \(\Omega(h)\)는 데이터에 의존하므로 정의상 단어의 공식적인 의미에서 <strong>a prior</strong>이 아닙니다.  <br />
+So, Rather than thinking of the sparsity penalty as a regularizer for the copying task, we can think of the entire sparse autoencoder framework as <strong>approximating maximum likelihood training of a generative model that has latent variables.</strong> Again,</p>
+<ul>
+  <li>explicit joint distribution \(p_{model}(h,x)=p_{model}(h)p_{model}(x|h)\)  <br />
+where, h is latent varibles and x is visible variables</li>
+  <li>\(p(\theta)\) encodes our beliefs about the model’s parameters before we have seen the training data.</li>
+</ul>
+
+<p>Thus, log-likelihood can be decomposed as</p>
+
+\[log\;p_{model}(x)=log\displaystyle \sum_h p_{model}(h,x)\]
+
+<blockquote>
+  <p>p(x)가 exp함수이면 log likelihood의 softmax의 loss 함수 꼴</p>
+</blockquote>
+
+<ul>
+  <li>이러면, autoencoder를 approximating this sum with a point estimate for just one highly likely value for \(h\)  <br />
+(sparse coding generative model이랑 비슷하다)</li>
+</ul>

@@ -1,0 +1,30 @@
+<ul>
+  <li>Local Contrast Normalization과 유사 <br />
+  <a href="http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf">What is the Best Multi-Stage Architecture for Object Recognition?</a></li>
+</ul>
+
+<blockquote>
+  <p>아… feature map은 항상 1D 인가?</p>
+</blockquote>
+
+<ul>
+  <li>non-trainable layer</li>
+</ul>
+
+<p><img src="/public/asset/LRN-sort.png" alt="sort-LRN" /></p>
+<ul>
+  <li><a href="/deep%20learning/AlexNet/">AlexNet</a> 에서 사용한 방식은 Inter-Channel LRN 이다. AlexNet 링크 참조하면 됨</li>
+  <li>Intra-Channel LRN:
+    <ul>
+      <li>
+        <p>the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by</p>
+
+        <p><img src="/public/asset/intra-channel-lrn.png" alt="intra-channel-lrn" /></p>
+        <ul>
+          <li>inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 \(-&gt;\) 2D neigborhood</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
