@@ -1,7 +1,6 @@
 ---
 title: Bayesian Networks
 comments: true
-categories : [Pattern Recognition]
 tags: [Bayesian Networks]
 ---
 - 확률 이론 + 그래프 이론

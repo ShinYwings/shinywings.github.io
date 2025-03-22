@@ -1,8 +1,6 @@
 ---
 title: Batch Normalization
 comments: true
-categories :
-- Deep Learning
 tags:
 - Internal Covariate Shift
 ---

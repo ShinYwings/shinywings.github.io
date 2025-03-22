@@ -1,4 +1,4 @@
-<!-- ---
+---
 title: "Helpers"
 permalink: /docs/helpers/
 excerpt: "Jekyll `_includes` and other helpers to use as shortcuts for creating archives, galleries, table of contents, and more."
@@ -418,4 +418,4 @@ To add a navigation list to a post or page's main content instead of the sidebar
 
 | Parameter | Required     | Description                                              |
 | --------- | ------------ | -------------------------------------------------------- |
-| items     | **Required** | Name of the links array found in `_data/navigation.yml`. | -->
+| items     | **Required** | Name of the links array found in `_data/navigation.yml`. |

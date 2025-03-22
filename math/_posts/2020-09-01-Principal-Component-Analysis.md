@@ -1,7 +1,6 @@
 ---
 title: Principal Component Analysis (PCA)
 comments: true
-categories : [Pattern Recongnition]
 tags: [PCA]
 ---
 제일 좋은 참조. 내꺼 안봐도 됨    

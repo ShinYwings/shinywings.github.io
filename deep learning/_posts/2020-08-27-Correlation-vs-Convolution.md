@@ -1,8 +1,6 @@
 ---
 title: Correlation VS Convolution
 comments: true
-categories :
-- Computer Vision
 tags:
 - CNN
 ---

@@ -1,7 +1,6 @@
 ---
 title: Tensorflow Note
 comments: true
-categories : [Others]
 tags: [tensorflow]
 ---
 -------

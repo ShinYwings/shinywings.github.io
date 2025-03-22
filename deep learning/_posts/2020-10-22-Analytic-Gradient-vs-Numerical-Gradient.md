@@ -1,7 +1,6 @@
 ---
 title: Analytic Gradient vs Numerical Gradient
 comments: true
-categories : [Deep Learning]
 tags: [Gradient Descent]
 ---
 

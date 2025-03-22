@@ -1,7 +1,6 @@
 ---
 title: Covariance Matrix
 comments: true
-categories : [Statistics]
 tags: [Covariance]
 ---
 

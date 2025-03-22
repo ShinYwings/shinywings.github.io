@@ -1,7 +1,6 @@
 ---
 title: Lagrange Multipliers
 comments: true
-categories : [Pattern Recognition]
 tags: [Regularization]
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Stationarity of Statistics in terms of CV
 comments: true
-categories :
-- Deep Learning
 tags:
 - Statistics
 

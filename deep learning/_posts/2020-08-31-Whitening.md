@@ -1,7 +1,6 @@
 ---
 title: Whitening
 comments: true
-categories : [Deep Learning]
 tags: [NormalizationNormalization]
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: Autoencoder
 comments: true
-categories : [Deep Learning]
 tags: [GAN]
 ---
 

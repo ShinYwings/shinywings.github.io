@@ -1,8 +1,6 @@
 ---
 title: Local Response Normalization
 comments: true
-categories :
-- Deep Learning
 tags:
 - Batch Normalization
 ---
