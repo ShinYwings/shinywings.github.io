@@ -9,11 +9,11 @@ tags: [Bayesian Networks]
     > cycle을 검사하는 MST 알고리즘에서 cycle을 검사하는 방법을 알 수 있다.    
 
 - Edge represents Influence as Random Variable(확률 변수) ($$\approx$$ State, Node) 그리고 모든 Edge들을 통해 <U>a set of conditional independence</U> 를 간결하게 표현했다.    
-![condition](/assets/img/condition.jpg)
+![condition](/assets/img/BayesianNetwork/condition.jpg)
 
 - Conditional Probability Table (CPT)
     > Random Variable ($$X_i$$) 과 부모 노드들과의 확률 분포를 나타낸다.
-    ![conditioanl probability table](/assets/img/Conditional_probability_table.png)
+    ![conditioanl probability table](/assets/img/BayesianNetwork/Conditional_probability_table.png)
 
 -------
 
@@ -46,7 +46,7 @@ tags: [Bayesian Networks]
     - 두 가지 경우 모두에서 관측 가능한 노드들로 인해 알려진 정보를 사용해서 **은닉** 노드들의 값을 추론해 낸다.    
 
     (e.g.)    
-    ![bayesian networks](/assets/img/bayesian_network.jpg)
+    ![bayesian networks](/assets/img/BayesianNetwork/bayesian_network.jpg)
     Top-down 추론 (예측) 같은 경우에는 관측 가능한 값들을 가지고 Mary Calls의 발생을 (TRUE) 예측하고 싶다.
     P(MaryCalls | JohnCalls, Alarm, Earthquake, Burglary)    
     = P (MaryCalls | Alarm) 으로 **제거(marginalise)**할 수 있다.     
@@ -77,11 +77,11 @@ tags: [Bayesian Networks]
     
     
 - Local Markov Assumption    
-    ![local_markov_assumption](/assets/img/local_markov_assumption.jpg)
+    ![local_markov_assumption](/assets/img/BayesianNetwork/local_markov_assumption.jpg)
     - $$X \perp NonDesc(X)\|Parent(X)$$     
         : X는 1촌인 부모하고만 연관이 있다. 나머지는 다 Independent ($$\perp$$)
 - Markov Blanket (Markov Boundary)      
-    ![markov_blanket](/assets/img/markov_blanket.jpg)
+    ![markov_blanket](/assets/img/BayesianNetwork/markov_blanket.jpg)
     - (a)는 markov blanket이 아니다.
     - (b)는 markov blanket 이다.    
         U: parents Z: co-parents Y: Children

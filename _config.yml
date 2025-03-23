@@ -226,6 +226,7 @@ exclude:
   - "*.config.js"
   - package*.json
   - _template
+  - _noposts
 
 jekyll-archives:
   enabled: [categories, tags]

@@ -9,7 +9,7 @@ tags:
 ## 용어 정리
 
 - Local Min, Max vs Global Min, Max    
-    ![local global](/assets/img/local_global.jpg)
+    ![local global](/assets/img/LocalMinima/local_global.jpg)
 
     - 2차 미분값이 positive 값을 가지면 local minimum (여러 개 minima)
     - 2차 미분값이 negative 값을 가지면 local maximum (여러 개 maxima)
@@ -18,14 +18,14 @@ tags:
     - local minima를 주로 찾는다.
     
 - Stationary Point(Critical Point) (정상점)   
-    ![Stationary Point](/assets/img/stationary_points.jpg)  
+    ![Stationary Point](/assets/img/LocalMinima/stationary_points.jpg)  
 
     - Stationary Point = Local Minima & Maxima + Global Minimum & Maximum + Saddle Point    
 
 - Saddle Point (안정점)
     
     - convex도 concave도 아닌 stationary point   
-    ![Saddle Point](/assets/img/saddle_point.jpg)   
+    ![Saddle Point](/assets/img/LocalMinima/saddle_point.jpg)   
 
     - $$f' = 0 (critical point), f''=0$$인 경우, saddle point일 수도 아닐 수도 있다.
     - 변곡점을 찾자(?)
@@ -46,7 +46,7 @@ tags:
     - 그래서 대부분 local minima를 찾는 것 같다.    
     - 말 안장(saddle)을 생각하면 편하다.    
         
-    ![Saddle Point](/assets/img/saddle_matlab.jpg)           
+    ![Saddle Point](/assets/img/LocalMinima/saddle_matlab.jpg)           
             
                 
         
@@ -67,10 +67,10 @@ tags:
 
     flat minima is robust
 
-    ![sharp minima](/assets/img/sharp_minima.jpg)    
+    ![sharp minima](/assets/img/LocalMinima/sharp_minima.jpg)    
 
     - Sharpness Definition
-    ![sharpness](/assets/img/sharpness.jpg)
+    ![sharpness](/assets/img/LocalMinima/sharpness.jpg)
         
     [L Dinh, R Pascanu, S Bengio, Y Bengio. "Sharp Minima Can Generalize For Deep Nets"](https://arxiv.org/pdf/1703.04933.pdf)을 참조해서 다시 작성해야함 (대충 훑어보고 자세히 읽지는 않음)
 

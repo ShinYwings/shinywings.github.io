@@ -75,7 +75,7 @@ the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기
 
     - 옆에 있는 픽셀끼리의 서로 간의 연관성이 있어야 한다.
 
-    ![locality](/assets/img/locality_of_pixel_dependency.png)    
+    ![locality](/assets/img/StationaryStats/locality_of_pixel_dependency.png)    
         
     >아래 사진을 보면 코라는 특징은 파란색 사각형 안에 있는 픽셀값에서만 표현되고 해당 픽셀들끼리만 관계를 가진다고 볼 수 있다. 빨간색 사각형안의 픽셀들은 파란색 사각형안의 픽셀들과는 종속성이 없다.    
         
@@ -91,7 +91,7 @@ the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기
     > trade-off 가 아닌 이유는 locality는 feature를 정의하는데 필요한 것이고 stationarity는 그 feature를 가지고 추측을 하는데 필요한 것이다. 그러므로, 서로 상부상조하는 관계이다. ^^    
     > Blurring 같은 경우에도 stationarity가 맞긴 하지만 여기서 이야기하는 CNN에 대한 stationarity가 아닌 이미지 프로세싱에 대한 stationarity에 대해 말하는 것 같다!    
 
-    ![stationarity of statistics vs locality of pixel dependency](/assets/img/stationarity_of_statistics.png)     
+    ![stationarity of statistics vs locality of pixel dependency](/assets/img/StationaryStats/stationarity_of_statistics.png)     
     [추가 자료]<https://medium.com/@seoilgun/cnn%EC%9D%98-stationarity%EC%99%80-locality-610166700979>    
 
     > Stationarity of statistics는 시간이 변해도 패턴이 반복된다는 
@@ -116,7 +116,7 @@ the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기
 
     >많은 머신러닝 프레임워크에서는 필터를 반전하는 것을 제외하고는 Convolution과 완전 동일한 연산인 Cross-correlation을 구현한다. CNN에서 Convolution연산은 특징만 학습하면 되기 때문에 필터를 반전시키지 않아도 동일한 효과를 낼 수 있다.        
 
-    마찬가지로, [CONV vs CORR]({% link _posts/2020-08-27-Correlation-vs-Convolution.md %}) 에서 본 것처럼 프레임 워크가 Convolution을 쓰는지 Cross-Correlation 쓰는지 동일한 효과를 내기 때문에 프레임워크 마다 서로 다르다고 한다.     
+    마찬가지로, 프레임 워크가 Convolution을 쓰는지 Cross-Correlation 쓰는지 동일한 효과를 내기 때문에 프레임워크 마다 서로 다르다고 한다.     
     (추워서 입술이 돌아가도 입술은 입술이다.)
 
 - ### 이 블로그의 정리
@@ -136,7 +136,7 @@ tralanslation invariance 효과 덕분에 좀 더 일반적인 특징을 잡을 
     
 **각 특징들의 위치 정보가 중요한 경우, translation invariance를 막는 CNN 구조들도 있다.**    
 
-![translation_invariance](/assets/img/translation_invariant.png)    
+![translation_invariance](/assets/img/StationaryStats/translation_invariant.png)    
 
 위의 예가 translation invariance의 단점이다.    
 

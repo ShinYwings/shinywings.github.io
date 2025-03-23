@@ -1,12 +1,12 @@
 ---
 title: LU Decomposition (LU factorization)
 comments: true
+categories:
+- Linear Algebra
 tags:
 - LU decomposition
 
 toc: true
-toc_label: "Helpers"
-toc_icon: "cogs"
 
 pseudocode:
 - "Gaussian_Elimination"
@@ -15,7 +15,7 @@ pseudocode:
 ---
 
 - 행렬 분해는 가우스 소거법에 비해 컴퓨팅 비용을 많이 줄였다.
-![CM_tradoff](/assets/img/matrix_time_tradeoff.jpg)
+![CM_tradoff](/assets/img/LU_Decomp/matrix_time_tradeoff.jpg)
 - LU 분해는 첫번째로 **계산의 편리함**, 두번째로 **분석적 용이성**을 위함이 있다. (모든 행렬 분해에 해당)
 - ~~**가우시안 소거법**의 시간 복잡도 문제를 해결했다.~~  
 **LU분해는 가우스 소거법과 비교하여 <U>flop(floating point operation) 비용의 이점을 갖지 않는다.</U>**    (그럼 왜 계산 비용이 줄은거지??? 아무리 찾아봐도 명쾌한 해답이 나와있지 않다...)  
@@ -139,7 +139,7 @@ def back_substitution(U="matrix", y="vector"):
 ```
 ----------------------------------------------------
 ## 2. LU Decomposition  
-![LU_DEF](/assets/img/lu_definition.jpg)
+![LU_DEF](/assets/img/LU_Decomp/lu_definition.jpg)
 - ### 아이디어들
  1. #### 삼각행렬이 아닌 Square Matrix의 전진 대입법은 $$O(n^3)$$ 이 걸리고, 후진 대입법은 $$O(n^2)$$이 걸린다.
 >삼각행렬의 $$O(n^2)$$ 시간 복잡도를 활용하고 싶다.
@@ -165,7 +165,7 @@ back-substitution의 $$O(n^2)$$ 복잡도를 $$O(n)$$ 으로 줄일 수 있다. 
 > (3)의 경우, 정방행렬 A를 행교환 없이 가우스 소거하여 REF를 만들수 있다면 LU분해가 가능하다.  
 > 왜냐하면 상삼각행렬 $$U$$가 유도되기 때문이다.  
 > 그러면  
-><img src="/assets/img/a.jpg" width="600px" height="400px" title="invertible_matrix_proof" alt="proof_1">
+><img src="/assets/img/LU_Decomp/a.jpg" width="600px" height="400px" title="invertible_matrix_proof" alt="proof_1">
 이고,
 > EA는 A에 같은 기본 행연산을 한것과 같기 때문에,  
 > $$E_k, ..., E_2 , E_1$$ (하삼각 기본행렬) 들로  
