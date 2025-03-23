@@ -10,15 +10,14 @@ tags:
 comments: true
 toc: true
 ---
-
+<!-- 
 ### 발표 자료 및 논문 원본
 [2021-04-16_let_there_be_color.pptx](/assets/doc/LetThereBeColor/2021-04-16_let_there_be_color.pptx)
 
 [2021-04-23_let_there_be_color_src_code.pptx](/assets/doc/LetThereBeColor/2021-04-23_let_there_be_color_src_code.pptx)
 
-[let_there_be_color.pdf](/assets/doc/LetThereBeColor/let_there_be_color.pdf)
+[let_there_be_color.pdf](/assets/doc/LetThereBeColor/let_there_be_color.pdf) -->
 
----
 - texture atlas를 어떻게 생성할까? 관점에서 공부하기 위한 논문
 - openMVS에서 texture mapping할 때 사용한 texturing framework (large-scale)
 
