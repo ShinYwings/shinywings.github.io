@@ -219,7 +219,12 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
             - $E_{data}$
                 - prefers "good" views for texturing a face
                 
-                [Texturing view selection 알고리즘 별 고려사항](Texturing%20view%20selection%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7%20%E1%84%87%E1%85%A7%E1%86%AF%20%E1%84%80%E1%85%A9%E1%84%85%E1%85%A7%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%20f5b38975536441b68b1d72e5ce68b26a.csv)
+                | 고려사항            | Lempitsky and Ivanov [15] 방법 | Allen[2] & Lumigraph [4] 방법 | Gal [9] 방법 |
+                | ------------------- | :----------------------------: | :---------------------------: | :----------: |
+                | View Proximity      |               No               |              Yes              |     Yes      |
+                | Image Resolution    |               No               |              Yes              |     Yes      |
+                | Out-of-focus (blur) |               No               |              No               |     Yes      |
+                | Angle               |              Yes               |              Yes              |     Yes      |
                 
                 - Lempitsky and Ivanov [15] 방법
                     - $E(l)$ 에 사용한 pairwise Markov random field energy 공식을 사용
