@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-title: I'm Paolo Chang,　　　　　　　　　　<br/>a Software Developer
+title: I'm Shin Gyeongik (신경익),　　　　　　　　　　<br/>a Software Developer
 icon: fas fa-info-circle
 order: 5
 ---
@@ -47,8 +47,8 @@ order: 5
 </style>
 
 <div class=about__content>
-  <strong class=about__title>👨‍💻 Professional Experience
-    <span id=workyear>Jan 2019</span>
+  <strong class=about__title>👨‍💻 Work Experiences
+    <span id=workyear>Sep 2020</span>
   </strong>
   <hr/>
   <div class=experience__container>
@@ -59,77 +59,33 @@ order: 5
     </div>
   </div>
   <hr/>
-  <div class=experience__container>
-    <strong class=experience__company>Architech</strong>
-    <div class=experience__infotab>
-      <span>Front-End Software Engineer</span>
-      <span class=experience__workperiod>Sept 2021 - Aug 2022 · 1 yr</span>
-    </div>
-  </div>
-  <hr/>
-  <div class=experience__container>
-    <strong class=experience__company>Hive (Start-up)</strong>
-    <div class=experience__infotab>
-      <span>Full-Stack Software Engineer</span>
-      <span class=experience__workperiod>Aug 2022 - Mar 2023 · 1 yr 4 mos</span>
-      <span class=experience__workperiod>Feb 2021 - Sept 2021</span>
-    </div>
-  </div>
-  <hr/>
-  <div class=experience__container>
-    <strong class=experience__company>Portfolio+</strong>
-    <div class=experience__infotab>
-      <span>Front-End Software Developer</span>
-      <span class=experience__workperiod>Jan 2019 - Jan 2021 · 2 yrs 1 mo</span>
-      <span>Junior Automation Developer (Co-op)</span>
-      <span class=experience__workperiod>Sept 2018 - Dec 2019 · 4 mos</span>
-    </div>
-  </div>
-  <hr/>
-  <div class=experience__container>
-    <strong class=experience__company>Woodbine Entertainment Group</strong>
-    <div class=experience__infotab>
-      <span>Junior Full-Stack Software Developer (Co-op)</span>
-      <span class=experience__workperiod>Sept 2017 - May 2018 · 9 mos</span>
-    </div>
-  </div>
-  <hr/>
 </div>
 
 <div class=about__content>
   <strong class=about__title>💪 Skills</strong>
-  <ul class=skills__contents>
-    <li class=skills__item>JavaScript</li>
-    <li class=skills__item>ES6</li>
-    <li class=skills__item>TypeScript</li>
-    <li class=skills__item>React</li>
-    <li class=skills__item>React Native</li>
-    <li class=skills__item>Redux</li>
-    <li class=skills__item>Webpack</li>
-    <li class=skills__item>HTML</li>
-    <li class=skills__item>CSS</li>
-    <li class=skills__item>AJAX</li>
-    <li class=skills__item>Node.js</li>
-    <li class=skills__item>Express.js</li>
-    <li class=skills__item>REST API</li>
-    <li class=skills__item>MongoDB</li>
-    <li class=skills__item>PostgreSQL</li>
-    <li class=skills__item>MySQL</li>
-    <li class=skills__item>C</li>
-    <li class=skills__item>C++</li>
-    <li class=skills__item>C#</li>
-    <li class=skills__item>.NET</li>
-    <li class=skills__item>Java</li>
-    <li class=skills__item>Python</li>
-    <li class=skills__item>Git</li>
-    <li class=skills__item>SVN</li>
-    <li class=skills__item>Azure</li>
-    <li class=skills__item>AWS</li>
-    <li class=skills__item>Docker</li>
-    <li class=skills__item>Jenkins</li>
-    <li class=skills__item>Jira</li>
-  </ul>
-</div>
+  <hr/>
+  
+  <div class=skills__container>
+    <strong class=programming__language>Programming Languages</strong>
+    <div class=skills__infotab>
+      <ul class=PL__skills__contents>
+        <li class=skills__item>C++</li>
+        <li class=skills__item>Python</li>
+      </ul>
+    </div>
+  </div>
+  <hr/>
+
+  <div class=skills__container>
+    <strong class=framework>Frameworks</strong>
+    <div class=skills__infotab>
+      <ul class=FW__skills__contents>
+         <li class=skills__item>Unreal Engine</li>
+          <li class=skills__item>Tensorflow</li>
+      </ul>
+    </div>
+  </div>
+  <hr/>
 
 <script>
   function parseDateString(dateString) {
