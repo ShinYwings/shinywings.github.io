@@ -67,7 +67,7 @@ order: 5
       <span>Software Engineer</span>
       <span id=urite class=experience__workperiod>May 2023 - Mar 2025</span>
     </div>
-    <strong class=experience__company>중앙대학교</strong>
+    <strong class=experience__company>Chung-Ang Univ. (CV/AR Lab)</strong>
     <div class=experience__infotab>
       <span>Research Assistant</span>
       <span id=urite class=experience__workperiod>Sep 2020 - Dec 2022</span>
