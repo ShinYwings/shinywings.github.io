@@ -27,7 +27,7 @@ order: 5
   width: 50%;
 }
 [class*="experience__infotab"] {
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
 }
@@ -65,7 +65,7 @@ order: 5
     <div class=experience__infotab>
       <span>Research Engineer</span>
       <span id=unknown_desc class=experience__stack>?</span>
-      <span id=unknown_period class=experience__workperiod>Apr 2025?</span>
+      <span id=unknown_period class=experience__workperiod>Apr 2025 - ?</span>
     </div>
   </div>
   <hr/>
@@ -163,7 +163,7 @@ order: 5
   }
 
   const workyearEl = document.getElementById("workyear");
-  const uriteEl = document.getElementById("urite");
+  const uriteEl = document.getElementById("unknown_period");
 
   const parsedWorkyearDate = parseDateString(workyearEl.textContent);
   const parsedUriteDate = parseDateString(uriteEl.textContent.split(" - ")[0].trim());
