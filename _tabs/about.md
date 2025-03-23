@@ -16,7 +16,7 @@ order: 5
 }
 [class*="about__subtitle"] {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: large;
 }
 [class*="experience__container"] {
@@ -30,6 +30,10 @@ order: 5
   width: 50%;
   display: flex;
   flex-direction: column;
+}
+[class*="experience__stack"] {
+  font-size: smaller;
+  color: #AA9888;
 }
 [class*="experience__workperiod"] {
   font-size: smaller;
@@ -60,17 +64,26 @@ order: 5
     <strong class=experience__company>?</strong>
     <div class=experience__infotab>
       <span>Research Engineer</span>
-      <span id=urite class=experience__workperiod>Apr 2025?</span>
+      <span id=unknown_desc class=experience__stack>?</span>
+      <span id=unknown_period class=experience__workperiod>Apr 2025?</span>
     </div>
+  </div>
+  <hr/>
+  <div class=experience__container>
     <strong class=experience__company>MORAI</strong>
     <div class=experience__infotab>
       <span>Software Engineer</span>
-      <span id=urite class=experience__workperiod>May 2023 - Mar 2025</span>
+      <span id=morai_desc class=experience__stack>Unreal Engine, C++</span>
+      <span id=morai_period class=experience__workperiod>May 2023 - Mar 2025</span>
     </div>
-    <strong class=experience__company>Chung-Ang Univ. (CV/AR Lab)</strong>
+  </div>
+  <hr/>
+  <div class=experience__container>
+    <strong class=experience__company>Chung-ang Univ. (CV/AR Lab)</strong>
     <div class=experience__infotab>
       <span>Research Assistant</span>
-      <span id=urite class=experience__workperiod>Sep 2020 - Dec 2022</span>
+      <span id=cvar_desc class=experience__stack>Tensorflow, OpenCV, C++, Python, CUDA</span>
+      <span id=cvar_period class=experience__workperiod>Sep 2020 - Dec 2022</span>
     </div>
   </div>
   <hr/>
@@ -95,8 +108,9 @@ order: 5
     <strong class=about__subtitle>Frameworks</strong>
     <div class=skills__infotab>
       <ul class=FW__skills__contents>
-         <li class=skills__item>Unreal Engine</li>
+          <li class=skills__item>Unreal Engine</li>
           <li class=skills__item>Tensorflow</li>
+          <li class=skills__item>OpenCV</li>
       </ul>
     </div>
   </div>
