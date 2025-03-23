@@ -12,7 +12,7 @@ SITE_DIR="_site"
 
 _config="_config.yml"
 
-_baseurl=""
+_baseurl="shinywings.github.io"
 
 help() {
   echo "Build and test the site content"
