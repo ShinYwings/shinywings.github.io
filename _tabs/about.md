@@ -1,6 +1,6 @@
 ---
 # the default layout is 'page'
-title: I'm Shin Gyeongik (신경익),　　　　　　　　　　<br/>a Software Developer
+title: Hi, I'm Shin Gyeongik (신경익)
 icon: fas fa-info-circle
 order: 5
 ---
