@@ -72,16 +72,16 @@ order: 5
   <div class=experience__container>
     <strong class=experience__company>MORAI</strong>
     <div class=experience__infotab>
-      <span>Software Engineer</span>
+      <span>Software Engineer @ Virtual Sensor Team</span>
       <span id=morai_desc class=experience__stack>Unreal Engine, C++</span>
       <span id=morai_period class=experience__workperiod>May 2023 - Mar 2025</span>
     </div>
   </div>
   <hr/>
   <div class=experience__container>
-    <strong class=experience__company>Chung-ang Univ. (CV/AR Lab)</strong>
+    <strong class=experience__company>Chung-ang Univ.</strong>
     <div class=experience__infotab>
-      <span>Research Assistant</span>
+      <span>Research Assistant @ CV/AR Lab</span>
       <span id=cvar_desc class=experience__stack>Tensorflow, OpenCV, C++, Python, CUDA</span>
       <span id=cvar_period class=experience__workperiod>Sep 2020 - Dec 2022</span>
     </div>
