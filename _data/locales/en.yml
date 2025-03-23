@@ -4,6 +4,7 @@
 
 layout:
   post: Post
+  project: Project
   category: Category
   tag: Tag
 
@@ -11,6 +12,7 @@ layout:
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
+  projects: Projects
   categories: Categories
   tags: Tags
   archives: Archives
@@ -35,7 +37,7 @@ copyright:
     link: https://creativecommons.org/licenses/by/4.0/
 
   # Displayed in the footer
-  brief: Some rights reserved.
+  brief: All rights reserved.
   verbose: >-
     Except where otherwise noted, the blog posts on this site are licensed
     under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.

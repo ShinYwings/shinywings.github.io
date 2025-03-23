@@ -6,17 +6,17 @@ theme: jekyll-theme-chirpy
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: ko
+lang: en
 
 # Change to your timezone › https://kevinnovak.github.io/Time-Zone-Picker
-timezone: Asia/Seoul
+timezone: America/Toronto
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Chirpy # the main title
+title: Paolography # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the subtitle
+tagline: Software Developer # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -28,30 +28,32 @@ url: "https://shinywings.github.io"
 github:
   username: shinywings # change to your GitHub username
 
-# twitter:
-#   username: twitter_username # change to your Twitter username
+twitter:
+  # username: twitter_username # change to your Twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@domain.com # change to your email address
+  name: paolochang
+  email: chanhwan.chang@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your Twitter homepage
-    - https://github.com/username # change to your GitHub homepage
+    # - https://twitter.com/username # change to your twitter homepage
+    - https://github.com/paolochang # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/paolochang
 
 # Site Verification Settings
 webmaster_verifications:
-  google: # fill in your Google verification code
+  google: 3xPZMVI-QOlonJzgZMnWEwxOKqX9zd18Q5r_yewgIsk # fill in your Google verification code
   bing: # fill in your Bing verification code
   alexa: # fill in your Alexa verification code
   yandex: # fill in your Yandex verification code
   baidu: # fill in your Baidu verification code
   facebook: # fill in your Facebook verification code
+
+# google_site_verification: 3xPZMVI-QOlonJzgZMnWEwxOKqX9zd18Q5r_yewgIsk # fill in to your verification string
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
@@ -88,7 +90,7 @@ pageviews:
 #     light — Use the light color scheme
 #     dark — Use the dark color scheme
 #
-theme_mode: dark # [light | dark]
+theme_mode: # [light | dark]
 
 # The CDN endpoint for media resources.
 # Notice that once it is assigned, the CDN url
@@ -98,7 +100,7 @@ theme_mode: dark # [light | dark]
 # cdn: "https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: "/commons/avatar.jpg"
+avatar: /assets/img/profile.jpeg
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
@@ -150,7 +152,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: "/shinywings.github.io"
+baseurl: ""
 
 # ------------ The following options are not recommended to be modified ------------------
 
@@ -170,6 +172,9 @@ collections:
   tabs:
     output: true
     sort_by: order
+  projects:
+    output: true
+    sort_by: order
 
 defaults:
   - scope:
@@ -182,6 +187,12 @@ defaults:
       # DO NOT modify the following parameter unless you are confident enough
       # to update the code of all other post links in this project.
       permalink: /posts/:title/
+  - scope:
+      path: "" # An empty string here means all files in the project
+      type: projects
+    values:
+      layout: project
+      permalink: /projects/:title/
   - scope:
       path: _drafts
     values:
@@ -212,9 +223,8 @@ exclude:
   - tools
   - README.md
   - LICENSE
-  - purgecss.js
-  - rollup.config.js
-  - "package*.json"
+  - "*.config.js"
+  - package*.json
 
 jekyll-archives:
   enabled: [categories, tags]

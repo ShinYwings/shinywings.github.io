@@ -1,4 +1,6 @@
-importScripts('./assets/js/data/swconf.js');
+import { baseurl } from '../../_config.yml';
+
+importScripts(`${baseurl}/assets/js/data/swconf.js`);
 
 const purge = swconf.purge;
 const interceptor = swconf.interceptor;
