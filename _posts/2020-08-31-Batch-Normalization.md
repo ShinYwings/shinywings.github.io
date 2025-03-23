@@ -14,7 +14,7 @@ Trainable layer normally used for addressing the issues of **Internal Covariate 
 - hidden neurons이나 activation의 분포가 변화하는 것 때문에 고려된다.            
 - layer는 계속해서 새로운 분포를 적용시켜야한다.     
      
-     ![ICF](/assets/img/ICF.png)    
+     ![ICF](/assets/img/BN/ICF.png)    
     - Say we have trained a neural network, and now we select two significantly different looking batches from the dataset for inference (as shown above).    
 - 2 batches를 각각 forward pass를 시켜 hidden layer의 feature map을 plot하면 위의 그림처럼 엄청난 분포의 변화가 발생한다는 것을 알 수 있다.   
 - 이것을 **Covariate shift** 라고 부른다.    

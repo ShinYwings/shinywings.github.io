@@ -120,7 +120,7 @@ toc: true
         - 가까운 texture patch borders 마다 blending
         - View-dependent texturing approaches (lumigraph) (이게 hybrid 방법인지 확실못함)
             - view들을 블렌딩함
-            - lumigraph 방법 [4]  ([http://cs.harvard.edu/~sjg/papers/ulr.pdf](http://cs.harvard.edu/~sjg/papers/ulr.pdf))
+            - lumigraph 방법 [4]  ([https://cs.harvard.edu/~sjg/papers/ulr.pdf](https://cs.harvard.edu/~sjg/papers/ulr.pdf))
                 - lumigraph는 light field rendering과 비슷한 알고리즘
                 - light field
                     
@@ -488,7 +488,7 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
                     
                     - 직관적인 설명 (이게 더 잘된듯)
                     
-                    [barycentric coordinate](http://gyuyoul-textcube.blogspot.com/2009/11/barycentric-coordinate.html)
+                    [barycentric coordinate](https://gyuyoul-textcube.blogspot.com/2009/11/barycentric-coordinate.html)
                     
         - 그래서 아래 식이
             
