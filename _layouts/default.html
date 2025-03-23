@@ -1,7 +1,6 @@
 ---
 layout: compress
 ---
-
 <!doctype html>
 
 {% include origin-type.html %}
@@ -76,6 +75,14 @@ layout: compress
 
     <!-- JavaScripts -->
     {% include js-selector.html lang=lang %}
+
+    {% if page.pseudocode %}
+      {% for id in page.pseudocode %}
+        <script>
+          pseudocode.renderElement(document.getElementById('{{ id }}'));
+        </script>
+      {% endfor %}
+    {% endif %}
 
     {% include_cached search-loader.html lang=lang %}
   </body>
