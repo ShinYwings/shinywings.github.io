@@ -14,6 +14,11 @@ order: 5
   margin-bottom: 20px;
   font-size: x-large;
 }
+[class*="about__subtitle"] {
+  display: block;
+  margin-bottom: 10px;
+  font-size: large;
+}
 [class*="experience__container"] {
   display: flex;
   flex-direction: row;
@@ -52,10 +57,20 @@ order: 5
   </strong>
   <hr/>
   <div class=experience__container>
-    <strong class=experience__company>U-Rite</strong>
+    <strong class=experience__company>?</strong>
     <div class=experience__infotab>
-      <span>Full-Stack Software Engineer</span>
-      <span id=urite class=experience__workperiod>Mar 2023 - Current</span>
+      <span>Research Engineer</span>
+      <span id=urite class=experience__workperiod>Apr 2025?</span>
+    </div>
+    <strong class=experience__company>MORAI</strong>
+    <div class=experience__infotab>
+      <span>Software Engineer</span>
+      <span id=urite class=experience__workperiod>May 2023 - Mar 2025</span>
+    </div>
+    <strong class=experience__company>중앙대학교</strong>
+    <div class=experience__infotab>
+      <span>Research Assistant</span>
+      <span id=urite class=experience__workperiod>Sep 2020 - Dec 2022</span>
     </div>
   </div>
   <hr/>
@@ -66,7 +81,7 @@ order: 5
   <hr/>
   
   <div class=skills__container>
-    <strong class=programming__language>Programming Languages</strong>
+    <strong class=about__subtitle>Programming Languages</strong>
     <div class=skills__infotab>
       <ul class=PL__skills__contents>
         <li class=skills__item>C++</li>
@@ -77,7 +92,7 @@ order: 5
   <hr/>
 
   <div class=skills__container>
-    <strong class=framework>Frameworks</strong>
+    <strong class=about__subtitle>Frameworks</strong>
     <div class=skills__infotab>
       <ul class=FW__skills__contents>
          <li class=skills__item>Unreal Engine</li>
