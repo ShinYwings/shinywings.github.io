@@ -24,6 +24,4 @@ package-lock.json
 
 # Misc
 .DS_Store
-_sass/dist
-assets/js/dist
 _drafts
