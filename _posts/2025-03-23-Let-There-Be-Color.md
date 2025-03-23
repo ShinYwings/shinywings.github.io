@@ -10,13 +10,15 @@ tags:
 comments: true
 toc: true
 ---
-<!-- 
+
 ### 발표 자료 및 논문 원본
 [2021-04-16_let_there_be_color.pptx](/assets/doc/LetThereBeColor/2021-04-16_let_there_be_color.pptx)
 
 [2021-04-23_let_there_be_color_src_code.pptx](/assets/doc/LetThereBeColor/2021-04-23_let_there_be_color_src_code.pptx)
 
-[let_there_be_color.pdf](/assets/doc/LetThereBeColor/let_there_be_color.pdf) -->
+[let_there_be_color.pdf](/assets/doc/LetThereBeColor/let_there_be_color.pdf)
+
+---
 
 - texture atlas를 어떻게 생성할까? 관점에서 공부하기 위한 논문
 - openMVS에서 texture mapping할 때 사용한 texturing framework (large-scale)
@@ -119,7 +121,7 @@ toc: true
         - 가까운 texture patch borders 마다 blending
         - View-dependent texturing approaches (lumigraph) (이게 hybrid 방법인지 확실못함)
             - view들을 블렌딩함
-            - lumigraph 방법 [4]  ([https://cs.harvard.edu/~sjg/papers/ulr.pdf](https://cs.harvard.edu/~sjg/papers/ulr.pdf))
+            - lumigraph 방법 [4]  ([aaaas](https://cs.harvard.edu/~sjg/papers/ulr.pdf))
                 - lumigraph는 light field rendering과 비슷한 알고리즘
                 - light field
                     
@@ -132,7 +134,7 @@ toc: true
                         ![](/assets/img/LetThereBeColor/Untitled%202.png)
                         
             
-            [https://www.youtube.com/watch?v=za4HIll9N7c](https://www.youtube.com/watch?v=za4HIll9N7c)
+            [aaaas](https://www.youtube.com/watch?v=za4HIll9N7c)
             
 - Blending images
     - 필요한 이유
@@ -615,7 +617,7 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
     - generate_texture_views
         - 이미지가 어떤형식으로 저장되있냐 따라 불러오는 방식
         - texture_views == undistorted images
-    - calculate_data_costs (각 face마다 candidate view를 설정하고 view에서
+    - calculate_data_costs 각 face마다 candidate view를 설정하고 view에서
         - data cost는 뷰마다 있는 face들의 quality라고함
             
             data_costs->set_value(i, info.view_id, data_cost)
@@ -637,8 +639,8 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
             - **Preprocessing**
                 - backface
                     - face_to_view_vec.dot(face_normal)
-                        - < 0.0f   [//face](//face) normal이 반대편인지?
-                        - >75도  //정면에서 바라봣을때 사물이 75도이상 회전되어있음 잘 안보인다
+                        - < 0.0f ->  face normal이 반대편인지?
+                        - >75도  -> 정면에서 바라봣을때 사물이 75도이상 회전되어있음 잘 안보인다
                     - viewing_direction.dot(view_to_face_vec) < 0.0f // 내 눈 뒷편에 있는지?
                 - view frustum
                     - texture_view->inside(v1, v2, v3)
