@@ -22,5 +22,5 @@ toc: true
   - the neighborhood is extended within the same channel only as it can be seen in the figure above. The foluma is given by     
         
     ![intra-channel-lrn](/assets/img/LRN/intra-channel-lrn.png)
-    - inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 $$->$$ 2D neigborhood    
+    - inter-channel이 1차원 (depth) 만 다뤘다면, intra-channel은 2차원 (W,H) 를 다룸 $\rightarrow$ 2D neigborhood    
 

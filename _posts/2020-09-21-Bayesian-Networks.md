@@ -43,7 +43,7 @@ toc: true
     - Chain rule:
         $$\begin{equation} \begin{split}P(x_1, \ldots, x_n) &= P(x_n|x_{n-1},\ldots,x_1)P(x_{n-1}|x_{n-2},\ldots,x_1)\cdots P(x_2|x_1)P(x_1)\\&= \prod^{n}_{i=1} P(x_i|parents(X_i))\end{split}\end{equation}$$
     - Bayesian Networks:    
-        $$P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))$$    
+        $$P(x_1, \ldots, x_n) = \prod^{n}_{i=1} P(x_i|parents(X_i))$$  
         $x_i$ 는 이벤트
     - **베이지안 네트워크의 the ordering of nodes는 resulting network의 complexity를 나타낸다.**
         

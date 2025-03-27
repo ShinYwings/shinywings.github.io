@@ -32,7 +32,7 @@ toc: true
     - convex도 concave도 아닌 stationary point   
     ![Saddle Point](/assets/img/LocalMinima/saddle_point.jpg)   
 
-    - $$f' = 0 (critical point), f''=0$$인 경우, saddle point일 수도 아닐 수도 있다.
+    - $f' = 0 (critical point), f''=0$인 경우, saddle point일 수도 아닐 수도 있다.
     - 변곡점을 찾자(?)
     - multiple dimension인 경우, 2차원에서는 local minima 였던 것들이 saddle point 일 수도 있다.    
     - 딥 러닝 경우, 예전에는 성능 저하의 원인이 local minima라는게 일반적인 생각이였다. 그러나 [Y. Dauphin, R. Pascanu, C. Gulcehre, K. Cho, S. Ganguli, Y. Bengio. "Identifying and attacking the saddle point problem in high-dimensional non-convex optimization"](https://arxiv.org/pdf/1406.2572.pdf)에서, 차원이 엄청 많기 때문에, local minima가 생기는 경우는 극히 드물다고 한다.      

@@ -37,7 +37,7 @@ Cov(Z,X) & Cov(Z,Y) & Cov(Z,Z)\\
 공분산(e.g. Cov(X,Y))을 해당하는 확률 변수 두개 (e.g. X,Y)의 표준편차로 나누어 표준화한 값은 X와 Y의 상관계수 (coefficient correlation) 이다.     
 - Cov(X,Y) == Cov(Y,X) 이므로 공분산 행렬은 대칭행렬이다.
     
-correlation $$\rho$$에 대해    
+correlation $\rho$에 대해    
           
 $$\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
 = E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}$$    

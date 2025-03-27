@@ -87,8 +87,8 @@ network와 its training parameters를 바꿔야 한다.
 2. Remove Dropout    
     - BN은 Dropout의 목표를 충족시켰다. in Sec 3.4
     - 수정된 BN-Inception로 부터의 dropout은 훈련 속도를 증가시켰다. without increasing overfitting.
-3. Reduce the $$L_2$$ weight regularization
-    - While in Inception an $$L_2$$ loss on the model parameters controls overfitting, in Modified BN-Inception the weight of this loss is reduced by a factor of 5.(5배 가량 이 loss의 가중치가 감소)
+3. Reduce the $L_2$ weight regularization
+    - While in Inception an $L_2$ loss on the model parameters controls overfitting, in Modified BN-Inception the weight of this loss is reduced by a factor of 5.(5배 가량 이 loss의 가중치가 감소)
 4. Accelerate the learning rate decay
     - In training Inception, learning rate was decayed exponentially.    Because our network trains faster than Inception, we lower the learning rate 6 times faster. (learning rate를 6배 빠르게 감소시켰다(?) 그래서 learning rate가 exponentially 하게 감소 되었다.)
 5. **Remove [Local Response Normalization]({% link _posts/2020-08-31-Local-Response-Normalization.md %})**
@@ -101,14 +101,14 @@ network와 its training parameters를 바꿔야 한다.
 
 ## Gamma & Beta updates on BackPropagation
      
-Given $$y = \gamma \hat {x}_i + \beta$$     
+Given $y = \gamma \hat {x}_i + \beta$     
      
 $$\begin{equation} \begin{split}     
 \frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial y_i} \cdot \frac {\partial y_i} {\partial \hat {x}_i} \\
 \frac {\partial \ell} {\partial \hat {x}_i} &= \frac {\partial \ell} {\partial y_i} \cdot \gamma \\
 \end{split}\end{equation}$$     
     
-Since $$\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}$$     
+Since $\hat {x}_i = \frac {x_i - \mu_B} {\sqrt {\sigma^2_B+\epsilon}}$     
      
 $$\begin{equation} \begin{split}
 \frac {\partial \ell} {\partial \sigma^2_B} &= \displaystyle \sum^m_{i=1} \frac {\partial \ell} {\partial \hat {x}_i} \cdot \frac {\partial \hat {x}_i} {\partial \sigma^2_B} \\     
