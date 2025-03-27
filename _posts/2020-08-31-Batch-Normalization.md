@@ -1,10 +1,16 @@
 ---
 title: Batch Normalization
-comments: true
+
+categories:
+- Deep learning
 tags:
+- Local Response Normalization
+- Batch normalization
 - Internal Covariate Shift
 
-math: true
+comments: true
+toc: true
+
 ---
 
 Trainable layer normally used for addressing the issues of **Internal Covariate Shift(ICF)**    

@@ -1,7 +1,16 @@
 ---
 title: Maxpooling의 한계
+
+categories:
+- Deep learning
+tags:
+- Maxpooling
+- CapsNet
+- AlexNet
+  
 comments: true
-tags: [CNN, CapsNet]
+toc: true
+
 ---
 <https://jayhey.github.io/deep%20learning/2017/11/28/CapsNet_1/>
 - 이 블로그를 읽고 느낀 점 (CapsNet에 관한 내용임)   

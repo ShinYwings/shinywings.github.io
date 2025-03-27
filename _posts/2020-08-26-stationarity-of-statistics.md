@@ -1,12 +1,13 @@
 ---
 title: Stationarity of Statistics in terms of CV
-comments: true
+categories:
+- Deep learning
 tags:
-- Statistics
+- Local Response Normalization
+- Batch normalization
 
+comments: true
 toc: true
-toc_label: "Helpers"
-toc_icon: "cogs"
 ---
 
 [AlexNet]({% link _posts/2020-08-23-AlexNet.md %}) 논문 중에서,    
@@ -32,9 +33,9 @@ the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기
   - 개인적으로 뜻을 이해하기 정말 어려웠다.
     - Wikipida 인용    
              
-        > 확률 과정 $$X_t: t$$ $$\in$$ $$T$$ 에서 임의의 
-        확률변수 $$X_{t_1},\dotsc,X_{t_k}$$ 에 대한 결합분포 $$F_x(X_{t_1},\dotsc,X_{t_k})$$ 이 있다고 가정하자.    
-         임의의 $$\tau$$ 에 대해 $$F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})$$ 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.    
+        > 확률 과정 $X_t: t$ $\in$ $T$ 에서 임의의 
+        확률변수 $X_{t_1},\dotsc,X_{t_k}$ 에 대한 결합분포 $F_x(X_{t_1},\dotsc,X_{t_k})$ 이 있다고 가정하자.    
+         임의의 $\tau$ 에 대해 $F_x(X_{t_1+\tau},\dotsc,X_{t_k+\tau}) = F_x(X_{t_1},\dotsc,X_{t_k})$ 를 만족하는 확률 과정 (stochatstic process) 를 의미한다.    
                   
         ```1. 시간과 상관없이 확률 변수간 확률 분포가 일정하다.```    
         ```2. 분포와 시간이 독립적이라서 확률변수의 기댓값, 분포등 또한 독립이다.```
@@ -58,9 +59,9 @@ the nature of images에 대해, breadth, depth를 조절하여 Dataset의 크기
 
         > @nbro: Oh, my bad. I can understand that a video could definitely be interpreted as a sequence of images as a flow over time, but I'm not clear on how a single, static image be interpreted as such. Could you elaborate about that in the answer, if possible? – Shirish Kulhari Jul 31 '19 at 10:19    
 
-        > @ShirishKulhari **Essentially, a noisy image $$\hat{f}$$ of an original image $$f$$ might be viewed as an image of a sequence of images, $$f,f1,f2,\cdots,\hat{f},\hat{f^1} \cdots, $$that starts at the original image and goes through $$\hat{f}$$, so this sequence of images is part of a "flow".** **This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image.** If you're interested in this, have a look at the details of this technique. – nbro♦ Jul 31 '19 at 10:21    
+        > @ShirishKulhari **Essentially, a noisy image $\hat{f}$ of an original image $f$ might be viewed as an image of a sequence of images, $f,f1,f2,\cdots,\hat{f},\hat{f^1} \cdots,$that starts at the original image and goes through $\hat{f}$, so this sequence of images is part of a "flow".** **This is just an assumption or interpretation made by some image processing techniques, like anisotropic diffusion, which is used to denoise an image.** If you're interested in this, have a look at the details of this technique. – nbro♦ Jul 31 '19 at 10:21    
 
-        > @nbro: So denoising involves figuring out the transformation $$f→\hat{f}$$ and inverting it? – Shirish Kulhari Jul 31 '19 at 10:23    
+        > @nbro: So denoising involves figuring out the transformation $f→\hat{f}$ and inverting it? – Shirish Kulhari Jul 31 '19 at 10:23    
 
         > @ShirishKulhari Yes, that's basically the idea. – nbro♦ Jul 31 '19 at 10:24    
 

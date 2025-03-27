@@ -1,7 +1,15 @@
 ---
 title: Covariance Matrix
 comments: true
-tags: [Covariance]
+
+categories:
+- Statistics
+tags:
+- Covariance matrix
+
+comments: true
+toc: true
+
 ---
 
 
@@ -12,7 +20,7 @@ tags: [Covariance]
 - random vector: random variable with multiple dimensions     
   (vector는 scalar양을 가짐; 관측된 경험 value (indefinite) 또는 유,무한의 potential value)
 
-- Diangonal은 variance $$\sigma^2$$이다.
+- Diangonal은 variance $\sigma^2$이다.
 
 ## 정의      
 
@@ -33,12 +41,12 @@ correlation $$\rho$$에 대해
           
 $$\begin{aligned}  \rho = \frac {1} {N} \displaystyle\sum_{i=1}^{N}(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\\
 = E\Big[(\frac {X_i-\mu_1} {\sigma_1})(\frac {Y_i-\mu_2} {\sigma_2})\Big]\\=\frac {E[(X_i-\mu_1)(Y_i-\mu_2)]} {\sigma_1\sigma_2}\\= \frac {Cov(X,Y)} {\sigma_1 \sigma_2} \end{aligned}$$    
-     where,     
-            $$N$$ = 데이터 갯수    
-            $$\mu_1$$ = X의 평균    
-            $$\mu_2$$ = Y의 평균    
-            $$\sigma_1$$ = X의 표준편차    
-            $$\sigma_2$$ = Y의 표준편차    
+where,     
+      $N$ = 데이터 갯수    
+      $\mu_1$ = X의 평균    
+      $\mu_2$ = Y의 평균    
+      $\sigma_1$ = X의 표준편차    
+      $\sigma_2$ = Y의 표준편차    
 
 $$\begin{aligned} Cov(X,Y) = E[(X-\mu_1)(Y-\mu_2)]
 \\= E[XY-\mu_2X-\mu_1Y+\mu_1\mu_2]

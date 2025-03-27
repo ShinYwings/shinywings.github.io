@@ -1,7 +1,7 @@
 ---
-title:  Let There Be Color! Large-Scale Texturing of 3D Reconstruction
+title: (ECCV 2014) Let There Be Color! Large-Scale Texturing of 3D Reconstruction
 categories:
-- 3D Reconstruction
+- Paper Review
 tags:
 - Texturing
 - OpenMVS

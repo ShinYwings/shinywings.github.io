@@ -1,7 +1,13 @@
 ---
 title: Analytic Gradient vs Numerical Gradient
+categories:
+- Deep learning
+tags:
+- Analytic gradient
+- Numerical gradient
+
 comments: true
-tags: [Gradient Descent]
+toc: true
 ---
 
 ## In CS231n,

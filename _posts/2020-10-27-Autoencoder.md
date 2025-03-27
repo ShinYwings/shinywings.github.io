@@ -1,7 +1,12 @@
 ---
 title: Autoencoder
+categories:
+- Deep learning
+tags:
+- Auto encoder
+
 comments: true
-tags: [GAN]
+toc: true
 ---
 
 ## Definition

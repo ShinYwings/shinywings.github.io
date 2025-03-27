@@ -1,8 +1,13 @@
 ---
 title: Local Response Normalization
-comments: true
+categories:
+- Deep learning
 tags:
-- Batch Normalization
+- Local Response Normalization
+- Batch normalization
+
+comments: true
+toc: true
 ---
 - Local Contrast Normalization과 유사   
     [What is the Best Multi-Stage Architecture for Object Recognition?](https://ieeexplore.ieee.org/document/5459469)

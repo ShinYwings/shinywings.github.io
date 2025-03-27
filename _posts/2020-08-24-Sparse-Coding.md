@@ -1,8 +1,13 @@
 ---
 title: Sparse Coding
-comments: true
+categories:
+- Computer Vision
 tags:
-- Sparse Coding
+- Sparse coding
+- Denoising
+  
+comments: true
+toc: true
 ---
 
 - unsupervised learning 방법
@@ -11,18 +16,18 @@ tags:
     "Emergence of simple cell receptive field properties by learning sparse code for natural iamges", Olshausen, 1996    
     "Sparse coding with an overcomplete set: a strategy employed by V1", Field, 1997
 
-![Sparse coding](/assets/img/SparseCoding/sparse_coding.jpg)
-Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖고 있으며, 데이터 X를 $$\alpha$$로 나타낸다.
-여기서 $$\alpha$$ 안의 빨간색에 해당하는 부분은 0이 아니기 때문에 결과적으로는 해당 위치에 기저벡터를 $$\alpha$$의 각 원소만큼 곱해서 더하는 방식으로 표현이 된다.
+![Sparse coding](/assets/img/SparseCoding/sparse_coding.jpg)  
+Dictionary D는 column 방향으로 atom 이라고 부르는 basis vector를 갖고 있으며, 데이터 X를 $\alpha$로 나타낸다.
+여기서 $\alpha$ 안의 빨간색에 해당하는 부분은 0이 아니기 때문에 결과적으로는 해당 위치에 기저벡터를 $\alpha$의 각 원소만큼 곱해서 더하는 방식으로 표현이 된다.
 
-- 여기서 풀어야 할 문제: D와 $$\alpha$$를 어떻게 구할까?    
+- 여기서 풀어야 할 문제: D와 $\alpha$를 어떻게 구할까?    
     
-    $$\arg \min_{D,A} ||X-AD||^2_F+\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|$$
+    $\arg \min_{D,A} ||X-AD||^2_F+\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|$
     
-    $$\arg \min_{D,A} ||X-AD||^2_F$$ : reconstruction error    
+    $\arg \min_{D,A} ||X-AD||^2_F$ : reconstruction error    
         - AD를 이용해 X를 얼마나 잘 표현할 수 있는지를 나타냄     
-    $$\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|$$ : penalty    
-        - 기저 벡터 $$\alpha$$에서 0이 아닌 element의 개수를 제한하는 방향으로 penalty 역할을 한다.    
+    $\beta\displaystyle\sum_{i,j}|\alpha_{i,j}|$ : penalty    
+        - 기저 벡터 $\alpha$에서 0이 아닌 element의 개수를 제한하는 방향으로 penalty 역할을 한다.    
 
 ![Sparse coding2](/assets/img/SparseCoding/sparse_coding_2.jpg)    
 

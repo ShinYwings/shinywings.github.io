@@ -1,11 +1,11 @@
 ---
 title: LU Decomposition (LU factorization)
-comments: true
 categories:
 - Linear Algebra
 tags:
 - LU decomposition
 
+comments: true
 toc: true
 
 pseudocode:
@@ -91,7 +91,7 @@ pseudocode:
 (행렬 전체를 한번 훑어 봄, 우선순위 큐 사용. In practice, rarely necessory)
 
 ---------------------------
-## **Python Code**
+## **Code**
 ```python
 def forward_substitution(A = "matrix",b = "vector"):
 
@@ -218,7 +218,7 @@ $$A = \left( \begin{array}{cccc} U & \cdots & \cdots & \cdots & U \\ L & U & U &
  $$A\vec{x}=\vec{b}$$를 푸는데 전진 대입, 후진 대입을 사용하면 오직 $$O(n^2)$$ 밖에 안걸린다.  
 
 -----------------------
-## **Python Code**
+## **Code**
 ```python
 def LU_Factorization_compact(A):
 
@@ -274,7 +274,7 @@ def LU_Factorization_compact(A):
 $$A = \left( \begin{array}{ccc} D & U & \cdots & \cdots & U \\ L & D & U & U & \vdots\\ \vdots & L & \ddots & U & \vdots\\ \vdots & L & L & D & U \\ L & \cdots & \cdots & L & D \end{array} \right)$$  
 
 -----------------------
-## **Python Code**
+## **Code**
 ```python
 def LDU_Factorization_compact(A):
 

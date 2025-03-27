@@ -5,6 +5,7 @@ icon: fas fa-info-circle
 order: 5
 ---
 
+
 <style type='text/css'>
 [class*="about__content"] {
   margin-top: 80px;
@@ -35,6 +36,10 @@ order: 5
   font-size: smaller;
   color: #AA9888;
 }
+[class*="tech__stack"] {
+  font-size: smaller;
+  color:rgb(160, 138, 221);
+}
 [class*="experience__workperiod"] {
   font-size: smaller;
   color: #8898AA;
@@ -61,28 +66,31 @@ order: 5
   </strong>
   <hr/>
   <div class=experience__container>
-    <strong class=experience__company>?</strong>
+    <strong class=experience__company>TU Korea</strong>
     <div class=experience__infotab>
-      <span>Research Engineer</span>
-      <span id=unknown_desc class=experience__stack>?</span>
-      <span id=unknown_period class=experience__workperiod>Apr 2025 - ?</span>
+      <span>Visiting Research Fellow</span>
+      <span id=tukor_desc class=experience__stack> Developing a 3D reconstruction model based on gaussian splatting </span>
+      <span id=tukor_stack class=tech__stack> PyTorch, OpenCV, Python, CUDA </span>
+      <span id=tukor_period class=experience__workperiod> Mar 2025 - </span>
     </div>
   </div>
   <hr/>
   <div class=experience__container>
     <strong class=experience__company>MORAI</strong>
     <div class=experience__infotab>
-      <span>Software Engineer @ Virtual Sensor Team</span>
-      <span id=morai_desc class=experience__stack>Unreal Engine, C++</span>
+      <span>Software Engineer, Virtual Sensor Team</span>
+      <span id=morai_desc class=experience__stack>Developed sensor simulations, including Camera and LiDAR</span>
+      <span id=morai_desc class=tech__stack>Unreal Engine, C++ </span>
       <span id=morai_period class=experience__workperiod>May 2023 - Mar 2025</span>
     </div>
   </div>
   <hr/>
   <div class=experience__container>
-    <strong class=experience__company>Chung-ang Univ.</strong>
+    <strong class=experience__company>Chung-Ang Univ.</strong>
     <div class=experience__infotab>
-      <span>Research Assistant @ CV/AR Lab</span>
-      <span id=cvar_desc class=experience__stack>Tensorflow, OpenCV, C++, Python, CUDA</span>
+      <span>Research Assistant, CV/AR Lab</span>
+      <span id=cvar_desc class=experience__stack>Developed an HDR reconstruction model for realistic textures in reconstructed 3D models </span>
+      <span id=cvar_desc class=tech__stack>Tensorflow, OpenCV, Python, CUDA </span>
       <span id=cvar_period class=experience__workperiod>Sep 2020 - Dec 2022</span>
     </div>
   </div>
@@ -163,7 +171,7 @@ order: 5
   }
 
   const workyearEl = document.getElementById("workyear");
-  const uriteEl = document.getElementById("unknown_period");
+  const uriteEl = document.getElementById("tukor_period");
 
   const parsedWorkyearDate = parseDateString(workyearEl.textContent);
   const parsedUriteDate = parseDateString(uriteEl.textContent.split(" - ")[0].trim());
