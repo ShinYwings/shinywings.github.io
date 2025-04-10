@@ -24,7 +24,7 @@ Positional Encoding(PE)은 이러한 위치 정보를 보존하기 위해 사용
 
 따라서 Positional Encoding을 설명하기에 앞서, Input과 Positional Encoding 사이의 중간 다리 역할을 하는 Embedding Vector에 대해 간략히 소개하겠습니다.
 
-## Embedding Vector
+### Embedding Vector
 Embedding Vector는 벡터 공간에서 Input을 표현하기 위해 사용됩니다.  
 ![](/assets/img/PositionalEncoding/Picture1.jpg)*예시: "I am going to post something"을 Embedding Vector로 변환*
 
@@ -42,18 +42,18 @@ Embedding Vector를 생성하는 방법은 Input의 종류에 따라 달라집�
    Input으로 주어진 Position $\theta$, View Direction $\phi$를 Ray 형태로 변환하고 샘플링한 후, Ray를 구성하는 point들을 Embedding Vector로 사용합니다.    
      
   
-# Diving Into Positional Encoding  
+## Diving Into Positional Encoding  
 Transformer에서 소개된 Absolute Positional Encoding은 LLM 등장 이후 Token("I", "am" 등 요소를 지칭)이 확장되어 요소 간의 상대 위치를 인코딩하는 Relative, Rotary 방식의 Positional Encoding도 등장했습니다.  
 그러나 이 포스트에서는 Absolute Positional Encoding 방식만 다루겠습니다.  
 
-## Absolute Positional Encoding
+### Absolute Positional Encoding
 Absolute Positional Encoding의 주요 목적은 각 요소의 Embedding Vector에 고유한 위치 정보를 반영하기 위해 고정 길이의 특정 벡터 값을 더하는 것입니다.  
 예를 들어, "I am going to post something"이라는 문장이 4차원 Embedding Vector로 표현된다면, Positional Encoding Vector 역시 동일한 4차원으로 구성되며, 각 요소에 고유한 위치 정보를 나타내는 벡터 값을 추가합니다.  
 ![](/assets/img/PositionalEncoding/Picture2.jpg)
 
 그러나 Dataset으로부터 나온 많은 Input에 대응하는 고유한 위치 정보를 가진 벡터 값을 갖게 만들기 위해 다음과 같은 조건을 따라야 합니다.  
 
-## 이상적인 Positional Encoding 조건  
+### 이상적인 Positional Encoding 조건  
 
 1. 각 위치의 PE 값은 Deterministic 하게 결정되며 유일해야 한다.
 2. 데이터와 관계없이 각 위치의 PE 값은 동일해야 한다.
@@ -70,9 +70,9 @@ Absolute Positional Encoding의 주요 목적은 각 요소의 Embedding Vector�
 
 나머지 조건들은 이러한 첫 번째 조건을 충족시키기 위한 필수 요건으로, 아래 예시 방법들을 통해 그 중요성을 이해할 수 있습니다.
 
-## Example Methods
+### Example Methods
 
-### Simple Count Indexing
+#### Simple Count Indexing
 Simple Count Indexing은 말 그대로 각 위치의 인덱스를 PE 값으로 사용하는 방법입니다.   
 
 $$Positional Encoding(\alpha_{i} = i)$$   
@@ -81,7 +81,7 @@ $$Positional Encoding(\alpha_{i} = i)$$
 예를 들어, 학습 모델 내 Hyperbolic Tangent Activation 함수를 사용할 경우, 결과 값이 [-1, 1] 범위를 벗어나면 Backpropagation 과정에서 Gradient Exploding 문제가 발생할 수 있습니다.  
 ![](/assets/img/PositionalEncoding/Picture4.jpg)
 
-### Normalized Count Indexing
+#### Normalized Count Indexing
 
 Normalized Count Indexing은 값이 커지지 않도록 Simple Count Indexing의 결과를 문장의 길이로 나누어 [0, 1] 범위로 정규화하는 방법입니다.  
 
@@ -90,7 +90,7 @@ $$Positional Encoding(\alpha_{i} = \frac {i} {T})$$
 이 방법은 Simple Count Indexing에서 발생하는 문제를 해결했지만, 이상적인 PE 조건 중 두 번째 "**데이터와 관계없이 각 위치의 PE 값은 동일해야 한다.**" 를 만족하지 못합니다.  
 ![](/assets/img/PositionalEncoding/Picture5.jpg)
 
-### Binary Count Indexing
+#### Binary Count Indexing
 
 Binary Count Indexing은 Simple Count Indexing의 결과를 이진수로 표현하는 방식입니다.  
 ![](/assets/img/PositionalEncoding/Picture6.jpg)
@@ -105,7 +105,7 @@ Simple Count Indexing과 같이 숫자 커지는 문제가 사라졌지만, 이�
     $(0,0,1) \leftrightarrow (0,1,0)$과 $(0,1,0) \leftrightarrow (0,1,1)$ 간의 간격은 동일하지만, 각각의 거리는 $\sqrt{2}$와 $1$로 다릅니다.  
     그러하여, 네 번째 조건을 만족하지 못합니다.  
 
-### Sinusoidal Encoding
+#### Sinusoidal Encoding
 
 그럼에도 불구하고, Binary Count Indexing에서 한가지 장점이 있습니다.  
 ![](/assets/img/PositionalEncoding/Picture7.jpg)
@@ -125,7 +125,7 @@ $$\sin(x_i \frac {\pi} {2^{D+1}})$$
 
 다행히, 약간의 변형을 통해 이 두 문제를 해결할 수 있고, 이를 해결하면 이상적인 PE 조건을 모두 만족하는 최종적인 PE를 볼 수 있습니다.  
 
-#### 문제 (1) 해결
+##### 문제 (1) 해결
 
 주기성을 띄는 것은 적은 차원으로 많은 값을 표현할 수 있다는 장점이 있었습니다.  
 하지만 서로 다른 주기를 가진 여러 Sine 함수를 사용해 PE 벡터를 만들 때 그것들이 표현할 수 있는 값은 일정한 범위를 가지고 있으며, 그 일정한 값의 범위를 매 주기마다 반복하게 됩니다.  
@@ -157,7 +157,7 @@ $$\sin(x_i / 10000^{2j/d_{model}})$$
 따라서, PE의 차원 Index 뿐만 아니라 Input의 Index 에 따라서도 모든 Sinusoidal 함수가 서로 다른 파형을 가져 중복되는 값을 방지할 수 있습니다.
 
 
-#### 문제 (2) 해결
+##### 문제 (2) 해결
 
 PE가 $(\cos\theta, \sin\theta)$ 형태로 구성되어 있다면, 선형 변환 (회전 행렬)을 통해 Token의 Position 별 상관 관계를 나타낼 수 있습니다. 그러하면, 이상적인 PE 조건 중 다섯 번째 **선형 변환을 통해 서로 다른 PE 위치를 알 수 있어야 한다.** 를 만족하여 모델 학습에 도움된다고 합니다.  
 
