@@ -1,8 +1,9 @@
 ---
 title: LU Decomposition (LU factorization)
 categories:
-- Linear Algebra
+- 개념 정리
 tags:
+- Linear Algebra
 - LU decomposition
 
 comments: true

@@ -1,9 +1,10 @@
 ---
 title: Sparse Coding
 categories:
-- Computer Vision
+- 개념 정리
 tags:
-- Sparse coding
+- Computer Vision
+- Sparse Coding
 - Denoising
   
 comments: true

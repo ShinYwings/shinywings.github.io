@@ -2,7 +2,7 @@
 title: 백준 골랜디 사용법
 
 categories:
-- Others
+- 기타
 tags:
 - PS
   

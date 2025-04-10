@@ -1,10 +1,11 @@
 ---
 title: Stationarity of Statistics in terms of CV
 categories:
-- Deep learning
+- 개념 정리
 tags:
+- Deep Learning
 - Local Response Normalization
-- Batch normalization
+- Batch Normalization
 
 comments: true
 toc: true

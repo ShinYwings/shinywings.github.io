@@ -3,8 +3,9 @@ title: Covariance Matrix
 comments: true
 
 categories:
-- Statistics
+- 개념 정리
 tags:
+- Statistics
 - Covariance matrix
 
 comments: true

@@ -1,10 +1,11 @@
 ---
 title: Analytic Gradient vs Numerical Gradient
 categories:
-- Deep learning
+- 개념 정리
 tags:
-- Analytic gradient
-- Numerical gradient
+- Deep Learning
+- Analytic Gradient
+- Numerical Gradient
 
 comments: true
 toc: true

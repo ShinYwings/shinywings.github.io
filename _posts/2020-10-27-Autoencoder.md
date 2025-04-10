@@ -1,9 +1,10 @@
 ---
 title: Autoencoder
 categories:
-- Deep learning
+- 개념 정리
 tags:
-- Auto encoder
+- Deep Learning
+- Auto Encoder
 
 comments: true
 toc: true

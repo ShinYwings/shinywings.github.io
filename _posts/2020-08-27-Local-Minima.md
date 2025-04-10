@@ -2,9 +2,10 @@
 title: Local Minima
 
 categories:
-- Deep learning
+- 개념 정리
 tags:
-- Local minima
+- Deep Learning
+- Local Minima
 
 comments: true
 toc: true

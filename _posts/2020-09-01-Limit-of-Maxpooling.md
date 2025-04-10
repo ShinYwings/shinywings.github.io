@@ -2,8 +2,9 @@
 title: Maxpooling의 한계
 
 categories:
-- Deep learning
+- 개념 정리
 tags:
+- Deep Learning
 - Maxpooling
 - CapsNet
 - AlexNet

@@ -1,10 +1,11 @@
 ---
 title: Local Response Normalization
 categories:
-- Deep learning
+- 개념 정리
 tags:
+- Deep Learning
 - Local Response Normalization
-- Batch normalization
+- Batch Normalization
 
 comments: true
 toc: true

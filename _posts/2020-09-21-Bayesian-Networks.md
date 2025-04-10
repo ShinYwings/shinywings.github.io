@@ -2,8 +2,9 @@
 title: Bayesian Networks
 
 categories:
-- Artificial Intelligence
+- 개념 정리
 tags:
+- Artificial Intelligence
 - Bayesian Networks
 
 comments: true
