@@ -348,7 +348,8 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
 
 1. Data Term ($E_{data}$) 얻기
     - Gal et al [9] 의 data term 방법 사용
-        - $E_{data}=-\int_{\phi (F_i, l_i)} \| \nabla (I_{l_{i}}) \|_2 dp$  (gradient magnitude $\| \nabla (I_{l_{i}}) \|_2$ 사용)
+        - $E_{data}=-\int_{\phi (F_i, l_i)} \| \nabla (I_{l_{i}}) \|_2 dp$   
+        (gradient magnitude $\| \nabla (I_{l_{i}}) \|_2$ 사용)
             - Gradient magnitude 계산
                 - Projected face $F_{i}$ 가 있는 이미지에다가 Sobel 필터 하고
                 - $F_{i}의 \space projection \space \phi (F_i, l_i)$  가 있는 모든 픽셀의 gradient magnitude (normalized) 을 더한다음에 그 평균을 area에 곱해서 data term구함
@@ -359,25 +360,18 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
                         - close, orthogonal images with a high resolution
                     - gradient magnitude가 클때
                         - in-focus 이미지
-            
-            <aside>
-            ⚠️
-            
-            Gradient magnitude의 문제점
-              **Gradient magnitude가 클 때,** (in-focus, 작으면 out-focus → blurry)
-              in-focus로 찍는 도중 pedestrian(Occluder)이 앞을 지나가는 경우가 있음
-              이 이미지를 가지고 모델 재구성을 한다고 해도 pedestrian이 모델링 되진 않음
-              그래서 View check을 할 때 이 view를 걸러내야하는데 Gal의 방법 [9]은 그러지 못함
-              그래서 아래와 같은 텍스처링이 나옴
-            
-            </aside>
-            
-            ![](/assets/img/LetThereBeColor/Untitled%2012.png)
-            
-            - Occluder가 background보다 더 큰 gradient magnitude를 가질 수 있다.
-            - 그래서 additional step to ensure "photo-consistency of the texture" 가 필요함
-            
-2. Photo-Consistency Check
+
+⚠️Gradient magnitude의 문제점  
+**Gradient magnitude가 클 때,** (in-focus, 작으면 out-focus → blurry)
+in-focus로 찍는 도중 pedestrian(Occluder)이 앞을 지나가는 경우가 있음
+이 이미지를 가지고 모델 재구성을 한다고 해도 pedestrian이 모델링 되진 않음
+그래서 View check을 할 때 이 view를 걸러내야하는데 Gal의 방법 [9]은 그러지 못함. 그래서 아래와 같은 텍스처링이 나옴   
+![](/assets/img/LetThereBeColor/Untitled%2012.png)
+
+- Occluder가 background보다 더 큰 gradient magnitude를 가질 수 있다.
+- 그래서 additional step to ensure "photo-consistency of the texture" 가 필요함
+
+1. Photo-Consistency Check
     - specific한 face를 만들기 위한 두 가지 assumption
         - the majority of views
             - see the correct color
@@ -399,25 +393,23 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
                 ![](/assets/img/LetThereBeColor/Untitled%2013.png)
                 
             - 위처럼 어떤 산등성이가 만들어졌으면 값이 가우시안 수치가 작은 부분들(= 이미지에서 자주 출현하지 않는 요소들)을 제거
-            - 10번만 반복 || 공분산이 10^-5 이하가 될때까지 반복 || inlier 개수가 4이하 일때까지 반복
+            - 10번만 반복 or 공분산이 10^-5 이하가 될때까지 반복 or inlier 개수가 4이하 일때까지 반복
         - 각 view에 대한 a list of photo-consistent views 이 output으로 나옴
             - output을 제외한 view의 data term에다가 penalty를 곱해서 선택에서 제외되도록 만듬
             - a view → (photo consistent views의 data term + penalty*the other data term)
             
-            <aside>
-            ⚠️
-            
-            median 사용 X, mean 쓰세요. 
-            median은 
-                - 작은 query sets에서 동작하지 않음
-                - marginal median은 보통 query의 member가 아니므로 너무 많은 view를 제거하게 됨
-            mean은 실제로
-                - shifting 하지 않으면 초기 평균값이 종종 inlier의 평균에서 멀리 떨어져있기 때문에 실제로 작동하지 않음 (Section 5에서 다룸)
-                - Sinha [19] 는 사용하지 않을 부분을 user에게 직접 마킹할 수 있게 해줌
+            > median 사용 X, mean 쓰세요.   
+            > median은   
+            > - 작은 query sets에서 동작하지 않음  
+            > - marginal median은 보통 query의 member가  아니므로 너무 많은 view를 제거하게 됨
+
+            > mean은 실제로   
+            > - shifting 하지 않으면 초기 평균값이 종종 inlier의 평균에서 멀리 떨어져있기 때문에 실제로 작동하지 않음 (Section 5에서 다룸)
+            > - Sinha [19] 는 사용하지 않을 부분을 user에게 직접 마킹할 수 있게 해줌
             
             </aside>
             
-3. Smoothness Term
+2. Smoothness Term
     
     Texture patch간의 seam의 정도를 나타냄, seam이 덜 나타는 쪽으로 texture matching
     
@@ -516,7 +508,7 @@ View Selection 하고 난 뒤 texture patches 결과의 문제점
             
             그래서 저 내용을 Conjugate Gradient를 사용해 최적화 하는데 SGD 방식과 비슷함 (gradient 계산을 행렬의 quadratic form으로 함)
             
-            $\Alpha, \Gamma$ 행렬을 코드에서 어떻게 구했는지 아래 내용 정리 @TODO 정리하기 
+            $\Alpha$, $\Gamma$ 행렬을 코드에서 어떻게 구했는지 아래 내용 정리 @TODO 정리하기 
             
             ![](/assets/img/LetThereBeColor/Untitled%2017.png)
             

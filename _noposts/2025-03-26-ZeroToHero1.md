@@ -19,6 +19,7 @@ toc: true
 - 논문 선정 이유:
   - 실제 환경에서 이게 잘 작동되나 궁금함
   - 2024년도까지 NeRF 관련 논문들이 리뷰됨
+  - Gaussian Splatting의 근간이 되는 방법
 
 - TODO: 
   - Novelty 될만한 것 찾기
