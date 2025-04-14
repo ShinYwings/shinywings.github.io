@@ -39,7 +39,7 @@ Embedding Vector를 생성하는 방법은 Input의 종류에 따라 달라집�
 2. 비전 모델  
    Input으로 주어진 이미지를 patch 단위로 나눈 뒤, 각 patch를 Flattening하여 Embedding Vector로 사용합니다.  
 3. NeRF 기반 모델  
-   Input으로 주어진 Position $\theta$, View Direction $\phi$를 Ray 형태로 변환하고 샘플링한 후, Ray를 구성하는 point들을 Embedding Vector로 사용합니다.    
+   Input으로 주어진 Ray들의 Position $\theta$, View Direction $\phi$를 주어진 Embedding Vector로 변환합니다. 여기서는, Feature Vector라고 부릅니다.   
      
   
 ## Diving Into Positional Encoding  
@@ -124,8 +124,10 @@ $$\sin(x_i \frac {\pi} {2^{D+1}})$$
 2. 학습 과정에서 PE 벡터 간 상대 위치를 파악하기 어렵다.
 
 다행히, 약간의 변형을 통해 이 두 문제를 해결할 수 있고, 이를 해결하면 이상적인 PE 조건을 모두 만족하는 최종적인 PE를 볼 수 있습니다.  
+  
 
-##### 문제 (1) 해결
+##### **문제 (1) 해결**  
+  
 
 주기성을 띄는 것은 적은 차원으로 많은 값을 표현할 수 있다는 장점이 있었습니다.  
 하지만 서로 다른 주기를 가진 여러 Sine 함수를 사용해 PE 벡터를 만들 때 그것들이 표현할 수 있는 값은 일정한 범위를 가지고 있으며, 그 일정한 값의 범위를 매 주기마다 반복하게 됩니다.  
@@ -154,11 +156,10 @@ $$\sin(x_i / 10000^{2j/d_{model}})$$
 
 ![](/assets/img/PositionalEncoding/Picture10.jpg)*출처: Forgot it...*
 
-따라서, PE의 차원 Index 뿐만 아니라 Input의 Index 에 따라서도 모든 Sinusoidal 함수가 서로 다른 파형을 가져 중복되는 값을 방지할 수 있습니다.
-
-
-##### 문제 (2) 해결
-
+따라서, PE의 차원 Index 뿐만 아니라 Input의 Index 에 따라서도 모든 Sinusoidal 함수가 서로 다른 파형을 가져 중복되는 값을 방지할 수 있습니다.   
+    
+##### **문제 (2) 해결**  
+   
 PE가 $(\cos\theta, \sin\theta)$ 형태로 구성되어 있다면, 선형 변환 (회전 행렬)을 통해 Token의 Position 별 상관 관계를 나타낼 수 있습니다. 그러하면, 이상적인 PE 조건 중 다섯 번째 **선형 변환을 통해 서로 다른 PE 위치를 알 수 있어야 한다.** 를 만족하여 모델 학습에 도움된다고 합니다.  
 
 이에 대한 수식 해석은 다음과 같습니다.  
@@ -184,7 +185,7 @@ $$\begin{equation} \notag
 \end{equation}$$  
 
   
-이를 통해, 최종적으로 이상적인 PE 조건을 모두 만족하는 Transformer에서 사용하는 Sinusoidal Encoding이 완성되었습니다!  
+이를 통해, 최종적으로 Transformer에서 사용하는 이상적인 PE 조건을 모두 만족된 Sinusoidal Encoding이 완성되었습니다!  
  
   $$\sin(x_i / 10000^{2j/d_{model}})$$    
   
@@ -195,16 +196,33 @@ $$\begin{equation} \notag
 이를 가시화하면 다음과 같습니다. X축은 PE Vector Dimension 그리고 Y축은 Input의 길이입니다. (해당 이미지를 -90도로 회전하면 위 설명에서 사용한 표들과 같습니다.)  
 ![](/assets/img/PositionalEncoding/result.jpg)
   
+지금까지 한 결과에 대해, 일반화하면 다음과 같습니다.
+
+$$\gamma(x_i) = \lbrace \sin(\omega x_i), \cos(\omega x_i), \cdots \rbrace$$  
+
+여기서 $\omega$ 는 넓은 의미에서 주파수를 나타내며, 사용 목적에 따라 적절히 설정됩니다. 또한 Sine과 Cosine 함수를 활용하기 때문에 이를 Fourier Feature Mapping 방법이라고 부릅니다.  
+
+### 이미지 처리에서의 PE
+[Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains](https://arxiv.org/pdf/2006.10739)에 따르면, 이미지 생성 모델에서 Fourier Feature Mapping 방법을 통해 픽셀의 좌표 값을 위치 인코딩(PE) 한다면, 이미지 내 고주파 성분을 효과적으로 복원할 수 있습니다. 아래 동영상에서는 PE 사용하지 않았을 경우(왼쪽)와 PE 사용했을 경우(가운데)의 훈련 결과(오른쪽)를 비교해 볼 수 있습니다.
+{% 
+    include embed/video.html 
+    src='/assets/img/PositionalEncoding/fourierfeature.mp4' 
+    types='ogg|mov'
+    title='출처: https://www.matthewtancik.com/nerf'
+    autoplay=true
+    loop=true
+    muted=true
+%}
 
 ## Closing
 
 ### 왜 학습할 때 PE 정보가 계속 유효한가?
-PE 기법이 모델 학습에 효과적인 이유에 대한 명확한 근거는 아직 찾지 못했습니다.  
-다만, 조사한 자료를 바탕으로 두 가지 가능성을 추측할 수 있습니다:
+PE 기법이 Weight initialization에 영향을 미치는 것으로 보입니다. 그러나 모델 학습에 효과적인 이유에 대한 명확한 근거는 아직 찾지 못했습니다.  
+다만, 조사한 자료를 바탕으로 두 가지 가능성을 추측해볼 수 있었습니다:
 1. 학습 모델의 Weight 초기화가 PE에 영향을 받는다.
-2. Residual Sum과 유사한 효과를 제공한다.
+2. Residual Sum 같은 효과를 준다.
 
-두 번째 추측은 [Attention 모듈을 위한 PE를 추가한 논문](https://arxiv.org/abs/2104.08698)을 참고하여 해당 가능성이 있다고 생각해보았습니다.
+특히 두 번째 가능성은 [Attention 모듈을 위한 PE를 추가한 논문](https://arxiv.org/abs/2104.08698)에서 제시한 아이디어에서 착안한 것입니다.  
 
 ### PE의 의미: 무엇이 중요한가?
 Transformer와 그 이전의 언어 모델(Bahdanau 모델 등)을 살펴본 결과, 모든 논문의 공통점은 언어 모델의 성능을 높이기 위해, 각 Token 간의 상대적 위치 정보를 효과적으로 학습할 수 있도록 설계했다는 점입니다.  
@@ -216,7 +234,7 @@ Transformer와 그 이전의 언어 모델(Bahdanau 모델 등)을 살펴본 결
 
 그러나 해당 방법은 HDR Reconstruction(Super Resolution과 유사한 연구 주제) 모델에서는 기대했던 만큼의 성능 향상을 보지 못했습니다.
 
-> 몇 주간 실험 결과가 기대와 달라 "내가 문제인가? PE가 문제인가?"라는 의문이 들었습니다. $\rightarrow$ 역시나 제가 문제였죠?
+> 몇 주간 실험 결과가 기대와 달라 "내가 문제인가? PE가 문제인가?"라는 의문이 들었습니다. $\rightarrow$ 역시나 제가 문제였죠? [Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains](https://arxiv.org/pdf/2006.10739)에서 제 고민이 해결 되었습니다!  
 
 이후 Transformer 논문을 읽으며 PE가 중요한 역할을 한다는 내용을 접했지만, 효과를 못봤던 기억도 있고 논문 내에서 짧게 설명되어있어 이해가 가질 않았기 때문에 PE의 효능에 대해 반신반의했던 기억이 있습니다.  
-이번에 시간을 내어 PE에 대해 깊이 탐구하며 그동안의 의문을 어느 정도 해소할 수 있게 되었네요!
+이번에 시간을 내어 PE에 대해 깊이 탐구하며 그동안의 의문들을 어느 정도 해소할 수 있게 되었네요!  
