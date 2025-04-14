@@ -207,7 +207,6 @@ $$\gamma(x_i) = \lbrace \sin(\omega x_i), \cos(\omega x_i), \cdots \rbrace$$
 {% 
     include embed/video.html 
     src='/assets/img/PositionalEncoding/fourierfeature.mp4' 
-    types='ogg|mov'
     title='출처: https://www.matthewtancik.com/nerf'
     autoplay=true
     loop=true
@@ -215,6 +214,11 @@ $$\gamma(x_i) = \lbrace \sin(\omega x_i), \cos(\omega x_i), \cdots \rbrace$$
 %}
 
 ## Closing
+
+### PE 적용 방법: Concatenation vs. Summation
+[이 블로그](https://www.blossominkyung.com/deeplearning/transfomer-positional-encoding)의 설명을 요약하면,  
+Concatenate는 정보가 섞일 문제는 적지만, 내가 가진 임베팅 벡터보다 모델의 Capacity가 매우 크거나 GPU 성능이 매우 좋 아야 효과를 볼 수 있습니다.  
+Summation는 단어 의미 정보와 위치 정보 간의 균형이 잘 맞지만 정보가 뒤섞이는 문제가 발생할 수 있다고 합니다.   
 
 ### 왜 학습할 때 PE 정보가 계속 유효한가?
 PE 기법이 Weight initialization에 영향을 미치는 것으로 보입니다. 그러나 모델 학습에 효과적인 이유에 대한 명확한 근거는 아직 찾지 못했습니다.  
