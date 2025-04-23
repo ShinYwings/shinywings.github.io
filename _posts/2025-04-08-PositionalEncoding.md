@@ -13,7 +13,7 @@ toc: true
 > 이 포스트는 [묵묵히 걸어가기님의 블로그](https://tigris-data-science.tistory.com/entry/%EC%B0%A8%EA%B7%BC%EC%B0%A8%EA%B7%BC-%EC%9D%B4%ED%95%B4%ED%95%98%EB%8A%94-Transformer5-Positional-Encoding) 내용을 기반으로 재구성하였습니다.   
    
    
-## Introduction
+## 1. Introduction
 딥러닝 모델에서, Input을 구성하는 요소들은 Layer를 통과하면서 각 요소 간의 상대 위치 정보를 잃게 됩니다.  
 Positional Encoding(PE)은 이러한 위치 정보를 보존하기 위해 사용되는 전처리 기법으로, Input 요소 간의 위치가 중요한 모델에서 효과적으로 활용됩니다.
 
@@ -24,7 +24,7 @@ Positional Encoding(PE)은 이러한 위치 정보를 보존하기 위해 사용
 
 따라서 Positional Encoding을 설명하기에 앞서, Input과 Positional Encoding 사이의 중간 다리 역할을 하는 Embedding Vector에 대해 간략히 소개하겠습니다.
 
-### Embedding Vector
+### 1.2. Embedding Vector
 Embedding Vector는 벡터 공간에서 Input을 표현하기 위해 사용됩니다.  
 ![](/assets/img/PositionalEncoding/Picture1.jpg)*예시: "I am going to post something"을 Embedding Vector로 변환*
 
@@ -42,18 +42,18 @@ Embedding Vector를 생성하는 방법은 Input의 종류에 따라 달라집�
    Input으로 주어진 Ray들로부터 여러 개의 Points를 샘플링하여 각 Points 마다의 Position $\theta$ 그리고 그 Ray의 View Direction $\phi$를 주어진 Embedding Vector로 변환합니다. 여기서는, Feature Vector라고 부릅니다.   
      
   
-## Diving Into Positional Encoding  
+## 2. Diving Into Positional Encoding  
 Transformer에서 소개된 Absolute Positional Encoding은 LLM 등장 이후 Token("I", "am" 등 요소를 지칭)이 확장되어 요소 간의 상대 위치를 인코딩하는 Relative, Rotary 방식의 Positional Encoding도 등장했습니다.  
 그러나 이 포스트에서는 Absolute Positional Encoding 방식만 다루겠습니다.  
 
-### Absolute Positional Encoding
+### 2.1. Absolute Positional Encoding
 Absolute Positional Encoding의 주요 목적은 각 요소의 Embedding Vector에 고유한 위치 정보를 반영하기 위해 고정 길이의 특정 벡터 값을 더하는 것입니다.  
 예를 들어, "I am going to post something"이라는 문장이 4차원 Embedding Vector로 표현된다면, Positional Encoding Vector 역시 동일한 4차원으로 구성되며, 각 요소에 고유한 위치 정보를 나타내는 벡터 값을 추가합니다.  
 ![](/assets/img/PositionalEncoding/Picture2.jpg)
 
 그러나 Dataset으로부터 나온 많은 Input에 대응하는 고유한 위치 정보를 가진 벡터 값을 갖게 만들기 위해 다음과 같은 조건을 따라야 합니다.  
 
-### 이상적인 Positional Encoding 조건  
+### 2.2. 이상적인 Positional Encoding 조건  
 
 1. 각 위치의 PE 값은 Deterministic 하게 결정되며 유일해야 한다.
 2. 데이터와 관계없이 각 위치의 PE 값은 동일해야 한다.
@@ -70,9 +70,9 @@ Absolute Positional Encoding의 주요 목적은 각 요소의 Embedding Vector�
 
 나머지 조건들은 이러한 첫 번째 조건을 충족시키기 위한 필수 요건으로, 아래 예시 방법들을 통해 그 중요성을 이해할 수 있습니다.
 
-### Example Methods
+### 2.3. Example Methods
 
-#### Simple Count Indexing
+#### 2.3.1. Simple Count Indexing
 Simple Count Indexing은 말 그대로 각 위치의 인덱스를 PE 값으로 사용하는 방법입니다.   
 
 $$Positional Encoding(\alpha_{i} = i)$$   
@@ -81,7 +81,7 @@ $$Positional Encoding(\alpha_{i} = i)$$
 예를 들어, 학습 모델 내 Hyperbolic Tangent Activation 함수를 사용할 경우, 결과 값이 [-1, 1] 범위를 벗어나면 Backpropagation 과정에서 Gradient Exploding 문제가 발생할 수 있습니다.  
 ![](/assets/img/PositionalEncoding/Picture4.jpg)
 
-#### Normalized Count Indexing
+#### 2.3.2. Normalized Count Indexing
 
 Normalized Count Indexing은 값이 커지지 않도록 Simple Count Indexing의 결과를 문장의 길이로 나누어 [0, 1] 범위로 정규화하는 방법입니다.  
 
@@ -90,7 +90,7 @@ $$Positional Encoding(\alpha_{i} = \frac {i} {T})$$
 이 방법은 Simple Count Indexing에서 발생하는 문제를 해결했지만, 이상적인 PE 조건 중 두 번째 "**데이터와 관계없이 각 위치의 PE 값은 동일해야 한다.**" 를 만족하지 못합니다.  
 ![](/assets/img/PositionalEncoding/Picture5.jpg)
 
-#### Binary Count Indexing
+#### 2.3.3. Binary Count Indexing
 
 Binary Count Indexing은 Simple Count Indexing의 결과를 이진수로 표현하는 방식입니다.  
 ![](/assets/img/PositionalEncoding/Picture6.jpg)
@@ -105,7 +105,7 @@ Simple Count Indexing과 같이 숫자 커지는 문제가 사라졌지만, 이�
     $(0,0,1) \leftrightarrow (0,1,0)$과 $(0,1,0) \leftrightarrow (0,1,1)$ 간의 간격은 동일하지만, 각각의 거리는 $\sqrt{2}$와 $1$로 다릅니다.  
     그러하여, 네 번째 조건을 만족하지 못합니다.  
 
-#### Sinusoidal Encoding
+#### 2.3.4. Sinusoidal Encoding
 
 그럼에도 불구하고, Binary Count Indexing에서 한가지 장점이 있습니다.  
 ![](/assets/img/PositionalEncoding/Picture7.jpg)
@@ -202,7 +202,7 @@ $$\gamma(x_i) = \lbrace \sin(\omega x_i), \cos(\omega x_i), \cdots \rbrace$$
 
 여기서 $\omega$ 는 넓은 의미에서 주파수를 나타내며, 사용 목적에 따라 적절히 설정됩니다. 또한 Sine과 Cosine 함수를 활용하기 때문에 이를 Fourier Feature Mapping 방법이라고 부릅니다.  
 
-### 이미지 처리에서의 PE
+### 2.4. 이미지 처리에서의 PE
 [Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains](https://arxiv.org/pdf/2006.10739)에 따르면, 이미지 생성 모델에서 Fourier Feature Mapping 방법을 통해 픽셀의 좌표 값을 위치 인코딩(PE) 한다면, 이미지 내 고주파 성분을 효과적으로 복원할 수 있습니다. 아래 동영상에서는 PE 사용하지 않았을 경우(왼쪽)와 PE 사용했을 경우(가운데)의 훈련 결과(오른쪽)를 비교해 볼 수 있습니다.
 {% 
     include embed/video.html 
@@ -213,14 +213,14 @@ $$\gamma(x_i) = \lbrace \sin(\omega x_i), \cos(\omega x_i), \cdots \rbrace$$
     muted=true
 %}
 
-## Closing
+## 3. Closing
 
-### PE 적용 방법: Concatenation vs. Summation
+### 3.1. PE 적용 방법: Concatenation vs. Summation
 [이 블로그](https://www.blossominkyung.com/deeplearning/transfomer-positional-encoding)의 설명을 요약하면,  
 Concatenate는 정보가 섞일 문제는 적지만, 내가 가진 임베팅 벡터보다 모델의 Capacity가 매우 크거나 GPU 성능이 매우 좋 아야 효과를 볼 수 있습니다.  
 Summation는 단어 의미 정보와 위치 정보 간의 균형이 잘 맞지만 정보가 뒤섞이는 문제가 발생할 수 있다고 합니다.   
 
-### 왜 학습할 때 PE 정보가 계속 유효한가?
+### 3.2. 왜 학습할 때 PE 정보가 계속 유효한가?
 PE 기법이 Weight initialization에 영향을 미치는 것으로 보입니다. 그러나 모델 학습에 효과적인 이유에 대한 명확한 근거는 아직 찾지 못했습니다.  
 다만, 조사한 자료를 바탕으로 두 가지 가능성을 추측해볼 수 있었습니다:
 1. 학습 모델의 Weight 초기화가 PE에 영향을 받는다.
@@ -228,11 +228,11 @@ PE 기법이 Weight initialization에 영향을 미치는 것으로 보입니다
 
 특히 두 번째 가능성은 [Attention 모듈을 위한 PE를 추가한 논문](https://arxiv.org/abs/2104.08698)에서 제시한 아이디어에서 착안한 것입니다.  
 
-### PE의 의미: 무엇이 중요한가?
+### 3.3. PE의 의미: 무엇이 중요한가?
 Transformer와 그 이전의 언어 모델(Bahdanau 모델 등)을 살펴본 결과, 모든 논문의 공통점은 언어 모델의 성능을 높이기 위해, 각 Token 간의 상대적 위치 정보를 효과적으로 학습할 수 있도록 설계했다는 점입니다.  
 결국, PE의 핵심은 이러한 상대적 위치 정보를 모델이 잘 이해하도록 돕는 데 있습니다.
 
-### 왜 이 포스트를 작성했는가?
+### 3.4. 왜 이 포스트를 작성했는가?
 이전 GAN 기반 모델을 설계하면서 Uber에서 제안한 Pixel Coordinates 기반 PE를 사용했던 경험이 있습니다.  
 > PE(r,g,b,x,y) = concat(Input(r,g,b), PixelCoords(x,y))  
 
