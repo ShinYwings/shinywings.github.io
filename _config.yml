@@ -227,6 +227,7 @@ exclude:
   - package*.json
   - _template
   - _noposts
+  - test.py
 
 jekyll-archives:
   enabled: [categories, tags]

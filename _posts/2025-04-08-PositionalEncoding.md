@@ -39,7 +39,7 @@ Embedding Vector를 생성하는 방법은 Input의 종류에 따라 달라집�
 2. 비전 모델  
    Input으로 주어진 이미지를 patch 단위로 나눈 뒤, 각 patch를 Flattening하여 Embedding Vector로 사용합니다.  
 3. NeRF 기반 모델  
-   Input으로 주어진 Ray들의 Position $\theta$, View Direction $\phi$를 주어진 Embedding Vector로 변환합니다. 여기서는, Feature Vector라고 부릅니다.   
+   Input으로 주어진 Ray들로부터 여러 개의 Points를 샘플링하여 각 Points 마다의 Position $\theta$ 그리고 그 Ray의 View Direction $\phi$를 주어진 Embedding Vector로 변환합니다. 여기서는, Feature Vector라고 부릅니다.   
      
   
 ## Diving Into Positional Encoding  

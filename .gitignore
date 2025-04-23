@@ -25,3 +25,5 @@ package-lock.json
 # Misc
 .DS_Store
 _drafts
+
+test.py
