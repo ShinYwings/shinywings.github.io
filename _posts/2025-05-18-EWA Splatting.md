@@ -1,5 +1,5 @@
 ---
-title: "[TVCG 02] EWA Splatting (Gaussian Splatting 원리 이해를 중심으로)"
+title: "[TVCG 2002] EWA Splatting (Gaussian Splatting 원리 이해를 중심으로)"
 
 categories:
 - 논문 리뷰
@@ -112,9 +112,9 @@ Object Space 내 $f_{c}(u)$를 Screen Space 내 $g(x)$로 변환하기 위해 �
 2. Projected attribute function: 다른 공간으로 맵핑 
 3. Band limited attribute function: Prefiltering 추가
 4. Discrete output: 맵핑된 공간에서 sampling  
-   
-이를 통해, EWA Splatting 알고리즘의 궁극적인 목표는 Band limited attribute function $g'_{c}(\mathbf{x})$ 을 적절하게 설계해서 $f_{c}(u)$을 복원하는 것입니다.
-$g'_{c}(\mathbf{x})$ 설계 방법은 복원하고자 하는 목표가 "3D 모델이냐" 또는 "2D 텍스처이냐" 에 따라 Resampling 방법의 차이가 있습니다.  
+  
+이를 통해, EWA Splatting 알고리즘의 궁극적인 목표는 Band limited attribute function $g'_{c}(\mathbf{x})$ 을 적절하게 설계해서 $f_{c}(u)$을 복원하는 것입니다. $g'_{c}(\mathbf{x})$ 설계 방법은 복원하고자 하는 목표가 "3D 모델이냐" 또는 "2D 텍스처이냐" 에 따라 Resampling 방법의 차이가 있습니다.  
+  
 1. **Volume Resampling**: $f_{c}(u)$가 3D 모델일 때  
 2. **Surface Resampling**: $f_{c}(u)$가 2D 텍스처일 때  
 
@@ -123,10 +123,9 @@ $g'_{c}(\mathbf{x})$ 설계 방법은 복원하고자 하는 목표가 "3D 모�
 > 3DGS는 Volume resampling 방법을 기반한 알고리즘입니다.  
 > 2DGS는 Surface resampling 방법을 기반한 알고리즘입니다.
 
-최종적으로, $g'_{c}(\mathbf{x})=\sum_{k \in \mathbb{N}} w_{k}\mathbf{\rho}_{k}(x)$ 안에 Reconstruction filter $\mathbf{\rho}_{k}(x)$ 로 Gaussian 분포를 사용하면 EWA Splatting이 완성됩니다.
-이 때 사용하는 Gaussian 분포 또한 각 Resampling 방법에 맞게 튜닝이 필요합니다.
+최종적으로, $g'_{c}(\mathbf{x})=\sum_{k \in \mathbb{N}} w_{k}\mathbf{\rho}_{k}(x)$ 안에 Reconstruction filter $\mathbf{\rho}_{k}(x)$ 로 Gaussian 분포를 사용하면 EWA Splatting이 완성됩니다. 이 때 사용하는 Gaussian 분포 또한 각 Resampling 방법에 맞게 튜닝이 필요합니다.
 
-지금까지 한 말을 정리하면, EWA Splatting은 복원하고자 하는 object (3D or 2D)에 따라 $\mathbf{\rho}_{k}(x)$ 을 설계하는 방법에 대해 기술되어 있습니다. 그러하여, 먼저 $\mathbf{\rho}_{k}(x)$ 설계를 위한 두 Resampling 방법의 프로세스 대한 전체 과정을 설명하고 (Sec. 3.1, 3.2), Reconstruction filter로써 Gaussian 분포가 각 방법에 맞게 어떻게 튜닝되는지 설명하겠습니다 (Sec. 4).  
+지금까지 한 말을 정리하면, EWA Splatting은 복원하고자 하는 object (3D or 2D)에 따라 $\mathbf{\rho}_{k}(x)$ 을 설계하는 방법에 대해 기술되어  있습니다. 그러하여, 먼저 $\mathbf{\rho}_{k}(x)$ 설계를 위한 두 Resampling 방법의 프로세스 대한 전체 과정을 설명하고 (Sec. 3.1, 3.2), Reconstruction filter로써 Gaussian 분포가 각 방법에 맞게 어떻게 튜닝되는지 설명하겠습니다 (Sec. 4).  
 
 ### 3.1. Volume Resampling
 
@@ -193,6 +192,7 @@ $$
   
 이고, 여기서 Object 공간 $\{t_{0},t_{1},t_{2}\}$ $\leftrightarrow$ Ray 공간 $\{\mathbf{x},x_{2}\}$ 사이의 맵핑 $\phi$ 은 다음과 같습니다.  
 c.f. $\mathbf{x}=\{x_{0},x_{1}\} \in \text{Screen 공간}$
+  
 $$
 \begin{bmatrix}
 x_{0} \\
@@ -217,12 +217,12 @@ x_{1}/l \cdot x_{2} \\
 1/l \cdot x_{2} \\
 \end{bmatrix}
 $$
-
+  
 $$l'=||(t_{k,0},t_{k,1},t_{k,2})^{T}||$$  
-
+  
 Local affine transformation이 가능한 이유는 아래 이미지와 같이 비선형 변환을 국소적(local)으로 봤을 때 선형 변환으로 근사 가능하기 때문에 합니다. 해당 수식의 증명과 Jacobian 행렬의 기하학적 의미는 [이 블로그](https://angeloyeo.github.io/2020/07/24/Jacobian.html)를 참조해주세요.  
 ![](/assets/img/EWASplatting/figure14.jpg)*출처: https://angeloyeo.github.io/2020/07/24/Jacobian.html*   
-
+  
 #### 3.1.2. Splatting 알고리즘
 ![](/assets/img/EWASplatting/figure19.jpg)  
 Volume Resampling은 3D $\rightleftarrows$ 2D (Object space $\rightleftarrows$ Ray space) 문제이기 때문에 **Splatting** 방법을 사용합니다.
@@ -294,11 +294,11 @@ $$q_{k}(\mathbf{x})=\int_{\mathbb{R}}r'_{k}(\mathbf{x}, x_{2})dx_{2}$$
 $$g'_c(\mathbf{x}) = g_c(\mathbf{x}) \circledast h(\mathbf{x}) = \sum_{k} w_{k}\mathbf{\rho}_{k}(\mathbf{x})$$
 
 여기서  
-- Prefiltered projected reconstruction kernel $\mathbf{\rho}_{k}(\mathbf{x})=c_{k}o_{k}(q_{k}\circledast h)(\mathbf{x})$
-- Projected reconstruction kernel $\mathbf{\rho}_{k}=c_{k}o_{k}q_{k} \in \text{Ray space}$
-- 컬러 $c_{k} \approx c_{k}(\mathbf{x})$
-- 누적 투과율 $o_{k} \approx \prod^{\epsilon}_{\mu=0}(1-w_{j}q_{j}(\mathbf{x}))$
-
+- Prefiltered projected reconstruction kernel $\mathbf{\rho}_{k}(\mathbf{x})=c_{k}o_{k}(q_{k}\circledast h)(\mathbf{x})$  
+- Projected reconstruction kernel $\mathbf{\rho}_{k}=c_{k}o_{k}q_{k} \in \text{Ray space}$  
+- 컬러 $c_{k} \approx c_{k}(\mathbf{x})$  
+- 누적 투과율 $o_{k} \approx \prod^{\epsilon}_{\mu=0}(1-w_{j}q_{j}(\mathbf{x}))$  
+  
 $c_{k}$와 누적 투과율 $o_{k}$은 계산 가능하게 만들기 위해 constant value로 가정했습니다. (논문을 보면서 느끼는게 사소하지만 직접 풀기에는 복잡한 부분들은 모두 상수로 바꾸어 버립니다...)  
 
 Section 4에서 위 수식을 토대로 Gaussian 분포를 사용한 $\mathbf{\rho}_{k}$의 설계 방법을 기술합니다.   
@@ -306,15 +306,15 @@ Section 4에서 위 수식을 토대로 Gaussian 분포를 사용한 $\mathbf{\r
 ### 3.2. Surface Resampling
   
 또 다시 Volume resampling filter와 같이 EWA Splatting의 Base Process 안에 Splatting 수식 $g_c(\mathbf{x})$에 Prefiltering $h(\mathbf{x})$을 적용해서 band limited attribution function $g'_c(\mathbf{x})$을 구해봅시다.
-
+  
 $$g'_c(\mathbf{x}) = g_c(\mathbf{x}) \circledast h(\mathbf{x}) = \sum_{k} w_{k}\mathbf{\rho}_{k}(\mathbf{x})$$
-
+  
 where  
 - Prefiltered projected reconstruction kernel $\mathbf{\rho}_{k}(\mathbf{x})=c_{k}(r'_{k}\circledast h)(\mathbf{x})$
 - Projected reconstruction kernel $r'_{k}(\mathbf{x})=r_{k}(m^{-1}(\mathbf{x}))$
 - $\mathbf{x}=m(u) \leftrightarrow u=m^{-1}(\mathbf{x})$
 - $m$: compound mapping
-    
+  
 여기서 compound mapping $m(u)$는 Surface sampling에서 Warping을 위한 중요한 요소입니다. 아래 이미지와 같이, 두 개의 sub-process (**2D to 3D parameterization, 3D to 2D projection**)을 합친 2D to 2D 맵핑으로 정의되고 있고 기존 Volume Resampling에 비교해서 다음과 같은 변화가 생겼습니다.
    
 1. **2D to 3D parameterization**:   
@@ -349,15 +349,16 @@ $$g'_c(\mathbf{x}) = g_c(\mathbf{x}) \circledast h(\mathbf{x}) = \sum_{k} w_{k}\
   
 #### 4.1.1. Elliptical Gaussian Filter
 Elliptical Gaussian Filter는 Anisotropic한 multi-variate gaussian 형태로 정의됩니다.
+  
 $$G^{N}_{V}(\mathbf{x}-p)= \frac {1} {(2\pi)^{N/2}|V|^{1/2}} \exp({-\frac{1}{2}}(\mathbf{x}-p)^TV^{-1}(\mathbf{x}-p))$$
-
-여기서 
+  
+여기서  
 - $V:$ 공분산 행렬
 - $|\space|$: 헹렬식 (determinant)
 - N: dimension
 - p: mean
-- $V, x, p \in \mathbb{R}^N$  
-
+- $V, x, p \in \mathbb{R}^N$
+  
 이고, $V$가 Elliptical한 형태를 가지기 위해서는 다음 조건을 만족해야합니다.
 - 반드시 Positive definite 이여야 합니다. (자세한 설명은 [여기](https://studyingrabbit.tistory.com/6?category=911605)를 참조해주세요.)
    - 대칭행렬
@@ -374,14 +375,14 @@ Elliptical Gaussian Filter의 Linear Warp은 다음과 같이 정의됩니다.
   
 $$G^{N}_{V}(\mathbf{\Phi}^{-1}(\mathbf{x})-p) = \frac {1} {|M^{-1}|} G^{N}_{MVM^{T}}(\mathbf{x}-\mathbf{\Phi}(p))$$
 
-여기서
+여기서  
 - $\mathbf{\Phi}(u)=\mathbf{x}=Mu+c$
 - $\mathbf{\Phi}^{-1}(\mathbf{x})=u=M^{-1}\mathbf{x}+c$
 - $M$: 임의의 mapping 행렬
 - $p$: 상수
-
+  
 이고, 해당 수식을 유도하기 위해 Impulse response (=Sample point)의 특성을 이해해야 합니다.
-
+  
 만약 어떤 Impulse response $h(x)$의 주파수 도메인이 $H(\omega)$일 때, 주파수 대역이 a배로 넓어졌다면, 그 신호의 amplitude는 반드시 1/a 배로 줄여 filter 영역 크기를 유지해야 합니다.    
   
 $$ h(x/a)/a \leftrightarrow H(\omega a) $$
@@ -390,11 +391,11 @@ $$ h(x/a)/a \leftrightarrow H(\omega a) $$
 
   
 $a$가 Multi-dimension $A$일 때, 다음과 같이 나타냅니다.  
-$$|A^{-1}| h(A^{-1}x) \leftrightarrow H(A^{T}\omega )$$   
-
+  
+$$|A^{-1}| h(A^{-1}x) \leftrightarrow H(A^{T}\omega )$$
    
 그리고 위 수식을 Elliptical gaussian filter에 적용하면 linear warp 수식을 유도할 수 있습니다.
-
+  
 $$ 
 \begin{align} 
     G^{N}_{V}(\mathbf{x}) &= \frac {1} {(2\pi)^{N/2}|V|^{1/2}} \exp({-\frac{1}{2}}\mathbf{x}^{T}V^{-1}\mathbf{x}) \\
@@ -406,18 +407,18 @@ $$
     
 \end{align}
 $$
-
-위 결과에 추가로 constant 항을 추가하면 Linear warp가 완성됩니다.
+  
+위 결과에 추가로 constant 항을 추가하면 Linear warp가 완성됩니다.  
+  
 $$G^{N}_{V}(\mathbf{\Phi}^{-1}(u)-p) = \frac {1} {|M^{-1}|}G^{N}_{MVM^{T}}(u-\mathbf{\Phi}(p))$$
-
-    
+  
 #### 4.1.3. Convolution
 Gaussian filter의 공간 도메인과 주파수 도메인 사이의 관계를 $g(\mathbf{x}) \leftrightarrow G(\omega)$ 라고 한다면,
   
 $$g_{V_{1}}(\mathbf{x}) \circledast g_{V_{2}}(\mathbf{x}) \leftrightarrow G_{V_{2}}(\mathbf{x})G_{V_{2}}(\mathbf{x})$$
   
 이고, 
-
+  
 $$
 \begin{align} 
 G_{V_{2}}(\mathbf{x})G_{V_{2}}(\mathbf{x}) &= \exp(-\frac{1}{2} \omega V_{1} \omega^{T}) \exp(-\frac{1}{2} \omega V_{2} \omega^{T}) \notag \\
@@ -435,9 +436,9 @@ $$g_{V_{1}}(\mathbf{x}) \circledast g_{V_{2}}(\mathbf{x}) = g_{V_{1}+V_{2}}(\ome
 ### 4.2. Volume Resampling에 적용
 
 다시 band limited attribution function $g'_c(\mathbf{x})$을 불러와봅시다.
-
+  
 $$g'_c(\mathbf{x}) = g_c(\mathbf{x}) \circledast h(\mathbf{x}) = \sum_{k} w_{k}\mathbf{\rho}_{k}(\mathbf{x})$$
-
+  
   
 - Prefiltered projected reconstruction kernel $\mathbf{\rho}_{k}(\mathbf{x})=c_{k}o_{k}(q_{k}\circledast h)(\mathbf{x})$
 - Projected reconstruction kernel $\mathbf{\rho}_{k}=c_{k}o_{k}q_{k} \in \mathbb{R}^{2}\text{ (Ray space)}$
@@ -509,35 +510,39 @@ $$g'_c(\mathbf{x}) = g_c(\mathbf{x}) \circledast h(\mathbf{x}) = \sum_{k} w_{k}\
 - 컬러 $c_{k} \approx c_{k}(\mathbf{x})$ (constant value)
 - Projected reconstruction kernel $r'_{k}=\frac {1} {|M_{k}^{-1}|} G^{2}_{M_{k}V_{k}M_{k}^{T}}(\mathbf{x}-m_{k}(u_{k}))$
 - Compound mapping $m_{k}=\phi(\rho(\psi(u)))=\mathbf{x}$
-  - texture-to-object 맵핑 $\psi$  
-  - object-to-camera 맵핑 $\rho$  
+  - texture-to-object 맵핑 $\psi$
+  - object-to-camera 맵핑 $\rho$
   - camera-to-ray 맵핑 $\phi$
   
 우의 Surface Resampling의 Projected reconstruction kernel 그리고 compound mapping는 Volume Resampling과 서로 다른점이 있습니다. 아래에서 하나씩 살펴보겠습니다. 
-
+  
 #### Projected reconstruction kernel
 
 Gaussian filter의 일반 형태에서 두 Resampling의 차이점은 다음과 같습니다.
-    
+  
 $$G^{N}_{V_{k}}(m_{k}^{-1}(\mathbf{x})-u_{k}) = \frac {1} {|M_{k}^{-1}|} G^{N}_{M_{k}V_{k}M_{k}^{T}}(\mathbf{x}-m_{k}(u_{k}))$$
   
 |         Feature         | Volume Resampling  |    Surface Resampling    |
 | :---------------------: | :----------------: | :----------------------: |
-|    Gaussian 차원 $N$    |         3          |           2             |
-| $V_{k}$ | a*| b*|
+|    Gaussian 차원 $N$    |         3          |            2             |
+|         $V_{k}$         |         a*         |            b*            |
 | Compound mapping $m(u)$ |  $\phi(\rho(u))$   |  $\phi(\rho(\psi(u)))$   |
 | 맵핑 행렬 $\|M^{-1}\|$  | $\|W^{-1}J^{-1}\|$ | $\|S^{-1}W^{-1}J^{-1}\|$ |
 
-여기서, 
-a*$=\begin{bmatrix}
+여기서,  
+  
+$$a*=\begin{bmatrix}
 v_{0,0} & v_{0,1} & v_{0,2}/s^{2} \\
 v_{1,0} & v_{1,1} & v_{1,2}/s^{2} \\
 v_{2,0}/s^{2} & v_{2,1}/s^{2} & v_{2,2}/s^{2} \\
-\end{bmatrix}$
-, b*$=\begin{bmatrix}
+\end{bmatrix}$$
+  
+$$b*=\begin{bmatrix}
 v_{0,0} & v_{0,1} \\
 v_{1,0} & v_{1,1} \\
-\end{bmatrix}$ 그리고 $S$ 는 $\psi(u)$안에 있는 맵핑 행렬입니다. 
+\end{bmatrix}$$ 
+  
+그리고 $S$ 는 $\psi(u)$안에 있는 맵핑 행렬입니다.
   
 **[Compound mapping]**
   
@@ -551,16 +556,16 @@ v_{1,0} & v_{1,1} \\
 수식 정의 포함하여 각 맵핑에 대하여 자세하게 살펴보겠습니다.  
    
 **1. texture-to-object 맵핑**
-
+  
 ![](/assets/img/EWASplatting/figure23.jpg)
 local parameterization $\psi$ 는 uv 공간에 정의된 텍셀 위치 $u_{k}=(u_{0},u_{1})^{T}$를 texture-to-tagent plane 변환 행렬$S_{k}$로 오브젝트 공간 내 $Q$로 이동 후, Object 공간의 각 포인트 $P_{k}$만큼 이동해 실제 위치로 이동해줍니다. 이를 수식으로 나타내면
-  
+   
 $$\hat{u}=\psi_{k}(u)=P_{k}+S_{k}u$$
   
 여기서, $\hat{u}$는 3차원 포인트입니다.
-
-> 텍스처에 Surface normal $n_{k}$ 정보가 있다는 가정하에 합니다.
   
+> 텍스처에 Surface normal $n_{k}$ 정보가 있다는 가정하에 합니다.
+   
 **2. object-to-camera 맵핑**  
 object coordinate $\hat{u}$로부터 camera coordinate $t$ 변환 함수 $\rho$는 Volume Resampling 설명과 같이 affine transformation 사용합니다.
   
@@ -571,9 +576,9 @@ $$t=\rho(\hat{u})=W\hat{u}+d$$
 camera coordinate $t$로부터 screen coordinate $\mathbf{x}$ 변환 함수 $\phi$ 또한 Volume Resampling 과 같이 local affine transformation를 사용합니다. 
    
 $$\phi_{u_{k}}(t)=\mathbf{x}_{k}+J_{k}(t-t_{k}), \space\space \mathbf{x}_{k}=\phi(t_{k})$$
-
-그러나 Surface resampling은 2D-to-2D이기 때문에 세 번째 항 $x_{2}$를 제거해줍니다.
   
+그러나 Surface resampling은 2D-to-2D이기 때문에 세 번째 항 $x_{2}$를 제거해줍니다.
+   
 $$
 \text{Surface Resampling: }
 \begin{bmatrix}
@@ -621,8 +626,8 @@ J_{k}=\frac {\partial \phi} {\partial t_{k}}
 t_{k,0}/l' & t_{k,1}/l' & t_{k,2}/l' \\
 \end{bmatrix}
 $$
-  
-최종적으로, band limited attribution function $g'_c(\mathbf{x})= \sum_{k} w_{k}\mathbf{\rho}_{k}(\mathbf{x})$ 안에  사용할 EWA surface resampling filter $\rho_{k}(\mathbf{x})$는 다음과 같습니다.
+   
+최종적으로, band limited attribution function $g'_c(\mathbf{x})= \sum_{k} w_{k}\mathbf{\rho}_{k}(\mathbf{x})$ 안에 사용할 EWA surface resampling filter $\rho_{k}(\mathbf{x})$는 다음과 같습니다.  
    
 $$
 \begin{align}
@@ -634,7 +639,7 @@ $$
 $$
    
 여기서, $q_{k} (\mathbf{x})$는 2D 이므로 prefilter $h(\mathbf{x})$는 2D Gaussian 분포 사용
-
+  
 ## 5. 왜곡 문제
   
 3DGS를 실제 이미지를 Input으로 Forward mapping 한다고 했을 때, 두 가지 왜곡을 고려해야 합니다.
