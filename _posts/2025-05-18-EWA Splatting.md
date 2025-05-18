@@ -1,8 +1,8 @@
 ---
-title: "[개념 정리] Gaussian Splatting 원리"
+title: "[TVCG 02] EWA Splatting (Gaussian Splatting 원리 이해를 중심으로)"
 
 categories:
-- 개념 정리
+- 논문 리뷰
 tags:
 - Gaussian Splatting
 - EWA Splatting
@@ -13,7 +13,7 @@ toc: true
 ---
 ## 1. Introduction
 
-3D Gaussian Splatting (3DGS)를 이해하는 과정에서 어려움을 겪어, [EWA Splatting](</assets/img/EWASplatting/EWASplatting-TVCG02.pdf>) 논문을 읽고 수식 유도 중심으로 제가 이해한 내용을 바탕으로 정리했습니다. 틀린 부분이 있으면 지적바랍니다.
+3D Gaussian Splatting (3DGS)를 깊게 이해하기 위해, [EWA Splatting](</assets/img/EWASplatting/EWASplatting-TVCG02.pdf>) 논문을 읽고 수식 유도 중심으로 제가 이해한 내용을 바탕으로 정리했습니다. 틀린 부분이 있으면 지적바랍니다.
 > 전체 과정을 정확히 이해하려면 [Fundamentals of Texture Mapping and Image Warping](</assets/img/EWASplatting/Fundamentals of Texture Mapping and Image Warping.pdf>)을 읽어보는 것을 추천합니다.
 
 본 포스트를 이해하기 위해 다음 사전 지식이 필요합니다:
@@ -635,9 +635,31 @@ $$
    
 여기서, $q_{k} (\mathbf{x})$는 2D 이므로 prefilter $h(\mathbf{x})$는 2D Gaussian 분포 사용
 
-## 5. 왜곡 문제 해결
+## 5. 왜곡 문제
   
-실제 이미지를 Input으로 사용할 때 한 가지 의문두 가지 왜곡 문제가 있는데 
+3DGS를 실제 이미지를 Input으로 Forward mapping 한다고 했을 때, 두 가지 왜곡을 고려해야 합니다.
 
+1. 렌즈 왜곡
+2. 투영 왜곡
+
+  
+### 5.1. 렌즈 왜곡
+EWA Splatting(3DGS) 경우 Pinhole 모델을 기반으로 하기 때문에, 논외입니다. 따라서, 3DGUT(CVPR 25), Fisheye-GS 에서 렌즈 왜곡 문제를 해결했습니다.  
+
+### 5.2. 투영 왜곡  
+Rendering pipeline이 forward mapping일 때, 3D-2D Projection을 naive한 Affine transform을 쓰면 다음과 같은 결과를 보입니다.  
+![](/assets/img/EWASplatting/figure24.jpg)
+
+그 이유는, 아래 그림과 같이, Image space와 Object space 사이에 어떤 직선을 투영할 때, 각 포인트 간 거리의 스케일이 안맞는 문제가 있기 때문입니다.
+
+![](/assets/img/EWASplatting/figure25.jpg)
+  
+이 현상을 해결하기 위한 가장 대표적인 방법은 Barycentric coordinate를 사용한 Projection interpolation인데 EWA Splatting에서는 다루지 않습니다.
+  
+이 문제에 대한 해결 방법은 명확히 나온 내용은 없지만 추측을 해보면 Local affine transformation 이 같은 역할을 하는 것 같습니다. 왜냐하면 이 왜곡을 해결하기 위해 [Fundamentals of Texture Mapping and Image Warping](</assets/img/EWASplatting/Fundamentals of Texture Mapping and Image Warping.pdf>)에서도 Incremental Techiques for Screen Order Scanning 방법을 사용하는데 , 아래 전문의 Highlight 친 부분을 보면 Local affine transformation 과 수식이 비슷합니다. 그래서 명확하진 않지만 local affine transformation도 비슷한 효과를 가져온 것이라 추측하고 있습니다.  
+  
+![](/assets/img/EWASplatting/figure26.jpg){: width="60%" height="60%"}{: .right }
+  
 
 ## 6. Closing
+3DGS 논문만 보면 그 안의 알고리즘을 겉으로만 아는 것 같아서 EWA Splatting을 보기 시작했는데 수식 유도도 잘 안돼고 헷갈리는 부분이 많아서 정리하는데 시간이 정말 오래 걸렸습니다ㅠㅠ 너무 시간을 오래 쏟은감이 없지않아 있는데 그래도 대충 보고 넘어가자니 찝찝한 부분이 있었는데 이제 좀 편안해졌네요!
